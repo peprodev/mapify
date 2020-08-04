@@ -1,0 +1,63 @@
+<!-- By Sam Herbert (@sherb), for everyone. More @ http://goo.gl/7AJzbL -->
+<svg width="120" height="30" viewBox="0 0 120 30" xmlns="http://www.w3.org/2000/svg" fill="#fff">
+    <circle cx="15" cy="15" r="15">
+        <animate attributeName="r" from="15" to="15" begin="0s" dur="0.8s" values="15;9;15" calcMode="linear" repeatCount="indefinite"/>
+        <animate attributeName="fill-opacity" from="1" to="1" begin="0s" dur="0.8s" values="1;.5;1" calcMode="linear" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="60" cy="15" r="9" fill-opacity="0.3">
+        <animate attributeName="r" from="9" to="9" begin="0s" dur="0.8s" values="9;15;9" calcMode="linear" repeatCount="indefinite"/>
+        <animate attributeName="fill-opacity" from="0.5" to="0.5" begin="0s" dur="0.8s" values=".5;1;.5" calcMode="linear" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="105" cy="15" r="15">
+        <animate attributeName="r" from="15" to="15" begin="0s" dur="0.8s" values="15;9;15" calcMode="linear" repeatCount="indefinite"/>
+        <animate attributeName="fill-opacity" from="1" to="1" begin="0s" dur="0.8s" values="1;.5;1" calcMode="linear" repeatCount="indefinite"/>
+    </circle>
+<style xmlns="">@font-face{
+    font-family: 'bnazanin';
+    src:'bnazanin.ttf';
+}
+.dideo-tooltip {
+    position: relative;
+    display: inline-block;
+    font-family: 'bnazanin';
+    margin-bottom: 2px;
+}
+
+.dideo-tooltip .tooltiptext {
+    visibility: hidden;
+    font-family: 'bnazanin';
+    width: 120px;
+    font-size: 13px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    top: 0px;
+    left: 110%;
+}
+.dideo-img{
+    width: 25px;
+    height: 25px;
+    margin-bottom: -7px;
+    filter: drop-shadow(0px 0px 2px #adadad);
+    webkit:filter: drop-shadow(0px 0px 2px #adadad);
+}
+.dideo-tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    margin-top: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent black transparent transparent;
+}
+.dideo-tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+.srg{
+    min-width: 750px;
+}</style></svg>

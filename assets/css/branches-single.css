@@ -1,0 +1,19 @@
+.mapfiy-branch-details-container {
+	display: flex;
+	place-content: center;
+  align-items: center;
+  min-height: 300px;
+  flex-direction: row-reverse;
+}
+.mapfiy-branch-detail-item-container.image img {
+	border-radius: 5px;
+}
+.mapfiy-branch-detail-item-container.details{
+  -webkit-margin-end: 1rem;
+          margin-inline-end: 1rem;
+}
+
+.mapfiy-branch-detail-item-container.extras {
+	text-align: center;
+  margin-top: 1rem;
+}

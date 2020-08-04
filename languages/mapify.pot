@@ -1,0 +1,1210 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Project-Id-Version: Pepro Branches Map (Mapify)\n"
+"POT-Creation-Date: 2020-08-05 02:29+0430\n"
+"PO-Revision-Date: 2020-08-05 02:04+0430\n"
+"Last-Translator: Amirhosseinhpv <amirhossein@hpv.im>\n"
+"Language-Team: Amirhosseinhpv <amirhossein@hpv.im>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: pepro-mapify.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
+"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: assets/app/mapify.php:12
+msgid "Go to Coordinate"
+msgstr ""
+
+#: assets/app/metabx.php:42
+msgid "Custom Pin Image"
+msgstr ""
+
+#: assets/app/metabx.php:43
+msgid "Post Content Template"
+msgstr ""
+
+#: assets/app/metabx.php:43
+msgid "Inherit from Setting"
+msgstr ""
+
+#: assets/app/metabx.php:43
+msgid "Use Post Template"
+msgstr ""
+
+#: assets/app/metabx.php:43
+msgid "Use Mapify Template"
+msgstr ""
+
+#: assets/app/metabx.php:44
+msgid "Address"
+msgstr ""
+
+#: assets/app/metabx.php:45
+msgid "Phone"
+msgstr ""
+
+#: assets/app/metabx.php:46
+msgid "Site"
+msgstr ""
+
+#: assets/app/metabx.php:47
+msgid "Email"
+msgstr ""
+
+#: assets/app/metabx.php:48 pepro-mapify.php:120
+msgid "Twitter"
+msgstr ""
+
+#: assets/app/metabx.php:49 pepro-mapify.php:121
+msgid "Facebook"
+msgstr ""
+
+#: assets/app/metabx.php:50 pepro-mapify.php:122
+msgid "Instagram"
+msgstr ""
+
+#: assets/app/metabx.php:51 pepro-mapify.php:123
+msgid "Telegram"
+msgstr ""
+
+#: assets/app/metabx.php:52 pepro-mapify.php:124
+msgid "LinkedIn"
+msgstr ""
+
+#: assets/app/metabx.php:53
+msgid "Additional Text"
+msgstr ""
+
+#: assets/app/metabx.php:62
+msgid "Branch Details"
+msgstr ""
+
+#: assets/app/metabx.php:84
+msgctxt "js-translate"
+msgid "To change, drag this marker"
+msgstr ""
+
+#: assets/app/metabx.php:85
+msgctxt "js-translate"
+msgid "Currently dragging marker..."
+msgstr ""
+
+#: assets/app/metabx.php:86
+msgid "Click To Set as your Pin image"
+msgstr ""
+
+#: assets/app/metabx.php:87 pepro-mapify.php:171
+msgid "Numbers"
+msgstr ""
+
+#: assets/app/metabx.php:88 pepro-mapify.php:172
+msgid "Character"
+msgstr ""
+
+#: assets/app/metabx.php:89 pepro-mapify.php:173
+msgid "Symbols"
+msgstr ""
+
+#: assets/app/metabx.php:90
+msgctxt "js-translate"
+msgid "Drop on your location"
+msgstr ""
+
+#: pepro-mapify.php:61
+msgid "Pepro Mapify"
+msgstr ""
+
+#: pepro-mapify.php:62
+#, php-format
+msgid "%2$s ver. %1$s"
+msgstr ""
+
+#: pepro-mapify.php:119
+msgid "On Social: "
+msgstr ""
+
+#: pepro-mapify.php:133
+msgid "Get Direction: "
+msgstr ""
+
+#: pepro-mapify.php:134
+msgid "Google Map"
+msgstr ""
+
+#: pepro-mapify.php:135
+msgid "Waze"
+msgstr ""
+
+#: pepro-mapify.php:145
+msgid "Address: "
+msgstr ""
+
+#: pepro-mapify.php:147
+msgid "Phone: "
+msgstr ""
+
+#: pepro-mapify.php:148
+msgid "Site: "
+msgstr ""
+
+#: pepro-mapify.php:149
+msgid "Email: "
+msgstr ""
+
+#: pepro-mapify.php:170
+msgid "Click To Set as your Overwritten Pin image"
+msgstr ""
+
+#: pepro-mapify.php:179 pepro-mapify.php:2684
+msgid "Google Maps"
+msgstr ""
+
+#: pepro-mapify.php:199
+msgctxt "googl-map-style-name"
+msgid "Default"
+msgstr ""
+
+#: pepro-mapify.php:200
+msgctxt "googl-map-style-name"
+msgid "Custom Style"
+msgstr ""
+
+#: pepro-mapify.php:201
+msgctxt "googl-map-style-name"
+msgid "Midnight"
+msgstr ""
+
+#: pepro-mapify.php:202
+msgctxt "googl-map-style-name"
+msgid "Desert"
+msgstr ""
+
+#: pepro-mapify.php:203
+msgctxt "googl-map-style-name"
+msgid "Bright Colors"
+msgstr ""
+
+#: pepro-mapify.php:204
+msgctxt "googl-map-style-name"
+msgid "Ultra Light"
+msgstr ""
+
+#: pepro-mapify.php:205
+msgctxt "googl-map-style-name"
+msgid "Assassin's Creed IV"
+msgstr ""
+
+#: pepro-mapify.php:206
+msgctxt "googl-map-style-name"
+msgid "Grass is greener"
+msgstr ""
+
+#: pepro-mapify.php:207
+msgctxt "googl-map-style-name"
+msgid "Sin City"
+msgstr ""
+
+#: pepro-mapify.php:208
+msgctxt "googl-map-style-name"
+msgid "The Propia Effect"
+msgstr ""
+
+#: pepro-mapify.php:209
+msgctxt "googl-map-style-name"
+msgid "Snazzy Maps"
+msgstr ""
+
+#: pepro-mapify.php:210
+msgctxt "googl-map-style-name"
+msgid "Light Green"
+msgstr ""
+
+#: pepro-mapify.php:211
+msgctxt "googl-map-style-name"
+msgid "Flat green"
+msgstr ""
+
+#: pepro-mapify.php:212
+msgctxt "googl-map-style-name"
+msgid "Dark Electric"
+msgstr ""
+
+#: pepro-mapify.php:213
+msgctxt "googl-map-style-name"
+msgid "Two Tone"
+msgstr ""
+
+#: pepro-mapify.php:214
+msgctxt "googl-map-style-name"
+msgid "Modest"
+msgstr ""
+
+#: pepro-mapify.php:215
+msgctxt "googl-map-style-name"
+msgid "Flat Colors"
+msgstr ""
+
+#: pepro-mapify.php:216
+msgctxt "googl-map-style-name"
+msgid "Red Alert"
+msgstr ""
+
+#: pepro-mapify.php:217
+msgctxt "googl-map-style-name"
+msgid "Creamy Red"
+msgstr ""
+
+#: pepro-mapify.php:218
+msgctxt "googl-map-style-name"
+msgid "Light and dark"
+msgstr ""
+
+#: pepro-mapify.php:219
+msgctxt "googl-map-style-name"
+msgid "Uber 2017"
+msgstr ""
+
+#: pepro-mapify.php:220
+msgctxt "googl-map-style-name"
+msgid "Hints of Gold"
+msgstr ""
+
+#: pepro-mapify.php:221
+msgctxt "googl-map-style-name"
+msgid "Transport for London"
+msgstr ""
+
+#: pepro-mapify.php:222
+msgctxt "googl-map-style-name"
+msgid "Old Dry Mud"
+msgstr ""
+
+#: pepro-mapify.php:223
+msgctxt "googl-map-style-name"
+msgid "Neon World"
+msgstr ""
+
+#: pepro-mapify.php:224
+msgctxt "googl-map-style-name"
+msgid "Printable Map"
+msgstr ""
+
+#: pepro-mapify.php:225
+msgctxt "googl-map-style-name"
+msgid "Captor"
+msgstr ""
+
+#: pepro-mapify.php:226
+msgctxt "googl-map-style-name"
+msgid "Zombie Survival Map"
+msgstr ""
+
+#: pepro-mapify.php:227
+msgctxt "googl-map-style-name"
+msgid "Wyborcza 2018"
+msgstr ""
+
+#: pepro-mapify.php:228
+msgctxt "googl-map-style-name"
+msgid "Hot Pink"
+msgstr ""
+
+#: pepro-mapify.php:229
+msgctxt "googl-map-style-name"
+msgid "Dark Yellow"
+msgstr ""
+
+#: pepro-mapify.php:230
+msgctxt "googl-map-style-name"
+msgid "Light Blue Water"
+msgstr ""
+
+#: pepro-mapify.php:231
+msgctxt "googl-map-style-name"
+msgid "Chilled"
+msgstr ""
+
+#: pepro-mapify.php:232
+msgctxt "googl-map-style-name"
+msgid "Purple"
+msgstr ""
+
+#: pepro-mapify.php:233
+msgctxt "googl-map-style-name"
+msgid "Night vision"
+msgstr ""
+
+#: pepro-mapify.php:234
+msgctxt "googl-map-style-name"
+msgid "50 shades of blue"
+msgstr ""
+
+#: pepro-mapify.php:235
+msgctxt "googl-map-style-name"
+msgid "Carte Vierge"
+msgstr ""
+
+#: pepro-mapify.php:236
+msgctxt "googl-map-style-name"
+msgid "Simplified Map"
+msgstr ""
+
+#: pepro-mapify.php:237
+msgctxt "googl-map-style-name"
+msgid "Inturlam Style 2"
+msgstr ""
+
+#: pepro-mapify.php:238
+msgctxt "googl-map-style-name"
+msgid "Esperanto"
+msgstr ""
+
+#: pepro-mapify.php:239
+msgctxt "googl-map-style-name"
+msgid "Nothing but roads"
+msgstr ""
+
+#: pepro-mapify.php:240
+msgctxt "googl-map-style-name"
+msgid "Veins"
+msgstr ""
+
+#: pepro-mapify.php:241
+msgctxt "googl-map-style-name"
+msgid "Blueprint"
+msgstr ""
+
+#: pepro-mapify.php:242
+msgctxt "googl-map-style-name"
+msgid "PipBoy Maps"
+msgstr ""
+
+#: pepro-mapify.php:243
+msgctxt "googl-map-style-name"
+msgid "Tinia"
+msgstr ""
+
+#: pepro-mapify.php:244
+msgctxt "googl-map-style-name"
+msgid "BehanceHK"
+msgstr ""
+
+#: pepro-mapify.php:245
+msgctxt "googl-map-style-name"
+msgid "St. Martin"
+msgstr ""
+
+#: pepro-mapify.php:246
+msgctxt "googl-map-style-name"
+msgid "AutoMax"
+msgstr ""
+
+#: pepro-mapify.php:247
+msgctxt "googl-map-style-name"
+msgid "Colorblind-friendly"
+msgstr ""
+
+#: pepro-mapify.php:248
+msgctxt "googl-map-style-name"
+msgid "NightRider"
+msgstr ""
+
+#: pepro-mapify.php:249
+msgctxt "googl-map-style-name"
+msgid "HCRE"
+msgstr ""
+
+#: pepro-mapify.php:250
+msgctxt "googl-map-style-name"
+msgid "Celestial Blue"
+msgstr ""
+
+#: pepro-mapify.php:251
+msgctxt "googl-map-style-name"
+msgid "Best Ski Pros"
+msgstr ""
+
+#: pepro-mapify.php:252
+msgctxt "googl-map-style-name"
+msgid "Pokemon Go"
+msgstr ""
+
+#: pepro-mapify.php:253
+msgctxt "googl-map-style-name"
+msgid "Vintage Brown"
+msgstr ""
+
+#: pepro-mapify.php:254
+msgctxt "googl-map-style-name"
+msgid "Apple Maps"
+msgstr ""
+
+#: pepro-mapify.php:255
+msgctxt "googl-map-style-name"
+msgid "Unsaturated Browns"
+msgstr ""
+
+#: pepro-mapify.php:256
+msgctxt "googl-map-style-name"
+msgid "Flat Map"
+msgstr ""
+
+#: pepro-mapify.php:257
+msgctxt "googl-map-style-name"
+msgid "Multi Brand Net."
+msgstr ""
+
+#: pepro-mapify.php:258
+msgctxt "googl-map-style-name"
+msgid "Retro"
+msgstr ""
+
+#: pepro-mapify.php:259
+msgctxt "googl-map-style-name"
+msgid "Muted Blue"
+msgstr ""
+
+#: pepro-mapify.php:260
+msgctxt "googl-map-style-name"
+msgid "Neutral Blue"
+msgstr ""
+
+#: pepro-mapify.php:261
+msgctxt "googl-map-style-name"
+msgid "Black & white"
+msgstr ""
+
+#: pepro-mapify.php:262
+msgctxt "googl-map-style-name"
+msgid "Icy Blue"
+msgstr ""
+
+#: pepro-mapify.php:263
+msgctxt "googl-map-style-name"
+msgid "Hopper"
+msgstr ""
+
+#: pepro-mapify.php:264
+msgctxt "googl-map-style-name"
+msgid "Cobalt"
+msgstr ""
+
+#: pepro-mapify.php:265
+msgctxt "googl-map-style-name"
+msgid "Night Vision"
+msgstr ""
+
+#: pepro-mapify.php:266
+msgctxt "googl-map-style-name"
+msgid "Red Hues"
+msgstr ""
+
+#: pepro-mapify.php:267
+msgctxt "googl-map-style-name"
+msgid "Roads only"
+msgstr ""
+
+#: pepro-mapify.php:268
+msgctxt "googl-map-style-name"
+msgid "Flat Map with Labels"
+msgstr ""
+
+#: pepro-mapify.php:269
+msgctxt "googl-map-style-name"
+msgid "Mondrian"
+msgstr ""
+
+#: pepro-mapify.php:270
+msgctxt "googl-map-style-name"
+msgid "Bright & Bubbly"
+msgstr ""
+
+#: pepro-mapify.php:271
+msgctxt "googl-map-style-name"
+msgid "Shades of Grey"
+msgstr ""
+
+#: pepro-mapify.php:434 pepro-mapify.php:1076 pepro-mapify.php:1109
+msgid "Mapify"
+msgstr ""
+
+#: pepro-mapify.php:435
+msgid "Pepro Elements"
+msgstr ""
+
+#: pepro-mapify.php:436
+msgid "List your branches on a beautiful svg map."
+msgstr ""
+
+#: pepro-mapify.php:444 pepro-mapify.php:459 pepro-mapify.php:472
+msgctxt "vc-tab"
+msgid "General"
+msgstr ""
+
+#: pepro-mapify.php:445
+msgid "Select Branches"
+msgstr ""
+
+#: pepro-mapify.php:446
+msgid "Select Branches to show on the map"
+msgstr ""
+
+#: pepro-mapify.php:454
+msgid "Select Branches by ID"
+msgstr ""
+
+#: pepro-mapify.php:455
+msgid "Select Branches by Category"
+msgstr ""
+
+#: pepro-mapify.php:460
+msgid "Handpick Branches ID"
+msgstr ""
+
+#: pepro-mapify.php:465 pepro-mapify.php:478
+msgid "Select Categories"
+msgstr ""
+
+#: pepro-mapify.php:467
+msgid "Handpick branches to show on map"
+msgstr ""
+
+#: pepro-mapify.php:473
+msgid "Select Branches Category"
+msgstr ""
+
+#: pepro-mapify.php:480
+msgid "Select branch categories to show on map"
+msgstr ""
+
+#: pepro-mapify.php:485 pepro-mapify.php:638 pepro-mapify.php:650
+#: pepro-mapify.php:662 pepro-mapify.php:673 pepro-mapify.php:733
+#: pepro-mapify.php:745 pepro-mapify.php:756 pepro-mapify.php:767
+#: pepro-mapify.php:783 pepro-mapify.php:793
+msgctxt "vc-tab"
+msgid "Design"
+msgstr ""
+
+#: pepro-mapify.php:486
+msgid "Map Engine"
+msgstr ""
+
+#: pepro-mapify.php:492
+msgid "Select your desired map type"
+msgstr ""
+
+#: pepro-mapify.php:497 pepro-mapify.php:505 pepro-mapify.php:514
+#: pepro-mapify.php:528
+msgctxt "vc-tab"
+msgid "Branches List"
+msgstr ""
+
+#: pepro-mapify.php:498
+msgid "Show Branches List?"
+msgstr ""
+
+#: pepro-mapify.php:506
+msgid "Show Branches Search?"
+msgstr ""
+
+#: pepro-mapify.php:515
+msgid "Branches List placement"
+msgstr ""
+
+#: pepro-mapify.php:522
+msgid "Show at Top of Map"
+msgstr ""
+
+#: pepro-mapify.php:523
+msgid "Show at Bottom of Map"
+msgstr ""
+
+#: pepro-mapify.php:529
+msgid "Categorize Branches In List"
+msgstr ""
+
+#: pepro-mapify.php:536
+msgid "Do not categorize branches in list"
+msgstr ""
+
+#: pepro-mapify.php:537
+msgid "Categorize based on Branches Categories"
+msgstr ""
+
+#: pepro-mapify.php:544 pepro-mapify.php:554 pepro-mapify.php:565
+msgctxt "vc-tab"
+msgid "Marker Clusters"
+msgstr ""
+
+#: pepro-mapify.php:545
+msgid "Cluster Branches Marker Pins on Map?"
+msgstr ""
+
+#: pepro-mapify.php:546
+msgid "Create per-zoom-level clusters for large amounts of markers"
+msgstr ""
+
+#: pepro-mapify.php:555
+msgid "Clusters Grid Size"
+msgstr ""
+
+#: pepro-mapify.php:561
+msgid "The grid size of a cluster in pixels"
+msgstr ""
+
+#: pepro-mapify.php:566
+msgid "Clusters Minimum Size"
+msgstr ""
+
+#: pepro-mapify.php:571
+msgid "The maximum number of markers can be part of a cluster"
+msgstr ""
+
+#: pepro-mapify.php:576 pepro-mapify.php:587 pepro-mapify.php:595
+#: pepro-mapify.php:610 pepro-mapify.php:625
+msgctxt "vc-tab"
+msgid "Marker Pin"
+msgstr ""
+
+#: pepro-mapify.php:577
+msgid "Overwrite Marker Pin Images"
+msgstr ""
+
+#: pepro-mapify.php:580
+msgid ""
+"Enter URL or use form below to generate your Pin image. This image will be "
+"overwritten to all branches marker"
+msgstr ""
+
+#: pepro-mapify.php:588
+msgid "Marker Pin Image Generator"
+msgstr ""
+
+#: pepro-mapify.php:596
+msgid "Marker Pin Click Action"
+msgstr ""
+
+#: pepro-mapify.php:604
+msgid "Open URL"
+msgstr ""
+
+#: pepro-mapify.php:605
+msgid "Open Popup"
+msgstr ""
+
+#: pepro-mapify.php:606
+msgid "Do Nothing"
+msgstr ""
+
+#: pepro-mapify.php:611
+msgid "URL Target"
+msgstr ""
+
+#: pepro-mapify.php:619
+msgid "Same window"
+msgstr ""
+
+#: pepro-mapify.php:620
+msgid "New window"
+msgstr ""
+
+#: pepro-mapify.php:626
+msgid "Marker Pin Popup Template (HTML)"
+msgstr ""
+
+#: pepro-mapify.php:634
+msgid "Load Default Template"
+msgstr ""
+
+#: pepro-mapify.php:639
+msgid "Default Center Coordinate"
+msgstr ""
+
+#: pepro-mapify.php:647
+msgid "Enter Default Center Coordinate in <i>latitude,longitude</i> format"
+msgstr ""
+
+#: pepro-mapify.php:651
+msgid "Default Zoom Level"
+msgstr ""
+
+#: pepro-mapify.php:663
+msgid "Default Loading Image"
+msgstr ""
+
+#: pepro-mapify.php:674
+msgid "Default Loading Color"
+msgstr ""
+
+#: pepro-mapify.php:685 pepro-mapify.php:697 pepro-mapify.php:709
+#: pepro-mapify.php:721 pepro-mapify.php:804 pepro-mapify.php:811
+msgctxt "vc-tab"
+msgid "CSS"
+msgstr ""
+
+#: pepro-mapify.php:686
+msgid "Map Container's HTML ID"
+msgstr ""
+
+#: pepro-mapify.php:698
+msgid "Map Container's HTML Class"
+msgstr ""
+
+#: pepro-mapify.php:710
+msgid "Map Container's Width"
+msgstr ""
+
+#: pepro-mapify.php:722
+msgid "Map Container's Height"
+msgstr ""
+
+#: pepro-mapify.php:734
+msgid "G-Map Custom Logo"
+msgstr ""
+
+#: pepro-mapify.php:739
+msgid "Change G-Map default trademark logo at footer"
+msgstr ""
+
+#: pepro-mapify.php:746
+msgid "Development Mode"
+msgstr ""
+
+#: pepro-mapify.php:752
+msgid ""
+"In development mode, API is skipped but \"FOR DEVELOPMENT PURPOSES ONLY\" "
+"watermark is added to map, And also styles will not work properly."
+msgstr ""
+
+#: pepro-mapify.php:757
+msgid "Disable UI"
+msgstr ""
+
+#: pepro-mapify.php:763
+msgid ""
+"No UI will be shown on Map, No Zoom Buttons, No Fullscreen Button and ..."
+msgstr ""
+
+#: pepro-mapify.php:768
+msgid "Select Style"
+msgstr ""
+
+#: pepro-mapify.php:784
+msgid "Style Preview"
+msgstr ""
+
+#: pepro-mapify.php:794
+msgid "Google Maps Custom Style"
+msgstr ""
+
+#: pepro-mapify.php:800
+#, php-format
+msgid "Browse %s for beautiful pre-made styles."
+msgstr ""
+
+#: pepro-mapify.php:812
+msgid "Custom CSS Code"
+msgstr ""
+
+#: pepro-mapify.php:822
+msgctxt "vc-tab"
+msgid "Import / Export"
+msgstr ""
+
+#: pepro-mapify.php:843
+msgid "Import Done Successfully"
+msgstr ""
+
+#: pepro-mapify.php:859
+msgid "Press 'Export Shortcode Configurations' to generate data"
+msgstr ""
+
+#: pepro-mapify.php:863 pepro-mapify.php:864
+msgid "Export Shortcode Configurations"
+msgstr ""
+
+#: pepro-mapify.php:864
+msgid "Successfully copied to clipboard !"
+msgstr ""
+
+#: pepro-mapify.php:867
+msgid "Empty data! Paste your data in field above."
+msgstr ""
+
+#: pepro-mapify.php:867
+msgid "Import Shortcode Configurations"
+msgstr ""
+
+#: pepro-mapify.php:1012 pepro-mapify.php:1013
+msgid "Support"
+msgstr ""
+
+#: pepro-mapify.php:1025
+msgid "Settings"
+msgstr ""
+
+#: pepro-mapify.php:1074
+msgctxt "Post Type General Name"
+msgid "Branch"
+msgstr ""
+
+#: pepro-mapify.php:1075
+msgctxt "Post Type Singular Name"
+msgid "Branch"
+msgstr ""
+
+#: pepro-mapify.php:1077
+msgid "Branch"
+msgstr ""
+
+#: pepro-mapify.php:1078
+msgid "Branch Archives"
+msgstr ""
+
+#: pepro-mapify.php:1079
+msgid "Branch Attributes"
+msgstr ""
+
+#: pepro-mapify.php:1080
+msgid "Parent Branch:"
+msgstr ""
+
+#: pepro-mapify.php:1081
+msgid "All Branches"
+msgstr ""
+
+#: pepro-mapify.php:1082
+msgid "Add New Branch"
+msgstr ""
+
+#: pepro-mapify.php:1083
+msgid "Add New"
+msgstr ""
+
+#: pepro-mapify.php:1084
+msgid "New Branch"
+msgstr ""
+
+#: pepro-mapify.php:1085
+msgid "Edit Branch"
+msgstr ""
+
+#: pepro-mapify.php:1086
+msgid "Update Branch"
+msgstr ""
+
+#: pepro-mapify.php:1087
+msgid "View Branch"
+msgstr ""
+
+#: pepro-mapify.php:1088
+msgid "View Branches"
+msgstr ""
+
+#: pepro-mapify.php:1089
+msgid "Search Branches"
+msgstr ""
+
+#: pepro-mapify.php:1090
+msgid "Not Branch found"
+msgstr ""
+
+#: pepro-mapify.php:1091
+msgid "Not Branch found in Trash"
+msgstr ""
+
+#: pepro-mapify.php:1092
+msgid "Branch Image"
+msgstr ""
+
+#: pepro-mapify.php:1093
+msgid "Set branch image"
+msgstr ""
+
+#: pepro-mapify.php:1094
+msgid "Remove branch image"
+msgstr ""
+
+#: pepro-mapify.php:1095
+msgid "Use as branch image"
+msgstr ""
+
+#: pepro-mapify.php:1096
+msgid "Insert into Branch"
+msgstr ""
+
+#: pepro-mapify.php:1097
+msgid "Uploaded to this Branch"
+msgstr ""
+
+#: pepro-mapify.php:1098
+msgid "Branches list"
+msgstr ""
+
+#: pepro-mapify.php:1099
+msgid "Branches list navigation"
+msgstr ""
+
+#: pepro-mapify.php:1100
+msgid "Filter Branches list"
+msgstr ""
+
+#: pepro-mapify.php:1110
+msgid "Add branches to show on map"
+msgstr ""
+
+#: pepro-mapify.php:1130
+msgctxt "taxonomy general name"
+msgid "Category"
+msgstr ""
+
+#: pepro-mapify.php:1131
+msgctxt "taxonomy singular name"
+msgid "Category"
+msgstr ""
+
+#: pepro-mapify.php:1132
+msgid "Search Categories"
+msgstr ""
+
+#: pepro-mapify.php:1133
+msgid "All Categories"
+msgstr ""
+
+#: pepro-mapify.php:1134
+msgid "Parent Category"
+msgstr ""
+
+#: pepro-mapify.php:1135
+msgid "Parent Category:"
+msgstr ""
+
+#: pepro-mapify.php:1136
+msgid "Edit Category"
+msgstr ""
+
+#: pepro-mapify.php:1137
+msgid "Update Category"
+msgstr ""
+
+#: pepro-mapify.php:1138
+msgid "Add New Category"
+msgstr ""
+
+#: pepro-mapify.php:1139
+msgid "New Category Name"
+msgstr ""
+
+#: pepro-mapify.php:1140
+msgid "Categories"
+msgstr ""
+
+#: pepro-mapify.php:1165
+msgid "View branch"
+msgstr ""
+
+#: pepro-mapify.php:1166
+msgid "Preview branch"
+msgstr ""
+
+#. translators: Publish box date string. 1: Date, 2: Time.
+#: pepro-mapify.php:1169
+#, php-format
+msgid "%1$s at %2$s"
+msgstr ""
+
+#. translators: Publish box date format, see https://www.php.net/date
+#: pepro-mapify.php:1171
+msgctxt "publish box date format"
+msgid "M j, Y"
+msgstr ""
+
+#. translators: Publish box time format, see https://www.php.net/date
+#: pepro-mapify.php:1173
+msgctxt "publish box time format"
+msgid "H:i"
+msgstr ""
+
+#: pepro-mapify.php:1175
+msgid "Preview post"
+msgstr ""
+
+#: pepro-mapify.php:1179 pepro-mapify.php:1182
+msgid "Branch updated."
+msgstr ""
+
+#: pepro-mapify.php:1180
+msgid "Branch Custom field updated."
+msgstr ""
+
+#: pepro-mapify.php:1181
+msgid "Branch Custom field deleted."
+msgstr ""
+
+#. translators: %s: date and time of the revision
+#: pepro-mapify.php:1184
+#, php-format
+msgid "Branch restored to revision from %s."
+msgstr ""
+
+#: pepro-mapify.php:1185
+msgid "Branch published."
+msgstr ""
+
+#: pepro-mapify.php:1186
+msgid "Branch saved."
+msgstr ""
+
+#: pepro-mapify.php:1187
+msgid "Branch submitted."
+msgstr ""
+
+#: pepro-mapify.php:1188
+#, php-format
+msgid "Branch scheduled for: %s."
+msgstr ""
+
+#: pepro-mapify.php:1189
+msgid "Branch draft updated."
+msgstr ""
+
+#: pepro-mapify.php:1206
+#, php-format
+msgctxt "footer-copyright"
+msgid "Thanks for using %s products"
+msgstr ""
+
+#: pepro-mapify.php:1206
+msgid "Pepro Dev"
+msgstr ""
+
+#: pepro-mapify.php:1211
+#, php-format
+msgctxt "footer-copyright"
+msgid "%s — Version %s"
+msgstr ""
+
+#: pepro-mapify.php:1253
+msgctxt "setting-general"
+msgid "Settings saved successfully."
+msgstr ""
+
+#: pepro-mapify.php:1255
+msgid "Use WPBakery Page Builder widget to show the map."
+msgstr ""
+
+#: pepro-mapify.php:1257
+msgctxt "setting-general"
+msgid "Google Maps API"
+msgstr ""
+
+#: pepro-mapify.php:1259
+msgctxt "setting-general"
+msgid "Default Branches Template"
+msgstr ""
+
+#: pepro-mapify.php:1259
+msgctxt "settings-general"
+msgid "Use Post Template"
+msgstr ""
+
+#: pepro-mapify.php:1259
+msgctxt "settings-general"
+msgid "Use Mapify Template"
+msgstr ""
+
+#: pepro-mapify.php:1260
+msgctxt "setting-general"
+msgid "Clear Configurations on Unistall"
+msgstr ""
+
+#: pepro-mapify.php:1260
+msgctxt "settings-general"
+msgid "Yes"
+msgstr ""
+
+#: pepro-mapify.php:1260
+msgctxt "settings-general"
+msgid "No"
+msgstr ""
+
+#: pepro-mapify.php:1267
+msgid "Save setting"
+msgstr ""
+
+#: pepro-mapify.php:1280
+msgid "No Title"
+msgstr ""
+
+#: pepro-mapify.php:1321
+msgid ""
+"To make your own template, you can use following tags with the syntax of "
+"{parameter|default_value}."
+msgstr ""
+
+#: pepro-mapify.php:2721
+msgid "No data found!"
+msgstr ""
+
+#: pepro-mapify.php:2838
+msgctxt "mapify-js"
+msgid "Search here ...."
+msgstr ""
+
+#: pepro-mapify.php:2839
+msgctxt "mapify-js"
+msgid "No result found."
+msgstr ""
+
+#: pepro-mapify.php:2840
+msgctxt "mapify-js"
+msgid "Uncategorized"
+msgstr ""
+
+#: pepro-mapify.php:2859
+msgid "Mapify Settings"
+msgstr ""
+
+#: pepro-mapify.php:2912
+#, php-format
+msgctxt "setting-page"
+msgid "Enter %s"
+msgstr ""
+
+#: pepro-mapify.php:2922
+#, php-format
+msgctxt "setting-page"
+msgid "Choose %s"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Pepro Branches Map (Mapify)"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://pepro.dev/mapify"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"List your branches on a beautiful map with clickable hotspots, supporting "
+"70+ Google Maps custom styles, and integrates into WPBakery Page Builder"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Pepro Dev. Group"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://pepro.dev/"
+msgstr ""
