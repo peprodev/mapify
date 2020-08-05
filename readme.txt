@@ -15,6 +15,10 @@ List your branches on a beautiful map with clickable hotspots, supporting 70+ Go
 
 ### **List your branches on a beautiful map with clickable hotspots, supporting 70+ Google Maps custom styles, and integrates into WPBakery Page Builder**
 
+[vimeo https://vimeo.com/444784847]
+
+Watch WPBakery Page Builder Mapify Widget's Settings in [vimeo: https://vimeo.com/444784847](https://vimeo.com/444784847)
+
 
 ---
 #### Made by love in [Pepro Development Center](https://pepro.dev/").
@@ -41,8 +45,10 @@ You can help us improve our works by committing your changes to Pepro Dev's GitH
 
 1. Setting on Back-end (WPBakery Page Builder Widget)
 2. Output on Front-end
-3. Global Settings
-
+3. Output on Front-end
+4. Map API Settings
+5. Branches Post Type Overview 
+6. Branches Post Type Content Template
 
 
 
