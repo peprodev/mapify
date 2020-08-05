@@ -9,8 +9,8 @@ Developer: Amirhosseinhpv
 Author URI: https://pepro.dev/
 Developer URI: https://hpv.im/
 Plugin URI: https://pepro.dev/mapify
-Version: 1.3.0
-Stable tag: 1.3.0
+Version: 1.3.0.2
+Stable tag: 1.3.0.2
 Requires at least: 5.0
 Tested up to: 5.4
 Requires PHP: 5.6
@@ -48,11 +48,11 @@ if (!class_exists("PeproBranchesMap_AKA_Mapify")){
       $this->assets_url = plugins_url("/assets/", __FILE__);
       $this->plugin_basename = plugin_basename(__FILE__);
       $this->plugin_file = __FILE__;
-      $this->version = "1.3.0";
+      $this->version = "1.3.0.2";
       $this->db_slug = $this->td;
       $this->db_table = $wpdb->prefix . $this->db_slug;
       $this->deactivateURI = null;
-      $this->deactivateICON = '<span style="font-size: larger; line-height: 1rem; display: inline; vertical-align: text-top;" class="dashicons dashicons-dismiss" aria-hidden="true"></span> ';
+      $this->deactivateICON = '<style>.dashicons-small::before { font-size: 1rem !important; box-shadow: none !important; background-color: transparent !important; color: inherit !important; }</style><span style="font-size: larger; line-height: 1rem; display: inline; vertical-align: text-top;" class="dashicons dashicons-dismiss" aria-hidden="true"></span> ';
       $this->versionICON = '<span style="font-size: larger; line-height: 1rem; display: inline; vertical-align: text-top;" class="dashicons dashicons-admin-plugins" aria-hidden="true"></span> ';
       $this->authorICON = '<span style="font-size: larger; line-height: 1rem; display: inline; vertical-align: text-top;" class="dashicons dashicons-admin-users" aria-hidden="true"></span> ';
       $this->settingURL = '<span style="display: inline;float: none;padding: 0;" class="dashicons dashicons-admin-settings dashicons-small" aria-hidden="true"></span> ';
