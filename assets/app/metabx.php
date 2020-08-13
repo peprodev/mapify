@@ -1,5 +1,5 @@
 <?php
-class MapifyCPTmEtaboxWalker {
+class PeproMapifyBranchesCPT_metabox {
   private $screens = array('mapify',);
   private $td;
   private $plugin_dir;
@@ -81,6 +81,7 @@ class MapifyCPTmEtaboxWalker {
     wp_localize_script(  "mapify_mapify",      "MAPIFY", array(
       "api"        =>  $api?1:0,
       "spotlight"  =>  "{$this->assets_url}img/spotlight.png",
+      "markersdir"  =>  "{$this->assets_url}img/markers",
       "drag"       =>  _x("To change, drag this marker","js-translate", $this->td),
       "dragging"   =>  _x("Currently dragging marker...","js-translate", $this->td),
       "vc_pinmarkermaker_clipboard" => __("Click To Set as your Pin image", $this->td),
@@ -160,13 +161,13 @@ class MapifyCPTmEtaboxWalker {
       if ( isset( $_POST[ $field['id'] ] ) ) {
         switch ( $field['type'] ) {
           case 'email':
-            $_POST[ $field['id'] ] = sanitize_email( $_POST[ $field['id'] ] );
+            $_field_data = sanitize_email( $_POST[ $field['id'] ] );
             break;
           case 'text':
-            $_POST[ $field['id'] ] = sanitize_text_field( $_POST[ $field['id'] ] );
+            $_field_data = sanitize_text_field( $_POST[ $field['id'] ] );
             break;
         }
-        update_post_meta( $post_id, 'place_details_' . $field['id'], $_POST[ $field['id'] ] );
+        update_post_meta( $post_id, 'place_details_' . $field['id'], $_field_data );
       } else if ( $field['type'] === 'checkbox' ) {
         update_post_meta( $post_id, 'place_details_' . $field['id'], "" );
       }
@@ -174,4 +175,4 @@ class MapifyCPTmEtaboxWalker {
   }
 }
 
-new MapifyCPTmEtaboxWalker;
+new PeproMapifyBranchesCPT_metabox;

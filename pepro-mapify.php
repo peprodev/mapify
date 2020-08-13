@@ -9,8 +9,8 @@ Developer: Amirhosseinhpv
 Author URI: https://pepro.dev/
 Developer URI: https://hpv.im/
 Plugin URI: https://pepro.dev/mapify
-Version: 1.3.0.2
-Stable tag: 1.3.0.2
+Version: 1.3.1.0
+Stable tag: 1.3.1.0
 Requires at least: 5.0
 Tested up to: 5.4
 Requires PHP: 5.6
@@ -48,7 +48,7 @@ if (!class_exists("PeproBranchesMap_AKA_Mapify")){
       $this->assets_url = plugins_url("/assets/", __FILE__);
       $this->plugin_basename = plugin_basename(__FILE__);
       $this->plugin_file = __FILE__;
-      $this->version = "1.3.0.2";
+      $this->version = "1.3.1.0";
       $this->db_slug = $this->td;
       $this->db_table = $wpdb->prefix . $this->db_slug;
       $this->deactivateURI = null;
@@ -167,6 +167,7 @@ if (!class_exists("PeproBranchesMap_AKA_Mapify")){
       wp_enqueue_script(  "chosen", "{$this->assets_url}/js/chosen.min.js", array("jquery"));
       wp_register_script( "markermaker", "{$this->assets_url}/js/pin.maker.js", array("jquery"));
       wp_localize_script( "markermaker", "markermaker", array(
+        "vc_pinmarkermaker_dirfolder" => "{$this->assets_url}img/markers",
         "vc_pinmarkermaker_clipboard" => __("Click To Set as your Overwritten Pin image", $this->td),
         "vc_pinmarkermaker_numbers"   => __("Numbers", $this->td),
         "vc_pinmarkermaker_character" => __("Character", $this->td),
@@ -347,87 +348,7 @@ if (!class_exists("PeproBranchesMap_AKA_Mapify")){
         "shades-of-grey" => "{$this->assets_url}img/map-style/shades-of-grey.jpg",
       );
       $googlemapDesignsPicArray = apply_filters( "pepro-mapify-vc-googlemap-styles-pics",$lists);
-      $defaultCSS = apply_filters( "pepro-mapify-vc-styles-default-css",'
-        .googlemapinfo_div {
-          font-family: iranyekan;
-          max-height: unset !important;
-          min-width: 350px !important;
-          max-width: 350px !important;
-          font-size: 14px !important;
-          font-weight: 400 !important;
-          background-color: rgb(255, 255, 255) !important;
-          border-radius: 8px !important;
-          box-shadow: rgba(0, 0, 0, 0.15) 0 7px 12px, rgba(0, 0, 0, 0.05) 0 0 1px !important;
-          overflow: hidden !important;
-          text-align: center !important;
-          border-width: 0 !important;
-          margin: 0 !important;
-          padding: 0 0 0.5rem !important;
-        }'.
-        '.googlemapinfo_div .title {
-          border-color: rgb(201, 201, 201);
-          border-style: solid;
-          border-width: 0 0 1px;
-          margin: 0;
-          direction: rtl;
-          line-height: 2.3;
-          padding: 0 0 5px;
-          display: inline-block;
-          min-width: calc(100% - 28px);
-        }'.
-        '.googlemapinfo_div .address {
-          margin: 5px;
-          text-align: start;
-          direction: rtl;
-          padding: 7px 7px 0;
-        }'.
-        '.googlemapinfo_div .insta,'.
-        '.googlemapinfo_div .phone {
-          line-height: 1;
-          padding: 5px 14px;
-          text-align: start;
-        }'.
-        '.googlemapinfo_div>div:first-of-type{
-          max-height: unset !important;
-          overflow: hidden !important;
-        }'.
-        '.googlemapinfo_div>button:last-of-type {
-          white-space: nowrap;
-          font-size: 20px;
-          line-height: 1rem;
-          color: white;
-          letter-spacing: 0;
-          background-color: rgb(255, 255, 255) !important;
-          border-radius: 0 8px 0 8px !important;
-          cursor: pointer !important;
-          visibility: inherit;
-          transition: none 0s ease 0s;
-          border-width: 0 !important;
-          margin: 0 5px !important;
-          height: 25px !important;
-          opacity: 1;
-          text-align: center;
-        }'.
-        '.mapify-branches-item {
-          color: white !important;
-          font-family: iranyekan;
-          background-color: #703192;
-          border-radius: 30px 6px 15px 15px;
-          box-sizing: border-box;
-          transition: none 0s ease 0s;
-          text-align: center;
-          padding: .2rem 1rem;
-          display: inline-block;
-          margin: 4px 5px;
-          font-size: 0.8rem;
-          font-weight: 300;
-          min-width: 176px;
-        }
-        .mapify-branches-list-container {
-          margin: 1rem 0;
-        }
-        '
-      );
+      
       vc_map(
           array(
               "base" => "pepro-mapify",
@@ -644,7 +565,7 @@ if (!class_exists("PeproBranchesMap_AKA_Mapify")){
                     "admin_label"       => false,
                     "param_name"        => "center_coordinate",
                     "value"             => "32.1001646,54.4637493",
-                    "description"       => _("Enter Default Center Coordinate in <i>latitude,longitude</i> format", $this->td),
+                    "description"       => __("Enter Default Center Coordinate in <i>latitude,longitude</i> format", $this->td),
                 ),
                 array(
                     "group"             => esc_html_x("Design","vc-tab", "$this->td" ),
@@ -808,17 +729,6 @@ if (!class_exists("PeproBranchesMap_AKA_Mapify")){
                   "admin_label"         => false,
                 ),
                 array(
-                    "group"             => esc_html_x("CSS","vc-tab", "$this->td" ),
-                    "heading"           => esc_html__("Custom CSS Code", "$this->td" ),
-                    "type"              => "textarea_raw_html",
-                    "edit_field_class"  => "vc_column vc_col-sm-12",
-                    "holder"            => "div",
-                    "save_always"       => true,
-                    "value"             => base64_encode($defaultCSS),
-                    "admin_label"       => false,
-                    "param_name"        => "custom_css_code",
-                ),
-                array(
                   "group"               => esc_html_x("Import / Export","vc-tab", "$this->td" ),
                   "type"                => "pepro_about",
                   "param_name"          => "maptype",
@@ -875,7 +785,8 @@ if (!class_exists("PeproBranchesMap_AKA_Mapify")){
     public function vc_add_pepro_dropdown_multi( $param, $value )
     {
        $param_line = '';
-       $param_line .= '<select multiple data-placeholder="'.esc_attr( $param['placeholder'] ).'" name="'. esc_attr( $param['param_name'] ).'" class="wpb_vc_param_value wpb-input wpb-select '. esc_attr( $param['param_name'] ).' '.esc_attr( $param['class'] ).' '. esc_attr($param['type']).'">';
+       $param_class = isset($param['class']) ? $param['class'] : "";
+       $param_line .= '<select multiple data-placeholder="'.esc_attr( $param['placeholder'] ).'" name="'. esc_attr( $param['param_name'] ).'" class="wpb_vc_param_value wpb-input wpb-select '. esc_attr( $param['param_name'] ).' '.esc_attr($param_class).' '. esc_attr($param['type']).'">';
        foreach ( $param['value'] as $text_val => $val ) {
            if ( is_numeric($text_val) && (is_string($val) || is_numeric($val)) ) {
                         $text_val = $val;
@@ -902,10 +813,11 @@ if (!class_exists("PeproBranchesMap_AKA_Mapify")){
        $show_input = empty($param['show_input']) ? "hidden" : "text";
        $input_pos = empty($param['input_pos']) ? "bottom" : (("top" == $param['input_pos'])?"top":"bottom");
        $imgheight = empty($param['image_height']) ? "100px" : esc_attr($param['image_height']);
+       $param_class = isset($param['class']) ? $param['class'] : "";
        $param_line  = '<style>.peprodevvcradiolabl span { margin-top: 0.7rem; }.peprodevvcradiolabl {margin-bottom: .5rem; display: inline-flex; flex-direction: column; place-content: center; place-items: center; }.peprodevvcinputforradio:checked + label > img { box-shadow: 0 0 0 3px white,0 0 0 6px #e05a46; } .peprodevvcinputforradio + label > img { border-radius: 5px; }.wpb_vc_param_value.radio_image{ display: flex; flex-wrap: wrap; justify-content: flex-start; }
        .vcpepro_radio_item_container.'.$param['param_name'].' { flex: 0 1 calc('.$imgwidth.' + 1.2rem); margin-bottom: 5px; width: auto;text-align: center;}</style>';
        if ("bottom" !== $input_pos){$param_line  .=  '<input type="'.$show_input.'" value="'.$value.'" id="'.$param['param_name'].'" name="'.$param['param_name'].'" class="wpb_vc_param_value wpb-input">';}
-       $param_line .= '<div class="wpb_vc_param_value '. esc_attr( $param['param_name'] ).' '.esc_attr( $param['class'] ).' '. esc_attr($param['type']).'">';
+       $param_line .= '<div class="wpb_vc_param_value '. esc_attr( $param['param_name'] ).' '.esc_attr( $param_class ).' '. esc_attr($param['type']).'">';
        foreach ( $param['value'] as $text_val => $val ) {
          if ( is_numeric($text_val) && (is_string($val) || is_numeric($val)) ) { $text_val = $val; }
          $text_val = $text_val; $selected = ''; $img = "";
@@ -1356,7 +1268,6 @@ if (!class_exists("PeproBranchesMap_AKA_Mapify")){
           "pinaction"           => "url",
           "css"                 => "",
           "googlemap_style"     => "",
-          "custom_css_code"     => "",
           "pinurltarget"        => "_blank",
           "map_style"           => "",
           "center_coordinate"   => "32.1001646,54.4637493",
@@ -1368,8 +1279,88 @@ if (!class_exists("PeproBranchesMap_AKA_Mapify")){
           "loading_color"       => "linear-gradient(120deg,#dd5542,#fd9d73)",
           "mapfooterimage"      => "{$this->assets_url}img/peprodev.svg",
         ),$atts);
+      $custom_css_code = apply_filters( "pepro-mapify-vc-styles-default-css",'
+        .googlemapinfo_div {
+          font-family: iranyekan;
+          max-height: unset !important;
+          min-width: 350px !important;
+          max-width: 350px !important;
+          font-size: 14px !important;
+          font-weight: 400 !important;
+          background-color: rgb(255, 255, 255) !important;
+          border-radius: 8px !important;
+          box-shadow: rgba(0, 0, 0, 0.15) 0 7px 12px, rgba(0, 0, 0, 0.05) 0 0 1px !important;
+          overflow: hidden !important;
+          text-align: center !important;
+          border-width: 0 !important;
+          margin: 0 !important;
+          padding: 0 0 0.5rem !important;
+        }'.
+        '.googlemapinfo_div .title {
+          border-color: rgb(201, 201, 201);
+          border-style: solid;
+          border-width: 0 0 1px;
+          margin: 0;
+          direction: rtl;
+          line-height: 2.3;
+          padding: 0 0 5px;
+          display: inline-block;
+          min-width: calc(100% - 28px);
+        }'.
+        '.googlemapinfo_div .address {
+          margin: 5px;
+          text-align: start;
+          direction: rtl;
+          padding: 7px 7px 0;
+        }'.
+        '.googlemapinfo_div .insta,'.
+        '.googlemapinfo_div .phone {
+          line-height: 1;
+          padding: 5px 14px;
+          text-align: start;
+        }'.
+        '.googlemapinfo_div>div:first-of-type{
+          max-height: unset !important;
+          overflow: hidden !important;
+        }'.
+        '.googlemapinfo_div>button:last-of-type {
+          white-space: nowrap;
+          font-size: 20px;
+          line-height: 1rem;
+          color: white;
+          letter-spacing: 0;
+          background-color: rgb(255, 255, 255) !important;
+          border-radius: 0 8px 0 8px !important;
+          cursor: pointer !important;
+          visibility: inherit;
+          transition: none 0s ease 0s;
+          border-width: 0 !important;
+          margin: 0 5px !important;
+          height: 25px !important;
+          opacity: 1;
+          text-align: center;
+        }'.
+        '.mapify-branches-item {
+          color: white !important;
+          font-family: iranyekan;
+          background-color: #703192;
+          border-radius: 30px 6px 15px 15px;
+          box-sizing: border-box;
+          transition: none 0s ease 0s;
+          text-align: center;
+          padding: .2rem 1rem;
+          display: inline-block;
+          margin: 4px 5px;
+          font-size: 0.8rem;
+          font-weight: 300;
+          min-width: 176px;
+        }
+        .mapify-branches-list-container {
+          margin: 1rem 0;
+        }
+        '
+      );
       $atts_filter["popup_markup"] = rawurldecode(base64_decode($atts_filter["popup_markup"]));
-      $atts_filter["custom_css_code"] = rawurldecode(base64_decode($atts_filter["custom_css_code"]));
       $atts_filter["googlemap_style"] = rawurldecode(base64_decode($atts_filter["googlemap_style"]));
       extract($atts_filter);
       $usegmapcopyright = ($dev == "true") ? "true" : $usegmapcopyright;

@@ -54,9 +54,17 @@ You can help us improve our works by committing your changes to Pepro Dev's GitH
 
 == Changelog ==
 
-= 1.3.0 =
+= 1.3.1 =
 
--   initial release 
+-   Dependency free marker maker added
+-   Removed custom css styles from Visual Composer Widget
+-   Branches Metabox Class renamed to `PeproMapifyBranchesCPT_metabox`
+-   Directory Index Blocked for resources
+
+
+1.3.0 =
+
+-   Initial release for GitHub and WordPress 
 
 
 == About Us ==
@@ -67,6 +75,13 @@ Join us at [https://pepro.dev/](https://pepro.dev/) and also don't forget to che
 
 == Upgrade Notice ==
 
-= 1.3.0 =
+= 1.3.1 =
 
--   initial release 
+-   Dependency free marker maker added
+-   Removed custom css styles from Visual Composer Widget
+-   Branches Metabox Class renamed to `PeproMapifyBranchesCPT_metabox`
+-   Directory Index Blocked for resources
+
+1.3.0 =
+
+-   Initial release for GitHub and WordPress 
