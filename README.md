@@ -3,7 +3,6 @@
 
 ##### **Developed by** [Perpro Development Group](https://pepro.dev/)
 
-*Current Version: 1.3.1* \| *Lead Programmer:* [Amirhosseinhpv](https://hpv.im/)
+*Current Version: 1.3.2* \| *Lead Programmer:* [Amirhosseinhpv](https://hpv.im/)
 
-
-[![Watch the video](player.png)](https://vimeo.com/444784847)
+<https://vimeo.com/444784847>
