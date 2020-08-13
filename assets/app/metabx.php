@@ -116,7 +116,7 @@ class PeproMapifyBranchesCPT_metabox {
           );
           break;
         case 'select':
-          $input = sprintf( '<select class="large-text" id="%s" placeholder="%s" name="%s">', $field['id'], $field['label'], $field['id'], );
+          $input = sprintf( '<select class="large-text" id="%s" placeholder="%s" name="%s">', $field['id'], $field['label'], $field['id'] );
           foreach ($field['value'] as $key => $value) {
             $checked = selected( $db_value, $key,false);
             $input .= "<option value='$key' $checked>$value</option>";
