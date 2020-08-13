@@ -5,4 +5,4 @@
 
 *Current Version: 1.3.2* \| *Lead Programmer:* [Amirhosseinhpv](https://hpv.im/)
 
-<https://vimeo.com/444784847>
+[![Watch the video](player.png)](https://vimeo.com/444784847)
