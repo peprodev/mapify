@@ -160,12 +160,15 @@ class PeproMapifyBranchesCPT_metabox {
     foreach ( $this->get_fileds() as $field ) {
       if ( isset( $_POST[ $field['id'] ] ) ) {
         switch ( $field['type'] ) {
-          case 'email':
-            $_field_data = sanitize_email( $_POST[ $field['id'] ] );
-            break;
-          case 'text':
-            $_field_data = sanitize_text_field( $_POST[ $field['id'] ] );
-            break;
+			case 'email':
+				$_field_data = sanitize_email( $_POST[ $field['id'] ] );
+				break;
+			case 'textarea':
+				$_field_data = sanitize_textarea_field( $_POST[ $field['id'] ] );
+				break;
+			default:
+				$_field_data = sanitize_text_field( $_POST[ $field['id'] ] );
+				break;
         }
         update_post_meta( $post_id, 'place_details_' . $field['id'], $_field_data );
       } else if ( $field['type'] === 'checkbox' ) {

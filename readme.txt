@@ -3,8 +3,8 @@ Contributors: peprodev,amirhosseinhpv
 Donate link: https://pepro.dev/donate
 Tags: functionality, map, googlemaps, svg map, show branches on map, pin on map, popup, branch
 Requires at least: 5.0
-Tested up to: 5.4
-Stable tag: 1.3.2
+Tested up to: 5.5
+Stable tag: 1.3.3
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -54,6 +54,10 @@ You can help us improve our works by committing your changes to Pepro Dev's GitH
 
 == Changelog ==
 
+= 1.3.3 =
+
+-   Fixed Branches Data not saving
+-   Fixed Compatibility with WordPress 5.5
 
 = 1.3.2 =
 
@@ -78,6 +82,11 @@ Join us at [https://pepro.dev/](https://pepro.dev/) and also don't forget to che
 
 
 == Upgrade Notice ==
+
+= 1.3.3 =
+
+-   Fixed Branches Data not saving
+-   Fixed Compatibility with WordPress 5.5
 
 = 1.3.2 =
 

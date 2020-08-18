@@ -9,10 +9,10 @@ Developer: Amirhosseinhpv
 Author URI: https://pepro.dev/
 Developer URI: https://hpv.im/
 Plugin URI: https://pepro.dev/mapify
-Version: 1.3.2
-Stable tag: 1.3.2
+Version: 1.3.3
+Stable tag: 1.3.3
 Requires at least: 5.0
-Tested up to: 5.4
+Tested up to: 5.5
 Requires PHP: 5.6
 Text Domain: mapify
 Domain Path: /languages
@@ -48,7 +48,7 @@ if (!class_exists("PeproBranchesMap_AKA_Mapify")){
       $this->assets_url = plugins_url("/assets/", __FILE__);
       $this->plugin_basename = plugin_basename(__FILE__);
       $this->plugin_file = __FILE__;
-      $this->version = "1.3.2";
+      $this->version = "1.3.3";
       $this->db_slug = $this->td;
       $this->db_table = $wpdb->prefix . $this->db_slug;
       $this->deactivateURI = null;
@@ -348,7 +348,7 @@ if (!class_exists("PeproBranchesMap_AKA_Mapify")){
         "shades-of-grey" => "{$this->assets_url}img/map-style/shades-of-grey.jpg",
       );
       $googlemapDesignsPicArray = apply_filters( "pepro-mapify-vc-googlemap-styles-pics",$lists);
-      
+
       vc_map(
           array(
               "base" => "pepro-mapify",
