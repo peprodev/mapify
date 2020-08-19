@@ -4,7 +4,7 @@ Donate link: https://pepro.dev/donate
 Tags: functionality, map, googlemaps, svg map, show branches on map, pin on map, popup, branch
 Requires at least: 5.0
 Tested up to: 5.5
-Stable tag: 1.3.3
+Stable tag: 1.3.4
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -47,12 +47,16 @@ You can help us improve our works by committing your changes to Pepro Dev's GitH
 2. Output on Front-end
 3. Output on Front-end
 4. Map API Settings
-5. Branches Post Type Overview 
+5. Branches Post Type Overview
 6. Branches Post Type Content Template
 
 
 
 == Changelog ==
+
+= 1.3.4 =
+
+-   Mapify Category Name fix
 
 = 1.3.3 =
 
@@ -72,7 +76,7 @@ You can help us improve our works by committing your changes to Pepro Dev's GitH
 
 1.3.0 =
 
--   Initial release for GitHub and WordPress 
+-   Initial release for GitHub and WordPress
 
 
 == About Us ==
@@ -83,6 +87,10 @@ Join us at [https://pepro.dev/](https://pepro.dev/) and also don't forget to che
 
 == Upgrade Notice ==
 
+= 1.3.4 =
+
+-   Mapify Category Name fix
+
 = 1.3.3 =
 
 -   Fixed Branches Data not saving
@@ -101,4 +109,4 @@ Join us at [https://pepro.dev/](https://pepro.dev/) and also don't forget to che
 
 1.3.0 =
 
--   Initial release for GitHub and WordPress 
+-   Initial release for GitHub and WordPress

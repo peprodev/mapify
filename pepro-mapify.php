@@ -9,8 +9,8 @@ Developer: Amirhosseinhpv
 Author URI: https://pepro.dev/
 Developer URI: https://hpv.im/
 Plugin URI: https://pepro.dev/mapify
-Version: 1.3.3
-Stable tag: 1.3.3
+Version: 1.3.4
+Stable tag: 1.3.4
 Requires at least: 5.0
 Tested up to: 5.5
 Requires PHP: 5.6
@@ -48,7 +48,7 @@ if (!class_exists("PeproBranchesMap_AKA_Mapify")){
       $this->assets_url = plugins_url("/assets/", __FILE__);
       $this->plugin_basename = plugin_basename(__FILE__);
       $this->plugin_file = __FILE__;
-      $this->version = "1.3.3";
+      $this->version = "1.3.4";
       $this->db_slug = $this->td;
       $this->db_table = $wpdb->prefix . $this->db_slug;
       $this->deactivateURI = null;
@@ -194,7 +194,7 @@ if (!class_exists("PeproBranchesMap_AKA_Mapify")){
           'orderby'     => 'name',
           'order'       => 'ASC',
           'hide_empty'  => false,)));
-      $lists = array();foreach ($categories as $key) { $lists[$key->slug] = $key->name; }
+      $lists = array();foreach ($categories as $cat) { $lists[esc_html( $cat->name )] = $cat->slug; }
       $peproMapifyMapCategories = apply_filters( "pepro-mapify-vc-branches-cats",$lists);
       $lists = array(
         esc_html_x( "Default", "googl-map-style-name", $this->td )                => "default",
