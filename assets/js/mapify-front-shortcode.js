@@ -131,9 +131,9 @@ alert($("#style-json").text().replace(/(\r\n|\n|\r)/gm, "").replace('\t','').rep
           // get data including curly braces: /{([^}]+)}/g
           // get only start and ending braces: /[{}]/g
 
-          string = string.replaceAll(/{([^}]+)}/g,function(a, b){
+          string = replaceAll(string, /{([^}]+)}/g,function(a, b){
             var curly = c = a;
-            var nocurly = curly.replaceAll(/[{}]/g,"");
+            var nocurly = replaceAll(curly, /[{}]/g,"");
             var val = $.trim(nocurly.split("|")[0]);
             var def = $.trim(nocurly.split("|")[1]);
             if (!def){ def = nocurly; }
@@ -143,6 +143,9 @@ alert($("#style-json").text().replace(/(\r\n|\n|\r)/gm, "").replace('\t','').rep
           });
           return string;
         }
+		function replaceAll(str, find, replace) {
+			return str.replace(new RegExp(find, 'g'), replace);
+		}
         function mapify_googlemap_draw_hotspots(mM) {
           mapify_googlemap_hotspots_list[mM] = [];
           mapify_googlemap_pins_list[mM] = [];

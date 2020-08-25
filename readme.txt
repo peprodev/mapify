@@ -54,6 +54,10 @@ You can help us improve our works by committing your changes to Pepro Dev's GitH
 
 == Changelog ==
 
+= 1.3.4.1 =
+
+-   Google Chrome > 84 Compatible 
+
 = 1.3.4 =
 
 -   Mapify Category Name fix

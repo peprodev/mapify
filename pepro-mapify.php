@@ -2730,7 +2730,7 @@ if (!class_exists("PeproBranchesMap_AKA_Mapify")){
         $categories = get_the_terms( $post_id, "mapify_category" );
         if ($categories){
           foreach ($categories as $category) {
-            $categories_list[$category->slug] = $category->name; //term_id
+            $categories_list[$category->term_id] = $category->name; //term_id
           }
         }
         $raw_data = array(
