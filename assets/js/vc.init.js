@@ -30,10 +30,10 @@
       el_map_width                : $(".vc_ui-panel-window.vc_ui-panel.vc_active [name=el_map_width]").val(),
       el_map_height               : $(".vc_ui-panel-window.vc_ui-panel.vc_active [name=el_map_height]").val(),
       custom_css_code             : $(".vc_ui-panel-window.vc_ui-panel.vc_active [name=custom_css_code]").val(),
-      mapify_version              : GLOBAL_MAPIFY_VERSION,
-      vc_version                  : GLOBAL_VC_VERSION,
-      php_version                 : GLOBAL_PHP_VERSION,
-      wp_version                  : GLOBAL_WP_VERSION,
+      mapify_version              : (typeof GLOBAL_MAPIFY_VERSION === "undefined") ? "0.0.0" : GLOBAL_MAPIFY_VERSION,
+      vc_version                  : (typeof GLOBAL_VC_VERSION === "undefined") ? "0.0.0" : GLOBAL_VC_VERSION,
+      php_version                 : (typeof GLOBAL_PHP_VERSION === "undefined") ? "0.0.0" : GLOBAL_PHP_VERSION,
+      wp_version                  : (typeof GLOBAL_WP_VERSION === "undefined") ? "0.0.0" : GLOBAL_WP_VERSION,
     };
   }
   $(document).unbind("click tap");

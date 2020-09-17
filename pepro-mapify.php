@@ -9,8 +9,8 @@ Developer: Amirhosseinhpv
 Author URI: https://pepro.dev/
 Developer URI: https://hpv.im/
 Plugin URI: https://pepro.dev/mapify
-Version: 1.3.4
-Stable tag: 1.3.4
+Version: 1.3.5
+Stable tag: 1.3.5
 Requires at least: 5.0
 Tested up to: 5.5
 Requires PHP: 5.6
@@ -48,7 +48,7 @@ if (!class_exists("PeproBranchesMap_AKA_Mapify")){
       $this->assets_url = plugins_url("/assets/", __FILE__);
       $this->plugin_basename = plugin_basename(__FILE__);
       $this->plugin_file = __FILE__;
-      $this->version = "1.3.4";
+      $this->version = "1.3.5";
       $this->db_slug = $this->td;
       $this->db_table = $wpdb->prefix . $this->db_slug;
       $this->deactivateURI = null;
@@ -746,11 +746,11 @@ if (!class_exists("PeproBranchesMap_AKA_Mapify")){
       $ct = current_time("timestamp");
       ?>
       <script type="text/javascript">
-        var GLOBAL_MAPIFY_VERSION = "<?=$this->version;?>";
-        var GLOBAL_VC_VERSION = "<?=WPB_VC_VERSION;?>";
-        var GLOBAL_PHP_VERSION = "<?=phpversion();?>";
-        var GLOBAL_WP_VERSION = "<?=get_bloginfo('version');?>";
-        var GLOBAL_IMPORT_DONE = "<?=__('Import Done Successfully',$this->td);?>";
+        GLOBAL_MAPIFY_VERSION = "<?=$this->version;?>";
+        GLOBAL_VC_VERSION = "<?=WPB_VC_VERSION;?>";
+        GLOBAL_PHP_VERSION = "<?=phpversion();?>";
+        GLOBAL_WP_VERSION = "<?=get_bloginfo('version');?>";
+        GLOBAL_IMPORT_DONE = "<?=__('Import Done Successfully',$this->td);?>";
       </script>
       <style media="screen">
         div#mapify<?=$ct;?>{
