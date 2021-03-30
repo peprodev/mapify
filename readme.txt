@@ -1,10 +1,10 @@
-=== Pepro Branches Map (Mapify) ===
+=== Pepro Branches Map ===
 Contributors: peprodev,amirhosseinhpv
 Donate link: https://pepro.dev/donate
 Tags: functionality, map, googlemaps, svg map, show branches on map, pin on map, popup, branch
 Requires at least: 5.0
-Tested up to: 5.5
-Stable tag: 1.3.5
+Tested up to: 5.7
+Stable tag: 1.3.6
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -17,7 +17,7 @@ List your branches on a beautiful map with clickable hotspots, supporting 70+ Go
 
 [vimeo https://vimeo.com/444784847]
 
-Watch WPBakery Page Builder Mapify Widget's Settings in [vimeo: https://vimeo.com/444784847](https://vimeo.com/444784847)
+Watch WPBakery Page Builder Pepro Branches Map Widget's Settings in [vimeo: https://vimeo.com/444784847](https://vimeo.com/444784847)
 
 
 ---
@@ -54,17 +54,21 @@ You can help us improve our works by committing your changes to Pepro Dev's GitH
 
 == Changelog ==
 
+= 1.3.6 =
+
+-  Plugin Name fixes
+
 = 1.3.5 =
 
 -  Javascript Issue with latest Visual Composer fixed
 
 = 1.3.4.1 =
 
--   Google Chrome > 84 Compatible 
+-   Google Chrome > 84 Compatible
 
 = 1.3.4 =
 
--   Mapify Category Name fix
+-   Category Name fix
 
 = 1.3.3 =
 
@@ -73,13 +77,13 @@ You can help us improve our works by committing your changes to Pepro Dev's GitH
 
 = 1.3.2 =
 
--   Fixed MITM Attack Issue
+-   Fixed MITM-Attack Issue
 
 = 1.3.1 =
 
 -   Dependency free marker maker added
 -   Removed custom css styles from Visual Composer Widget
--   Branches Metabox Class renamed to `PeproMapifyBranchesCPT_metabox`
+-   Branches Metabox Class renamed to `PeproBranchesCPT_metabox`
 -   Directory Index Blocked for resources
 
 1.3.0 =
@@ -95,17 +99,21 @@ Join us at [https://pepro.dev/](https://pepro.dev/) and also don't forget to che
 
 == Upgrade Notice ==
 
+= 1.3.6 =
+
+-  Plugin Name fixes
+
 = 1.3.5 =
 
 -  Javascript Issue with latest Visual Composer fixed
 
 = 1.3.4.1 =
 
--   Google Chrome > 84 Compatible 
+-   Google Chrome > 84 Compatible
 
 = 1.3.4 =
 
--   Mapify Category Name fix
+-   Category Name fix
 
 = 1.3.3 =
 
@@ -120,7 +128,7 @@ Join us at [https://pepro.dev/](https://pepro.dev/) and also don't forget to che
 
 -   Dependency free marker maker added
 -   Removed custom css styles from Visual Composer Widget
--   Branches Metabox Class renamed to `PeproMapifyBranchesCPT_metabox`
+-   Branches Metabox Class renamed to `PeproBranchesCPT_metabox`
 -   Directory Index Blocked for resources
 
 1.3.0 =

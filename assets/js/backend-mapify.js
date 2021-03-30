@@ -1,3 +1,14 @@
+/**
+ * @Author: Amirhosseinhpv
+ * @Date:   2020/08/13 20:47:03
+ * @Email:  its@hpv.im
+ * @Last modified by:   Amirhosseinhpv
+ * @Last modified time: 2021/03/27 17:11:02
+ * @License: GPLv2
+ * @Copyright: Copyright © 2020 Amirhosseinhpv, All rights reserved.
+ */
+
+
 (function($) {
   $(document).ready(function() {
     var map,
@@ -302,7 +313,7 @@
         $("#googlemapdiv").addClass("loaded");
         setTimeout(function() {
           var prevattr = $("#googlemapdiv>div iframe+div a").attr("title");
-          $("#googlemapdiv>div iframe+div a").attr("title", `${prevattr}\r\nCreated using Pepro Branches Map (Mapify)\r\nby Pepro Dev ( https://pepro.dev/ )`);
+          $("#googlemapdiv>div iframe+div a").attr("title", `${prevattr}\r\nCreated using Pepro Branches Map\r\nby Pepro Dev ( https://pepro.dev/ )`);
         }, 200);
       });
 

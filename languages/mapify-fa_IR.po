@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Pepro Branches Map (Mapify)\n"
-"POT-Creation-Date: 2020-08-05 02:30+0430\n"
-"PO-Revision-Date: 2020-08-05 02:30+0430\n"
+"POT-Creation-Date: 2021-03-27 17:12+0430\n"
+"PO-Revision-Date: 2021-03-27 17:12+0430\n"
 "Last-Translator: Amirhosseinhpv <amirhossein@hpv.im>\n"
 "Language-Team: Amirhosseinhpv <amirhossein@hpv.im>\n"
 "Language: fa_IR\n"
@@ -25,762 +25,763 @@ msgstr ""
 msgid "Go to Coordinate"
 msgstr "رفتن به مختصات"
 
-#: assets/app/metabx.php:42
+#: assets/app/metabx.php:51
 msgid "Custom Pin Image"
 msgstr "عکس سفارشی نشانشگر"
 
-#: assets/app/metabx.php:43
+#: assets/app/metabx.php:52
 msgid "Post Content Template"
 msgstr "تمپلت محتوایی این شعبه"
 
-#: assets/app/metabx.php:43
+#: assets/app/metabx.php:52
 msgid "Inherit from Setting"
 msgstr "به ارث بری از تنظیمات"
 
-#: assets/app/metabx.php:43
+#: assets/app/metabx.php:52
 msgid "Use Post Template"
 msgstr "استفاده از محتوا"
 
-#: assets/app/metabx.php:43
-msgid "Use Mapify Template"
-msgstr "استفاده از تمپلت مپیفای"
+#: assets/app/metabx.php:52
+msgid "Use Default Branches Template"
+msgstr "قالب پیشفرض صفحات داخلی شعب"
 
-#: assets/app/metabx.php:44
+#: assets/app/metabx.php:53
 msgid "Address"
 msgstr "آدرس"
 
-#: assets/app/metabx.php:45
+#: assets/app/metabx.php:54
 msgid "Phone"
 msgstr "شماره تلفن"
 
-#: assets/app/metabx.php:46
+#: assets/app/metabx.php:55
 msgid "Site"
 msgstr "سایت"
 
-#: assets/app/metabx.php:47
+#: assets/app/metabx.php:56
 msgid "Email"
 msgstr "ایمیل"
 
-#: assets/app/metabx.php:48 pepro-mapify.php:120
+#: assets/app/metabx.php:57 pepro-mapify.php:123
 msgid "Twitter"
 msgstr "توییتر"
 
-#: assets/app/metabx.php:49 pepro-mapify.php:121
+#: assets/app/metabx.php:58 pepro-mapify.php:124
 msgid "Facebook"
 msgstr "فیسبوک"
 
-#: assets/app/metabx.php:50 pepro-mapify.php:122
+#: assets/app/metabx.php:59 pepro-mapify.php:125
 msgid "Instagram"
 msgstr "اینستاگرام"
 
-#: assets/app/metabx.php:51 pepro-mapify.php:123
+#: assets/app/metabx.php:60 pepro-mapify.php:126
 msgid "Telegram"
 msgstr "تلگرام"
 
-#: assets/app/metabx.php:52 pepro-mapify.php:124
+#: assets/app/metabx.php:61 pepro-mapify.php:127
 msgid "LinkedIn"
 msgstr "لینکداین"
 
-#: assets/app/metabx.php:53
+#: assets/app/metabx.php:62
 msgid "Additional Text"
 msgstr "متن اضافی"
 
-#: assets/app/metabx.php:62
+#: assets/app/metabx.php:71
 msgid "Branch Details"
 msgstr "جزئیات شعبه"
 
-#: assets/app/metabx.php:84
+#: assets/app/metabx.php:94
 msgctxt "js-translate"
 msgid "To change, drag this marker"
 msgstr "برای تغییر آدرس، این نشانشگر را تغییر دهید"
 
-#: assets/app/metabx.php:85
+#: assets/app/metabx.php:95
 msgctxt "js-translate"
 msgid "Currently dragging marker..."
 msgstr "درحال حرکت دادن نشانگر ..."
 
-#: assets/app/metabx.php:86
+#: assets/app/metabx.php:96
 msgid "Click To Set as your Pin image"
 msgstr "برای استفاده به عنوان عکس نشانگر کلیک کنید"
 
-#: assets/app/metabx.php:87 pepro-mapify.php:171
+#: assets/app/metabx.php:97 pepro-mapify.php:175
 msgid "Numbers"
 msgstr "اعداد"
 
-#: assets/app/metabx.php:88 pepro-mapify.php:172
+#: assets/app/metabx.php:98 pepro-mapify.php:176
 msgid "Character"
 msgstr "حروف"
 
-#: assets/app/metabx.php:89 pepro-mapify.php:173
+#: assets/app/metabx.php:99 pepro-mapify.php:177
 msgid "Symbols"
 msgstr "سمبل ها"
 
-#: assets/app/metabx.php:90
+#: assets/app/metabx.php:100
 msgctxt "js-translate"
 msgid "Drop on your location"
 msgstr "مکان انتخابی شما"
 
-#: pepro-mapify.php:61
-msgid "Pepro Mapify"
-msgstr "مپیفای از پپرو"
+#. Plugin Name of the plugin/theme
+#: pepro-mapify.php:64
+msgid "Pepro Branches Map"
+msgstr "مپیفای - نمایش شعب روی نقشه از پپرو"
 
-#: pepro-mapify.php:62
+#: pepro-mapify.php:65
 #, php-format
 msgid "%2$s ver. %1$s"
 msgstr "%2$s نسخه %1$s"
 
-#: pepro-mapify.php:119
+#: pepro-mapify.php:122
 msgid "On Social: "
 msgstr "شبکه های اجتماعی: "
 
-#: pepro-mapify.php:133
+#: pepro-mapify.php:136
 msgid "Get Direction: "
 msgstr "مسیریابی: "
 
-#: pepro-mapify.php:134
+#: pepro-mapify.php:137
 msgid "Google Map"
 msgstr "گوگل‌مپ"
 
-#: pepro-mapify.php:135
+#: pepro-mapify.php:138
 msgid "Waze"
 msgstr "وِیز"
 
-#: pepro-mapify.php:145
+#: pepro-mapify.php:148
 msgid "Address: "
 msgstr "آدرس: "
 
-#: pepro-mapify.php:147
+#: pepro-mapify.php:150
 msgid "Phone: "
 msgstr "تلفن: "
 
-#: pepro-mapify.php:148
+#: pepro-mapify.php:151
 msgid "Site: "
 msgstr "سایت: "
 
-#: pepro-mapify.php:149
+#: pepro-mapify.php:152
 msgid "Email: "
 msgstr "ایمیل: "
 
-#: pepro-mapify.php:170
+#: pepro-mapify.php:174
 msgid "Click To Set as your Overwritten Pin image"
 msgstr "برای استفاده به عنوان عکس اجباری نشانگر کلیک کنید"
 
-#: pepro-mapify.php:179 pepro-mapify.php:2684
+#: pepro-mapify.php:183 pepro-mapify.php:2678
 msgid "Google Maps"
 msgstr "گوگل‌مپ"
 
-#: pepro-mapify.php:199
+#: pepro-mapify.php:203
 msgctxt "googl-map-style-name"
 msgid "Default"
 msgstr "پیشفرض"
 
-#: pepro-mapify.php:200
+#: pepro-mapify.php:204
 msgctxt "googl-map-style-name"
 msgid "Custom Style"
 msgstr "شخصی سازی"
 
-#: pepro-mapify.php:201
+#: pepro-mapify.php:205
 msgctxt "googl-map-style-name"
 msgid "Midnight"
 msgstr "نیمه شب"
 
-#: pepro-mapify.php:202
+#: pepro-mapify.php:206
 msgctxt "googl-map-style-name"
 msgid "Desert"
 msgstr "صحرا"
 
-#: pepro-mapify.php:203
+#: pepro-mapify.php:207
 msgctxt "googl-map-style-name"
 msgid "Bright Colors"
 msgstr "رنگ روشن"
 
-#: pepro-mapify.php:204
+#: pepro-mapify.php:208
 msgctxt "googl-map-style-name"
 msgid "Ultra Light"
 msgstr "خیلی روشن"
 
-#: pepro-mapify.php:205
+#: pepro-mapify.php:209
 msgctxt "googl-map-style-name"
 msgid "Assassin's Creed IV"
 msgstr "اساسینز کرید 4"
 
-#: pepro-mapify.php:206
+#: pepro-mapify.php:210
 msgctxt "googl-map-style-name"
 msgid "Grass is greener"
 msgstr "سبز چمنی"
 
-#: pepro-mapify.php:207
+#: pepro-mapify.php:211
 msgctxt "googl-map-style-name"
 msgid "Sin City"
 msgstr "شهر قرمز"
 
-#: pepro-mapify.php:208
+#: pepro-mapify.php:212
 msgctxt "googl-map-style-name"
 msgid "The Propia Effect"
 msgstr "صورتی پروپیا"
 
-#: pepro-mapify.php:209
+#: pepro-mapify.php:213
 msgctxt "googl-map-style-name"
 msgid "Snazzy Maps"
 msgstr "اسنیزی مپ"
 
-#: pepro-mapify.php:210
+#: pepro-mapify.php:214
 msgctxt "googl-map-style-name"
 msgid "Light Green"
 msgstr "سبز روشن"
 
-#: pepro-mapify.php:211
+#: pepro-mapify.php:215
 msgctxt "googl-map-style-name"
 msgid "Flat green"
 msgstr "سبز زمین"
 
-#: pepro-mapify.php:212
+#: pepro-mapify.php:216
 msgctxt "googl-map-style-name"
 msgid "Dark Electric"
 msgstr "الکترو دارک"
 
-#: pepro-mapify.php:213
+#: pepro-mapify.php:217
 msgctxt "googl-map-style-name"
 msgid "Two Tone"
 msgstr "مشکی قرمز"
 
-#: pepro-mapify.php:214
+#: pepro-mapify.php:218
 msgctxt "googl-map-style-name"
 msgid "Modest"
 msgstr "مشکی سرمه ای"
 
-#: pepro-mapify.php:215
+#: pepro-mapify.php:219
 msgctxt "googl-map-style-name"
 msgid "Flat Colors"
 msgstr "رنگ خاک"
 
-#: pepro-mapify.php:216
+#: pepro-mapify.php:220
 msgctxt "googl-map-style-name"
 msgid "Red Alert"
 msgstr "قرمز گرم"
 
-#: pepro-mapify.php:217
+#: pepro-mapify.php:221
 msgctxt "googl-map-style-name"
 msgid "Creamy Red"
 msgstr "قرمز کرم"
 
-#: pepro-mapify.php:218
+#: pepro-mapify.php:222
 msgctxt "googl-map-style-name"
 msgid "Light and dark"
 msgstr "تیره و روشن"
 
-#: pepro-mapify.php:219
+#: pepro-mapify.php:223
 msgctxt "googl-map-style-name"
 msgid "Uber 2017"
 msgstr "اوبر 2017"
 
-#: pepro-mapify.php:220
+#: pepro-mapify.php:224
 msgctxt "googl-map-style-name"
 msgid "Hints of Gold"
 msgstr "نقاط طلایی"
 
-#: pepro-mapify.php:221
+#: pepro-mapify.php:225
 msgctxt "googl-map-style-name"
 msgid "Transport for London"
 msgstr "مترو لندن"
 
-#: pepro-mapify.php:222
+#: pepro-mapify.php:226
 msgctxt "googl-map-style-name"
 msgid "Old Dry Mud"
 msgstr "خاک قدیمی"
 
-#: pepro-mapify.php:223
+#: pepro-mapify.php:227
 msgctxt "googl-map-style-name"
 msgid "Neon World"
 msgstr "دنیای نئون"
 
-#: pepro-mapify.php:224
+#: pepro-mapify.php:228
 msgctxt "googl-map-style-name"
 msgid "Printable Map"
 msgstr "نقشه چاپی"
 
-#: pepro-mapify.php:225
+#: pepro-mapify.php:229
 msgctxt "googl-map-style-name"
 msgid "Captor"
 msgstr "کاپتور"
 
-#: pepro-mapify.php:226
+#: pepro-mapify.php:230
 msgctxt "googl-map-style-name"
 msgid "Zombie Survival Map"
 msgstr "نجات زامبی"
 
-#: pepro-mapify.php:227
+#: pepro-mapify.php:231
 msgctxt "googl-map-style-name"
 msgid "Wyborcza 2018"
 msgstr "ویبروکزا"
 
-#: pepro-mapify.php:228
+#: pepro-mapify.php:232
 msgctxt "googl-map-style-name"
 msgid "Hot Pink"
 msgstr "صورتی گرم"
 
-#: pepro-mapify.php:229
+#: pepro-mapify.php:233
 msgctxt "googl-map-style-name"
 msgid "Dark Yellow"
 msgstr "زرد تیره"
 
-#: pepro-mapify.php:230
+#: pepro-mapify.php:234
 msgctxt "googl-map-style-name"
 msgid "Light Blue Water"
 msgstr "آبی آب"
 
-#: pepro-mapify.php:231
+#: pepro-mapify.php:235
 msgctxt "googl-map-style-name"
 msgid "Chilled"
 msgstr "آبی تند"
 
-#: pepro-mapify.php:232
+#: pepro-mapify.php:236
 msgctxt "googl-map-style-name"
 msgid "Purple"
 msgstr "بنفش"
 
-#: pepro-mapify.php:233
+#: pepro-mapify.php:237
 msgctxt "googl-map-style-name"
 msgid "Night vision"
 msgstr "دید شب"
 
-#: pepro-mapify.php:234
+#: pepro-mapify.php:238
 msgctxt "googl-map-style-name"
 msgid "50 shades of blue"
 msgstr "آبی 50 رنگ"
 
-#: pepro-mapify.php:235
+#: pepro-mapify.php:239
 msgctxt "googl-map-style-name"
 msgid "Carte Vierge"
 msgstr "کارت خالی"
 
-#: pepro-mapify.php:236
+#: pepro-mapify.php:240
 msgctxt "googl-map-style-name"
 msgid "Simplified Map"
 msgstr "نقشه ساده"
 
-#: pepro-mapify.php:237
+#: pepro-mapify.php:241
 msgctxt "googl-map-style-name"
 msgid "Inturlam Style 2"
 msgstr "اینترلام 2"
 
-#: pepro-mapify.php:238
+#: pepro-mapify.php:242
 msgctxt "googl-map-style-name"
 msgid "Esperanto"
 msgstr "اسپرانتو"
 
-#: pepro-mapify.php:239
+#: pepro-mapify.php:243
 msgctxt "googl-map-style-name"
 msgid "Nothing but roads"
 msgstr "فقط جاده"
 
-#: pepro-mapify.php:240
+#: pepro-mapify.php:244
 msgctxt "googl-map-style-name"
 msgid "Veins"
 msgstr "وینز"
 
-#: pepro-mapify.php:241
+#: pepro-mapify.php:245
 msgctxt "googl-map-style-name"
 msgid "Blueprint"
 msgstr "بلوپرینت"
 
-#: pepro-mapify.php:242
+#: pepro-mapify.php:246
 msgctxt "googl-map-style-name"
 msgid "PipBoy Maps"
 msgstr "بیپ بوی"
 
-#: pepro-mapify.php:243
+#: pepro-mapify.php:247
 msgctxt "googl-map-style-name"
 msgid "Tinia"
 msgstr "تینیا"
 
-#: pepro-mapify.php:244
+#: pepro-mapify.php:248
 msgctxt "googl-map-style-name"
 msgid "BehanceHK"
 msgstr "بیهنس"
 
-#: pepro-mapify.php:245
+#: pepro-mapify.php:249
 msgctxt "googl-map-style-name"
 msgid "St. Martin"
 msgstr "سنت مارتین"
 
-#: pepro-mapify.php:246
+#: pepro-mapify.php:250
 msgctxt "googl-map-style-name"
 msgid "AutoMax"
 msgstr "اتو مکس"
 
-#: pepro-mapify.php:247
+#: pepro-mapify.php:251
 msgctxt "googl-map-style-name"
 msgid "Colorblind-friendly"
 msgstr "کالر بلایند"
 
-#: pepro-mapify.php:248
+#: pepro-mapify.php:252
 msgctxt "googl-map-style-name"
 msgid "NightRider"
 msgstr "شب رو"
 
-#: pepro-mapify.php:249
+#: pepro-mapify.php:253
 msgctxt "googl-map-style-name"
 msgid "HCRE"
 msgstr "اچ سی ار ایی"
 
-#: pepro-mapify.php:250
+#: pepro-mapify.php:254
 msgctxt "googl-map-style-name"
 msgid "Celestial Blue"
 msgstr "سلستیال"
 
-#: pepro-mapify.php:251
+#: pepro-mapify.php:255
 msgctxt "googl-map-style-name"
 msgid "Best Ski Pros"
 msgstr "اسکی پروز"
 
-#: pepro-mapify.php:252
+#: pepro-mapify.php:256
 msgctxt "googl-map-style-name"
 msgid "Pokemon Go"
 msgstr "پوکمون گو"
 
-#: pepro-mapify.php:253
+#: pepro-mapify.php:257
 msgctxt "googl-map-style-name"
 msgid "Vintage Brown"
 msgstr "قهوه ای وینتیج"
 
-#: pepro-mapify.php:254
+#: pepro-mapify.php:258
 msgctxt "googl-map-style-name"
 msgid "Apple Maps"
 msgstr "نقشه اپل"
 
-#: pepro-mapify.php:255
+#: pepro-mapify.php:259
 msgctxt "googl-map-style-name"
 msgid "Unsaturated Browns"
 msgstr "آنساترد برانز"
 
-#: pepro-mapify.php:256
+#: pepro-mapify.php:260
 msgctxt "googl-map-style-name"
 msgid "Flat Map"
 msgstr "فلت مپ"
 
-#: pepro-mapify.php:257
+#: pepro-mapify.php:261
 msgctxt "googl-map-style-name"
 msgid "Multi Brand Net."
 msgstr "مالتی برند."
 
-#: pepro-mapify.php:258
+#: pepro-mapify.php:262
 msgctxt "googl-map-style-name"
 msgid "Retro"
 msgstr "رترو"
 
-#: pepro-mapify.php:259
+#: pepro-mapify.php:263
 msgctxt "googl-map-style-name"
 msgid "Muted Blue"
 msgstr "آبی سکون"
 
-#: pepro-mapify.php:260
+#: pepro-mapify.php:264
 msgctxt "googl-map-style-name"
 msgid "Neutral Blue"
 msgstr "آبی نئوترال"
 
-#: pepro-mapify.php:261
+#: pepro-mapify.php:265
 msgctxt "googl-map-style-name"
 msgid "Black & white"
 msgstr "سیاه سفید"
 
-#: pepro-mapify.php:262
+#: pepro-mapify.php:266
 msgctxt "googl-map-style-name"
 msgid "Icy Blue"
 msgstr "آبی یخی"
 
-#: pepro-mapify.php:263
+#: pepro-mapify.php:267
 msgctxt "googl-map-style-name"
 msgid "Hopper"
 msgstr "هاپر"
 
-#: pepro-mapify.php:264
+#: pepro-mapify.php:268
 msgctxt "googl-map-style-name"
 msgid "Cobalt"
 msgstr "کبالت"
 
-#: pepro-mapify.php:265
+#: pepro-mapify.php:269
 msgctxt "googl-map-style-name"
 msgid "Night Vision"
 msgstr "دید در شب"
 
-#: pepro-mapify.php:266
+#: pepro-mapify.php:270
 msgctxt "googl-map-style-name"
 msgid "Red Hues"
 msgstr "قرمز تند"
 
-#: pepro-mapify.php:267
+#: pepro-mapify.php:271
 msgctxt "googl-map-style-name"
 msgid "Roads only"
 msgstr "فقط جاده"
 
-#: pepro-mapify.php:268
+#: pepro-mapify.php:272
 msgctxt "googl-map-style-name"
 msgid "Flat Map with Labels"
 msgstr "نقشه صاف و عناوین"
 
-#: pepro-mapify.php:269
+#: pepro-mapify.php:273
 msgctxt "googl-map-style-name"
 msgid "Mondrian"
 msgstr "ماندرین"
 
-#: pepro-mapify.php:270
+#: pepro-mapify.php:274
 msgctxt "googl-map-style-name"
 msgid "Bright & Bubbly"
 msgstr "بابلی و برایت"
 
-#: pepro-mapify.php:271
+#: pepro-mapify.php:275
 msgctxt "googl-map-style-name"
 msgid "Shades of Grey"
 msgstr "رنگ های خاکستری"
 
-#: pepro-mapify.php:434 pepro-mapify.php:1076 pepro-mapify.php:1109
-msgid "Mapify"
-msgstr "مپیفای"
+#: pepro-mapify.php:358
+msgid "Branches Map"
+msgstr "لیست شعب"
 
-#: pepro-mapify.php:435
+#: pepro-mapify.php:359
 msgid "Pepro Elements"
 msgstr "ویجت های پپرو"
 
-#: pepro-mapify.php:436
+#: pepro-mapify.php:360
 msgid "List your branches on a beautiful svg map."
 msgstr "یک نقشه زیبا با امکان نمایش شعب دلخواه شما روی آن."
 
-#: pepro-mapify.php:444 pepro-mapify.php:459 pepro-mapify.php:472
+#: pepro-mapify.php:368 pepro-mapify.php:383 pepro-mapify.php:396
 msgctxt "vc-tab"
 msgid "General"
 msgstr "عمومی"
 
-#: pepro-mapify.php:445
+#: pepro-mapify.php:369
 msgid "Select Branches"
 msgstr "انتخاب شعب"
 
-#: pepro-mapify.php:446
+#: pepro-mapify.php:370
 msgid "Select Branches to show on the map"
 msgstr "انتخاب شعب برای نمایش روی نقشه"
 
-#: pepro-mapify.php:454
+#: pepro-mapify.php:378
 msgid "Select Branches by ID"
 msgstr "انتخاب دستی"
 
-#: pepro-mapify.php:455
+#: pepro-mapify.php:379
 msgid "Select Branches by Category"
 msgstr "انتخاب دسته بندی"
 
-#: pepro-mapify.php:460
+#: pepro-mapify.php:384
 msgid "Handpick Branches ID"
 msgstr "دستچین کردن شعب"
 
-#: pepro-mapify.php:465 pepro-mapify.php:478
+#: pepro-mapify.php:389 pepro-mapify.php:402
 msgid "Select Categories"
 msgstr "انتخاب از روی دسته بندی"
 
-#: pepro-mapify.php:467
+#: pepro-mapify.php:391
 msgid "Handpick branches to show on map"
 msgstr "دستچین کردن شعب بصورت دستی برای نمایش روی نقشه"
 
-#: pepro-mapify.php:473
+#: pepro-mapify.php:397
 msgid "Select Branches Category"
 msgstr "انتخاب روی دسته بندی شعب"
 
-#: pepro-mapify.php:480
+#: pepro-mapify.php:404
 msgid "Select branch categories to show on map"
 msgstr "انتخاب شعب از روی دسته بندی برای نمایش روی نقشه"
 
-#: pepro-mapify.php:485 pepro-mapify.php:638 pepro-mapify.php:650
-#: pepro-mapify.php:662 pepro-mapify.php:673 pepro-mapify.php:733
-#: pepro-mapify.php:745 pepro-mapify.php:756 pepro-mapify.php:767
-#: pepro-mapify.php:783 pepro-mapify.php:793
+#: pepro-mapify.php:409 pepro-mapify.php:562 pepro-mapify.php:574
+#: pepro-mapify.php:586 pepro-mapify.php:597 pepro-mapify.php:657
+#: pepro-mapify.php:669 pepro-mapify.php:680 pepro-mapify.php:691
+#: pepro-mapify.php:707 pepro-mapify.php:717
 msgctxt "vc-tab"
 msgid "Design"
 msgstr "طراحی"
 
-#: pepro-mapify.php:486
+#: pepro-mapify.php:410
 msgid "Map Engine"
 msgstr "موتور نقشه"
 
-#: pepro-mapify.php:492
+#: pepro-mapify.php:416
 msgid "Select your desired map type"
 msgstr "نوع نقشه مورد نظر را انتخاب کنید"
 
-#: pepro-mapify.php:497 pepro-mapify.php:505 pepro-mapify.php:514
-#: pepro-mapify.php:528
+#: pepro-mapify.php:421 pepro-mapify.php:429 pepro-mapify.php:438
+#: pepro-mapify.php:452
 msgctxt "vc-tab"
 msgid "Branches List"
 msgstr "لیست شعب"
 
-#: pepro-mapify.php:498
+#: pepro-mapify.php:422
 msgid "Show Branches List?"
 msgstr "نمایش لیست شعب؟"
 
-#: pepro-mapify.php:506
+#: pepro-mapify.php:430
 msgid "Show Branches Search?"
 msgstr "نمایش جستجوی شعب؟"
 
-#: pepro-mapify.php:515
+#: pepro-mapify.php:439
 msgid "Branches List placement"
 msgstr "مکان لیست شعب"
 
-#: pepro-mapify.php:522
+#: pepro-mapify.php:446
 msgid "Show at Top of Map"
 msgstr "نمایش بالای نقشه"
 
-#: pepro-mapify.php:523
+#: pepro-mapify.php:447
 msgid "Show at Bottom of Map"
 msgstr "نمایش زیر نقشه"
 
-#: pepro-mapify.php:529
+#: pepro-mapify.php:453
 msgid "Categorize Branches In List"
 msgstr "دسته بندی کردن شعب"
 
-#: pepro-mapify.php:536
+#: pepro-mapify.php:460
 msgid "Do not categorize branches in list"
 msgstr "بدون دسته بندی"
 
-#: pepro-mapify.php:537
+#: pepro-mapify.php:461
 msgid "Categorize based on Branches Categories"
 msgstr "بر اساس دسته بندی شعب"
 
-#: pepro-mapify.php:544 pepro-mapify.php:554 pepro-mapify.php:565
+#: pepro-mapify.php:468 pepro-mapify.php:478 pepro-mapify.php:489
 msgctxt "vc-tab"
 msgid "Marker Clusters"
 msgstr "مارکر کلاستر"
 
-#: pepro-mapify.php:545
+#: pepro-mapify.php:469
 msgid "Cluster Branches Marker Pins on Map?"
 msgstr "کلاستر کردن پین های روی نقشه؟"
 
-#: pepro-mapify.php:546
+#: pepro-mapify.php:470
 msgid "Create per-zoom-level clusters for large amounts of markers"
 msgstr "نمایش چندین پین بصورت یک دسته قابل بزرگنمایی"
 
-#: pepro-mapify.php:555
+#: pepro-mapify.php:479
 msgid "Clusters Grid Size"
 msgstr "اندازه گرید کلاستر"
 
-#: pepro-mapify.php:561
+#: pepro-mapify.php:485
 msgid "The grid size of a cluster in pixels"
 msgstr "اندازه گرید کلاستر به پیکسل"
 
-#: pepro-mapify.php:566
+#: pepro-mapify.php:490
 msgid "Clusters Minimum Size"
 msgstr "حداقل اندازه کلاستر"
 
-#: pepro-mapify.php:571
+#: pepro-mapify.php:495
 msgid "The maximum number of markers can be part of a cluster"
 msgstr "حداکثر پین هایی که در یک کلاستر جای میگیرند"
 
-#: pepro-mapify.php:576 pepro-mapify.php:587 pepro-mapify.php:595
-#: pepro-mapify.php:610 pepro-mapify.php:625
+#: pepro-mapify.php:500 pepro-mapify.php:511 pepro-mapify.php:519
+#: pepro-mapify.php:534 pepro-mapify.php:549
 msgctxt "vc-tab"
 msgid "Marker Pin"
 msgstr "مارکر پین"
 
-#: pepro-mapify.php:577
+#: pepro-mapify.php:501
 msgid "Overwrite Marker Pin Images"
 msgstr "تغییر اجباری عکس پین"
 
-#: pepro-mapify.php:580
+#: pepro-mapify.php:504
 msgid ""
 "Enter URL or use form below to generate your Pin image. This image will be "
 "overwritten to all branches marker"
 msgstr "آدرس عکس را وارد کنید یا از فرم زیر برای ساخت عکس پین استفاده کنید"
 
-#: pepro-mapify.php:588
+#: pepro-mapify.php:512
 msgid "Marker Pin Image Generator"
 msgstr "ساخت عکس پین مارکر"
 
-#: pepro-mapify.php:596
+#: pepro-mapify.php:520
 msgid "Marker Pin Click Action"
 msgstr "اکشن کلیک پین مارکر"
 
-#: pepro-mapify.php:604
+#: pepro-mapify.php:528
 msgid "Open URL"
 msgstr "باز کردن لینک شعبه"
 
-#: pepro-mapify.php:605
+#: pepro-mapify.php:529
 msgid "Open Popup"
 msgstr "باز کردن پاپ آپ"
 
-#: pepro-mapify.php:606
+#: pepro-mapify.php:530
 msgid "Do Nothing"
 msgstr "هیچ چیز"
 
-#: pepro-mapify.php:611
+#: pepro-mapify.php:535
 msgid "URL Target"
 msgstr "مکان باز شدن لینک"
 
-#: pepro-mapify.php:619
+#: pepro-mapify.php:543
 msgid "Same window"
 msgstr "در صفحه فعلی"
 
-#: pepro-mapify.php:620
+#: pepro-mapify.php:544
 msgid "New window"
 msgstr "در صفحه جدید"
 
-#: pepro-mapify.php:626
+#: pepro-mapify.php:550
 msgid "Marker Pin Popup Template (HTML)"
 msgstr "قالب (HTML) پاپ آپ"
 
-#: pepro-mapify.php:634
+#: pepro-mapify.php:558
 msgid "Load Default Template"
 msgstr "بارگیری قالب پیشفرض"
 
-#: pepro-mapify.php:639
+#: pepro-mapify.php:563
 msgid "Default Center Coordinate"
 msgstr "مختصات پیشفرض مرکزی"
 
-#: pepro-mapify.php:647
+#: pepro-mapify.php:571
 msgid "Enter Default Center Coordinate in <i>latitude,longitude</i> format"
 msgstr "مختصات پیشفرض را به صورت <i>latitude,longitude</i> وارد کنید"
 
-#: pepro-mapify.php:651
+#: pepro-mapify.php:575
 msgid "Default Zoom Level"
 msgstr "اندازه بزرگنمایی پیشفرض"
 
-#: pepro-mapify.php:663
+#: pepro-mapify.php:587
 msgid "Default Loading Image"
 msgstr "عکس پیشفرض بارگیری"
 
-#: pepro-mapify.php:674
+#: pepro-mapify.php:598
 msgid "Default Loading Color"
 msgstr "رنگ پیشفرض بارگیری (میتواند گرادینت باشد)"
 
-#: pepro-mapify.php:685 pepro-mapify.php:697 pepro-mapify.php:709
-#: pepro-mapify.php:721 pepro-mapify.php:804 pepro-mapify.php:811
+#: pepro-mapify.php:609 pepro-mapify.php:621 pepro-mapify.php:633
+#: pepro-mapify.php:645 pepro-mapify.php:728
 msgctxt "vc-tab"
 msgid "CSS"
 msgstr "طراحی"
 
-#: pepro-mapify.php:686
+#: pepro-mapify.php:610
 msgid "Map Container's HTML ID"
 msgstr "ای دی HTML نقشه"
 
-#: pepro-mapify.php:698
+#: pepro-mapify.php:622
 msgid "Map Container's HTML Class"
 msgstr "کلاس HTML نقشه"
 
-#: pepro-mapify.php:710
+#: pepro-mapify.php:634
 msgid "Map Container's Width"
 msgstr "عرض نقشه"
 
-#: pepro-mapify.php:722
+#: pepro-mapify.php:646
 msgid "Map Container's Height"
 msgstr "ارتفاع نقشه"
 
-#: pepro-mapify.php:734
+#: pepro-mapify.php:658
 msgid "G-Map Custom Logo"
 msgstr "لوگوی شخصی سازی شده گوگل مپ"
 
-#: pepro-mapify.php:739
+#: pepro-mapify.php:663
 msgid "Change G-Map default trademark logo at footer"
 msgstr "تغییر لوگوی سمت چپ پایین نقشه"
 
-#: pepro-mapify.php:746
+#: pepro-mapify.php:670
 msgid "Development Mode"
 msgstr "حالت توسعه دهندگان"
 
-#: pepro-mapify.php:752
+#: pepro-mapify.php:676
 msgid ""
 "In development mode, API is skipped but \"FOR DEVELOPMENT PURPOSES ONLY\" "
 "watermark is added to map, And also styles will not work properly."
@@ -788,368 +789,368 @@ msgstr ""
 "در حالت توسعه دهندگان، نقشه بدون API کار میکند و برخی از قابلیات مانند طرح "
 "بندی نقشه قابل استفاده نیستند."
 
-#: pepro-mapify.php:757
+#: pepro-mapify.php:681
 msgid "Disable UI"
 msgstr "مخفی سازی دکمه های نقشه"
 
-#: pepro-mapify.php:763
+#: pepro-mapify.php:687
 msgid ""
 "No UI will be shown on Map, No Zoom Buttons, No Fullscreen Button and ..."
 msgstr ""
 "هیچ دکمه ای اعم از تمام صفحه، بزرگنمایی و کوچکنمایی نمایش داده نیمشوند ..."
 
-#: pepro-mapify.php:768
+#: pepro-mapify.php:692
 msgid "Select Style"
 msgstr "انتخاب طرح بندی نقشه"
 
-#: pepro-mapify.php:784
+#: pepro-mapify.php:708
 msgid "Style Preview"
 msgstr "پیشنمایش طرح بندی نقشه"
 
-#: pepro-mapify.php:794
+#: pepro-mapify.php:718
 msgid "Google Maps Custom Style"
 msgstr "طرح بندی شخصی سازی شده"
 
-#: pepro-mapify.php:800
+#: pepro-mapify.php:724
 #, php-format
 msgid "Browse %s for beautiful pre-made styles."
 msgstr "در سایت %s میتوانید طرح بندی های بیشتری را مشاهده کنید."
 
-#: pepro-mapify.php:812
-msgid "Custom CSS Code"
-msgstr "کد سی اس اس شخصی سازی شده"
-
-#: pepro-mapify.php:822
+#: pepro-mapify.php:735
 msgctxt "vc-tab"
 msgid "Import / Export"
 msgstr "برون بری / درون ریزی ویجت"
 
-#: pepro-mapify.php:843
+#: pepro-mapify.php:756
 msgid "Import Done Successfully"
 msgstr "تنظیمات با موفقیت بارگیری شدند"
 
-#: pepro-mapify.php:859
+#: pepro-mapify.php:772
 msgid "Press 'Export Shortcode Configurations' to generate data"
 msgstr "برای ساخت داده به روی \"برون بری داده (کپی به کلیپبرد)\" کلیک کنید"
 
-#: pepro-mapify.php:863 pepro-mapify.php:864
+#: pepro-mapify.php:776 pepro-mapify.php:777
 msgid "Export Shortcode Configurations"
 msgstr "برون بری تنظیمات ویجت"
 
-#: pepro-mapify.php:864
+#: pepro-mapify.php:777
 msgid "Successfully copied to clipboard !"
 msgstr "با موفقیت به کلیپبرد کپی شد!"
 
-#: pepro-mapify.php:867
+#: pepro-mapify.php:780
 msgid "Empty data! Paste your data in field above."
 msgstr "داده خالی است! لطفا داده درون ریزی را در فیلد بالا وارد کنید."
 
-#: pepro-mapify.php:867
+#: pepro-mapify.php:780
 msgid "Import Shortcode Configurations"
 msgstr "درون ریزی تنظیمات ویجت"
 
-#: pepro-mapify.php:1012 pepro-mapify.php:1013
+#: pepro-mapify.php:927 pepro-mapify.php:928
 msgid "Support"
 msgstr "پشتیبانی این محصول"
 
-#: pepro-mapify.php:1025
+#: pepro-mapify.php:940
 msgid "Settings"
 msgstr "تنظیمات"
 
-#: pepro-mapify.php:1074
+#: pepro-mapify.php:989
 msgctxt "Post Type General Name"
 msgid "Branch"
 msgstr "شعبه"
 
-#: pepro-mapify.php:1075
+#: pepro-mapify.php:990
 msgctxt "Post Type Singular Name"
 msgid "Branch"
 msgstr "شعبه"
 
-#: pepro-mapify.php:1077
+#: pepro-mapify.php:991 pepro-mapify.php:1024
+msgid "Branches"
+msgstr "شعب"
+
+#: pepro-mapify.php:992
 msgid "Branch"
 msgstr "شعبه"
 
-#: pepro-mapify.php:1078
+#: pepro-mapify.php:993
 msgid "Branch Archives"
 msgstr "آرشیو شعب"
 
-#: pepro-mapify.php:1079
+#: pepro-mapify.php:994
 msgid "Branch Attributes"
 msgstr "خصوصیات شعبه"
 
-#: pepro-mapify.php:1080
+#: pepro-mapify.php:995
 msgid "Parent Branch:"
 msgstr "شعبه مادر:"
 
-#: pepro-mapify.php:1081
+#: pepro-mapify.php:996
 msgid "All Branches"
 msgstr "همه شعب"
 
-#: pepro-mapify.php:1082
+#: pepro-mapify.php:997
 msgid "Add New Branch"
 msgstr "افزودن شعبه جدید"
 
-#: pepro-mapify.php:1083
+#: pepro-mapify.php:998
 msgid "Add New"
 msgstr "افزودن جدید"
 
-#: pepro-mapify.php:1084
+#: pepro-mapify.php:999
 msgid "New Branch"
 msgstr "شعبه جدید"
 
-#: pepro-mapify.php:1085
+#: pepro-mapify.php:1000
 msgid "Edit Branch"
 msgstr "ویرایش شعبه"
 
-#: pepro-mapify.php:1086
+#: pepro-mapify.php:1001
 msgid "Update Branch"
 msgstr "بروز رسانی شعبه"
 
-#: pepro-mapify.php:1087
+#: pepro-mapify.php:1002
 msgid "View Branch"
 msgstr "مشاهده شعبه"
 
-#: pepro-mapify.php:1088
+#: pepro-mapify.php:1003
 msgid "View Branches"
 msgstr "مشاهده شعب"
 
-#: pepro-mapify.php:1089
+#: pepro-mapify.php:1004
 msgid "Search Branches"
 msgstr "جستجوی شعب"
 
-#: pepro-mapify.php:1090
+#: pepro-mapify.php:1005
 msgid "Not Branch found"
 msgstr "شعبه ای یافت نشد"
 
-#: pepro-mapify.php:1091
+#: pepro-mapify.php:1006
 msgid "Not Branch found in Trash"
 msgstr "شعبه ای در سطل زباله یافت نشد"
 
-#: pepro-mapify.php:1092
+#: pepro-mapify.php:1007
 msgid "Branch Image"
 msgstr "عکس شاخص شعبه"
 
-#: pepro-mapify.php:1093
+#: pepro-mapify.php:1008
 msgid "Set branch image"
 msgstr "عکس شاخص شعبه را انتخاب کنید"
 
-#: pepro-mapify.php:1094
+#: pepro-mapify.php:1009
 msgid "Remove branch image"
 msgstr "حذف عکس شاخص شعبه"
 
-#: pepro-mapify.php:1095
+#: pepro-mapify.php:1010
 msgid "Use as branch image"
 msgstr "استفاده به عنوان عکس شاخص شعبه"
 
-#: pepro-mapify.php:1096
+#: pepro-mapify.php:1011
 msgid "Insert into Branch"
 msgstr "افزودن به شعبه"
 
-#: pepro-mapify.php:1097
+#: pepro-mapify.php:1012
 msgid "Uploaded to this Branch"
 msgstr "آپلود شده در این شعبه"
 
-#: pepro-mapify.php:1098
+#: pepro-mapify.php:1013
 msgid "Branches list"
 msgstr "لیست شعب"
 
-#: pepro-mapify.php:1099
+#: pepro-mapify.php:1014
 msgid "Branches list navigation"
 msgstr "ناوبری لیست شعب"
 
-#: pepro-mapify.php:1100
+#: pepro-mapify.php:1015
 msgid "Filter Branches list"
 msgstr "فیلتر لیست شعب"
 
-#: pepro-mapify.php:1110
+#: pepro-mapify.php:1025
 msgid "Add branches to show on map"
 msgstr "افزودن شعبه برای نمایش در روی نقشه"
 
-#: pepro-mapify.php:1130
+#: pepro-mapify.php:1045
 msgctxt "taxonomy general name"
 msgid "Category"
 msgstr "دسته بندی"
 
-#: pepro-mapify.php:1131
+#: pepro-mapify.php:1046
 msgctxt "taxonomy singular name"
 msgid "Category"
 msgstr "دسته بندی"
 
-#: pepro-mapify.php:1132
+#: pepro-mapify.php:1047
 msgid "Search Categories"
 msgstr "جستجوی دسته بندی ها"
 
-#: pepro-mapify.php:1133
+#: pepro-mapify.php:1048
 msgid "All Categories"
 msgstr "همه دسته بندی ها"
 
-#: pepro-mapify.php:1134
+#: pepro-mapify.php:1049
 msgid "Parent Category"
 msgstr "دسته بندی مادر"
 
-#: pepro-mapify.php:1135
+#: pepro-mapify.php:1050
 msgid "Parent Category:"
 msgstr "دسته بندی مادر:"
 
-#: pepro-mapify.php:1136
+#: pepro-mapify.php:1051
 msgid "Edit Category"
 msgstr "ویرایش دسته بندی"
 
-#: pepro-mapify.php:1137
+#: pepro-mapify.php:1052
 msgid "Update Category"
 msgstr "بروز رسانی دسته بندی"
 
-#: pepro-mapify.php:1138
+#: pepro-mapify.php:1053
 msgid "Add New Category"
 msgstr "افزودن دسته بندی جدید"
 
-#: pepro-mapify.php:1139
+#: pepro-mapify.php:1054
 msgid "New Category Name"
 msgstr "نام دسته بندی جدید"
 
-#: pepro-mapify.php:1140
+#: pepro-mapify.php:1055
 msgid "Categories"
 msgstr "دسته بندی ها"
 
-#: pepro-mapify.php:1165
+#: pepro-mapify.php:1080
 msgid "View branch"
 msgstr "مشاهده شعبه"
 
-#: pepro-mapify.php:1166
+#: pepro-mapify.php:1081
 msgid "Preview branch"
 msgstr "پیش نمایش شعبه"
 
 #. translators: Publish box date string. 1: Date, 2: Time.
-#: pepro-mapify.php:1169
+#: pepro-mapify.php:1084
 #, php-format
 msgid "%1$s at %2$s"
 msgstr "%2$s در %1$s"
 
 #. translators: Publish box date format, see https://www.php.net/date
-#: pepro-mapify.php:1171
+#: pepro-mapify.php:1086
 msgctxt "publish box date format"
 msgid "M j, Y"
 msgstr "M j, Y"
 
 #. translators: Publish box time format, see https://www.php.net/date
-#: pepro-mapify.php:1173
+#: pepro-mapify.php:1088
 msgctxt "publish box time format"
 msgid "H:i"
 msgstr "H:i"
 
-#: pepro-mapify.php:1175
+#: pepro-mapify.php:1090
 msgid "Preview post"
 msgstr "پیش نمایش شعبه"
 
-#: pepro-mapify.php:1179 pepro-mapify.php:1182
+#: pepro-mapify.php:1094 pepro-mapify.php:1097
 msgid "Branch updated."
 msgstr "شعبه بروز رسانی شد."
 
-#: pepro-mapify.php:1180
+#: pepro-mapify.php:1095
 msgid "Branch Custom field updated."
 msgstr "فیلد سفارشی شعبه بروز رسانی شد."
 
-#: pepro-mapify.php:1181
+#: pepro-mapify.php:1096
 msgid "Branch Custom field deleted."
 msgstr "فیلد سفارشی شعبه حذف شد."
 
 #. translators: %s: date and time of the revision
-#: pepro-mapify.php:1184
+#: pepro-mapify.php:1099
 #, php-format
 msgid "Branch restored to revision from %s."
 msgstr "شعبه بازگردانی شد از نسخه %s."
 
-#: pepro-mapify.php:1185
+#: pepro-mapify.php:1100
 msgid "Branch published."
 msgstr "شعبه منتشر شد."
 
-#: pepro-mapify.php:1186
+#: pepro-mapify.php:1101
 msgid "Branch saved."
 msgstr "شعبه ذخیره شد."
 
-#: pepro-mapify.php:1187
+#: pepro-mapify.php:1102
 msgid "Branch submitted."
 msgstr "شعبه ثبت شد."
 
-#: pepro-mapify.php:1188
+#: pepro-mapify.php:1103
 #, php-format
 msgid "Branch scheduled for: %s."
 msgstr "شعبه زمانبندی شد برای : %s."
 
-#: pepro-mapify.php:1189
+#: pepro-mapify.php:1104
 msgid "Branch draft updated."
 msgstr "پیشنویس شعبه بروز رسانی شد."
 
-#: pepro-mapify.php:1206
+#: pepro-mapify.php:1121
 #, php-format
 msgctxt "footer-copyright"
 msgid "Thanks for using %s products"
 msgstr "بابت استفاده از محصولات %s سپاسگزاریم"
 
-#: pepro-mapify.php:1206
+#: pepro-mapify.php:1121
 msgid "Pepro Dev"
 msgstr "تیم برنامه ‏نویسی پپرو"
 
-#: pepro-mapify.php:1211
+#: pepro-mapify.php:1126
 #, php-format
 msgctxt "footer-copyright"
 msgid "%s — Version %s"
 msgstr "%s — نسخه %s"
 
-#: pepro-mapify.php:1253
+#: pepro-mapify.php:1168
 msgctxt "setting-general"
 msgid "Settings saved successfully."
 msgstr "تنظیمات با موفقیت ذخیره شدند."
 
-#: pepro-mapify.php:1255
+#: pepro-mapify.php:1170
 msgid "Use WPBakery Page Builder widget to show the map."
 msgstr "برای نمایش نقشه از ویجت تعبیه شده در ویژوال کامپوزر استفاده کنید."
 
-#: pepro-mapify.php:1257
+#: pepro-mapify.php:1172
 msgctxt "setting-general"
 msgid "Google Maps API"
 msgstr "API گوگل‌مپ"
 
-#: pepro-mapify.php:1259
+#: pepro-mapify.php:1174
 msgctxt "setting-general"
 msgid "Default Branches Template"
 msgstr "قالب پیشفرض صفحات داخلی شعب"
 
-#: pepro-mapify.php:1259
+#: pepro-mapify.php:1174
 msgctxt "settings-general"
 msgid "Use Post Template"
 msgstr "استفاده از محتوا"
 
-#: pepro-mapify.php:1259
+#: pepro-mapify.php:1174
 msgctxt "settings-general"
-msgid "Use Mapify Template"
-msgstr "استفاده از تمپلت مپیفای"
+msgid "Use Default Branches Template"
+msgstr "قالب پیشفرض صفحات داخلی شعب"
 
-#: pepro-mapify.php:1260
+#: pepro-mapify.php:1175
 msgctxt "setting-general"
 msgid "Clear Configurations on Unistall"
 msgstr "پاکسازی تنظیمات هنگام حذف افزونه"
 
-#: pepro-mapify.php:1260
+#: pepro-mapify.php:1175
 msgctxt "settings-general"
 msgid "Yes"
 msgstr "بله"
 
-#: pepro-mapify.php:1260
+#: pepro-mapify.php:1175
 msgctxt "settings-general"
 msgid "No"
 msgstr "خیر"
 
-#: pepro-mapify.php:1267
+#: pepro-mapify.php:1182
 msgid "Save setting"
 msgstr "ذخیره تنظیمات"
 
-#: pepro-mapify.php:1280
+#: pepro-mapify.php:1195
 msgid "No Title"
 msgstr "بدون عنوان"
 
-#: pepro-mapify.php:1321
+#: pepro-mapify.php:1236
 msgid ""
 "To make your own template, you can use following tags with the syntax of "
 "{parameter|default_value}."
@@ -1157,44 +1158,40 @@ msgstr ""
 "برای ساخت قالب دلخواه خود از تگ های زیر با فرمت {پارامتر|مقدار پیشفرض} "
 "استفاده کنید."
 
-#: pepro-mapify.php:2721
+#: pepro-mapify.php:2715
 msgid "No data found!"
 msgstr "داده ای یافت نشد!"
 
-#: pepro-mapify.php:2838
+#: pepro-mapify.php:2832
 msgctxt "mapify-js"
 msgid "Search here ...."
 msgstr "جستجو ..."
 
-#: pepro-mapify.php:2839
+#: pepro-mapify.php:2833
 msgctxt "mapify-js"
 msgid "No result found."
 msgstr "نتیجه ای یافت نشد."
 
-#: pepro-mapify.php:2840
+#: pepro-mapify.php:2834
 msgctxt "mapify-js"
 msgid "Uncategorized"
 msgstr "دسته‌بندی نشده"
 
-#: pepro-mapify.php:2859
+#: pepro-mapify.php:2853
 msgid "Mapify Settings"
 msgstr "تنظیمات مپیفای"
 
-#: pepro-mapify.php:2912
+#: pepro-mapify.php:2906
 #, php-format
 msgctxt "setting-page"
 msgid "Enter %s"
 msgstr "%s را وارد کنید"
 
-#: pepro-mapify.php:2922
+#: pepro-mapify.php:2916
 #, php-format
 msgctxt "setting-page"
 msgid "Choose %s"
 msgstr "%s را انتخاب کنید"
-
-#. Plugin Name of the plugin/theme
-msgid "Pepro Branches Map (Mapify)"
-msgstr "مپیفای - نمایش شعب روی نقشه از پپرو"
 
 #. Plugin URI of the plugin/theme
 msgid "https://pepro.dev/mapify"
@@ -1216,3 +1213,19 @@ msgstr "تیم برنامه ‏نویسی پپرو"
 #. Author URI of the plugin/theme
 msgid "https://pepro.dev/"
 msgstr "https://pepro.dev/"
+
+#~ msgid "Use Mapify Template"
+#~ msgstr "استفاده از تمپلت مپیفای"
+
+#~ msgid "Pepro Mapify"
+#~ msgstr "مپیفای از پپرو"
+
+#~ msgid "Mapify"
+#~ msgstr "مپیفای"
+
+#~ msgid "Custom CSS Code"
+#~ msgstr "کد سی اس اس شخصی سازی شده"
+
+#~ msgctxt "settings-general"
+#~ msgid "Use Mapify Template"
+#~ msgstr "استفاده از تمپلت مپیفای"

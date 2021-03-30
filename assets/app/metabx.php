@@ -1,4 +1,13 @@
 <?php
+# @Author: Amirhosseinhpv
+# @Date:   2020/08/13 20:47:02
+# @Email:  its@hpv.im
+# @Last modified by:   Amirhosseinhpv
+# @Last modified time: 2021/03/27 17:10:25
+# @License: GPLv2
+# @Copyright: Copyright © 2020 Amirhosseinhpv, All rights reserved.
+
+
 class PeproMapifyBranchesCPT_metabox {
   private $screens = array('mapify',);
   private $td;
@@ -40,7 +49,7 @@ class PeproMapifyBranchesCPT_metabox {
   public function get_fileds(){
     $fields = apply_filters( "mapify-cpt-metakeys", array(
       array('id' => 'pinimg',     'label' => __("Custom Pin Image", "mapify") ,'type' => 'text',),
-      array('id' => 'content_template', 'label' => __("Post Content Template", "mapify") ,'type'  => 'select', 'value' => array( "default" =>  __("Inherit from Setting",$this->td), "post"    =>  __("Use Post Template",$this->td), "content" =>  __("Use Mapify Template",$this->td), )),
+      array('id' => 'content_template', 'label' => __("Post Content Template", "mapify") ,'type'  => 'select', 'value' => array( "default" =>  __("Inherit from Setting",$this->td), "post"    =>  __("Use Post Template",$this->td), "content" =>  __("Use Default Branches Template",$this->td), )),
       array('id' => 'address',    'label' => __("Address", "mapify")  ,'type'   => 'textarea',),
       array('id' => 'phone',      'label' => __("Phone", "mapify")    ,'type'   => 'text',),
       array('id' => 'site',       'label' => __("Site", "mapify")     ,'type'   => 'url',),

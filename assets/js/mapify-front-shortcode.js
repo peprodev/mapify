@@ -1,3 +1,14 @@
+/**
+ * @Author: Amirhosseinhpv
+ * @Date:   2020/08/13 20:47:03
+ * @Email:  its@hpv.im
+ * @Last modified by:   Amirhosseinhpv
+ * @Last modified time: 2021/03/27 17:11:54
+ * @License: GPLv2
+ * @Copyright: Copyright © 2020 Amirhosseinhpv, All rights reserved.
+ */
+
+
 /*
 get data from snizy!
 https://snazzymaps.com/
@@ -60,7 +71,7 @@ alert($("#style-json").text().replace(/(\r\n|\n|\r)/gm, "").replace('\t','').rep
               gstyles[mM] = eval(MSETTINGS.googlemap_style);
             } catch (e) {
               if (e instanceof SyntaxError) {
-                setTimeout(console.error.bind(console, `%cPepro Mapify :: GoogleMap Style Parsing Error, Style skipped!%c\r\nError: ${e.message}, `, "font-size: 15px;", ""));
+                setTimeout(console.error.bind(console, `%cPepro Branches Map :: GoogleMap Style Parsing Error, Style skipped!%c\r\nError: ${e.message}, `, "font-size: 15px;", ""));
               }
             }
           }

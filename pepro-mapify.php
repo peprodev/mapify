@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: Pepro Branches Map (Mapify)
+Plugin Name: Pepro Branches Map
 Description: List your branches on a beautiful map with clickable hotspots, supporting 70+ Google Maps custom styles, and integrates into WPBakery Page Builder
 Contributors: amirhosseinhpv,peprodev
 Tags: functionality, map, googlemaps, svg map, show branches on map, pin on map, popup, branch
@@ -9,10 +9,10 @@ Developer: Amirhosseinhpv
 Author URI: https://pepro.dev/
 Developer URI: https://hpv.im/
 Plugin URI: https://pepro.dev/mapify
-Version: 1.3.5
-Stable tag: 1.3.5
+Version: 1.3.6
+Stable tag: 1.3.6
 Requires at least: 5.0
-Tested up to: 5.5
+Tested up to: 5.7
 Requires PHP: 5.6
 Text Domain: mapify
 Domain Path: /languages
@@ -20,9 +20,12 @@ Copyright: (c) 2020 Pepro Dev. Group, All rights reserved.
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 */
-defined("ABSPATH") or	die("Pepro Branches Map (Mapify) :: Unauthorized Access!");
-if (!class_exists("PeproBranchesMap_AKA_Mapify")){
-  class PeproBranchesMap_AKA_Mapify
+# @Last modified by:   Amirhosseinhpv
+# @Last modified time: 2021/03/27 17:09:32
+
+defined("ABSPATH") or	die("Pepro Branches Map :: Unauthorized Access!");
+if (!class_exists("PeproBranchesMap")){
+  class PeproBranchesMap
   {
     private static $_instance = null;
     private $td;
@@ -48,7 +51,7 @@ if (!class_exists("PeproBranchesMap_AKA_Mapify")){
       $this->assets_url = plugins_url("/assets/", __FILE__);
       $this->plugin_basename = plugin_basename(__FILE__);
       $this->plugin_file = __FILE__;
-      $this->version = "1.3.5";
+      $this->version = "1.3.6";
       $this->db_slug = $this->td;
       $this->db_table = $wpdb->prefix . $this->db_slug;
       $this->deactivateURI = null;
@@ -58,7 +61,7 @@ if (!class_exists("PeproBranchesMap_AKA_Mapify")){
       $this->settingURL = '<span style="display: inline;float: none;padding: 0;" class="dashicons dashicons-admin-settings dashicons-small" aria-hidden="true"></span> ';
       $this->submitionURL = '<span style="display: inline;float: none;padding: 0;" class="dashicons dashicons-images-alt dashicons-small" aria-hidden="true"></span> ';
       $this->url = admin_url("admin.php?page={$this->db_slug}");
-      $this->title = __("Pepro Mapify", $this->td);
+      $this->title = __("Pepro Branches Map", $this->td);
       $this->title_w = sprintf(__("%2\$s ver. %1\$s", $this->td), $this->version, $this->title);
       add_action("init", array($this, 'init_plugin'));
     }
@@ -352,7 +355,7 @@ if (!class_exists("PeproBranchesMap_AKA_Mapify")){
       vc_map(
           array(
               "base" => "pepro-mapify",
-              "name" => esc_html__("Mapify", $this->td),
+              "name" => esc_html__("Branches Map", $this->td),
               "category" => esc_html__("Pepro Elements", "$this->td"),
               "description" => esc_html__("List your branches on a beautiful svg map.", $this->td ),
               "class" => "{$this->td}__class",
@@ -946,7 +949,7 @@ if (!class_exists("PeproBranchesMap_AKA_Mapify")){
     }
     public static function uninstall_hook()
     {
-      $ppa = new PeproBranchesMap_AKA_Mapify;
+      $ppa = new PeproBranchesMap;
       if (get_option("{$ppa->db_slug}-clearunistall", "no") === "yes") {
           $cf7Database_class_options = $ppa->get_setting_options();
           foreach ($cf7Database_class_options as $options) {
@@ -985,7 +988,7 @@ if (!class_exists("PeproBranchesMap_AKA_Mapify")){
       $labels = array(
         'name'                  => _x( 'Branch', 'Post Type General Name', $this->td),
         'singular_name'         => _x( 'Branch', 'Post Type Singular Name', $this->td),
-        'menu_name'             => __( 'Mapify', $this->td),
+        'menu_name'             => __( 'Branches', $this->td),
         'name_admin_bar'        => __( 'Branch', $this->td),
         'archives'              => __( 'Branch Archives', $this->td),
         'attributes'            => __( 'Branch Attributes', $this->td),
@@ -1018,7 +1021,7 @@ if (!class_exists("PeproBranchesMap_AKA_Mapify")){
         'feeds'                 => true,
       );
       $args = array(
-        'label'                 => __( 'Mapify', $this->td),
+        'label'                 => __( 'Branches', $this->td),
         'description'           => __( 'Add branches to show on map', $this->td),
         'labels'                => $labels,
         'supports'              => array( 'title', 'thumbnail', 'revisions', "editor" ),
@@ -1168,7 +1171,7 @@ if (!class_exists("PeproBranchesMap_AKA_Mapify")){
 
         $this->print_setting_input("{$this->db_slug}-googlemapAPI",           _x("Google Maps API","setting-general", $this->td),         'dir="ltr" lang="en-US"', "text","", "<a target='_blank' href='https://console.cloud.google.com/projectselector2/billing/enable'><span class='dashicons dashicons-external'></span></div>");
         // $this->print_setting_input("{$this->db_slug}-cedarmapsAPI",           _x("CedarMaps API","setting-general", $this->td),         'dir="ltr" lang="en-US"', "text");
-        $this->print_setting_select("{$this->db_slug}-template",              _x("Default Branches Template","setting-general", $this->td),array("post" =>_x("Use Post Template","settings-general",$this->td), "content" => _x("Use Mapify Template","settings-general",$this->td)));
+        $this->print_setting_select("{$this->db_slug}-template",              _x("Default Branches Template","setting-general", $this->td),array("post" =>_x("Use Post Template","settings-general",$this->td), "content" => _x("Use Default Branches Template","settings-general",$this->td)));
         $this->print_setting_select("{$this->db_slug}-clearunistall",         _x("Clear Configurations on Unistall","setting-general", $this->td),array("yes" =>_x("Yes","settings-general",$this->td), "no" => _x("No","settings-general",$this->td)));
 
         echo "</tbody></table>
@@ -1236,11 +1239,11 @@ if (!class_exists("PeproBranchesMap_AKA_Mapify")){
     public function shortcode_wapper($content,$el_class,$el_id)
     {
       return "
-        <!--$el_id // Pepro Branches Map (Mapify) widget for WPBakery Page Builder by Pepro.dev // https://pepro.dev //-->
+        <!--$el_id // Pepro Branches Map widget for WPBakery Page Builder by Pepro.dev // https://pepro.dev //-->
           <div class='mapify-branches-list-container top $el_id' data-ref-id='$el_id'></div>
           <div class='mapify-container $el_class' id='$el_id'>$content</div>
           <div class='mapify-branches-list-container bottom $el_id' data-ref-id='$el_id'></div>
-        <!--$el_id // Pepro Branches Map (Mapify) widget for WPBakery Page Builder by Pepro.dev // https://pepro.dev //-->";
+        <!--$el_id // Pepro Branches Map widget for WPBakery Page Builder by Pepro.dev // https://pepro.dev //-->";
     }
     public function mapify_shortcode($atts = array(),$content)
     {
@@ -2952,13 +2955,13 @@ if (!class_exists("PeproBranchesMap_AKA_Mapify")){
       "plugins_loaded", function () {
           global $PeproMapify;
           load_plugin_textdomain("mapify", false, dirname(plugin_basename(__FILE__))."/languages/");
-          $PeproMapify = new PeproBranchesMap_AKA_Mapify;
-          register_activation_hook(__FILE__,    array("PeproBranchesMap_AKA_Mapify", "activation_hook"));
-          register_deactivation_hook(__FILE__,  array("PeproBranchesMap_AKA_Mapify", "deactivation_hook"));
-          register_uninstall_hook(__FILE__,     array("PeproBranchesMap_AKA_Mapify", "uninstall_hook"));
+          $PeproMapify = new PeproBranchesMap;
+          register_activation_hook(__FILE__,    array("PeproBranchesMap", "activation_hook"));
+          register_deactivation_hook(__FILE__,  array("PeproBranchesMap", "deactivation_hook"));
+          register_uninstall_hook(__FILE__,     array("PeproBranchesMap", "uninstall_hook"));
       }
   );
 }
-/*################################################################################
-END OF PLUGIN || Programming is art // Artist : Amirhosseinhpv [https://hpv.im/]
-################################################################################*/
+/*##################################################
+Lead Developer: [amirhosseinhpv](https://hpv.im/)
+##################################################*/
