@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: Pepro Branches Map
+Plugin Name: PeproDev Branches Map
 Description: List your branches on a beautiful map with clickable hotspots, supporting 70+ Google Maps custom styles, and integrates into WPBakery Page Builder
 Contributors: amirhosseinhpv,peprodev
 Tags: functionality, map, googlemaps, svg map, show branches on map, pin on map, popup, branch

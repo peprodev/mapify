@@ -1,4 +1,4 @@
-=== Pepro Branches Map ===
+=== PeproDev Branches Map ===
 Contributors: peprodev,amirhosseinhpv
 Donate link: https://pepro.dev/donate
 Tags: functionality, map, googlemaps, svg map, show branches on map, pin on map, popup, branch
