@@ -3,7 +3,7 @@ Contributors: peprodev,amirhosseinhpv
 Donate link: https://pepro.dev/donate
 Tags: functionality, map, googlemaps, svg map, show branches on map, pin on map, popup, branch
 Requires at least: 5.0
-Tested up to: 5.7
+Tested up to: 5.9
 Stable tag: 1.3.6
 Requires PHP: 5.6
 License: GPLv2 or later

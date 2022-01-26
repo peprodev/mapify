@@ -12,7 +12,7 @@ Plugin URI: https://pepro.dev/mapify
 Version: 1.3.6
 Stable tag: 1.3.6
 Requires at least: 5.0
-Tested up to: 5.7
+Tested up to: 5.9
 Requires PHP: 5.6
 Text Domain: mapify
 Domain Path: /languages
