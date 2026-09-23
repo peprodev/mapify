@@ -1,0 +1,124 @@
+.mapify-loc {
+	position: relative;
+}
+
+.mapify-loc__search {
+	position: relative;
+	display: flex;
+	gap: 8px;
+	margin-bottom: 10px;
+}
+
+.mapify-loc__query {
+	flex: 1;
+}
+
+.mapify-loc__results {
+	position: absolute;
+	top: calc(100% + 4px);
+	inset-inline: 0;
+	z-index: 1000;
+	margin: 0;
+	padding: 4px;
+	list-style: none;
+	background: #fff;
+	border: 1px solid #dcdcde;
+	border-radius: 4px;
+	box-shadow: 0 6px 20px rgba(0, 0, 0, .12);
+	max-height: 260px;
+	overflow: auto;
+}
+
+.mapify-loc__results li {
+	margin: 0;
+}
+
+.mapify-loc__results button {
+	display: block;
+	width: 100%;
+	padding: 8px 10px;
+	border: 0;
+	border-radius: 3px;
+	background: none;
+	text-align: start;
+	cursor: pointer;
+}
+
+.mapify-loc__results button:hover,
+.mapify-loc__results button:focus {
+	background: #f0f6fc;
+	color: var(--wp-admin-theme-color, #2271b1);
+}
+
+.mapify-loc__results .is-muted {
+	padding: 8px 10px;
+	color: #646970;
+}
+
+.mapify-loc__map {
+	height: 380px;
+	border: 1px solid #dcdcde;
+	border-radius: 4px;
+	direction: ltr;
+	z-index: 0;
+}
+
+.mapify-loc__pin {
+	background: none;
+	border: 0;
+}
+
+.mapify-loc__pin svg path {
+	fill: var(--wp-admin-theme-color, #2271b1);
+	stroke: rgba(0, 0, 0, .2);
+}
+
+.mapify-loc__fields {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-end;
+	gap: 12px;
+	margin-top: 12px;
+}
+
+.mapify-loc__fields label {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	font-weight: 500;
+}
+
+.mapify-loc__fields input {
+	width: 180px;
+}
+
+.mapify-fields {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+	gap: 4px 20px;
+}
+
+.mapify-fields__row {
+	margin: 0 0 12px;
+}
+
+.mapify-fields__row--wide {
+	grid-column: 1 / -1;
+}
+
+.mapify-fields__row label {
+	display: block;
+	margin-bottom: 4px;
+	font-weight: 500;
+}
+
+.mapify-pinbox__image img {
+	display: block;
+	max-width: 64px;
+	max-height: 64px;
+	margin-bottom: 8px;
+}
+
+.mapify-pinbox__image .button {
+	margin-top: 6px;
+}

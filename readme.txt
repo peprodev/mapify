@@ -1,58 +1,96 @@
-=== PeproDev Branches Map ===
+=== PeproDev Branches Map (Mapify) ===
 Contributors: peprodev,amirhosseinhpv
 Donate link: https://pepro.dev/donate
-Tags: functionality, map, googlemaps, svg map, show branches on map, pin on map, popup, branch
-Requires at least: 5.0
-Tested up to: 5.9
-Stable tag: 1.3.6
-Requires PHP: 5.6
+Tags: map, branches, store locator, openstreetmap, elementor
+Requires at least: 6.5
+Tested up to: 7.1
+Stable tag: 2.0.0
+Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-List your branches on a beautiful map with clickable hotspots, supporting 70+ Google Maps custom styles, and integrates into WPBakery Page Builder
+Show your branches on Google Maps, OpenStreetMap, Mapbox, Persian maps (Map.ir, Neshan, Parsimap, Mapup), custom SVG/image maps or an offline map of Iran.
 
 == Description ==
 
-### **List your branches on a beautiful map with clickable hotspots, supporting 70+ Google Maps custom styles, and integrates into WPBakery Page Builder**
+Add branches (address, phone, social links, location) and show them on a map with a searchable list, popups and clusters.
 
-[vimeo https://vimeo.com/444784847]
+**Map engines**
 
-Watch WPBakery Page Builder Pepro Branches Map Widget's Settings in [vimeo: https://vimeo.com/444784847](https://vimeo.com/444784847)
+* OpenStreetMap and other free tiles (Esri light/dark/street/topo/satellite, OpenTopoMap) — no key needed
+* Google Maps with 70+ built-in styles, custom JSON styles or a cloud Map ID (Advanced Markers)
+* Mapbox (built-in and Mapbox Studio styles)
+* Persian maps: Map.ir, Neshan, Parsimap and Mapup (Mapup needs no key)
+* Any XYZ tile server
+* Offline map of Iran (SVG, 31 provinces, no external requests). Branches are placed by latitude/longitude, provinces with branches are highlighted and clicking a province filters the list
+* Your own SVG map — shapes with an id become hoverable regions
+* Any image as a map (floor plans, campus maps…). Pins use percent (relative, responsive) or pixel (absolute) positions; with optional geo bounds, branches are placed on the image by latitude/longitude
 
+**Page builders**
 
----
-#### Made by love in [Pepro Development Center](https://pepro.dev/").
-#### *[Pepro Dev](https://pepro.dev/") is a registered trademark of [Pepro Co](https://pepro.co/").*
+* Elementor widget “Branches Map” with full content settings and a Style tab (map, pins, tooltip, clusters, popup, list, search box and SVG regions — colors, typography, borders, shadows, responsive sizes)
+* WPBakery Page Builder element with the same settings in tabs, a Google style picker and Design Options
+* `[pepro-mapify]` / `[mapify]` shortcode, with a visual Shortcode Builder and live preview (Branches → Shortcode Builder)
 
+**Other**
 
+* Settings page built with WordPress components (Branches → Map Settings)
+* Branch editor with an OpenStreetMap location picker and address search
+* Single branch card with directions links (Google Maps, Waze, Neshan, Balad)
+* Persian (fa_IR) translation, RTL support
+
+== Shortcode ==
+
+`[pepro-mapify maptype="iran" branchplacement="end" list_layout="cards"]`
+
+Every option of the builders is an attribute (see the Shortcode Builder for the full list). Enclosed content is used as the popup template:
+
+`[pepro-mapify maptype="osm"]<h3>{title}</h3><p>{address}</p>[/pepro-mapify]`
+
+Popup tags: {id} {title} {image} {url} {latitude} {longitude} {address} {phone} {site} {email} {twitter} {facebook} {instagram} {telegram} {linkedin} {additional} {categories}. Use {tag|fallback} for a default value.
+
+Shortcodes made with version 1.x keep working.
 
 == Installation ==
 
-1. Upload the plugin files to the `/wp-content/plugins` directory, or install the plugin through the WordPress plugins screen directly.
-
-1. Activate the plugin through the 'Plugins' screen in WordPress
-
-
+1. Upload the plugin to `/wp-content/plugins/` or install it from the Plugins screen, then activate it.
+2. Add branches under Branches → Add New Branch.
+3. Optional: add API keys under Branches → Map Settings (Google Maps, Mapbox, Map.ir, Neshan, Parsimap). OpenStreetMap, Mapup and the offline Iran map work without keys.
+4. Add the map with Elementor, WPBakery or the shortcode.
 
 == Frequently Asked Questions ==
 
-= How can I contribute to this plugin? =
+= What happens if a provider key is missing? =
 
-You can help us improve our works by committing your changes to Pepro Dev's GitHub repository: https://github.com/peprodev/
+The map falls back to OpenStreetMap and editors see a notice above the map.
 
+= How do I place pins on my own image? =
+
+Choose “Image as map”, select the image and add custom pins with X/Y in percent (stays aligned when the image scales) or pixels of the original image. To place branches automatically, enter the image's geographic bounds.
 
 == Screenshots ==
 
-1. Setting on Back-end (WPBakery Page Builder Widget)
-2. Output on Front-end
-3. Output on Front-end
-4. Map API Settings
-5. Branches Post Type Overview
-6. Branches Post Type Content Template
-
-
+1. Map Settings page
+2. Shortcode Builder with live preview
+3. Elementor widget — content settings
+4. Elementor widget — style settings
+5. WPBakery Page Builder element settings
+6. Offline Iran map with branches list
 
 == Changelog ==
+
+= 2.0.0 =
+
+- Rewritten for PHP 7.4 – 8.5, WordPress 7.1, Elementor 4.2 and WPBakery 8/9
+- New Elementor widget with full Style controls
+- WPBakery element rebuilt with vc_lean_map, param groups and Design Options
+- New engines: OpenStreetMap, Mapbox, Map.ir, Neshan, Parsimap, Mapup, custom XYZ tiles, offline Iran SVG, custom SVG and image maps
+- Custom pins with relative (%) or absolute (px) positions, or latitude/longitude
+- Settings page and Shortcode Builder built with WordPress components
+- New branch editor with OpenStreetMap location picker
+- Popup templates are sanitized; SVG uploads are sanitized; no more eval()
+- Removed the Google tile-URL hack ("Development mode") and the custom Google logo option
+
 
 = 1.3.6 =
 

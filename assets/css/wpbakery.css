@@ -1,0 +1,38 @@
+/* Mapify — WPBakery element editor. */
+.mapify-vc-images {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+	gap: 10px;
+	max-height: 360px;
+	overflow: auto;
+	padding: 2px;
+}
+
+.mapify-vc-images__item {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	padding: 5px;
+	border: 1px solid #ddd;
+	border-radius: 6px;
+	background: #fff;
+	font-size: 12px;
+	line-height: 1.3;
+	text-align: center;
+	cursor: pointer;
+}
+
+.mapify-vc-images__item img,
+.mapify-vc-images__blank {
+	display: block;
+	width: 100%;
+	aspect-ratio: 4 / 3;
+	object-fit: cover;
+	border-radius: 4px;
+	background: repeating-linear-gradient(45deg, #eee 0 6px, #f8f8f8 6px 12px);
+}
+
+.mapify-vc-images__item.is-selected {
+	border-color: #e05a46;
+	box-shadow: 0 0 0 2px #e05a46;
+}
