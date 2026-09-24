@@ -86,7 +86,7 @@ class WPBakery {
 				if ( ! empty( $field['previews'] ) ) {
 					$images = array();
 					foreach ( $options as $value => $label ) {
-						$images[ $value ] = Schema::google_style_preview( $value );
+						$images[ $value ] = Schema::style_preview( $key, $value );
 					}
 					$param['type']   = 'mapify_image_select';
 					$param['value']  = $options;
@@ -219,10 +219,11 @@ class WPBakery {
 	public static function param_image_select( $settings, $value ) {
 		$name  = esc_attr( $settings['param_name'] );
 		$value = '' === (string) $value && isset( $settings['std'] ) ? $settings['std'] : $value;
-		$html  = '<div class="mapify-vc-images" data-target="' . $name . '">';
+		$html  = count( $settings['value'] ) > 12 ? '<input type="search" class="mapify-vc-images__search" placeholder="' . esc_attr__( 'Search styles…', 'mapify' ) . '" />' : '';
+		$html .= '<div class="mapify-vc-images" data-target="' . $name . '">';
 		foreach ( $settings['value'] as $option => $label ) {
 			$img   = isset( $settings['images'][ $option ] ) ? $settings['images'][ $option ] : '';
-			$html .= '<button type="button" class="mapify-vc-images__item' . ( (string) $option === (string) $value ? ' is-selected' : '' ) . '" data-value="' . esc_attr( $option ) . '">'
+			$html .= '<button type="button" class="mapify-vc-images__item' . ( (string) $option === (string) $value ? ' is-selected' : '' ) . '" data-value="' . esc_attr( $option ) . '" data-search="' . esc_attr( strtolower( $label . ' ' . $option ) ) . '">'
 				. ( $img ? '<img src="' . esc_url( $img ) . '" alt="" loading="lazy" />' : '<span class="mapify-vc-images__blank"></span>' )
 				. '<span>' . esc_html( $label ) . '</span></button>';
 		}

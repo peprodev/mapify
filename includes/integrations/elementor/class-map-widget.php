@@ -21,6 +21,8 @@ use Mapify\Options;
 use Mapify\Renderer;
 use Mapify\Schema;
 
+require_once __DIR__ . '/class-gallery-control.php';
+
 defined( 'ABSPATH' ) || exit;
 
 class Map_Widget extends Widget_Base {
@@ -102,19 +104,18 @@ class Map_Widget extends Widget_Base {
 		switch ( $field['type'] ) {
 			case 'select':
 				$options = Schema::options( $field );
-				if ( ! empty( $field['previews'] ) && defined( Controls_Manager::class . '::VISUAL_CHOICE' ) ) {
+				if ( ! empty( $field['previews'] ) ) {
+					// Thumbnail gallery (see Gallery_Control).
 					$choices = array();
 					foreach ( $options as $value => $label ) {
-						$image              = Schema::google_style_preview( $value );
 						$choices[ $value ] = array(
 							'title' => $label,
-							'image' => $image ? $image : MAPIFY_ASSETS . 'img/map-style/gmapdefault.jpg',
+							'image' => Schema::style_preview( $key, $value ),
 						);
 					}
-					$args['type']        = Controls_Manager::VISUAL_CHOICE;
+					$args['type']        = Gallery_Control::TYPE;
 					$args['options']     = $choices;
-					$args['columns']     = 3;
-					$args['toggle']      = false;
+					$args['search']      = count( $choices ) > 12;
 					$args['label_block'] = true;
 				} else {
 					$args['type']    = Controls_Manager::SELECT;

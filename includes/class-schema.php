@@ -62,15 +62,30 @@ class Schema {
 	}
 
 	public static function osm_styles() {
-		return array(
-			'osm'          => __( 'OpenStreetMap standard', 'mapify' ),
-			'osm-hot'      => __( 'OpenStreetMap Humanitarian', 'mapify' ),
-			'esri-light'   => __( 'Light gray canvas (Esri)', 'mapify' ),
-			'esri-dark'    => __( 'Dark gray canvas (Esri)', 'mapify' ),
-			'esri-street'  => __( 'World street map (Esri)', 'mapify' ),
-			'esri-topo'    => __( 'Topographic (Esri)', 'mapify' ),
-			'opentopo'     => __( 'OpenTopoMap', 'mapify' ),
-			'esri-imagery' => __( 'Satellite imagery (Esri)', 'mapify' ),
+		return apply_filters(
+			'mapify_osm_styles',
+			array(
+				'osm'                 => __( 'OpenStreetMap standard', 'mapify' ),
+				'osm-gray'            => __( 'OpenStreetMap grayscale', 'mapify' ),
+				'osm-dark'            => __( 'OpenStreetMap dark', 'mapify' ),
+				'osm-sepia'           => __( 'OpenStreetMap vintage', 'mapify' ),
+				'osm-hot'             => __( 'OpenStreetMap Humanitarian', 'mapify' ),
+				'osm-fr'              => __( 'OpenStreetMap France', 'mapify' ),
+				'osm-de'              => __( 'OpenStreetMap Germany', 'mapify' ),
+				'cyclosm'             => __( 'CyclOSM (roads and cycling)', 'mapify' ),
+				'opentopo'            => __( 'OpenTopoMap', 'mapify' ),
+				'esri-light'          => __( 'Light gray canvas (Esri)', 'mapify' ),
+				'esri-dark'           => __( 'Dark gray canvas (Esri)', 'mapify' ),
+				'esri-street'         => __( 'World street map (Esri)', 'mapify' ),
+				'esri-topo'           => __( 'Topographic (Esri)', 'mapify' ),
+				'esri-natgeo'         => __( 'National Geographic (Esri)', 'mapify' ),
+				'esri-imagery'        => __( 'Satellite imagery (Esri)', 'mapify' ),
+				'esri-imagery-labels' => __( 'Satellite with labels (Esri)', 'mapify' ),
+				'esri-terrain'        => __( 'Terrain (Esri)', 'mapify' ),
+				'esri-shaded'         => __( 'Shaded relief (Esri)', 'mapify' ),
+				'esri-physical'       => __( 'Physical (Esri)', 'mapify' ),
+				'esri-ocean'          => __( 'Ocean (Esri)', 'mapify' ),
+			)
 		);
 	}
 
@@ -128,6 +143,19 @@ class Schema {
 		return $out;
 	}
 
+	/**
+	 * Thumbnail for a style option, by field: Google styles and the free tile styles have one.
+	 */
+	public static function style_preview( $field_key, $slug ) {
+		if ( 'map_defined_style' === $field_key ) {
+			return self::google_style_preview( $slug );
+		}
+		if ( 'osm_style' === $field_key && file_exists( MAPIFY_DIR . "assets/img/tile-style/{$slug}.jpg" ) ) {
+			return MAPIFY_ASSETS . "img/tile-style/{$slug}.jpg";
+		}
+		return (string) apply_filters( 'mapify_style_preview', '', $field_key, $slug );
+	}
+
 	public static function google_style_preview( $slug ) {
 		$legacy = array(
 			'default'  => 'gmapdefault',
@@ -173,7 +201,7 @@ class Schema {
 
 	public static function default_popup_template() {
 		$tpl = '<div class="mapify-card">
-  <img class="mapify-card__image" src="{image|' . MAPIFY_ASSETS . 'img/defimg.jpg}" alt="{title}" />
+  <img class="mapify-card__image" src="{popup_image}" alt="{title}" />
   <div class="mapify-card__body">
     <h3 class="mapify-card__title">{title|' . esc_html__( 'No title', 'mapify' ) . '}</h3>
     <p class="mapify-card__row mapify-card__address">{address}</p>
@@ -188,7 +216,7 @@ class Schema {
 	}
 
 	public static function popup_tags() {
-		return array( 'id', 'title', 'image', 'url', 'latitude', 'longitude', 'address', 'phone', 'site', 'email', 'twitter', 'facebook', 'instagram', 'telegram', 'linkedin', 'additional', 'categories', 'directions' );
+		return array( 'id', 'title', 'image', 'pin_image', 'popup_image', 'url', 'latitude', 'longitude', 'address', 'phone', 'site', 'email', 'twitter', 'facebook', 'instagram', 'telegram', 'linkedin', 'additional', 'categories', 'directions' );
 	}
 
 	/**
@@ -413,6 +441,7 @@ class Schema {
 				'label'     => __( 'Tile style', 'mapify' ),
 				'default'   => 'osm',
 				'options'   => self::osm_styles(),
+				'previews'  => true,
 				'condition' => array( 'maptype' => array( 'osm' ) ),
 			),
 			'mapbox_style'      => array(
@@ -696,7 +725,7 @@ class Schema {
 				'label'       => __( 'Popup template (HTML)', 'mapify' ),
 				'description' => sprintf(
 					/* translators: %s: list of tags */
-					__( 'Tags: %s. Use {tag|fallback} for a default value.', 'mapify' ),
+					__( 'Tags: %s. Use {tag|fallback} for a default value. {image} is the featured image, {pin_image} the pin image and {popup_image} the image chosen in “Popup image”.', 'mapify' ),
 					'{' . implode( '} {', self::popup_tags() ) . '}'
 				),
 				'default'     => '',
@@ -705,17 +734,18 @@ class Schema {
 			),
 
 			'popup_image'       => array(
-				'group'     => 'popup',
-				'type'      => 'select',
-				'label'     => __( 'Popup image', 'mapify' ),
-				'default'   => 'featured',
-				'options'   => array(
+				'group'       => 'popup',
+				'type'        => 'select',
+				'label'       => __( 'Popup image', 'mapify' ),
+				'description' => __( 'Used by the {popup_image} tag. {image} is always the featured image and {pin_image} the pin image.', 'mapify' ),
+				'default'     => 'featured',
+				'options'     => array(
 					'featured' => __( 'Featured image', 'mapify' ),
 					'pin'      => __( 'Branch pin image', 'mapify' ),
 					'auto'     => __( 'Featured image, else pin image', 'mapify' ),
 					'none'     => __( 'No image', 'mapify' ),
 				),
-				'condition' => array( 'pinaction' => array( 'popup' ) ),
+				'condition'   => array( 'pinaction' => array( 'popup' ) ),
 			),
 			'popup_image_fallback' => array(
 				'group'       => 'popup',

@@ -1,0 +1,82 @@
+/* Mapify gallery control (Elementor panel). */
+
+.mapify-gallery-control .elementor-control-title {
+	display: block;
+	margin-bottom: 8px;
+}
+
+.mapify-gallery__search {
+	width: 100%;
+	margin-bottom: 8px;
+}
+
+.mapify-gallery {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 8px;
+	max-height: 420px;
+	overflow-y: auto;
+	padding: 2px;
+}
+
+.mapify-gallery__item {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	margin: 0;
+	padding: 4px;
+	border: 2px solid transparent;
+	border-radius: 8px;
+	background: var(--e-a-bg-default, #fff);
+	color: var(--e-a-color-txt, #515962);
+	font: inherit;
+	font-size: 11px;
+	line-height: 1.3;
+	text-align: center;
+	cursor: pointer;
+	transition: border-color .15s, box-shadow .15s;
+}
+
+.mapify-gallery__item[hidden] {
+	display: none;
+}
+
+.mapify-gallery__item:hover {
+	border-color: var(--e-a-border-color-bold, #d5d8dc);
+}
+
+.mapify-gallery__item.is-selected {
+	border-color: var(--e-a-color-primary-bold, #d004d4);
+	box-shadow: 0 0 0 1px var(--e-a-color-primary-bold, #d004d4);
+	color: var(--e-a-color-txt-accent, #0c0d0e);
+	font-weight: 600;
+}
+
+.mapify-gallery__thumb {
+	display: block;
+	width: 100%;
+	aspect-ratio: 1;
+	border-radius: 5px;
+	object-fit: cover;
+	background: var(--e-a-bg-hover, #f1f2f3);
+}
+
+.mapify-gallery__thumb--blank {
+	display: grid;
+	place-items: center;
+	font-size: 22px;
+	opacity: .6;
+}
+
+.mapify-gallery__label {
+	overflow: hidden;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+}
+
+.mapify-gallery__empty {
+	margin: 6px 0 0;
+	font-size: 11px;
+	font-style: italic;
+}

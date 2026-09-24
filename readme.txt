@@ -4,7 +4,7 @@ Donate link: https://pepro.dev/donate
 Tags: map, branches, store locator, openstreetmap, elementor
 Requires at least: 6.5
 Tested up to: 7.1
-Stable tag: 2.1.0
+Stable tag: 2.2.0
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -62,7 +62,7 @@ Every option of the builders is an attribute (see the Shortcode Builder for the 
 
 `[pepro-mapify maptype="osm"]<h3>{title}</h3><p>{address}</p>[/pepro-mapify]`
 
-Popup tags: {id} {title} {image} {url} {latitude} {longitude} {address} {phone} {site} {email} {twitter} {facebook} {instagram} {telegram} {linkedin} {additional} {categories} {directions}. Use {tag|fallback} for a default value.
+Popup tags: {id} {title} {image} {pin_image} {popup_image} {url} {latitude} {longitude} {address} {phone} {site} {email} {twitter} {facebook} {instagram} {telegram} {linkedin} {additional} {categories} {directions}. Use {tag|fallback} for a default value.
 
 Shortcodes made with version 1.x keep working.
 
@@ -93,6 +93,12 @@ Choose “Image as map”, select the image and add custom pins with X/Y in perc
 6. Offline Iran map with branches list
 
 == Changelog ==
+
+= 2.2.0 =
+
+- 12 more free tile styles (no key): OpenStreetMap grayscale, dark and vintage, OpenStreetMap France and Germany, CyclOSM, National Geographic, satellite with labels, terrain, shaded relief, physical and ocean
+- Thumbnail gallery picker for tile styles and Google styles in Elementor, with search; the same thumbnails in WPBakery and the Shortcode Builder
+- Popup tags: {image} is always the featured image, new {pin_image} and {popup_image} (follows the “Popup image” setting)
 
 = 2.1.0 =
 

@@ -42,6 +42,7 @@ class Plugin {
 
 		// Elementor.
 		add_action( 'elementor/elements/categories_registered', array( $this, 'elementor_category' ) );
+		add_action( 'elementor/controls/register', array( $this, 'elementor_controls' ) );
 		add_action( 'elementor/widgets/register', array( $this, 'elementor_widgets' ) );
 		add_action( 'elementor/preview/enqueue_scripts', array( $this, 'enqueue_front' ) );
 
@@ -90,6 +91,11 @@ class Plugin {
 				'icon'  => 'eicon-map-pin',
 			)
 		);
+	}
+
+	public function elementor_controls( $controls_manager ) {
+		require_once MAPIFY_DIR . 'includes/integrations/elementor/class-gallery-control.php';
+		$controls_manager->register( new Integrations\Elementor\Gallery_Control() );
 	}
 
 	public function elementor_widgets( $widgets_manager ) {

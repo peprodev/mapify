@@ -59,7 +59,7 @@ class Admin {
 						'label' => $label,
 					);
 					if ( ! empty( $field['previews'] ) ) {
-						$row['image'] = Schema::google_style_preview( $value );
+						$row['image'] = Schema::style_preview( $key, $value );
 					}
 					$f['options'][] = $row;
 				}

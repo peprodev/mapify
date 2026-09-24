@@ -36,3 +36,12 @@
 	border-color: #e05a46;
 	box-shadow: 0 0 0 2px #e05a46;
 }
+
+.mapify-vc-images__search {
+	width: 100%;
+	margin-bottom: 8px;
+}
+
+.mapify-vc-images__item[hidden] {
+	display: none;
+}

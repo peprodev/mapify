@@ -442,6 +442,18 @@
 	background: #e9eef3;
 }
 
+.mapify .mapify-tiles--gray {
+	filter: grayscale(1);
+}
+
+.mapify .mapify-tiles--dark {
+	filter: invert(1) hue-rotate(180deg) brightness(.95) contrast(.9);
+}
+
+.mapify .mapify-tiles--sepia {
+	filter: sepia(.6) saturate(1.1);
+}
+
 .mapify .leaflet-control-attribution {
 	font-size: 10px;
 	line-height: 1.5;

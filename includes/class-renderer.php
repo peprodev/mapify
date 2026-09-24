@@ -63,22 +63,44 @@ class Renderer {
 					'maxZoom'     => 20,
 				);
 		}
-		$esri = 'https://server.arcgisonline.com/ArcGIS/rest/services/';
-		$osm  = array(
-			'osm'          => array( 'https://tile.openstreetmap.org/{z}/{x}/{y}.png', '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors', 19 ),
-			'osm-hot'      => array( 'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Humanitarian OSM Team', 19 ),
-			'esri-light'   => array( $esri . 'Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', 'Tiles © Esri — Esri, HERE, Garmin, © OpenStreetMap contributors', 16 ),
-			'esri-dark'    => array( $esri . 'Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', 'Tiles © Esri — Esri, HERE, Garmin, © OpenStreetMap contributors', 16 ),
-			'esri-street'  => array( $esri . 'World_Street_Map/MapServer/tile/{z}/{y}/{x}', 'Tiles © Esri', 19 ),
-			'esri-topo'    => array( $esri . 'World_Topo_Map/MapServer/tile/{z}/{y}/{x}', 'Tiles © Esri', 19 ),
-			'opentopo'     => array( 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', '© OpenStreetMap contributors, SRTM | © <a href="https://opentopomap.org">OpenTopoMap</a>', 17 ),
-			'esri-imagery' => array( $esri . 'World_Imagery/MapServer/tile/{z}/{y}/{x}', 'Tiles © Esri — Source: Esri, Maxar, Earthstar Geographics', 19 ),
+		$esri     = 'https://server.arcgisonline.com/ArcGIS/rest/services/';
+		$osm_attr = '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+		$osm_url  = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
+		// slug => [url, attribution, max zoom, extras (overlay url, CSS filter)].
+		$osm = apply_filters(
+			'mapify_osm_tile_styles',
+			array(
+				'osm'                 => array( $osm_url, $osm_attr, 19 ),
+				'osm-gray'            => array( $osm_url, $osm_attr, 19, array( 'filter' => 'gray' ) ),
+				'osm-dark'            => array( $osm_url, $osm_attr, 19, array( 'filter' => 'dark' ) ),
+				'osm-sepia'           => array( $osm_url, $osm_attr, 19, array( 'filter' => 'sepia' ) ),
+				'osm-hot'             => array( 'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', $osm_attr . ', Humanitarian OSM Team', 19 ),
+				'osm-fr'              => array( 'https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', '© OpenStreetMap France | ' . $osm_attr, 20 ),
+				'osm-de'              => array( 'https://tile.openstreetmap.de/{z}/{x}/{y}.png', $osm_attr, 18 ),
+				'cyclosm'             => array( 'https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png', '<a href="https://www.cyclosm.org">CyclOSM</a> | ' . $osm_attr, 20 ),
+				'opentopo'            => array( 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', '© OpenStreetMap contributors, SRTM | © <a href="https://opentopomap.org">OpenTopoMap</a>', 17 ),
+				'esri-light'          => array( $esri . 'Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', 'Tiles © Esri — Esri, HERE, Garmin, © OpenStreetMap contributors', 16 ),
+				'esri-dark'           => array( $esri . 'Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', 'Tiles © Esri — Esri, HERE, Garmin, © OpenStreetMap contributors', 16 ),
+				'esri-street'         => array( $esri . 'World_Street_Map/MapServer/tile/{z}/{y}/{x}', 'Tiles © Esri', 19 ),
+				'esri-topo'           => array( $esri . 'World_Topo_Map/MapServer/tile/{z}/{y}/{x}', 'Tiles © Esri', 19 ),
+				'esri-natgeo'         => array( $esri . 'NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}', 'Tiles © Esri — National Geographic, Esri, DeLorme, NAVTEQ, UNEP-WCMC, USGS, NASA, ESA, METI, NRCAN, GEBCO, NOAA, iPC', 16 ),
+				'esri-imagery'        => array( $esri . 'World_Imagery/MapServer/tile/{z}/{y}/{x}', 'Tiles © Esri — Source: Esri, Maxar, Earthstar Geographics', 19 ),
+				'esri-imagery-labels' => array( $esri . 'World_Imagery/MapServer/tile/{z}/{y}/{x}', 'Tiles © Esri — Source: Esri, Maxar, Earthstar Geographics', 19, array( 'overlay' => $esri . 'Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}' ) ),
+				'esri-terrain'        => array( $esri . 'World_Terrain_Base/MapServer/tile/{z}/{y}/{x}', 'Tiles © Esri — Source: USGS, Esri, TANA, DeLorme, and NPS', 13 ),
+				'esri-shaded'         => array( $esri . 'World_Shaded_Relief/MapServer/tile/{z}/{y}/{x}', 'Tiles © Esri — Source: Esri', 13 ),
+				'esri-physical'       => array( $esri . 'World_Physical_Map/MapServer/tile/{z}/{y}/{x}', 'Tiles © Esri — Source: US National Park Service', 8 ),
+				'esri-ocean'          => array( $esri . 'Ocean/World_Ocean_Base/MapServer/tile/{z}/{y}/{x}', 'Tiles © Esri — Sources: GEBCO, NOAA, CHS, OSU, UNH, CSUMB, National Geographic, DeLorme, NAVTEQ, and Esri', 13 ),
+			)
 		);
-		$pick = isset( $osm[ $s['osm_style'] ] ) ? $osm[ $s['osm_style'] ] : $osm['osm'];
-		return array(
-			'url'         => $pick[0],
-			'attribution' => $pick[1],
-			'maxZoom'     => $pick[2],
+		$pick  = isset( $osm[ $s['osm_style'] ] ) ? $osm[ $s['osm_style'] ] : $osm['osm'];
+		$extra = isset( $pick[3] ) && is_array( $pick[3] ) ? $pick[3] : array();
+		return array_merge(
+			array(
+				'url'         => $pick[0],
+				'attribution' => $pick[1],
+				'maxZoom'     => $pick[2],
+			),
+			array_intersect_key( $extra, array_flip( array( 'overlay', 'filter' ) ) )
 		);
 	}
 

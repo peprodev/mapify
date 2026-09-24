@@ -441,3 +441,7 @@ input.is-ltr {
 .mapify-attr-notice {
 	margin: 0;
 }
+
+.mapify-styles__search {
+	margin-bottom: 8px;
+}

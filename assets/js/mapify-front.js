@@ -231,7 +231,12 @@
 					zoomOffset: t.zoomOffset || 0,
 					subdomains: 'abc',
 					crossOrigin: true,
+					className: t.filter ? 'mapify-tiles--' + t.filter : '',
 				} ).addTo( map );
+				if ( t.overlay ) {
+					// Labels / boundaries drawn over the base layer (e.g. satellite with labels).
+					L.tileLayer( t.overlay, { maxZoom: t.maxZoom || 19, subdomains: 'abc', crossOrigin: true, className: 'mapify-tiles--overlay' } ).addTo( map );
+				}
 				layer.once( 'load', function () {
 					inst.ready();
 				} );
@@ -1164,16 +1169,19 @@
 			body = '<div class="mapify-card"><div class="mapify-card__body">' + ( item.content || '<h3 class="mapify-card__title">' + esc( item.title ) + '</h3>' ) + '</div></div>';
 		} else {
 			var data = Object.assign( {}, item );
-			var img = this.popupImage( item );
 			var btn = this.directionsButton( item );
-			data.image = img || ( this.cfg.popupImage === 'none' ? '' : this.cfg.placeholder || '' );
+			var img = this.popupImage( item );
+			// {image} is always the featured image; {popup_image} follows the "Popup image" setting.
+			data.image = item.image || '';
+			data.pin_image = item.pin_img || '';
+			data.popup_image = img || ( this.cfg.popupImage === 'none' ? '' : this.cfg.placeholder || '' );
 			data._directions = btn;
 			var tpl = String( this.cfg.template || '' );
 			body = fillTemplate( tpl, data );
 			if ( btn && tpl.indexOf( '{directions' ) === -1 ) {
 				body += '<div class="mapify-card__actions mapify-card__actions--after">' + btn + '</div>';
 			}
-			if ( ! data.image ) {
+			if ( ! data.popup_image && tpl.indexOf( '{popup_image' ) !== -1 ) {
 				body = body.replace( /<img\b[^>]*class="[^"]*mapify-card__image[^"]*"[^>]*>/gi, '' );
 			}
 		}

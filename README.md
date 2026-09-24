@@ -2,7 +2,7 @@
 
 Show your branches on **Google Maps, OpenStreetMap, Mapbox, Map.ir, Neshan, Parsimap, Mapup**, any XYZ tile server, **your own SVG or image**, or a bundled **offline map of Iran** — as an **Elementor widget**, a **WPBakery Page Builder element** or a **shortcode**.
 
-*Version 2.1.0* · Requires WordPress 6.5+ (tested 7.1.2), PHP 7.4+ (tested 8.5.8), Elementor 4.2.1, WPBakery 8.2 · by [Pepro Dev](https://pepro.dev/), lead programmer [Amirhosseinhpv](https://hpv.im/)
+*Version 2.2.0* · Requires WordPress 6.5+ (tested 7.1.2), PHP 7.4+ (tested 8.5.8), Elementor 4.2.1, WPBakery 8.2 · by [Pepro Dev](https://pepro.dev/), lead programmer [Amirhosseinhpv](https://hpv.im/)
 
 ## Structure
 
@@ -49,4 +49,4 @@ See [`screenshots/`](screenshots/) — admin pages, every Elementor content/styl
 
 ## Credits
 
-Iran map boundaries: [geoBoundaries](https://www.geoboundaries.org/) (CC BY 4.0). Leaflet and Leaflet.markercluster: BSD-2 / MIT.
+Iran map boundaries: [geoBoundaries](https://www.geoboundaries.org/) (CC BY 4.0). Tile style thumbnails in `assets/img/tile-style/`: © OpenStreetMap contributors, OpenStreetMap France / Germany, CyclOSM, OpenTopoMap, Esri and its data providers. Leaflet and Leaflet.markercluster: BSD-2 / MIT.

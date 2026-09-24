@@ -661,13 +661,19 @@
 	}
 
 	function StylePicker( p ) {
+		var q = useState( '' );
+		var term = q[ 0 ].trim().toLowerCase();
+		var options = p.field.options.filter( function ( o ) {
+			return ! term || ( o.label + ' ' + o.value ).toLowerCase().indexOf( term ) !== -1;
+		} );
 		return el(
 			C.BaseControl,
-			props( { label: p.field.label, help: p.field.description, id: 'mapify-style' } ),
+			props( { label: p.field.label, help: p.field.description, id: 'mapify-style-' + p.field.key } ),
+			p.field.options.length > 12 ? el( C.SearchControl, { __nextHasNoMarginBottom: true, value: q[ 0 ], onChange: q[ 1 ], placeholder: __( 'Search styles…', 'mapify' ), className: 'mapify-styles__search' } ) : null,
 			el(
 				'div',
 				{ className: 'mapify-styles', role: 'listbox' },
-				p.field.options.map( function ( o ) {
+				options.map( function ( o ) {
 					return el(
 						'button',
 						{
@@ -684,7 +690,8 @@
 						el( 'span', null, o.label )
 					);
 				} )
-			)
+			),
+			! options.length ? el( 'p', { className: 'mapify-muted' }, __( 'No style found.', 'mapify' ) ) : null
 		);
 	}
 
