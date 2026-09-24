@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: PeproDev Branches Map (Mapify) 2.1.0\n"
+"Project-Id-Version: PeproDev Branches Map (Mapify) 2.3.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/mapify\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-24T04:07:26+00:00\n"
+"POT-Creation-Date: 2026-09-24T04:34:36+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: mapify\n"
@@ -52,7 +52,7 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: includes/class-admin.php:151
+#: includes/class-admin.php:169
 msgid "Preview link expired. Reload the builder."
 msgstr ""
 
@@ -82,16 +82,16 @@ msgstr ""
 #: includes/class-branch-editor.php:113
 #: includes/class-branch-editor.php:228
 #: includes/class-branches.php:130
-#: includes/class-schema.php:629
-#: includes/class-schema.php:922
+#: includes/class-schema.php:651
+#: includes/class-schema.php:949
 msgid "Pin color"
 msgstr ""
 
 #: includes/class-branch-editor.php:100
 #: includes/class-branch-editor.php:117
 #: includes/class-branches.php:131
-#: includes/class-schema.php:624
-#: includes/class-schema.php:650
+#: includes/class-schema.php:646
+#: includes/class-schema.php:672
 msgid "Pin image"
 msgstr ""
 
@@ -122,12 +122,12 @@ msgid "Find"
 msgstr ""
 
 #: includes/class-branch-editor.php:191
-#: includes/class-schema.php:604
+#: includes/class-schema.php:626
 msgid "Latitude"
 msgstr ""
 
 #: includes/class-branch-editor.php:193
-#: includes/class-schema.php:609
+#: includes/class-schema.php:631
 msgid "Longitude"
 msgstr ""
 
@@ -148,7 +148,7 @@ msgid "Custom pin image"
 msgstr ""
 
 #: includes/class-branch-editor.php:236
-#: assets/js/admin.js:452
+#: assets/js/admin.js:564
 msgid "Branch page layout"
 msgstr ""
 
@@ -166,12 +166,12 @@ msgstr ""
 
 #: includes/class-branch-editor.php:309
 #: includes/class-branches.php:23
-#: includes/class-renderer.php:426
+#: includes/class-renderer.php:434
 msgid "Phone"
 msgstr ""
 
 #: includes/class-branches.php:22
-#: includes/class-renderer.php:426
+#: includes/class-renderer.php:434
 msgid "Address"
 msgstr ""
 
@@ -225,15 +225,15 @@ msgstr ""
 #: includes/class-branches.php:40
 #: includes/class-branches.php:66
 #: includes/class-schema.php:49
-#: includes/class-schema.php:260
-#: includes/integrations/elementor/class-map-widget.php:274
-#: assets/js/admin.js:326
-#: assets/js/admin.js:559
+#: includes/class-schema.php:278
+#: includes/integrations/elementor/class-map-widget.php:277
+#: assets/js/admin.js:437
+#: assets/js/admin.js:673
 msgid "Branches"
 msgstr ""
 
 #: includes/class-branches.php:41
-#: includes/class-renderer.php:426
+#: includes/class-renderer.php:434
 msgid "Branch"
 msgstr ""
 
@@ -302,9 +302,9 @@ msgid "Use as branch image"
 msgstr ""
 
 #: includes/class-branches.php:58
-#: includes/class-schema.php:57
-#: includes/integrations/elementor/class-map-widget.php:351
-#: includes/integrations/elementor/class-map-widget.php:695
+#: includes/class-schema.php:58
+#: includes/integrations/elementor/class-map-widget.php:377
+#: includes/integrations/elementor/class-map-widget.php:721
 msgid "Branches list"
 msgstr ""
 
@@ -359,7 +359,7 @@ msgid "New Category Name"
 msgstr ""
 
 #: includes/class-branches.php:102
-#: includes/class-schema.php:252
+#: includes/class-schema.php:270
 msgid "Categories"
 msgstr ""
 
@@ -392,33 +392,61 @@ msgid "Social:"
 msgstr ""
 
 #: includes/class-branches.php:449
+#: includes/class-options.php:53
 #: includes/class-schema.php:24
 #: includes/class-schema.php:51
-#: includes/class-schema.php:194
-#: includes/integrations/elementor/class-map-widget.php:298
-#: assets/js/admin.js:367
+#: includes/integrations/elementor/class-map-widget.php:301
+#: assets/js/admin.js:479
 msgid "Google Maps"
 msgstr ""
 
 #: includes/class-branches.php:450
-#: includes/class-schema.php:196
+#: includes/class-options.php:55
 msgid "Waze"
 msgstr ""
 
 #: includes/class-branches.php:451
-#: includes/class-schema.php:94
-#: includes/class-schema.php:197
-#: assets/js/admin.js:383
+#: includes/class-options.php:56
+#: includes/class-schema.php:95
+#: assets/js/admin.js:495
 msgid "Neshan"
 msgstr ""
 
 #: includes/class-branches.php:452
-#: includes/class-schema.php:198
+#: includes/class-options.php:57
 msgid "Balad"
 msgstr ""
 
+#: includes/class-options.php:54
+msgid "Apple Maps"
+msgstr ""
+
+#: includes/class-options.php:58
+msgid "Other apps on this phone"
+msgstr ""
+
+#: includes/class-options.php:81
+msgid "All devices"
+msgstr ""
+
+#: includes/class-options.php:82
+msgid "Android only"
+msgstr ""
+
+#: includes/class-options.php:83
+msgid "Apple devices only"
+msgstr ""
+
+#: includes/class-options.php:84
+msgid "Phones and tablets only"
+msgstr ""
+
+#: includes/class-options.php:85
+msgid "Desktop only"
+msgstr ""
+
 #: includes/class-plugin.php:90
-#: includes/integrations/wpbakery/class-wpbakery.php:207
+#: includes/integrations/wpbakery/class-wpbakery.php:210
 msgid "PeproDev Elements"
 msgstr ""
 
@@ -458,80 +486,73 @@ msgstr ""
 msgid "Choose an SVG file for the SVG map. Showing the offline Iran map instead."
 msgstr ""
 
-#: includes/class-renderer.php:244
-#: includes/class-renderer.php:449
-msgid "No branch found."
-msgstr ""
-
 #: includes/class-renderer.php:245
-msgid "Show all"
-msgstr ""
-
-#: includes/class-renderer.php:246
-msgid "Fullscreen"
-msgstr ""
-
-#: includes/class-renderer.php:247
-msgid "Close"
-msgstr ""
-
-#: includes/class-renderer.php:248
-msgid "Google Maps could not be loaded. Check your API key."
-msgstr ""
-
-#: includes/class-renderer.php:249
-msgid "Zoom in"
-msgstr ""
-
-#: includes/class-renderer.php:250
-msgid "Zoom out"
-msgstr ""
-
-#: includes/class-renderer.php:251
-msgid "Reset zoom"
-msgstr ""
-
-#: includes/class-renderer.php:252
+#: assets/js/admin.js:334
 msgid "Get directions with"
 msgstr ""
 
-#: includes/class-renderer.php:253
-msgid "Other apps on this phone"
+#: includes/class-renderer.php:256
+#: includes/class-renderer.php:457
+msgid "No branch found."
 msgstr ""
 
-#: includes/class-renderer.php:254
-msgid "Cancel"
+#: includes/class-renderer.php:257
+msgid "Show all"
 msgstr ""
 
 #: includes/class-renderer.php:258
-msgid "Apple Maps"
+msgid "Fullscreen"
 msgstr ""
 
-#: includes/class-renderer.php:333
+#: includes/class-renderer.php:259
+msgid "Close"
+msgstr ""
+
+#: includes/class-renderer.php:260
+msgid "Google Maps could not be loaded. Check your API key."
+msgstr ""
+
+#: includes/class-renderer.php:261
+msgid "Zoom in"
+msgstr ""
+
+#: includes/class-renderer.php:262
+msgid "Zoom out"
+msgstr ""
+
+#: includes/class-renderer.php:263
+msgid "Reset zoom"
+msgstr ""
+
+#: includes/class-renderer.php:264
+msgid "Cancel"
+msgstr ""
+
+#: includes/class-renderer.php:341
 msgid "Filter by category"
 msgstr ""
 
-#: includes/class-renderer.php:395
+#: includes/class-renderer.php:403
 msgid "Uncategorized"
 msgstr ""
 
-#: includes/class-renderer.php:407
+#: includes/class-renderer.php:415
 msgid "Choose a branch"
 msgstr ""
 
-#: includes/class-renderer.php:408
+#: includes/class-renderer.php:416
 msgid "Choose a branch…"
 msgstr ""
 
-#: includes/class-renderer.php:442
+#: includes/class-renderer.php:450
 msgid "Previous"
 msgstr ""
 
-#: includes/class-renderer.php:442
+#: includes/class-renderer.php:450
 msgid "Next"
 msgstr ""
 
-#: includes/class-renderer.php:503
+#: includes/class-renderer.php:511
 msgid "Branches map"
 msgstr ""
 
@@ -540,7 +561,7 @@ msgid "OpenStreetMap (free, no key)"
 msgstr ""
 
 #: includes/class-schema.php:25
-#: assets/js/admin.js:377
+#: assets/js/admin.js:489
 msgid "Mapbox"
 msgstr ""
 
@@ -577,898 +598,911 @@ msgid "Image as map"
 msgstr ""
 
 #: includes/class-schema.php:50
-#: includes/integrations/elementor/class-map-widget.php:278
-#: includes/integrations/elementor/class-map-widget.php:381
+#: includes/integrations/elementor/class-map-widget.php:281
+#: includes/integrations/elementor/class-map-widget.php:407
 msgid "Map"
 msgstr ""
 
 #: includes/class-schema.php:52
-#: includes/integrations/elementor/class-map-widget.php:308
-msgid "Tile layer"
+#: includes/integrations/elementor/class-map-widget.php:311
+msgid "Snazzy Maps style"
 msgstr ""
 
 #: includes/class-schema.php:53
-#: includes/integrations/elementor/class-map-widget.php:318
-msgid "Image / SVG map"
+#: includes/integrations/elementor/class-map-widget.php:334
+msgid "Tile layer"
 msgstr ""
 
 #: includes/class-schema.php:54
-#: includes/class-schema.php:573
-#: includes/integrations/elementor/class-map-widget.php:325
-msgid "Custom pins"
+#: includes/integrations/elementor/class-map-widget.php:344
+msgid "Image / SVG map"
 msgstr ""
 
 #: includes/class-schema.php:55
-msgid "Markers"
+#: includes/class-schema.php:595
+#: includes/integrations/elementor/class-map-widget.php:351
+msgid "Custom pins"
 msgstr ""
 
 #: includes/class-schema.php:56
-#: includes/integrations/elementor/class-map-widget.php:344
-#: includes/integrations/elementor/class-map-widget.php:559
+msgid "Markers"
+msgstr ""
+
+#: includes/class-schema.php:57
+#: includes/integrations/elementor/class-map-widget.php:370
+#: includes/integrations/elementor/class-map-widget.php:585
 msgid "Popup"
 msgstr ""
 
-#: includes/class-schema.php:58
-#: includes/integrations/elementor/class-map-widget.php:355
-#: includes/integrations/elementor/class-map-widget.php:884
+#: includes/class-schema.php:59
+#: includes/integrations/elementor/class-map-widget.php:381
+#: includes/integrations/elementor/class-map-widget.php:910
 msgid "Category filter"
 msgstr ""
 
-#: includes/class-schema.php:59
+#: includes/class-schema.php:60
 msgid "Appearance"
 msgstr ""
 
-#: includes/class-schema.php:60
-#: assets/js/admin.js:328
-#: assets/js/admin.js:481
+#: includes/class-schema.php:61
+#: assets/js/admin.js:440
+#: assets/js/admin.js:595
 msgid "Advanced"
 msgstr ""
 
-#: includes/class-schema.php:68
+#: includes/class-schema.php:69
 msgid "OpenStreetMap standard"
 msgstr ""
 
-#: includes/class-schema.php:69
+#: includes/class-schema.php:70
 msgid "OpenStreetMap grayscale"
 msgstr ""
 
-#: includes/class-schema.php:70
+#: includes/class-schema.php:71
 msgid "OpenStreetMap dark"
 msgstr ""
 
-#: includes/class-schema.php:71
+#: includes/class-schema.php:72
 msgid "OpenStreetMap vintage"
 msgstr ""
 
-#: includes/class-schema.php:72
+#: includes/class-schema.php:73
 msgid "OpenStreetMap Humanitarian"
 msgstr ""
 
-#: includes/class-schema.php:73
+#: includes/class-schema.php:74
 msgid "OpenStreetMap France"
 msgstr ""
 
-#: includes/class-schema.php:74
+#: includes/class-schema.php:75
 msgid "OpenStreetMap Germany"
 msgstr ""
 
-#: includes/class-schema.php:75
+#: includes/class-schema.php:76
 msgid "CyclOSM (roads and cycling)"
 msgstr ""
 
-#: includes/class-schema.php:76
+#: includes/class-schema.php:77
 msgid "OpenTopoMap"
 msgstr ""
 
-#: includes/class-schema.php:77
+#: includes/class-schema.php:78
 msgid "Light gray canvas (Esri)"
 msgstr ""
 
-#: includes/class-schema.php:78
+#: includes/class-schema.php:79
 msgid "Dark gray canvas (Esri)"
 msgstr ""
 
-#: includes/class-schema.php:79
+#: includes/class-schema.php:80
 msgid "World street map (Esri)"
 msgstr ""
 
-#: includes/class-schema.php:80
+#: includes/class-schema.php:81
 msgid "Topographic (Esri)"
 msgstr ""
 
-#: includes/class-schema.php:81
+#: includes/class-schema.php:82
 msgid "National Geographic (Esri)"
 msgstr ""
 
-#: includes/class-schema.php:82
+#: includes/class-schema.php:83
 msgid "Satellite imagery (Esri)"
 msgstr ""
 
-#: includes/class-schema.php:83
+#: includes/class-schema.php:84
 msgid "Satellite with labels (Esri)"
 msgstr ""
 
-#: includes/class-schema.php:84
+#: includes/class-schema.php:85
 msgid "Terrain (Esri)"
 msgstr ""
 
-#: includes/class-schema.php:85
+#: includes/class-schema.php:86
 msgid "Shaded relief (Esri)"
 msgstr ""
 
-#: includes/class-schema.php:86
+#: includes/class-schema.php:87
 msgid "Physical (Esri)"
 msgstr ""
 
-#: includes/class-schema.php:87
+#: includes/class-schema.php:88
 msgid "Ocean (Esri)"
 msgstr ""
 
-#: includes/class-schema.php:95
+#: includes/class-schema.php:96
 msgid "Standard day"
 msgstr ""
 
-#: includes/class-schema.php:96
+#: includes/class-schema.php:97
 msgid "Standard night"
 msgstr ""
 
-#: includes/class-schema.php:97
+#: includes/class-schema.php:98
 msgid "Dreamy"
 msgstr ""
 
-#: includes/class-schema.php:98
+#: includes/class-schema.php:99
 msgid "Dreamy gold"
 msgstr ""
 
-#: includes/class-schema.php:99
+#: includes/class-schema.php:100
 msgid "OSM bright"
 msgstr ""
 
-#: includes/class-schema.php:105
+#: includes/class-schema.php:106
 msgid "Parsimap streets"
 msgstr ""
 
-#: includes/class-schema.php:106
+#: includes/class-schema.php:107
 msgid "Google-like streets"
 msgstr ""
 
-#: includes/class-schema.php:112
+#: includes/class-schema.php:113
 msgid "Streets"
 msgstr ""
 
-#: includes/class-schema.php:113
+#: includes/class-schema.php:114
 msgid "Outdoors"
 msgstr ""
 
-#: includes/class-schema.php:114
+#: includes/class-schema.php:115
 msgid "Light"
 msgstr ""
 
-#: includes/class-schema.php:115
+#: includes/class-schema.php:116
 msgid "Dark"
 msgstr ""
 
-#: includes/class-schema.php:116
-#: includes/class-schema.php:411
+#: includes/class-schema.php:117
+#: includes/class-schema.php:429
 msgid "Satellite"
 msgstr ""
 
-#: includes/class-schema.php:117
+#: includes/class-schema.php:118
 msgid "Satellite streets"
 msgstr ""
 
-#: includes/class-schema.php:118
+#: includes/class-schema.php:119
 msgid "Navigation day"
 msgstr ""
 
-#: includes/class-schema.php:119
+#: includes/class-schema.php:120
 msgid "Navigation night"
 msgstr ""
 
-#: includes/class-schema.php:120
+#: includes/class-schema.php:121
 msgid "Custom style (Mapbox Studio)"
 msgstr ""
 
-#: includes/class-schema.php:137
+#: includes/class-schema.php:165
 msgid "Default"
 msgstr ""
 
-#: includes/class-schema.php:138
-msgid "Custom JSON style"
+#: includes/class-schema.php:166
+msgid "Custom Snazzy Maps style"
 msgstr ""
 
-#: includes/class-schema.php:180
+#: includes/class-schema.php:208
 msgid "Chips"
 msgstr ""
 
-#: includes/class-schema.php:181
+#: includes/class-schema.php:209
 msgid "Cards"
 msgstr ""
 
-#: includes/class-schema.php:182
+#: includes/class-schema.php:210
 msgid "Detailed list (address and phone)"
 msgstr ""
 
-#: includes/class-schema.php:183
+#: includes/class-schema.php:211
 msgid "Image grid"
 msgstr ""
 
-#: includes/class-schema.php:184
+#: includes/class-schema.php:212
 msgid "Compact numbered list"
 msgstr ""
 
-#: includes/class-schema.php:185
+#: includes/class-schema.php:213
 msgid "Table"
 msgstr ""
 
-#: includes/class-schema.php:186
+#: includes/class-schema.php:214
 msgid "Carousel (horizontal scroll)"
 msgstr ""
 
-#: includes/class-schema.php:187
+#: includes/class-schema.php:215
 msgid "Dropdown"
 msgstr ""
 
-#: includes/class-schema.php:195
-msgid "Apple Maps (Apple devices only)"
-msgstr ""
-
-#: includes/class-schema.php:206
+#: includes/class-schema.php:224
 msgid "No title"
 msgstr ""
 
-#: includes/class-schema.php:210
+#: includes/class-schema.php:228
 msgid "View branch"
 msgstr ""
 
-#: includes/class-schema.php:240
+#: includes/class-schema.php:258
 msgid "Show branches"
 msgstr ""
 
-#: includes/class-schema.php:243
+#: includes/class-schema.php:261
 msgid "All branches"
 msgstr ""
 
-#: includes/class-schema.php:244
+#: includes/class-schema.php:262
 msgid "From selected categories"
 msgstr ""
 
-#: includes/class-schema.php:245
+#: includes/class-schema.php:263
 msgid "Handpicked branches"
 msgstr ""
 
-#: includes/class-schema.php:246
+#: includes/class-schema.php:264
 msgid "None (custom pins only)"
 msgstr ""
 
-#: includes/class-schema.php:268
+#: includes/class-schema.php:286
 msgid "Order by"
 msgstr ""
 
-#: includes/class-schema.php:271
-#: includes/class-schema.php:580
-#: includes/integrations/elementor/class-map-widget.php:628
+#: includes/class-schema.php:289
+#: includes/class-schema.php:602
+#: includes/integrations/elementor/class-map-widget.php:654
 msgid "Title"
 msgstr ""
 
-#: includes/class-schema.php:272
+#: includes/class-schema.php:290
 msgid "Date"
 msgstr ""
 
-#: includes/class-schema.php:273
+#: includes/class-schema.php:291
 msgid "Menu order"
 msgstr ""
 
-#: includes/class-schema.php:274
+#: includes/class-schema.php:292
 msgid "Handpicked order"
 msgstr ""
 
-#: includes/class-schema.php:280
+#: includes/class-schema.php:298
 msgid "Order"
 msgstr ""
 
-#: includes/class-schema.php:283
+#: includes/class-schema.php:301
 msgid "Ascending"
 msgstr ""
 
-#: includes/class-schema.php:284
+#: includes/class-schema.php:302
 msgid "Descending"
 msgstr ""
 
-#: includes/class-schema.php:292
+#: includes/class-schema.php:310
 msgid "Map engine"
 msgstr ""
 
-#: includes/class-schema.php:294
+#: includes/class-schema.php:312
 msgid "Use global default"
 msgstr ""
 
-#: includes/class-schema.php:299
+#: includes/class-schema.php:317
 msgid "Center (lat,lng)"
 msgstr ""
 
-#: includes/class-schema.php:307
+#: includes/class-schema.php:325
 msgid "Zoom level"
 msgstr ""
 
-#: includes/class-schema.php:317
+#: includes/class-schema.php:335
 msgid "Auto-fit to pins"
 msgstr ""
 
-#: includes/class-schema.php:318
+#: includes/class-schema.php:336
 msgid "Zoom and center the map so every pin is visible."
 msgstr ""
 
-#: includes/class-schema.php:325
+#: includes/class-schema.php:343
 msgid "Zoom buttons (+ / −)"
 msgstr ""
 
-#: includes/class-schema.php:326
+#: includes/class-schema.php:344
 msgid "Also works on the offline Iran, SVG and image maps."
 msgstr ""
 
-#: includes/class-schema.php:332
+#: includes/class-schema.php:350
 msgid "Zoom buttons position"
 msgstr ""
 
-#: includes/class-schema.php:335
+#: includes/class-schema.php:353
 msgid "Top left"
 msgstr ""
 
-#: includes/class-schema.php:336
+#: includes/class-schema.php:354
 msgid "Top right"
 msgstr ""
 
-#: includes/class-schema.php:337
+#: includes/class-schema.php:355
 msgid "Bottom left"
 msgstr ""
 
-#: includes/class-schema.php:338
+#: includes/class-schema.php:356
 msgid "Bottom right"
 msgstr ""
 
-#: includes/class-schema.php:345
+#: includes/class-schema.php:363
 msgid "Zoom with mouse wheel"
 msgstr ""
 
-#: includes/class-schema.php:351
+#: includes/class-schema.php:369
 msgid "Zoom on double click"
 msgstr ""
 
-#: includes/class-schema.php:357
+#: includes/class-schema.php:375
 msgid "Pinch to zoom on touch screens"
 msgstr ""
 
-#: includes/class-schema.php:363
+#: includes/class-schema.php:381
 msgid "Minimum zoom"
 msgstr ""
 
-#: includes/class-schema.php:373
+#: includes/class-schema.php:391
 msgid "Maximum zoom"
 msgstr ""
 
-#: includes/class-schema.php:383
+#: includes/class-schema.php:401
 msgid "Maximum zoom (×)"
 msgstr ""
 
-#: includes/class-schema.php:384
+#: includes/class-schema.php:402
 msgid "How far the offline Iran, SVG and image maps can be enlarged. 1 turns zooming off."
 msgstr ""
 
-#: includes/class-schema.php:393
+#: includes/class-schema.php:411
 msgid "Hide map controls"
 msgstr ""
 
-#: includes/class-schema.php:399
+#: includes/class-schema.php:417
 msgid "Fullscreen button"
 msgstr ""
 
-#: includes/class-schema.php:407
+#: includes/class-schema.php:425
 msgid "Map type"
 msgstr ""
 
-#: includes/class-schema.php:410
+#: includes/class-schema.php:428
 msgid "Roadmap"
 msgstr ""
 
-#: includes/class-schema.php:412
+#: includes/class-schema.php:430
 msgid "Hybrid"
 msgstr ""
 
-#: includes/class-schema.php:413
+#: includes/class-schema.php:431
 msgid "Terrain"
 msgstr ""
 
-#: includes/class-schema.php:420
+#: includes/class-schema.php:438
 msgid "Map style"
 msgstr ""
 
-#: includes/class-schema.php:421
+#: includes/class-schema.php:439
 msgid "Styles are ignored when a Google Map ID is set in the plugin settings (cloud styling is used instead)."
 msgstr ""
 
-#: includes/class-schema.php:430
-msgid "Custom style JSON"
+#: includes/class-schema.php:448
+msgid "Snazzy Maps style (JavaScript style array)"
 msgstr ""
 
-#: includes/class-schema.php:431
-msgid "Paste a style array, e.g. from snazzymaps.com."
+#: includes/class-schema.php:449
+msgid "On Snazzy Maps, open a style, copy its “JavaScript Style Array” and paste it here. Used when “Custom Snazzy Maps style” is chosen as the map style."
 msgstr ""
 
-#: includes/class-schema.php:441
+#: includes/class-schema.php:454
+msgid "Browse free styles on Snazzy Maps"
+msgstr ""
+
+#: includes/class-schema.php:463
 msgid "Tile style"
 msgstr ""
 
-#: includes/class-schema.php:450
+#: includes/class-schema.php:472
 msgid "Mapbox style"
 msgstr ""
 
-#: includes/class-schema.php:458
+#: includes/class-schema.php:480
 msgid "Neshan style"
 msgstr ""
 
-#: includes/class-schema.php:466
+#: includes/class-schema.php:488
 msgid "Parsimap style"
 msgstr ""
 
-#: includes/class-schema.php:474
+#: includes/class-schema.php:496
 msgid "Mapbox style ID"
 msgstr ""
 
-#: includes/class-schema.php:482
+#: includes/class-schema.php:504
 msgid "Tile URL template"
 msgstr ""
 
-#: includes/class-schema.php:490
+#: includes/class-schema.php:512
 msgid "Tile attribution"
 msgstr ""
 
-#: includes/class-schema.php:499
+#: includes/class-schema.php:521
 msgid "Map image"
 msgstr ""
 
-#: includes/class-schema.php:506
+#: includes/class-schema.php:528
 msgid "SVG file"
 msgstr ""
 
-#: includes/class-schema.php:507
+#: includes/class-schema.php:529
 msgid "Shapes with an id become hoverable regions."
 msgstr ""
 
-#: includes/class-schema.php:514
+#: includes/class-schema.php:536
 msgid "Geo bounds (north,west,south,east)"
 msgstr ""
 
-#: includes/class-schema.php:515
+#: includes/class-schema.php:537
 msgid "Optional. When set, branches are placed on the image/SVG by their latitude and longitude."
 msgstr ""
 
-#: includes/class-schema.php:523
+#: includes/class-schema.php:545
 msgid "Projection"
 msgstr ""
 
-#: includes/class-schema.php:526
+#: includes/class-schema.php:548
 msgid "Web Mercator"
 msgstr ""
 
-#: includes/class-schema.php:527
+#: includes/class-schema.php:549
 msgid "Equirectangular (plate carrée)"
 msgstr ""
 
-#: includes/class-schema.php:534
+#: includes/class-schema.php:556
 msgid "Show region name on hover"
 msgstr ""
 
-#: includes/class-schema.php:541
+#: includes/class-schema.php:563
 msgid "Highlight regions that have branches"
 msgstr ""
 
-#: includes/class-schema.php:548
+#: includes/class-schema.php:570
 msgid "Region click"
 msgstr ""
 
-#: includes/class-schema.php:551
+#: includes/class-schema.php:573
 msgid "Filter branches in region"
 msgstr ""
 
-#: includes/class-schema.php:552
+#: includes/class-schema.php:574
 msgid "Do nothing"
 msgstr ""
 
-#: includes/class-schema.php:559
+#: includes/class-schema.php:581
 msgid "Region names"
 msgstr ""
 
-#: includes/class-schema.php:562
+#: includes/class-schema.php:584
 msgid "Site language"
 msgstr ""
 
-#: includes/class-schema.php:563
+#: includes/class-schema.php:585
 msgid "Persian"
 msgstr ""
 
-#: includes/class-schema.php:564
+#: includes/class-schema.php:586
 msgid "English"
 msgstr ""
 
-#: includes/class-schema.php:574
+#: includes/class-schema.php:596
 msgid "Extra pins that are not branches. On image/SVG maps use X/Y (percent = responsive, px = absolute); on geographic maps use latitude/longitude."
 msgstr ""
 
-#: includes/class-schema.php:581
+#: includes/class-schema.php:603
 msgid "New pin"
 msgstr ""
 
-#: includes/class-schema.php:585
+#: includes/class-schema.php:607
 msgid "X position"
 msgstr ""
 
-#: includes/class-schema.php:590
+#: includes/class-schema.php:612
 msgid "Y position"
 msgstr ""
 
-#: includes/class-schema.php:595
+#: includes/class-schema.php:617
 msgid "Position unit"
 msgstr ""
 
-#: includes/class-schema.php:598
+#: includes/class-schema.php:620
 msgid "Percent (relative)"
 msgstr ""
 
-#: includes/class-schema.php:599
+#: includes/class-schema.php:621
 msgid "Pixels (absolute)"
 msgstr ""
 
-#: includes/class-schema.php:614
+#: includes/class-schema.php:636
 msgid "Popup content (HTML)"
 msgstr ""
 
-#: includes/class-schema.php:619
+#: includes/class-schema.php:641
 msgid "Link URL"
 msgstr ""
 
-#: includes/class-schema.php:639
+#: includes/class-schema.php:661
 msgid "Pin style"
 msgstr ""
 
-#: includes/class-schema.php:642
+#: includes/class-schema.php:664
 msgid "Marker"
 msgstr ""
 
-#: includes/class-schema.php:643
+#: includes/class-schema.php:665
 msgid "Dot"
 msgstr ""
 
-#: includes/class-schema.php:644
+#: includes/class-schema.php:666
 msgid "Image"
 msgstr ""
 
-#: includes/class-schema.php:651
+#: includes/class-schema.php:673
 msgid "Overrides every branch pin image."
 msgstr ""
 
-#: includes/class-schema.php:658
+#: includes/class-schema.php:680
 msgid "Pin animation"
 msgstr ""
 
-#: includes/class-schema.php:661
+#: includes/class-schema.php:683
 msgid "None"
 msgstr ""
 
-#: includes/class-schema.php:662
+#: includes/class-schema.php:684
 msgid "Drop in"
 msgstr ""
 
-#: includes/class-schema.php:663
+#: includes/class-schema.php:685
 msgid "Pulse"
 msgstr ""
 
-#: includes/class-schema.php:664
+#: includes/class-schema.php:686
 msgid "Bounce on hover"
 msgstr ""
 
-#: includes/class-schema.php:670
+#: includes/class-schema.php:692
 msgid "Show title on hover"
 msgstr ""
 
-#: includes/class-schema.php:676
+#: includes/class-schema.php:698
 msgid "Pin click action"
 msgstr ""
 
-#: includes/class-schema.php:679
+#: includes/class-schema.php:701
 msgid "Open popup"
 msgstr ""
 
-#: includes/class-schema.php:680
+#: includes/class-schema.php:702
 msgid "Open branch page"
 msgstr ""
 
-#: includes/class-schema.php:681
+#: includes/class-schema.php:703
 msgid "Nothing"
 msgstr ""
 
-#: includes/class-schema.php:687
+#: includes/class-schema.php:709
 msgid "Link target"
 msgstr ""
 
-#: includes/class-schema.php:690
+#: includes/class-schema.php:712
 msgid "Same tab"
 msgstr ""
 
-#: includes/class-schema.php:691
+#: includes/class-schema.php:713
 msgid "New tab"
 msgstr ""
 
-#: includes/class-schema.php:698
+#: includes/class-schema.php:720
 msgid "Cluster nearby pins"
 msgstr ""
 
-#: includes/class-schema.php:705
+#: includes/class-schema.php:727
 msgid "Cluster radius (px)"
 msgstr ""
 
-#: includes/class-schema.php:714
+#: includes/class-schema.php:736
 msgid "Minimum pins per cluster"
 msgstr ""
 
-#: includes/class-schema.php:725
+#: includes/class-schema.php:747
 msgid "Popup template (HTML)"
 msgstr ""
 
 #. translators: %s: list of tags
-#: includes/class-schema.php:728
+#: includes/class-schema.php:750
 #, php-format
 msgid "Tags: %s. Use {tag|fallback} for a default value. {image} is the featured image, {pin_image} the pin image and {popup_image} the image chosen in “Popup image”."
 msgstr ""
 
-#: includes/class-schema.php:739
+#: includes/class-schema.php:761
 msgid "Popup image"
 msgstr ""
 
-#: includes/class-schema.php:740
+#: includes/class-schema.php:762
 msgid "Used by the {popup_image} tag. {image} is always the featured image and {pin_image} the pin image."
 msgstr ""
 
-#: includes/class-schema.php:743
+#: includes/class-schema.php:765
 msgid "Featured image"
 msgstr ""
 
-#: includes/class-schema.php:744
+#: includes/class-schema.php:766
 msgid "Branch pin image"
 msgstr ""
 
-#: includes/class-schema.php:745
+#: includes/class-schema.php:767
 msgid "Featured image, else pin image"
 msgstr ""
 
-#: includes/class-schema.php:746
+#: includes/class-schema.php:768
 msgid "No image"
 msgstr ""
 
-#: includes/class-schema.php:753
+#: includes/class-schema.php:775
 msgid "Placeholder when there is no image"
 msgstr ""
 
-#: includes/class-schema.php:760
-#: includes/integrations/elementor/class-map-widget.php:947
+#: includes/class-schema.php:782
+#: includes/integrations/elementor/class-map-widget.php:973
 msgid "Get directions button"
 msgstr ""
 
-#: includes/class-schema.php:761
+#: includes/class-schema.php:783
 msgid "Add {directions} to a custom template to choose where the button goes."
 msgstr ""
 
-#: includes/class-schema.php:768
+#: includes/class-schema.php:790
 msgid "Button text"
 msgstr ""
 
-#: includes/class-schema.php:770
-#: includes/class-schema.php:1291
+#: includes/class-schema.php:792
+#: includes/class-schema.php:1318
 msgid "Get directions"
 msgstr ""
 
-#: includes/class-schema.php:776
+#: includes/class-schema.php:798
 msgid "Button action"
 msgstr ""
 
-#: includes/class-schema.php:777
-msgid "Android can list the map apps installed on the phone. iPhone and desktop browsers cannot, so they get a list of map apps to choose from."
+#: includes/class-schema.php:799
+msgid "Android can list the map apps installed on the phone. iPhone and desktop browsers cannot, so they get the app list from Map Settings → Navigation."
 msgstr ""
 
-#: includes/class-schema.php:780
+#: includes/class-schema.php:802
 msgid "Installed map apps on Android, app list elsewhere"
 msgstr ""
 
-#: includes/class-schema.php:781
+#: includes/class-schema.php:803
 msgid "Always show the app list"
 msgstr ""
 
-#: includes/class-schema.php:782
-msgid "Open Google Maps directly"
-msgstr ""
-
-#: includes/class-schema.php:789
-msgid "Apps in the list"
-msgstr ""
-
-#: includes/class-schema.php:799
-msgid "Show branches list"
+#: includes/class-schema.php:804
+msgid "Open the default map app directly (no list)"
 msgstr ""
 
 #: includes/class-schema.php:805
-msgid "List position"
+msgid "Open Google Maps directly"
 msgstr ""
 
-#: includes/class-schema.php:808
-msgid "Above the map"
+#: includes/class-schema.php:812
+msgid "Apps in the list"
 msgstr ""
 
-#: includes/class-schema.php:809
-msgid "Below the map"
-msgstr ""
-
-#: includes/class-schema.php:810
-msgid "Sidebar (start)"
-msgstr ""
-
-#: includes/class-schema.php:811
-msgid "Sidebar (end)"
-msgstr ""
-
-#: includes/class-schema.php:818
-msgid "List layout"
+#: includes/class-schema.php:813
+msgid "Leave empty to show every app turned on in Map Settings → Navigation."
 msgstr ""
 
 #: includes/class-schema.php:826
-msgid "Group by category"
+msgid "Show branches list"
 msgstr ""
 
-#: includes/class-schema.php:829
-msgid "No"
+#: includes/class-schema.php:832
+msgid "List position"
 msgstr ""
 
-#: includes/class-schema.php:830
-#: includes/integrations/wpbakery/class-wpbakery.php:113
-msgid "Yes"
+#: includes/class-schema.php:835
+msgid "Above the map"
+msgstr ""
+
+#: includes/class-schema.php:836
+msgid "Below the map"
 msgstr ""
 
 #: includes/class-schema.php:837
-#: includes/integrations/elementor/class-map-widget.php:829
+msgid "Sidebar (start)"
+msgstr ""
+
+#: includes/class-schema.php:838
+msgid "Sidebar (end)"
+msgstr ""
+
+#: includes/class-schema.php:845
+msgid "List layout"
+msgstr ""
+
+#: includes/class-schema.php:853
+msgid "Group by category"
+msgstr ""
+
+#: includes/class-schema.php:856
+msgid "No"
+msgstr ""
+
+#: includes/class-schema.php:857
+#: includes/integrations/wpbakery/class-wpbakery.php:116
+msgid "Yes"
+msgstr ""
+
+#: includes/class-schema.php:864
+#: includes/integrations/elementor/class-map-widget.php:855
 msgid "Search box"
 msgstr ""
 
-#: includes/class-schema.php:844
+#: includes/class-schema.php:871
 msgid "Search placeholder"
 msgstr ""
 
-#: includes/class-schema.php:846
-#: includes/class-schema.php:1297
+#: includes/class-schema.php:873
+#: includes/class-schema.php:1324
 msgid "Search branches…"
 msgstr ""
 
-#: includes/class-schema.php:854
+#: includes/class-schema.php:881
 msgid "Category chips under the search box"
 msgstr ""
 
-#: includes/class-schema.php:855
+#: includes/class-schema.php:882
 msgid "Visitors pick a category and the list and the map show only its branches."
 msgstr ""
 
-#: includes/class-schema.php:862
+#: includes/class-schema.php:889
 msgid "Category chips on the map"
 msgstr ""
 
-#: includes/class-schema.php:863
+#: includes/class-schema.php:890
 msgid "Shows only the pins of the chosen category."
 msgstr ""
 
-#: includes/class-schema.php:869
+#: includes/class-schema.php:896
 msgid "Position on the map"
 msgstr ""
 
-#: includes/class-schema.php:872
+#: includes/class-schema.php:899
 msgid "Top"
 msgstr ""
 
-#: includes/class-schema.php:873
+#: includes/class-schema.php:900
 msgid "Bottom"
 msgstr ""
 
-#: includes/class-schema.php:880
+#: includes/class-schema.php:907
 msgid "Allow choosing several categories"
 msgstr ""
 
-#: includes/class-schema.php:886
+#: includes/class-schema.php:913
 msgid "Show the number of branches"
 msgstr ""
 
-#: includes/class-schema.php:892
+#: includes/class-schema.php:919
 msgid "“All” chip text"
 msgstr ""
 
-#: includes/class-schema.php:893
+#: includes/class-schema.php:920
 msgid "Leave empty for the default text."
 msgstr ""
 
-#: includes/class-schema.php:895
-#: includes/class-schema.php:1294
+#: includes/class-schema.php:922
+#: includes/class-schema.php:1321
 msgid "All"
 msgstr ""
 
-#: includes/class-schema.php:902
-#: includes/integrations/elementor/class-map-widget.php:567
+#: includes/class-schema.php:929
+#: includes/integrations/elementor/class-map-widget.php:593
 msgid "Width"
 msgstr ""
 
-#: includes/class-schema.php:908
-#: includes/integrations/elementor/class-map-widget.php:388
+#: includes/class-schema.php:935
+#: includes/integrations/elementor/class-map-widget.php:414
 msgid "Height"
 msgstr ""
 
-#: includes/class-schema.php:909
-#: includes/integrations/elementor/class-map-widget.php:399
+#: includes/class-schema.php:936
+#: includes/integrations/elementor/class-map-widget.php:425
 msgid "Image and SVG maps size themselves by their aspect ratio."
 msgstr ""
 
-#: includes/class-schema.php:916
-#: includes/integrations/elementor/class-map-widget.php:406
-#: assets/js/admin.js:425
+#: includes/class-schema.php:943
+#: includes/integrations/elementor/class-map-widget.php:432
+#: assets/js/admin.js:537
 msgid "Accent color"
 msgstr ""
 
-#: includes/class-schema.php:928
+#: includes/class-schema.php:955
 msgid "Pin size (px)"
 msgstr ""
 
-#: includes/class-schema.php:936
+#: includes/class-schema.php:963
 msgid "Corner radius (px)"
 msgstr ""
 
-#: includes/class-schema.php:944
+#: includes/class-schema.php:971
 msgid "Popup background"
 msgstr ""
 
-#: includes/class-schema.php:950
+#: includes/class-schema.php:977
 msgid "Popup text"
 msgstr ""
 
-#: includes/class-schema.php:956
+#: includes/class-schema.php:983
 msgid "Popup width (px)"
 msgstr ""
 
-#: includes/class-schema.php:964
+#: includes/class-schema.php:991
 msgid "List item background"
 msgstr ""
 
-#: includes/class-schema.php:970
+#: includes/class-schema.php:997
 msgid "List item text"
 msgstr ""
 
-#: includes/class-schema.php:976
+#: includes/class-schema.php:1003
 msgid "Region fill"
 msgstr ""
 
-#: includes/class-schema.php:982
+#: includes/class-schema.php:1009
 msgid "Region with branches"
 msgstr ""
 
-#: includes/class-schema.php:988
+#: includes/class-schema.php:1015
 msgid "Region hover"
 msgstr ""
 
-#: includes/class-schema.php:994
+#: includes/class-schema.php:1021
 msgid "Region border"
 msgstr ""
 
-#: includes/class-schema.php:1000
+#: includes/class-schema.php:1027
 msgid "Loading background"
 msgstr ""
 
-#: includes/class-schema.php:1009
+#: includes/class-schema.php:1036
 msgid "HTML id"
 msgstr ""
 
-#: includes/class-schema.php:1015
+#: includes/class-schema.php:1042
 msgid "Extra CSS classes"
 msgstr ""
 
@@ -1493,209 +1527,219 @@ msgid "Image URL is not valid."
 msgstr ""
 
 #: includes/integrations/elementor/class-gallery-control.php:44
-#: includes/integrations/wpbakery/class-wpbakery.php:222
-#: assets/js/admin.js:672
+#: includes/integrations/wpbakery/class-wpbakery.php:225
+#: assets/js/admin.js:786
 msgid "Search styles…"
 msgstr ""
 
 #: includes/integrations/elementor/class-gallery-control.php:58
-#: assets/js/admin.js:694
+#: assets/js/admin.js:808
 msgid "No style found."
 msgstr ""
 
 #: includes/integrations/elementor/class-map-widget.php:35
-#: includes/integrations/wpbakery/class-wpbakery.php:205
+#: includes/integrations/wpbakery/class-wpbakery.php:208
 msgid "Branches Map"
 msgstr ""
 
-#: includes/integrations/elementor/class-map-widget.php:238
+#: includes/integrations/elementor/class-map-widget.php:241
 msgid "Position on image / SVG"
 msgstr ""
 
-#: includes/integrations/elementor/class-map-widget.php:248
+#: includes/integrations/elementor/class-map-widget.php:251
 msgid "Position on geographic maps"
 msgstr ""
 
 #. translators: %s: settings URL
-#: includes/integrations/elementor/class-map-widget.php:287
+#: includes/integrations/elementor/class-map-widget.php:290
 #, php-format
 msgid "API keys for Google Maps, Mapbox, Map.ir, Neshan and Parsimap are set in <a href=\"%s\" target=\"_blank\">Branches → Map Settings</a>."
 msgstr ""
 
-#: includes/integrations/elementor/class-map-widget.php:337
+#: includes/integrations/elementor/class-map-widget.php:320
+msgid "Style your map with Snazzy Maps"
+msgstr ""
+
+#. translators: %s: Snazzy Maps URL
+#: includes/integrations/elementor/class-map-widget.php:323
+#, php-format
+msgid "Pick a free style on <a href=\"%s\" target=\"_blank\" rel=\"noopener\">Snazzy Maps</a>, copy its “JavaScript Style Array”, choose “Custom Snazzy Maps style” in Google Maps → Map style and paste the array below."
+msgstr ""
+
+#: includes/integrations/elementor/class-map-widget.php:363
 msgid "Markers & clusters"
 msgstr ""
 
 #. translators: %s: categories screen URL
-#: includes/integrations/elementor/class-map-widget.php:363
+#: includes/integrations/elementor/class-map-widget.php:389
 #, php-format
 msgid "Pin color and pin image of each category are set in <a href=\"%s\" target=\"_blank\">Branches → Categories</a>."
 msgstr ""
 
-#: includes/integrations/elementor/class-map-widget.php:414
+#: includes/integrations/elementor/class-map-widget.php:440
 msgid "Background while loading"
 msgstr ""
 
-#: includes/integrations/elementor/class-map-widget.php:422
-#: includes/integrations/elementor/class-map-widget.php:593
-#: includes/integrations/elementor/class-map-widget.php:748
-#: includes/integrations/elementor/class-map-widget.php:871
-#: includes/integrations/elementor/class-map-widget.php:933
+#: includes/integrations/elementor/class-map-widget.php:448
+#: includes/integrations/elementor/class-map-widget.php:619
+#: includes/integrations/elementor/class-map-widget.php:774
+#: includes/integrations/elementor/class-map-widget.php:897
+#: includes/integrations/elementor/class-map-widget.php:959
 msgid "Border radius"
 msgstr ""
 
-#: includes/integrations/elementor/class-map-widget.php:447
+#: includes/integrations/elementor/class-map-widget.php:473
 msgid "Map tiles filter"
 msgstr ""
 
-#: includes/integrations/elementor/class-map-widget.php:457
+#: includes/integrations/elementor/class-map-widget.php:483
 msgid "Pins"
 msgstr ""
 
-#: includes/integrations/elementor/class-map-widget.php:464
-#: includes/integrations/elementor/class-map-widget.php:636
-#: includes/integrations/elementor/class-map-widget.php:808
+#: includes/integrations/elementor/class-map-widget.php:490
+#: includes/integrations/elementor/class-map-widget.php:662
+#: includes/integrations/elementor/class-map-widget.php:834
 msgid "Color"
 msgstr ""
 
-#: includes/integrations/elementor/class-map-widget.php:472
+#: includes/integrations/elementor/class-map-widget.php:498
 msgid "Hover / active color"
 msgstr ""
 
-#: includes/integrations/elementor/class-map-widget.php:480
+#: includes/integrations/elementor/class-map-widget.php:506
 msgid "Inner dot / border color"
 msgstr ""
 
-#: includes/integrations/elementor/class-map-widget.php:491
+#: includes/integrations/elementor/class-map-widget.php:517
 msgid "Size"
 msgstr ""
 
-#: includes/integrations/elementor/class-map-widget.php:500
+#: includes/integrations/elementor/class-map-widget.php:526
 msgid "Tooltip"
 msgstr ""
 
-#: includes/integrations/elementor/class-map-widget.php:508
-#: includes/integrations/elementor/class-map-widget.php:539
-#: includes/integrations/elementor/class-map-widget.php:577
-#: includes/integrations/elementor/class-map-widget.php:668
-#: includes/integrations/elementor/class-map-widget.php:773
-#: includes/integrations/elementor/class-map-widget.php:847
-#: includes/integrations/elementor/class-map-widget.php:906
-#: includes/integrations/elementor/class-map-widget.php:958
+#: includes/integrations/elementor/class-map-widget.php:534
+#: includes/integrations/elementor/class-map-widget.php:565
+#: includes/integrations/elementor/class-map-widget.php:603
+#: includes/integrations/elementor/class-map-widget.php:694
+#: includes/integrations/elementor/class-map-widget.php:799
+#: includes/integrations/elementor/class-map-widget.php:873
+#: includes/integrations/elementor/class-map-widget.php:932
+#: includes/integrations/elementor/class-map-widget.php:984
 msgid "Background"
 msgstr ""
 
-#: includes/integrations/elementor/class-map-widget.php:516
-#: includes/integrations/elementor/class-map-widget.php:547
-#: includes/integrations/elementor/class-map-widget.php:585
-#: includes/integrations/elementor/class-map-widget.php:676
-#: includes/integrations/elementor/class-map-widget.php:781
-#: includes/integrations/elementor/class-map-widget.php:855
-#: includes/integrations/elementor/class-map-widget.php:914
-#: includes/integrations/elementor/class-map-widget.php:966
+#: includes/integrations/elementor/class-map-widget.php:542
+#: includes/integrations/elementor/class-map-widget.php:573
+#: includes/integrations/elementor/class-map-widget.php:611
+#: includes/integrations/elementor/class-map-widget.php:702
+#: includes/integrations/elementor/class-map-widget.php:807
+#: includes/integrations/elementor/class-map-widget.php:881
+#: includes/integrations/elementor/class-map-widget.php:940
+#: includes/integrations/elementor/class-map-widget.php:992
 msgid "Text color"
 msgstr ""
 
-#: includes/integrations/elementor/class-map-widget.php:531
+#: includes/integrations/elementor/class-map-widget.php:557
 msgid "Clusters"
 msgstr ""
 
-#: includes/integrations/elementor/class-map-widget.php:609
+#: includes/integrations/elementor/class-map-widget.php:635
 msgid "Content padding"
 msgstr ""
 
-#: includes/integrations/elementor/class-map-widget.php:618
+#: includes/integrations/elementor/class-map-widget.php:644
 msgid "Image height"
 msgstr ""
 
-#: includes/integrations/elementor/class-map-widget.php:652
+#: includes/integrations/elementor/class-map-widget.php:678
 msgid "Text typography"
 msgstr ""
 
-#: includes/integrations/elementor/class-map-widget.php:660
+#: includes/integrations/elementor/class-map-widget.php:686
 msgid "Button"
 msgstr ""
 
-#: includes/integrations/elementor/class-map-widget.php:703
+#: includes/integrations/elementor/class-map-widget.php:729
 msgid "Sidebar width"
 msgstr ""
 
-#: includes/integrations/elementor/class-map-widget.php:714
+#: includes/integrations/elementor/class-map-widget.php:740
 msgid "Space between list and map"
 msgstr ""
 
-#: includes/integrations/elementor/class-map-widget.php:723
+#: includes/integrations/elementor/class-map-widget.php:749
 msgid "Space between items"
 msgstr ""
 
-#: includes/integrations/elementor/class-map-widget.php:739
+#: includes/integrations/elementor/class-map-widget.php:765
 msgid "Padding"
 msgstr ""
 
-#: includes/integrations/elementor/class-map-widget.php:764
-#: includes/integrations/elementor/class-map-widget.php:898
+#: includes/integrations/elementor/class-map-widget.php:790
+#: includes/integrations/elementor/class-map-widget.php:924
 msgid "Normal"
 msgstr ""
 
-#: includes/integrations/elementor/class-map-widget.php:765
+#: includes/integrations/elementor/class-map-widget.php:791
 msgid "Hover"
 msgstr ""
 
-#: includes/integrations/elementor/class-map-widget.php:766
-#: includes/integrations/elementor/class-map-widget.php:899
+#: includes/integrations/elementor/class-map-widget.php:792
+#: includes/integrations/elementor/class-map-widget.php:925
 msgid "Active"
 msgstr ""
 
-#: includes/integrations/elementor/class-map-widget.php:799
+#: includes/integrations/elementor/class-map-widget.php:825
 msgid "Category titles"
 msgstr ""
 
-#: includes/integrations/elementor/class-map-widget.php:863
-#: includes/integrations/elementor/class-map-widget.php:922
-#: includes/integrations/elementor/class-map-widget.php:974
-#: includes/integrations/elementor/class-map-widget.php:1002
+#: includes/integrations/elementor/class-map-widget.php:889
+#: includes/integrations/elementor/class-map-widget.php:948
+#: includes/integrations/elementor/class-map-widget.php:1000
+#: includes/integrations/elementor/class-map-widget.php:1028
 msgid "Border color"
 msgstr ""
 
-#: includes/integrations/elementor/class-map-widget.php:992
+#: includes/integrations/elementor/class-map-widget.php:1018
 msgid "Regions (SVG maps)"
 msgstr ""
 
-#: includes/integrations/elementor/class-map-widget.php:999
+#: includes/integrations/elementor/class-map-widget.php:1025
 msgid "Fill"
 msgstr ""
 
-#: includes/integrations/elementor/class-map-widget.php:1000
+#: includes/integrations/elementor/class-map-widget.php:1026
 msgid "Regions with branches"
 msgstr ""
 
-#: includes/integrations/elementor/class-map-widget.php:1001
+#: includes/integrations/elementor/class-map-widget.php:1027
 msgid "Hover / selected"
 msgstr ""
 
-#: includes/integrations/elementor/class-map-widget.php:1003
+#: includes/integrations/elementor/class-map-widget.php:1029
 msgid "Map background"
 msgstr ""
 
-#: includes/integrations/elementor/class-map-widget.php:1018
+#: includes/integrations/elementor/class-map-widget.php:1044
 msgid "Border width"
 msgstr ""
 
 #. translators: %s: example
-#: includes/integrations/wpbakery/class-wpbakery.php:175
+#: includes/integrations/wpbakery/class-wpbakery.php:178
 #, php-format
 msgid "e.g. %s"
 msgstr ""
 
-#: includes/integrations/wpbakery/class-wpbakery.php:199
+#: includes/integrations/wpbakery/class-wpbakery.php:202
 msgid "CSS box"
 msgstr ""
 
-#: includes/integrations/wpbakery/class-wpbakery.php:201
+#: includes/integrations/wpbakery/class-wpbakery.php:204
 msgid "Design Options"
 msgstr ""
 
-#: includes/integrations/wpbakery/class-wpbakery.php:208
+#: includes/integrations/wpbakery/class-wpbakery.php:211
 msgid "Branches on Google, OSM, Mapbox, Map.ir, SVG or image maps"
 msgstr ""
 
@@ -1798,377 +1842,462 @@ msgstr ""
 msgid "Branches: %1$d created, %2$d updated, %3$d skipped."
 msgstr ""
 
-#: assets/js/admin.js:309
-msgid "Settings saved."
+#: assets/js/admin.js:314
+msgid "Choose app icon"
 msgstr ""
 
-#: assets/js/admin.js:312
-msgid "Could not save settings."
+#: assets/js/admin.js:330
+msgid "Navigation apps"
 msgstr ""
 
-#: assets/js/admin.js:324
-msgid "Map providers"
+#: assets/js/admin.js:330
+msgid "The apps listed when a visitor taps “Get directions” in a branch popup. Turn apps on or off, change their name and icon, reorder them or add your own."
 msgstr ""
 
-#: assets/js/admin.js:325
-msgid "Defaults"
+#: assets/js/admin.js:334
+msgid "List title"
 msgstr ""
 
-#: assets/js/admin.js:327
-msgid "Import / Export"
+#: assets/js/admin.js:335
+msgid "No apps in the list. The button opens Google Maps."
 msgstr ""
 
-#: assets/js/admin.js:361
-msgid "OpenStreetMap"
+#: assets/js/admin.js:346
+msgid "New app"
 msgstr ""
 
-#: assets/js/admin.js:362
-msgid "Free tiles that need no key: OpenStreetMap, OpenTopoMap and Esri (light, dark, street, topographic and satellite). Also used as the fallback when a provider key is missing."
+#: assets/js/admin.js:347
+msgid "On"
+msgstr ""
+
+#: assets/js/admin.js:347
+msgid "Off"
+msgstr ""
+
+#: assets/js/admin.js:348
+msgid "Move up"
+msgstr ""
+
+#: assets/js/admin.js:349
+msgid "Move down"
+msgstr ""
+
+#: assets/js/admin.js:350
+#: assets/js/admin.js:771
+msgid "Remove"
+msgstr ""
+
+#: assets/js/admin.js:355
+msgid "Name"
+msgstr ""
+
+#: assets/js/admin.js:357
+msgid "Show on"
 msgstr ""
 
 #: assets/js/admin.js:364
-#: assets/js/admin.js:398
-msgid "Ready — no configuration needed"
+msgid "Link"
 msgstr ""
 
-#: assets/js/admin.js:368
-msgid "JavaScript API key with the Maps JavaScript API enabled."
+#: assets/js/admin.js:365
+msgid "Leave empty to use the default link."
 msgstr ""
 
-#: assets/js/admin.js:369
-msgid "Get a key"
+#: assets/js/admin.js:365
+msgid "Use {lat}, {lng}, {title} and {address}. App links such as geo:, waze:// or comgooglemaps:// also work."
 msgstr ""
 
-#: assets/js/admin.js:371
-#: assets/js/admin.js:404
-msgid "API key"
+#: assets/js/admin.js:374
+msgid "Change icon"
 msgstr ""
 
-#: assets/js/admin.js:372
-msgid "Map ID (optional)"
+#: assets/js/admin.js:375
+msgid "Use default icon"
 msgstr ""
 
-#: assets/js/admin.js:372
-msgid "Enables Advanced Markers and cloud-based styling. Leave empty to use the built-in JSON styles."
+#: assets/js/admin.js:382
+msgid "Add app"
 msgstr ""
 
-#: assets/js/admin.js:373
-msgid "Map language (optional)"
-msgstr ""
-
-#: assets/js/admin.js:373
-msgid "Two-letter code such as fa, en or ar. Empty = visitor browser language."
-msgstr ""
-
-#: assets/js/admin.js:378
-msgid "Public access token (starts with pk.). Works with Mapbox styles and your own Mapbox Studio styles."
-msgstr ""
-
-#: assets/js/admin.js:379
-#: assets/js/admin.js:391
-msgid "Get a token"
-msgstr ""
-
-#: assets/js/admin.js:380
-msgid "Access token"
-msgstr ""
-
-#: assets/js/admin.js:384
-msgid "Persian map by Neshan. Create a “Web map” key in the Neshan platform panel."
+#: assets/js/admin.js:383
+msgid "Restore default apps"
 msgstr ""
 
 #: assets/js/admin.js:385
-#: assets/js/admin.js:403
+msgid "Whether the button shows this list or opens the phone’s default map app is set per map, in the Popup section of the widget or shortcode."
+msgstr ""
+
+#: assets/js/admin.js:420
+msgid "Settings saved."
+msgstr ""
+
+#: assets/js/admin.js:423
+msgid "Could not save settings."
+msgstr ""
+
+#: assets/js/admin.js:435
+msgid "Map providers"
+msgstr ""
+
+#: assets/js/admin.js:436
+msgid "Defaults"
+msgstr ""
+
+#: assets/js/admin.js:438
+msgid "Navigation"
+msgstr ""
+
+#: assets/js/admin.js:439
+msgid "Import / Export"
+msgstr ""
+
+#: assets/js/admin.js:473
+msgid "OpenStreetMap"
+msgstr ""
+
+#: assets/js/admin.js:474
+msgid "Free tiles that need no key: OpenStreetMap, OpenTopoMap and Esri (light, dark, street, topographic and satellite). Also used as the fallback when a provider key is missing."
+msgstr ""
+
+#: assets/js/admin.js:476
+#: assets/js/admin.js:510
+msgid "Ready — no configuration needed"
+msgstr ""
+
+#: assets/js/admin.js:480
+msgid "JavaScript API key with the Maps JavaScript API enabled."
+msgstr ""
+
+#: assets/js/admin.js:481
+msgid "Get a key"
+msgstr ""
+
+#: assets/js/admin.js:483
+#: assets/js/admin.js:516
+msgid "API key"
+msgstr ""
+
+#: assets/js/admin.js:484
+msgid "Map ID (optional)"
+msgstr ""
+
+#: assets/js/admin.js:484
+msgid "Enables Advanced Markers and cloud-based styling. Leave empty to use the built-in JSON styles."
+msgstr ""
+
+#: assets/js/admin.js:485
+msgid "Map language (optional)"
+msgstr ""
+
+#: assets/js/admin.js:485
+msgid "Two-letter code such as fa, en or ar. Empty = visitor browser language."
+msgstr ""
+
+#: assets/js/admin.js:490
+msgid "Public access token (starts with pk.). Works with Mapbox styles and your own Mapbox Studio styles."
+msgstr ""
+
+#: assets/js/admin.js:491
+#: assets/js/admin.js:503
+msgid "Get a token"
+msgstr ""
+
+#: assets/js/admin.js:492
+msgid "Access token"
+msgstr ""
+
+#: assets/js/admin.js:496
+msgid "Persian map by Neshan. Create a “Web map” key in the Neshan platform panel."
+msgstr ""
+
+#: assets/js/admin.js:497
+#: assets/js/admin.js:515
 msgid "Get an API key"
 msgstr ""
 
-#: assets/js/admin.js:386
+#: assets/js/admin.js:498
 msgid "Web map API key"
 msgstr ""
 
-#: assets/js/admin.js:389
+#: assets/js/admin.js:501
 msgid "Parsimap"
 msgstr ""
 
-#: assets/js/admin.js:390
+#: assets/js/admin.js:502
 msgid "Persian raster map tiles by Parsimap."
 msgstr ""
 
-#: assets/js/admin.js:392
+#: assets/js/admin.js:504
 msgid "API token"
 msgstr ""
 
-#: assets/js/admin.js:395
+#: assets/js/admin.js:507
 msgid "Mapup"
 msgstr ""
 
-#: assets/js/admin.js:396
+#: assets/js/admin.js:508
 msgid "Persian map tiles by Mapup — free, no key needed."
 msgstr ""
 
-#: assets/js/admin.js:401
+#: assets/js/admin.js:513
 msgid "Map.ir"
 msgstr ""
 
-#: assets/js/admin.js:402
+#: assets/js/admin.js:514
 msgid "Persian map tiles with Iranian street names and places."
 msgstr ""
 
-#: assets/js/admin.js:411
+#: assets/js/admin.js:523
 msgid "Map defaults"
 msgstr ""
 
-#: assets/js/admin.js:411
+#: assets/js/admin.js:523
 msgid "Used by every map that does not override them."
 msgstr ""
 
-#: assets/js/admin.js:415
+#: assets/js/admin.js:527
 msgid "Default map engine"
 msgstr ""
 
-#: assets/js/admin.js:419
+#: assets/js/admin.js:531
 msgid "Default center (lat,lng)"
 msgstr ""
 
-#: assets/js/admin.js:420
+#: assets/js/admin.js:532
 msgid "Default height"
 msgstr ""
 
-#: assets/js/admin.js:420
+#: assets/js/admin.js:532
 msgid "Any CSS length, e.g. 500px or 60vh."
 msgstr ""
 
-#: assets/js/admin.js:422
+#: assets/js/admin.js:534
 msgid "Default zoom"
 msgstr ""
 
-#: assets/js/admin.js:425
+#: assets/js/admin.js:537
 msgid "Pins, clusters, active items and buttons."
 msgstr ""
 
-#: assets/js/admin.js:447
+#: assets/js/admin.js:559
 msgid "Branch pages"
 msgstr ""
 
-#: assets/js/admin.js:447
+#: assets/js/admin.js:559
 msgid "How single branch pages look and where they live."
 msgstr ""
 
-#: assets/js/admin.js:455
+#: assets/js/admin.js:567
 msgid "Branch card (address, contact, directions) + content"
 msgstr ""
 
-#: assets/js/admin.js:456
+#: assets/js/admin.js:568
 msgid "Content only (theme template)"
 msgstr ""
 
-#: assets/js/admin.js:460
+#: assets/js/admin.js:572
 msgid "URL base"
 msgstr ""
 
-#: assets/js/admin.js:460
+#: assets/js/admin.js:572
 msgid "Branch URLs look like /map/branch-name/. Visit Settings → Permalinks after changing it."
 msgstr ""
 
-#: assets/js/admin.js:462
+#: assets/js/admin.js:574
 msgid "Address search in the branch editor"
 msgstr ""
 
-#: assets/js/admin.js:465
+#: assets/js/admin.js:577
 msgid "OpenStreetMap Nominatim"
 msgstr ""
 
-#: assets/js/admin.js:466
+#: assets/js/admin.js:578
 msgid "Disabled"
 msgstr ""
 
-#: assets/js/admin.js:485
+#: assets/js/admin.js:599
 msgid "Allow SVG uploads"
 msgstr ""
 
-#: assets/js/admin.js:485
+#: assets/js/admin.js:599
 msgid "Lets administrators upload SVG maps to the media library. Files are sanitized on upload."
 msgstr ""
 
-#: assets/js/admin.js:486
+#: assets/js/admin.js:600
 msgid "Delete settings on uninstall"
 msgstr ""
 
-#: assets/js/admin.js:486
+#: assets/js/admin.js:600
 msgid "Branches are kept either way."
 msgstr ""
 
-#: assets/js/admin.js:492
+#: assets/js/admin.js:606
 msgid "Map attribution (copyright)"
 msgstr ""
 
-#: assets/js/admin.js:492
+#: assets/js/admin.js:606
 msgid "The copyright line shown in the bottom corner of OpenStreetMap, Mapup, Mapbox, Neshan, Parsimap, Map.ir and Google maps."
 msgstr ""
 
-#: assets/js/admin.js:499
+#: assets/js/admin.js:613
 msgid "Use with caution."
 msgstr ""
 
-#: assets/js/admin.js:501
+#: assets/js/admin.js:615
 msgid "This option is only meant for development and testing. Map providers require their attribution to stay visible under their terms of use, and hiding or changing it on a live site is not advised."
 msgstr ""
 
-#: assets/js/admin.js:504
+#: assets/js/admin.js:618
 msgid "Attribution"
 msgstr ""
 
-#: assets/js/admin.js:507
+#: assets/js/admin.js:621
 msgid "Show the provider attribution (recommended)"
 msgstr ""
 
-#: assets/js/admin.js:508
+#: assets/js/admin.js:622
 msgid "Replace it with my own text"
 msgstr ""
 
-#: assets/js/admin.js:509
+#: assets/js/admin.js:623
 msgid "Hide it"
 msgstr ""
 
-#: assets/js/admin.js:514
+#: assets/js/admin.js:628
 msgid "Attribution text"
 msgstr ""
 
-#: assets/js/admin.js:514
+#: assets/js/admin.js:628
 msgid "Links are allowed, e.g. <a href=\"https://www.openstreetmap.org/copyright\">© OpenStreetMap</a>"
 msgstr ""
 
-#: assets/js/admin.js:528
+#: assets/js/admin.js:642
 msgid "Mapify — Map Settings"
 msgstr ""
 
-#: assets/js/admin.js:529
+#: assets/js/admin.js:643
 #, js-format
 msgid "Version %s · Providers, defaults and branch pages"
 msgstr ""
 
-#: assets/js/admin.js:531
+#: assets/js/admin.js:645
 msgid "Unsaved changes"
 msgstr ""
 
-#: assets/js/admin.js:532
+#: assets/js/admin.js:646
 msgid "Save changes"
 msgstr ""
 
-#: assets/js/admin.js:545
+#: assets/js/admin.js:659
 msgid "Add a map to a page"
 msgstr ""
 
-#: assets/js/admin.js:549
+#: assets/js/admin.js:663
 #, js-format
 msgid "Active (%s) — widget “Branches Map” in PeproDev Elements"
 msgstr ""
 
-#: assets/js/admin.js:549
-#: assets/js/admin.js:550
+#: assets/js/admin.js:663
+#: assets/js/admin.js:664
 msgid "Not active"
 msgstr ""
 
-#: assets/js/admin.js:550
+#: assets/js/admin.js:664
 #, js-format
 msgid "Active (%s) — element “Branches Map”"
 msgstr ""
 
-#: assets/js/admin.js:551
-#: assets/js/admin.js:944
+#: assets/js/admin.js:665
+#: assets/js/admin.js:1064
 msgid "Shortcode"
 msgstr ""
 
-#: assets/js/admin.js:551
+#: assets/js/admin.js:665
 msgid "Works everywhere, including the block editor"
 msgstr ""
 
-#: assets/js/admin.js:553
+#: assets/js/admin.js:667
 msgid "Open shortcode builder"
 msgstr ""
 
-#: assets/js/admin.js:563
+#: assets/js/admin.js:677
 msgid "published branches"
 msgstr ""
 
-#: assets/js/admin.js:564
+#: assets/js/admin.js:678
 msgid "Add branch"
 msgstr ""
 
-#: assets/js/admin.js:564
+#: assets/js/admin.js:678
 msgid "Manage"
 msgstr ""
 
-#: assets/js/admin.js:655
+#: assets/js/admin.js:769
 msgid "Media library"
 msgstr ""
 
-#: assets/js/admin.js:657
-msgid "Remove"
-msgstr ""
-
-#: assets/js/admin.js:700
+#: assets/js/admin.js:814
 msgid "Nothing to choose yet — add branches and categories first."
 msgstr ""
 
-#: assets/js/admin.js:791
-#: assets/js/admin.js:805
+#: assets/js/admin.js:911
+#: assets/js/admin.js:925
 #, js-format
 msgid "Pin %d"
 msgstr ""
 
-#: assets/js/admin.js:806
+#: assets/js/admin.js:926
 msgid "Remove pin"
 msgstr ""
 
-#: assets/js/admin.js:822
+#: assets/js/admin.js:942
 msgid "Add pin"
 msgstr ""
 
-#: assets/js/admin.js:869
+#: assets/js/admin.js:989
 msgid "Mapify — Shortcode Builder"
 msgstr ""
 
-#: assets/js/admin.js:870
+#: assets/js/admin.js:990
 msgid "Design a map, preview it live and paste the shortcode anywhere."
 msgstr ""
 
-#: assets/js/admin.js:872
+#: assets/js/admin.js:992
 msgid "Reset"
 msgstr ""
 
-#: assets/js/admin.js:873
+#: assets/js/admin.js:993
 msgid "Export map"
 msgstr ""
 
-#: assets/js/admin.js:889
+#: assets/js/admin.js:1009
 msgid "This is not a Mapify map file."
 msgstr ""
 
-#: assets/js/admin.js:904
+#: assets/js/admin.js:1024
 msgid "Import map"
 msgstr ""
 
-#: assets/js/admin.js:905
+#: assets/js/admin.js:1025
 msgid "Copy shortcode"
 msgstr ""
 
-#: assets/js/admin.js:953
+#: assets/js/admin.js:1073
 msgid "Live preview"
 msgstr ""
 
-#: assets/js/admin.js:958
+#: assets/js/admin.js:1078
 msgid "Desktop"
 msgstr ""
 
-#: assets/js/admin.js:959
+#: assets/js/admin.js:1079
 msgid "Tablet"
 msgstr ""
 
-#: assets/js/admin.js:960
+#: assets/js/admin.js:1080
 msgid "Mobile"
 msgstr ""
 
-#: assets/js/admin.js:977
+#: assets/js/admin.js:1097
 msgid "Map preview"
 msgstr ""

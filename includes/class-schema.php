@@ -49,6 +49,7 @@ class Schema {
 			'source'     => __( 'Branches', 'mapify' ),
 			'map'        => __( 'Map', 'mapify' ),
 			'google'     => __( 'Google Maps', 'mapify' ),
+			'snazzy'     => __( 'Snazzy Maps style', 'mapify' ),
 			'tiles'      => __( 'Tile layer', 'mapify' ),
 			'plane'      => __( 'Image / SVG map', 'mapify' ),
 			'pins'       => __( 'Custom pins', 'mapify' ),
@@ -132,10 +133,37 @@ class Schema {
 		return $styles;
 	}
 
+	/** Snazzy Maps link with Mapify as the referrer. */
+	public static function snazzy_url( $path = '' ) {
+		return add_query_arg(
+			array(
+				'ref'          => 'mapify',
+				'utm_source'   => 'mapify',
+				'utm_medium'   => 'wordpress-plugin',
+			),
+			'https://snazzymaps.com/' . ltrim( $path, '/' )
+		);
+	}
+
+	/**
+	 * Read a Google style array from JSON or from a pasted Snazzy Maps JavaScript snippet (var styles = [...];).
+	 */
+	public static function parse_google_style( $value ) {
+		// Shortcode attributes carry quotes and brackets as entities (&quot; &#91; &#93;).
+		$value = trim( html_entity_decode( (string) $value, ENT_QUOTES | ENT_HTML5, 'UTF-8' ) );
+		$start = strpos( $value, '[' );
+		$end   = strrpos( $value, ']' );
+		if ( false === $start || false === $end || $end < $start ) {
+			return array();
+		}
+		$decoded = json_decode( substr( $value, $start, $end - $start + 1 ), true );
+		return is_array( $decoded ) ? $decoded : array();
+	}
+
 	public static function google_style_options() {
 		$out = array(
 			'default' => __( 'Default', 'mapify' ),
-			'custom'  => __( 'Custom JSON style', 'mapify' ),
+			'custom'  => __( 'Custom Snazzy Maps style', 'mapify' ),
 		);
 		foreach ( self::google_styles() as $slug => $style ) {
 			$out[ $slug ] = $style['label'];
@@ -186,16 +214,6 @@ class Schema {
 				'carousel' => __( 'Carousel (horizontal scroll)', 'mapify' ),
 				'dropdown' => __( 'Dropdown', 'mapify' ),
 			)
-		);
-	}
-
-	public static function direction_apps() {
-		return array(
-			'google' => __( 'Google Maps', 'mapify' ),
-			'apple'  => __( 'Apple Maps (Apple devices only)', 'mapify' ),
-			'waze'   => __( 'Waze', 'mapify' ),
-			'neshan' => __( 'Neshan', 'mapify' ),
-			'balad'  => __( 'Balad', 'mapify' ),
 		);
 	}
 
@@ -425,12 +443,16 @@ class Schema {
 				'condition'   => array( 'maptype' => array( 'google' ) ),
 			),
 			'googlemap_style'   => array(
-				'group'       => 'google',
+				'group'       => 'snazzy',
 				'type'        => 'code',
-				'label'       => __( 'Custom style JSON', 'mapify' ),
-				'description' => __( 'Paste a style array, e.g. from snazzymaps.com.', 'mapify' ),
+				'label'       => __( 'Snazzy Maps style (JavaScript style array)', 'mapify' ),
+				'description' => __( 'On Snazzy Maps, open a style, copy its “JavaScript Style Array” and paste it here. Used when “Custom Snazzy Maps style” is chosen as the map style.', 'mapify' ),
 				'default'     => '',
 				'language'    => 'json',
+				'link'        => array(
+					'url'   => self::snazzy_url(),
+					'label' => __( 'Browse free styles on Snazzy Maps', 'mapify' ),
+				),
 				'condition'   => array( 'map_defined_style' => array( 'custom' ) ),
 			),
 
@@ -774,22 +796,27 @@ class Schema {
 				'group'       => 'popup',
 				'type'        => 'select',
 				'label'       => __( 'Button action', 'mapify' ),
-				'description' => __( 'Android can list the map apps installed on the phone. iPhone and desktop browsers cannot, so they get a list of map apps to choose from.', 'mapify' ),
+				'description' => __( 'Android can list the map apps installed on the phone. iPhone and desktop browsers cannot, so they get the app list from Map Settings → Navigation.', 'mapify' ),
 				'default'     => 'auto',
 				'options'     => array(
 					'auto'   => __( 'Installed map apps on Android, app list elsewhere', 'mapify' ),
 					'sheet'  => __( 'Always show the app list', 'mapify' ),
+					'direct' => __( 'Open the default map app directly (no list)', 'mapify' ),
 					'google' => __( 'Open Google Maps directly', 'mapify' ),
 				),
 				'condition'   => array( 'popup_directions' => array( true ) ),
 			),
 			'directions_apps'   => array(
-				'group'     => 'popup',
-				'type'      => 'multiselect',
-				'label'     => __( 'Apps in the list', 'mapify' ),
-				'default'   => array( 'google', 'apple', 'waze', 'neshan', 'balad' ),
-				'options'   => self::direction_apps(),
-				'condition' => array( 'popup_directions' => array( true ) ),
+				'group'       => 'popup',
+				'type'        => 'multiselect',
+				'label'       => __( 'Apps in the list', 'mapify' ),
+				'description' => __( 'Leave empty to show every app turned on in Map Settings → Navigation.', 'mapify' ),
+				'default'     => array(),
+				'options'     => 'nav_apps',
+				'condition'   => array(
+					'popup_directions' => array( true ),
+					'directions_mode'  => array( 'auto', 'sheet' ),
+				),
 			),
 
 			// Branches list.

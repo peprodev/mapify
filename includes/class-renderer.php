@@ -200,7 +200,18 @@ class Renderer {
 
 	public static function config( array $s, array $branches ) {
 		$center = array_map( 'floatval', array_pad( explode( ',', $s['center_coordinate'] ), 2, 0 ) );
-		$apps   = array_values( array_intersect( $s['directions_apps'], array_keys( Schema::direction_apps() ) ) );
+		$pick   = $s['directions_apps'];
+		// Maps saved with 2.1 stored the full built-in list; treat it as "all apps".
+		if ( array( 'google', 'apple', 'waze', 'neshan', 'balad' ) === $pick ) {
+			$pick = array();
+		}
+		$apps = array();
+		foreach ( Options::nav_apps() as $app ) {
+			if ( $app['enabled'] && ( ! $pick || in_array( $app['id'], $pick, true ) ) ) {
+				unset( $app['enabled'] );
+				$apps[] = $app;
+			}
+		}
 		$config = array(
 			'engine'     => $s['maptype'],
 			'center'     => array( $center[0], $center[1] ),
@@ -231,7 +242,8 @@ class Renderer {
 			'directions' => $s['popup_directions'] ? array(
 				'label' => $s['directions_label'],
 				'mode'  => $s['directions_mode'],
-				'apps'  => $apps ? $apps : array_keys( Schema::direction_apps() ),
+				'title' => '' !== Options::get( 'nav_title' ) ? Options::get( 'nav_title' ) : __( 'Get directions with', 'mapify' ),
+				'apps'  => $apps,
 			) : null,
 			'catMultiple' => (bool) $s['cat_filter_multiple'],
 			'attribution' => array(
@@ -249,13 +261,9 @@ class Renderer {
 				'zoomIn'       => __( 'Zoom in', 'mapify' ),
 				'zoomOut'      => __( 'Zoom out', 'mapify' ),
 				'zoomReset'    => __( 'Reset zoom', 'mapify' ),
-				'openWith'     => __( 'Get directions with', 'mapify' ),
-				'otherApps'    => __( 'Other apps on this phone', 'mapify' ),
 				'cancel'       => __( 'Cancel', 'mapify' ),
-				'apps'         => Schema::direction_apps(),
 			),
 		);
-		$config['i18n']['apps']['apple'] = __( 'Apple Maps', 'mapify' );
 
 		if ( 'google' === $s['maptype'] ) {
 			$style = '';
@@ -269,7 +277,7 @@ class Renderer {
 					$style = (string) apply_filters( 'mapify-shortcode-googlemapstyle-render-customstyle-json', '', $s['map_defined_style'], $s, '' );
 				}
 			}
-			$decoded          = json_decode( $style, true );
+			$decoded          = Schema::parse_google_style( $style );
 			$config['google'] = array(
 				'key'      => Options::get( 'google_api_key' ),
 				'mapId'    => Options::get( 'google_map_id' ),

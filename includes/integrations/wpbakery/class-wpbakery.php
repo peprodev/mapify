@@ -76,6 +76,9 @@ class WPBakery {
 		if ( ! empty( $field['description'] ) ) {
 			$param['description'] = $field['description'];
 		}
+		if ( ! empty( $field['link'] ) ) {
+			$param['description'] = ( isset( $param['description'] ) ? $param['description'] . ' ' : '' ) . '<a href="' . esc_url( $field['link']['url'] ) . '" target="_blank" rel="noopener">' . esc_html( $field['link']['label'] ) . '</a>';
+		}
 		$dep = self::dependency( $field, $fields );
 		if ( $dep ) {
 			$param['dependency'] = $dep;

@@ -1520,7 +1520,9 @@
 }
 
 .mapify-sheet__app {
-	display: block;
+	display: flex;
+	align-items: center;
+	gap: 12px;
 	font-size: 15px;
 	padding: 12px 14px;
 	border-radius: 12px;
@@ -1528,6 +1530,16 @@
 	color: inherit !important;
 	font-weight: 600;
 	text-decoration: none;
+}
+
+.mapify-sheet__icon {
+	flex: 0 0 auto;
+	width: 36px;
+	height: 36px;
+	margin: 0;
+	border-radius: 9px;
+	object-fit: contain;
+	box-shadow: 0 0 0 1px rgba(0, 0, 0, .06);
 }
 
 .mapify-sheet__app:hover,

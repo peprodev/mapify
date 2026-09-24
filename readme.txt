@@ -4,7 +4,7 @@ Donate link: https://pepro.dev/donate
 Tags: map, branches, store locator, openstreetmap, elementor
 Requires at least: 6.5
 Tested up to: 7.1
-Stable tag: 2.2.0
+Stable tag: 2.3.0
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -41,7 +41,8 @@ Add branches (address, phone, social links, location) and show them on a map wit
 **Popup**
 
 * Popup image from the featured image, the branch pin image, or none
-* Get directions button: Android lists the installed map apps, other devices get a list of Google Maps, Apple Maps, Waze, Neshan and Balad
+* Get directions button: Android lists the installed map apps, other devices get the app list from Map Settings → Navigation, or the phone's default map app opens directly
+* Navigation apps can be turned on or off, renamed, reordered, given new icons, or added
 
 **Other**
 
@@ -93,6 +94,14 @@ Choose “Image as map”, select the image and add custom pins with X/Y in perc
 6. Offline Iran map with branches list
 
 == Changelog ==
+
+= 2.3.0 =
+
+- Map Settings → Navigation: turn navigation apps on or off, rename them, change their icons, reorder them, choose the devices they show on, and add your own apps with a link template ({lat} {lng} {title} {address})
+- App icons for Google Maps, Apple Maps, Waze, Neshan, Balad and other phone apps in the directions list
+- New Get directions action: open the phone's default map app directly, without the list
+- “Map without labels” Google style from Snazzy Maps
+- Snazzy Maps style section: paste a style's JavaScript style array (JSON or a full `var styles = [...]` snippet), with a link to Snazzy Maps
 
 = 2.2.0 =
 

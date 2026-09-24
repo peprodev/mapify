@@ -1059,24 +1059,43 @@
 		return /Android/i.test( navigator.userAgent );
 	}
 
-	function isApple() {
-		return /iPad|iPhone|iPod|Macintosh/.test( navigator.userAgent );
+	function isIOS() {
+		return /iPad|iPhone|iPod/.test( navigator.userAgent ) || ( /Macintosh/.test( navigator.userAgent ) && navigator.maxTouchPoints > 1 );
 	}
 
-	function directionUrl( app, item ) {
-		var ll = item.latitude + ',' + item.longitude;
-		switch ( app ) {
-			case 'apple':
-				return 'https://maps.apple.com/?daddr=' + ll + '&q=' + encodeURIComponent( item.title || '' );
-			case 'waze':
-				return 'https://waze.com/ul?ll=' + ll + '&navigate=yes';
-			case 'neshan':
-				return 'https://nshn.ir/?lat=' + item.latitude + '&lng=' + item.longitude;
-			case 'balad':
-				return 'https://balad.ir/location?latitude=' + item.latitude + '&longitude=' + item.longitude;
-		}
-		return 'https://www.google.com/maps/dir/?api=1&destination=' + ll;
+	function isApple() {
+		return isIOS() || /Macintosh/.test( navigator.userAgent );
 	}
+
+	function isMobile() {
+		return isAndroid() || isIOS() || /Mobi/i.test( navigator.userAgent );
+	}
+
+	function onPlatform( platform ) {
+		switch ( platform ) {
+			case 'android':
+				return isAndroid();
+			case 'apple':
+				return isApple();
+			case 'mobile':
+				return isMobile();
+			case 'desktop':
+				return ! isMobile();
+		}
+		return true;
+	}
+
+	/** Fill an app URL template: {lat} {lng} {title} {address}. */
+	function appUrl( template, item ) {
+		var url = String( template || '' )
+			.replace( /\{lat\}/g, item.latitude )
+			.replace( /\{lng\}/g, item.longitude )
+			.replace( /\{title\}/g, encodeURIComponent( item.title || '' ) )
+			.replace( /\{address\}/g, encodeURIComponent( item.address || '' ) );
+		return /^\s*(javascript|data|vbscript):/i.test( url ) ? '' : url;
+	}
+
+	var GOOGLE_DIR = 'https://www.google.com/maps/dir/?api=1&destination={lat},{lng}';
 
 	function Mapify( el ) {
 		this.el = el;
@@ -1158,7 +1177,7 @@
 		if ( ! d || ! hasCoords( item ) ) {
 			return '';
 		}
-		return '<a class="mapify-card__directions" href="' + esc( directionUrl( 'google', item ) ) + '" target="_blank" rel="noopener" data-mapify-directions="' + esc( item.id ) + '">'
+		return '<a class="mapify-card__directions" href="' + esc( appUrl( GOOGLE_DIR, item ) ) + '" target="_blank" rel="noopener" data-mapify-directions="' + esc( item.id ) + '">'
 			+ '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.7 11.3 12.7 2.3a1 1 0 0 0-1.4 0l-9 9a1 1 0 0 0 0 1.4l9 9a1 1 0 0 0 1.4 0l9-9a1 1 0 0 0 0-1.4ZM14 14.5V12h-4v3H8v-4a1 1 0 0 1 1-1h5V7.5l3.5 3.5-3.5 3.5Z"/></svg>'
 			+ '<span>' + esc( d.label ) + '</span></a>';
 	};
@@ -1424,15 +1443,35 @@
 		} );
 	};
 
+	/** Apps from Map Settings → Navigation that fit this device. */
+	Mapify.prototype.directionApps = function () {
+		return ( this.cfg.directions.apps || [] ).filter( function ( app ) {
+			return onPlatform( app.platform );
+		} );
+	};
+
 	Mapify.prototype.directions = function ( item ) {
 		var d = this.cfg.directions;
+		var geo = 'geo:' + item.latitude + ',' + item.longitude + '?q=' + item.latitude + ',' + item.longitude + '(' + encodeURIComponent( item.title || '' ) + ')';
 		if ( d.mode === 'google' ) {
-			window.open( directionUrl( 'google', item ), '_blank', 'noopener' );
+			window.open( appUrl( GOOGLE_DIR, item ), '_blank', 'noopener' );
+			return;
+		}
+		if ( d.mode === 'direct' ) {
+			// The phone's default map app, without a list.
+			if ( isAndroid() ) {
+				window.location.href = geo;
+			} else if ( isIOS() ) {
+				window.location.href = 'maps://?daddr=' + item.latitude + ',' + item.longitude + '&q=' + encodeURIComponent( item.title || '' );
+			} else {
+				var first = this.directionApps()[ 0 ];
+				window.open( appUrl( first ? first.url : GOOGLE_DIR, item ) || appUrl( GOOGLE_DIR, item ), '_blank', 'noopener' );
+			}
 			return;
 		}
 		if ( d.mode === 'auto' && isAndroid() ) {
 			// geo: makes Android list every installed map app.
-			window.location.href = 'geo:' + item.latitude + ',' + item.longitude + '?q=' + item.latitude + ',' + item.longitude + '(' + encodeURIComponent( item.title || '' ) + ')';
+			window.location.href = geo;
 			return;
 		}
 		this.directionsSheet( item );
@@ -1440,28 +1479,34 @@
 
 	Mapify.prototype.directionsSheet = function ( item ) {
 		var self = this;
-		var cfg = this.cfg;
-		var old = this.stage.querySelector( '.mapify-sheet' );
+		var d = this.cfg.directions;
+		var old = document.querySelector( '.mapify-sheet' );
 		if ( old ) {
 			old.remove();
 		}
-		var apps = ( cfg.directions.apps || [] ).filter( function ( app ) {
-			return app !== 'apple' || isApple();
-		} );
+		var apps = this.directionApps();
+		if ( ! apps.length ) {
+			window.open( appUrl( GOOGLE_DIR, item ), '_blank', 'noopener' );
+			return;
+		}
 		var sheet = document.createElement( 'div' );
 		sheet.className = 'mapify-sheet';
 		sheet.setAttribute( 'role', 'dialog' );
 		sheet.setAttribute( 'aria-modal', 'true' );
-		sheet.setAttribute( 'aria-label', cfg.i18n.openWith );
+		sheet.setAttribute( 'aria-label', d.title );
 		sheet.setAttribute( 'dir', this.dir );
-		var html = '<div class="mapify-sheet__panel"><p class="mapify-sheet__title">' + esc( cfg.i18n.openWith ) + '<span>' + esc( item.title || '' ) + '</span></p><div class="mapify-sheet__apps">';
+		var html = '<div class="mapify-sheet__panel"><p class="mapify-sheet__title">' + esc( d.title ) + '<span>' + esc( item.title || '' ) + '</span></p><div class="mapify-sheet__apps">';
 		apps.forEach( function ( app ) {
-			html += '<a class="mapify-sheet__app mapify-sheet__app--' + app + '" href="' + esc( directionUrl( app, item ) ) + '" target="_blank" rel="noopener">' + esc( cfg.i18n.apps[ app ] || app ) + '</a>';
+			var url = appUrl( app.url, item );
+			if ( ! url ) {
+				return;
+			}
+			var web = /^https?:/i.test( url );
+			html += '<a class="mapify-sheet__app mapify-sheet__app--' + esc( app.id ) + '" href="' + esc( url ) + '"' + ( web ? ' target="_blank" rel="noopener"' : '' ) + '>'
+				+ ( app.icon ? '<img class="mapify-sheet__icon" src="' + esc( app.icon ) + '" alt="" />' : '' )
+				+ '<span>' + esc( app.label ) + '</span></a>';
 		} );
-		if ( isAndroid() ) {
-			html += '<a class="mapify-sheet__app mapify-sheet__app--geo" href="geo:' + item.latitude + ',' + item.longitude + '?q=' + item.latitude + ',' + item.longitude + '">' + esc( cfg.i18n.otherApps ) + '</a>';
-		}
-		html += '</div><button type="button" class="mapify-sheet__cancel">' + esc( cfg.i18n.cancel ) + '</button></div>';
+		html += '</div><button type="button" class="mapify-sheet__cancel">' + esc( this.cfg.i18n.cancel ) + '</button></div>';
 		sheet.innerHTML = html;
 		function close() {
 			sheet.remove();

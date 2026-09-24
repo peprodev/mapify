@@ -277,6 +277,117 @@
 		);
 	}
 
+	/** Map Settings → Navigation: the apps offered by the Get directions button. */
+	function NavPanel( p ) {
+		var N = D.nav || { builtins: {}, platforms: {}, defaults: [] };
+		var apps = p.apps || [];
+		var frame = useRef( null );
+
+		function update( i, key, val ) {
+			p.onChange(
+				apps.map( function ( app, j ) {
+					if ( j !== i ) {
+						return app;
+					}
+					var c = Object.assign( {}, app );
+					c[ key ] = val;
+					return c;
+				} )
+			);
+		}
+		function move( i, d ) {
+			var next = apps.slice();
+			var t = next[ i ];
+			next[ i ] = next[ i + d ];
+			next[ i + d ] = t;
+			p.onChange( next );
+		}
+		function remove( i ) {
+			p.onChange( apps.filter( function ( a, j ) {
+				return j !== i;
+			} ) );
+		}
+		function add() {
+			p.onChange( apps.concat( [ { id: 'app-' + Date.now().toString( 36 ), label: '', url: '', icon: '', platform: '', enabled: true } ] ) );
+		}
+		function chooseIcon( i ) {
+			frame.current = wp.media( { title: __( 'Choose app icon', 'mapify' ), library: { type: 'image' }, multiple: false } );
+			frame.current.on( 'select', function () {
+				update( i, 'icon', frame.current.state().get( 'selection' ).first().toJSON().url );
+			} );
+			frame.current.open();
+		}
+		var platforms = Object.keys( N.platforms ).map( function ( k ) {
+			return { value: k, label: N.platforms[ k ] };
+		} );
+
+		return el(
+			'div',
+			{ className: 'mapify-stack' },
+			el(
+				C.Card,
+				{ className: 'mapify-card' },
+				el( C.CardHeader, null, el( 'div', null, el( 'h2', { className: 'mapify-card__title' }, __( 'Navigation apps', 'mapify' ) ), el( 'p', { className: 'mapify-card__desc' }, __( 'The apps listed when a visitor taps “Get directions” in a branch popup. Turn apps on or off, change their name and icon, reorder them or add your own.', 'mapify' ) ) ) ),
+				el(
+					C.CardBody,
+					{ className: 'mapify-stack' },
+					el( C.TextControl, props( { label: __( 'List title', 'mapify' ), placeholder: __( 'Get directions with', 'mapify' ), value: p.title || '', onChange: p.onTitle } ) ),
+					apps.length ? null : el( C.Notice, { status: 'warning', isDismissible: false }, __( 'No apps in the list. The button opens Google Maps.', 'mapify' ) ),
+					apps.map( function ( app, i ) {
+						var b = N.builtins[ app.id ] || null;
+						var icon = app.icon || ( b ? b.icon : N.defaultIcon );
+						return el(
+							'div',
+							{ key: app.id, className: 'mapify-nav' + ( app.enabled ? '' : ' is-off' ) },
+							el(
+								'div',
+								{ className: 'mapify-nav__head' },
+								el( 'img', { className: 'mapify-nav__icon', src: icon, alt: '' } ),
+								el( 'strong', { className: 'mapify-nav__name' }, app.label || ( b ? b.label : __( 'New app', 'mapify' ) ) ),
+								el( C.ToggleControl, props( { label: app.enabled ? __( 'On', 'mapify' ) : __( 'Off', 'mapify' ), checked: !! app.enabled, onChange: function ( v ) { update( i, 'enabled', v ); } } ) ),
+								el( C.Button, { icon: 'arrow-up-alt2', label: __( 'Move up', 'mapify' ), size: 'small', disabled: i === 0, onClick: function () { move( i, -1 ); } } ),
+								el( C.Button, { icon: 'arrow-down-alt2', label: __( 'Move down', 'mapify' ), size: 'small', disabled: i === apps.length - 1, onClick: function () { move( i, 1 ); } } ),
+								el( C.Button, { icon: 'trash', label: __( 'Remove', 'mapify' ), size: 'small', isDestructive: true, onClick: function () { remove( i ); } } )
+							),
+							el(
+								'div',
+								{ className: 'mapify-grid-2' },
+								el( C.TextControl, props( { label: __( 'Name', 'mapify' ), placeholder: b ? b.label : '', value: app.label || '', onChange: function ( v ) { update( i, 'label', v ); } } ) ),
+								el( C.SelectControl, props( {
+									label: __( 'Show on', 'mapify' ),
+									value: app.platform || ( b ? b.platform : 'all' ),
+									options: platforms,
+									onChange: function ( v ) { update( i, 'platform', v ); },
+								} ) )
+							),
+							el( C.TextControl, props( {
+								label: __( 'Link', 'mapify' ),
+								help: b ? __( 'Leave empty to use the default link.', 'mapify' ) : __( 'Use {lat}, {lng}, {title} and {address}. App links such as geo:, waze:// or comgooglemaps:// also work.', 'mapify' ),
+								placeholder: b ? b.url : 'https://example.com/route?to={lat},{lng}',
+								value: app.url || '',
+								className: 'is-ltr',
+								onChange: function ( v ) { update( i, 'url', v ); },
+							} ) ),
+							el(
+								'div',
+								{ className: 'mapify-row' },
+								el( C.Button, props( { variant: 'secondary', icon: 'format-image', onClick: function () { chooseIcon( i ); } } ), __( 'Change icon', 'mapify' ) ),
+								app.icon ? el( C.Button, props( { variant: 'tertiary', onClick: function () { update( i, 'icon', '' ); } } ), __( 'Use default icon', 'mapify' ) ) : null
+							)
+						);
+					} ),
+					el(
+						'div',
+						{ className: 'mapify-row' },
+						el( C.Button, props( { variant: 'secondary', icon: 'plus', onClick: add } ), __( 'Add app', 'mapify' ) ),
+						el( C.Button, props( { variant: 'tertiary', onClick: function () { p.onChange( N.defaults.slice() ); } } ), __( 'Restore default apps', 'mapify' ) )
+					),
+					el( 'p', { className: 'mapify-muted' }, __( 'Whether the button shows this list or opens the phone’s default map app is set per map, in the Popup section of the widget or shortcode.', 'mapify' ) )
+				)
+			)
+		);
+	}
+
 	/* ------------------------------------------------------------------ settings screen */
 
 	function SettingsScreen() {
@@ -324,6 +435,7 @@
 			{ name: 'providers', title: __( 'Map providers', 'mapify' ) },
 			{ name: 'defaults', title: __( 'Defaults', 'mapify' ) },
 			{ name: 'branches', title: __( 'Branches', 'mapify' ) },
+			{ name: 'navigation', title: __( 'Navigation', 'mapify' ) },
 			{ name: 'transfer', title: __( 'Import / Export', 'mapify' ) },
 			{ name: 'advanced', title: __( 'Advanced', 'mapify' ) },
 		];
@@ -469,6 +581,8 @@
 							} ) )
 						)
 					);
+				case 'navigation':
+					return el( NavPanel, { apps: values.nav_apps, onChange: set( 'nav_apps' ), title: values.nav_title, onTitle: set( 'nav_title' ) } );
 				case 'transfer':
 					return el( TransferPanel, { onSettingsImported: reload } );
 				default:
@@ -728,6 +842,12 @@
 	}
 
 	function Field( p ) {
+		var control = FieldControl( p );
+		var link = p.field.link;
+		return link ? el( Fragment, null, control, el( 'p', { className: 'mapify-field-link' }, el( C.ExternalLink, { href: link.url }, link.label ) ) ) : control;
+	}
+
+	function FieldControl( p ) {
 		var f = p.field;
 		var v = p.value;
 		var on = p.onChange;

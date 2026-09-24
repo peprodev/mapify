@@ -97,6 +97,9 @@ class Map_Widget extends Widget_Base {
 		if ( ! empty( $field['description'] ) ) {
 			$args['description'] = $field['description'];
 		}
+		if ( ! empty( $field['link'] ) ) {
+			$args['description'] = ( isset( $args['description'] ) ? $args['description'] . ' ' : '' ) . '<a href="' . esc_url( $field['link']['url'] ) . '" target="_blank" rel="noopener">' . esc_html( $field['link']['label'] ) . '</a>';
+		}
 		$condition = $this->condition_for( $key, $fields );
 		if ( $condition ) {
 			$args['condition'] = $condition;
@@ -300,6 +303,29 @@ class Map_Widget extends Widget_Base {
 			)
 		);
 		$this->add_schema_group( 'google', $fields );
+		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'section_snazzy',
+			array(
+				'label'     => __( 'Snazzy Maps style', 'mapify' ),
+				'condition' => array( 'maptype' => 'google' ),
+			)
+		);
+		$this->add_control(
+			'snazzy_help',
+			array(
+				'type'       => Controls_Manager::ALERT,
+				'alert_type' => 'info',
+				'heading'    => __( 'Style your map with Snazzy Maps', 'mapify' ),
+				'content'    => sprintf(
+					/* translators: %s: Snazzy Maps URL */
+					__( 'Pick a free style on <a href="%s" target="_blank" rel="noopener">Snazzy Maps</a>, copy its “JavaScript Style Array”, choose “Custom Snazzy Maps style” in Google Maps → Map style and paste the array below.', 'mapify' ),
+					esc_url( Schema::snazzy_url( 'explore' ) )
+				),
+			)
+		);
+		$this->add_schema_group( 'snazzy', $fields );
 		$this->end_controls_section();
 
 		$this->start_controls_section(

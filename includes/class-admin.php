@@ -128,6 +128,24 @@ class Admin {
 			),
 			'branchCount' => (int) wp_count_posts( Branches::POST_TYPE )->publish,
 		);
+		if ( 'settings' === $data['screen'] ) {
+			wp_enqueue_media();
+			$builtins = array();
+			foreach ( Options::builtin_nav_apps() as $id => $app ) {
+				$builtins[ $id ] = array(
+					'label'    => $app[0],
+					'url'      => $app[1],
+					'platform' => $app[2],
+					'icon'     => Options::nav_icon( $id ),
+				);
+			}
+			$data['nav'] = array(
+				'builtins'    => $builtins,
+				'platforms'   => Options::nav_platforms(),
+				'defaultIcon' => MAPIFY_ASSETS . 'img/nav/app.svg',
+				'defaults'    => Options::default_nav_apps(),
+			);
+		}
 		if ( 'builder' === $data['screen'] ) {
 			wp_enqueue_media();
 			$data['schema']        = self::schema_for_js();
