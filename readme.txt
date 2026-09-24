@@ -1,5 +1,5 @@
 === PeproDev Branches Map (Mapify) ===
-Contributors: peprodev,amirhosseinhpv
+Contributors: peprodev,amirhpcom
 Donate link: https://pepro.dev/donate
 Tags: map, branches, store locator, openstreetmap, elementor
 Requires at least: 6.5
