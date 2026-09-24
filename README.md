@@ -45,7 +45,7 @@ Use **Branches → Shortcode Builder** to generate shortcodes with a live previe
 
 ## Screenshots
 
-See [`screenshots/`](screenshots/) — admin pages, every Elementor content/style section, every WPBakery tab, front-end maps and Persian (RTL) versions.
+Screenshots of the admin pages, every Elementor content/style section, every WPBakery tab, front-end maps and Persian (RTL) versions are kept outside the plugin source, in the `screenshots/` folder next to `source/`.
 
 ## Credits
 
