@@ -96,6 +96,8 @@
 /* Stage & map ------------------------------------------------------------- */
 
 .mapify__stage {
+	/* Room for sticky headers when the page scrolls to the map. */
+	scroll-margin-top: var(--mapify-scroll-offset, 80px);
 	position: relative;
 	flex: 1 1 auto;
 	min-width: 0;

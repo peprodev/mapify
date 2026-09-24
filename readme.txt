@@ -4,7 +4,7 @@ Donate link: https://pepro.dev/donate
 Tags: map, branches, store locator, openstreetmap, elementor
 Requires at least: 6.5
 Tested up to: 7.1
-Stable tag: 2.3.0
+Stable tag: 2.4.0
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -94,6 +94,11 @@ Choose “Image as map”, select the image and add custom pins with X/Y in perc
 6. Offline Iran map with branches list
 
 == Changelog ==
+
+= 2.4.0 =
+
+- Picking a branch in the list scrolls the page to the map when the map is out of view, and opens the branch popup
+- Two new list settings to turn the scroll and the popup off
 
 = 2.3.0 =
 

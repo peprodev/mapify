@@ -251,6 +251,8 @@ class Renderer {
 				'html' => wp_kses( (string) Options::get( 'attribution_text' ), Options::attribution_tags() ),
 			),
 			'list'       => (bool) $s['branchlistshow'],
+			'listScroll' => (bool) $s['list_scroll_to_map'],
+			'listPopup'  => (bool) $s['list_open_popup'],
 			'items'      => array_values( array_merge( $branches, $s['pins'] ) ),
 			'i18n'       => array(
 				'noResult'     => __( 'No branch found.', 'mapify' ),

@@ -873,6 +873,22 @@ class Schema {
 				'placeholder' => __( 'Search branches…', 'mapify' ),
 				'condition' => array( 'branchessearch' => array( true ) ),
 			),
+			'list_scroll_to_map' => array(
+				'group'       => 'list',
+				'type'        => 'toggle',
+				'label'       => __( 'Scroll to the map when a branch is picked', 'mapify' ),
+				'description' => __( 'When a visitor picks a branch in the list and the map is out of view, the page scrolls to the map.', 'mapify' ),
+				'default'     => true,
+				'condition'   => array( 'branchlistshow' => array( true ) ),
+			),
+			'list_open_popup'   => array(
+				'group'       => 'list',
+				'type'        => 'toggle',
+				'label'       => __( 'Open the branch popup when it is picked', 'mapify' ),
+				'description' => __( 'Turn off to only move the map to the branch.', 'mapify' ),
+				'default'     => true,
+				'condition'   => array( 'branchlistshow' => array( true ) ),
+			),
 
 			// Category filter.
 			'list_cat_filter'   => array(

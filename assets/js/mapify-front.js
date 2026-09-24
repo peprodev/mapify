@@ -1226,13 +1226,29 @@
 		}
 	};
 
+	/** Bring the map into view when it is (partly) off screen, e.g. below a long list. */
+	Mapify.prototype.scrollToMap = function () {
+		var r = this.stage.getBoundingClientRect();
+		var vh = window.innerHeight || document.documentElement.clientHeight;
+		if ( r.top >= 0 && r.bottom <= vh ) {
+			return;
+		}
+		var reduce = window.matchMedia && window.matchMedia( '(prefers-reduced-motion: reduce)' ).matches;
+		this.stage.scrollIntoView( { behavior: reduce ? 'auto' : 'smooth', block: r.height > vh ? 'start' : 'center' } );
+	};
+
 	/** from: 'pin' | 'list' */
 	Mapify.prototype.activate = function ( item, from ) {
 		var cfg = this.cfg;
 		this.setActive( item.id );
 		if ( from === 'list' ) {
+			if ( cfg.listScroll !== false ) {
+				this.scrollToMap();
+			}
 			this.engine.focus( item );
-			this.engine.openPopup( item, this.popupHtml( item ) );
+			if ( cfg.listPopup !== false ) {
+				this.engine.openPopup( item, this.popupHtml( item ) );
+			}
 			return;
 		}
 		var action = cfg.action;
