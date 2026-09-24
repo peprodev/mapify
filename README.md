@@ -2,7 +2,7 @@
 
 Show your branches on **Google Maps, OpenStreetMap, Mapbox, Map.ir, Neshan, Parsimap, Mapup**, any XYZ tile server, **your own SVG or image**, or a bundled **offline map of Iran** — as an **Elementor widget**, a **WPBakery Page Builder element** or a **shortcode**.
 
-*Version 2.4.0* · Requires WordPress 6.5+ (tested 7.1.2), PHP 7.4+ (tested 8.5.8), Elementor 4.3.1, WPBakery 8.2 · by [Pepro Dev](https://pepro.dev/), lead programmer [Amirhosseinhpv](https://hpv.im/)
+*Version 2.4.1* · Requires WordPress 6.5+ (tested 7.1.2), PHP 7.4+ (tested 8.5.8), Elementor 4.3.1, WPBakery 8.2 · by [Pepro Dev](https://pepro.dev/), lead programmer [Amirhosseinhpv](https://hpv.im/)
 
 ![Branches list with category filter, map and popup](.github/screenshots/front-list-filter-popup.jpg)
 
@@ -103,6 +103,11 @@ Popup tags: `{id} {title} {image} {pin_image} {popup_image} {url} {latitude} {lo
 | `.github/screenshots/` | Screenshots used in this README (not part of the plugin zip) |
 
 ## Changelog
+
+### 2.4.1
+
+- Removed unused images from version 1 (old marker set and placeholder files); the plugin is about 5 MB smaller
+- readme.txt and README updated with features, screenshots and the full changelog
 
 ### 2.4.0
 

@@ -2,7 +2,7 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: PeproDev Branches Map (Mapify) 2.4.0\n"
+"Project-Id-Version: PeproDev Branches Map (Mapify) 2.4.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/mapify\n"
 "POT-Creation-Date: 2026-09-24T07:57:16+00:00\n"
 "PO-Revision-Date: 2026-09-23 22:00+0330\n"

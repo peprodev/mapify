@@ -4,12 +4,12 @@ Donate link: https://pepro.dev/donate
 Tags: map, branches, store locator, openstreetmap, elementor
 Requires at least: 6.5
 Tested up to: 7.1
-Stable tag: 2.4.0
+Stable tag: 2.4.1
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Show your branches on Google Maps, OpenStreetMap, Mapbox, Persian maps (Map.ir, Neshan, Parsimap, Mapup), custom SVG/image maps or an offline map of Iran.
+Store locator for your branches on Google Maps, OpenStreetMap, Mapbox, Persian maps, your own SVG or image, or an offline map of Iran.
 
 == Description ==
 
@@ -107,6 +107,11 @@ Choose “Image as map”, select the image and add custom pins with X/Y in perc
 
 == Changelog ==
 
+= 2.4.1 =
+
+- Removed unused images from version 1 (old marker set and placeholder files); the plugin is about 5 MB smaller
+- readme.txt and README updated with features, screenshots and the full changelog
+
 = 2.4.0 =
 
 - Picking a branch in the list scrolls the page to the map when the map is out of view, and opens the branch popup
@@ -197,6 +202,10 @@ Join us at [https://pepro.dev/](https://pepro.dev/) and also don't forget to che
 
 
 == Upgrade Notice ==
+
+= 2.4.1 =
+
+- Smaller plugin: unused version 1 images removed
 
 = 2.4.0 =
 
