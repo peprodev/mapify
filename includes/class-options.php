@@ -35,6 +35,8 @@ class Options {
 			'allow_svg_upload'    => array( 'boolean', false ),
 			'geocoder'            => array( 'string', 'nominatim' ),
 			'clear_on_uninstall'  => array( 'boolean', false ),
+			'attribution_mode'    => array( 'string', 'default' ),
+			'attribution_text'    => array( 'string', '' ),
 		);
 	}
 
@@ -102,6 +104,21 @@ class Options {
 		);
 	}
 
+	/** HTML allowed in a custom map attribution. */
+	public static function attribution_tags() {
+		return array(
+			'a'      => array(
+				'href'   => true,
+				'target' => true,
+				'rel'    => true,
+				'title'  => true,
+			),
+			'strong' => array(),
+			'em'     => array(),
+			'span'   => array( 'class' => true ),
+		);
+	}
+
 	public static function sanitize( $value ) {
 		$value = is_array( $value ) ? $value : array();
 		$out   = array();
@@ -115,8 +132,11 @@ class Options {
 					$out[ $key ] = (int) $raw;
 					break;
 				default:
-					$out[ $key ] = sanitize_text_field( (string) $raw );
+					$out[ $key ] = 'attribution_text' === $key ? wp_kses( (string) $raw, self::attribution_tags() ) : sanitize_text_field( (string) $raw );
 			}
+		}
+		if ( ! in_array( $out['attribution_mode'], array( 'default', 'hide', 'custom' ), true ) ) {
+			$out['attribution_mode'] = 'default';
 		}
 		if ( ! in_array( $out['branch_template'], array( 'post', 'content' ), true ) ) {
 			$out['branch_template'] = 'content';

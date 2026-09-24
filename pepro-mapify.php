@@ -3,7 +3,7 @@
  * Plugin Name:       PeproDev Branches Map (Mapify)
  * Plugin URI:        https://pepro.dev/mapify
  * Description:       Show your branches on Google Maps, OpenStreetMap, Mapbox, Map.ir, custom SVG/image maps or an offline map of Iran. Works as a shortcode, an Elementor widget and a WPBakery Page Builder element.
- * Version:           2.0.0
+ * Version:           2.1.0
  * Requires at least: 6.5
  * Tested up to:      7.1
  * Requires PHP:      7.4
@@ -15,7 +15,7 @@
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       mapify
  * Domain Path:       /languages
- * Elementor tested up to: 4.2.1
+ * Elementor tested up to: 4.3.1
  * WPBakery tested up to:  9.0.1
  *
  * @package Mapify
@@ -23,7 +23,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'MAPIFY_VERSION', '2.0.0' );
+define( 'MAPIFY_VERSION', '2.1.0' );
 define( 'MAPIFY_FILE', __FILE__ );
 define( 'MAPIFY_DIR', plugin_dir_path( __FILE__ ) );
 define( 'MAPIFY_URL', plugin_dir_url( __FILE__ ) );
@@ -36,6 +36,7 @@ require_once MAPIFY_DIR . 'includes/class-renderer.php';
 require_once MAPIFY_DIR . 'includes/class-shortcode.php';
 require_once MAPIFY_DIR . 'includes/class-branch-editor.php';
 require_once MAPIFY_DIR . 'includes/class-admin.php';
+require_once MAPIFY_DIR . 'includes/class-transfer.php';
 require_once MAPIFY_DIR . 'includes/class-plugin.php';
 
 register_activation_hook( __FILE__, array( 'Mapify\\Plugin', 'activate' ) );

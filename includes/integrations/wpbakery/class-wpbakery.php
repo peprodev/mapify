@@ -104,6 +104,9 @@ class WPBakery {
 				$param['type']  = 'checkbox';
 				$param['value'] = self::values( Schema::options( $field ) );
 				unset( $param['save_always'] );
+				if ( is_array( $field['default'] ) && $field['default'] ) {
+					$param['std'] = implode( ',', $field['default'] );
+				}
 				break;
 			case 'toggle':
 				$param['type']  = 'checkbox';
@@ -201,7 +204,7 @@ class WPBakery {
 		return array(
 			'name'                    => __( 'Branches Map', 'mapify' ),
 			'base'                    => Shortcode::TAG,
-			'category'                => __( 'Pepro Elements', 'mapify' ),
+			'category'                => __( 'PeproDev Elements', 'mapify' ),
 			'description'             => __( 'Branches on Google, OSM, Mapbox, Map.ir, SVG or image maps', 'mapify' ),
 			'icon'                    => MAPIFY_ASSETS . 'img/mapify-icon.svg',
 			'show_settings_on_create' => true,

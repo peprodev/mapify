@@ -4,7 +4,7 @@ Donate link: https://pepro.dev/donate
 Tags: map, branches, store locator, openstreetmap, elementor
 Requires at least: 6.5
 Tested up to: 7.1
-Stable tag: 2.0.0
+Stable tag: 2.1.0
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -32,8 +32,23 @@ Add branches (address, phone, social links, location) and show them on a map wit
 * WPBakery Page Builder element with the same settings in tabs, a Google style picker and Design Options
 * `[pepro-mapify]` / `[mapify]` shortcode, with a visual Shortcode Builder and live preview (Branches → Shortcode Builder)
 
+**Branches list and filters**
+
+* Eight list layouts: chips, cards, detailed list, image grid, compact numbered list, table, carousel and dropdown
+* Category chips under the search box and on the map; one or several categories at a time
+* Pin color and pin image per category (Branches → Categories)
+
+**Popup**
+
+* Popup image from the featured image, the branch pin image, or none
+* Get directions button: Android lists the installed map apps, other devices get a list of Google Maps, Apple Maps, Waze, Neshan and Balad
+
 **Other**
 
+* Zoom buttons, mouse wheel, double click and pinch zoom on every map, including the offline Iran, SVG and image maps
+* Import / export of settings, categories and branches as JSON (Branches → Map Settings → Import / Export); single map export / import in the Shortcode Builder
+* Branches and categories in Tools → Export and in the REST API (`wp/v2/mapify`, `wp/v2/mapify_category`, `mapify/v1/branches`, `mapify/v1/categories`)
+* Map attribution can be replaced or hidden for development use
 * Settings page built with WordPress components (Branches → Map Settings)
 * Branch editor with an OpenStreetMap location picker and address search
 * Single branch card with directions links (Google Maps, Waze, Neshan, Balad)
@@ -47,7 +62,7 @@ Every option of the builders is an attribute (see the Shortcode Builder for the 
 
 `[pepro-mapify maptype="osm"]<h3>{title}</h3><p>{address}</p>[/pepro-mapify]`
 
-Popup tags: {id} {title} {image} {url} {latitude} {longitude} {address} {phone} {site} {email} {twitter} {facebook} {instagram} {telegram} {linkedin} {additional} {categories}. Use {tag|fallback} for a default value.
+Popup tags: {id} {title} {image} {url} {latitude} {longitude} {address} {phone} {site} {email} {twitter} {facebook} {instagram} {telegram} {linkedin} {additional} {categories} {directions}. Use {tag|fallback} for a default value.
 
 Shortcodes made with version 1.x keep working.
 
@@ -78,6 +93,20 @@ Choose “Image as map”, select the image and add custom pins with X/Y in perc
 6. Offline Iran map with branches list
 
 == Changelog ==
+
+= 2.1.0 =
+
+- Category filter chips under the search box and on the map, with single or multiple selection
+- Pin color and pin image per category; branch pin settings still win
+- Six new list layouts: detailed list, image grid, compact numbered list, table, carousel and dropdown
+- Popup image setting (featured image, branch pin image, featured then pin, none) and placeholder toggle
+- Get directions button in popups with the installed map apps on Android and an app list elsewhere; {directions} popup tag
+- Zoom settings: buttons and their position, mouse wheel, double click, pinch, minimum and maximum zoom; zoom and pan on the offline Iran, SVG and image maps
+- Import / export of settings, categories and branches (JSON), and export / import of a single map in the Shortcode Builder
+- REST API: branch meta, category pin meta and a mapify_location field in wp/v2; new mapify/v1 routes (branches, categories, export, import)
+- Tools → Export includes branch categories with their pin settings when only Branches are exported
+- Map attribution can be replaced or hidden (development use only)
+- Elementor and WPBakery category renamed to “PeproDev Elements”
 
 = 2.0.0 =
 

@@ -38,7 +38,7 @@ class Map_Widget extends Widget_Base {
 	}
 
 	public function get_categories() {
-		return array( 'pepro', 'general' );
+		return array( 'peprodev', 'general' );
 	}
 
 	public function get_keywords() {
@@ -132,7 +132,7 @@ class Map_Widget extends Widget_Base {
 				$args['multiple']    = true;
 				$args['label_block'] = true;
 				$args['options']     = Schema::options( $field );
-				$args['default']     = array();
+				$args['default']     = is_array( $field['default'] ) ? $field['default'] : array();
 				break;
 			case 'toggle':
 				$args['type']         = Controls_Manager::SWITCHER;
@@ -349,6 +349,22 @@ class Map_Widget extends Widget_Base {
 
 		$this->start_controls_section( 'section_list', array( 'label' => __( 'Branches list', 'mapify' ) ) );
 		$this->add_schema_group( 'list', $fields );
+		$this->end_controls_section();
+
+		$this->start_controls_section( 'section_filter', array( 'label' => __( 'Category filter', 'mapify' ) ) );
+		$this->add_control(
+			'filter_help',
+			array(
+				'type'       => Controls_Manager::ALERT,
+				'alert_type' => 'info',
+				'content'    => sprintf(
+					/* translators: %s: categories screen URL */
+					__( 'Pin color and pin image of each category are set in <a href="%s" target="_blank">Branches → Categories</a>.', 'mapify' ),
+					esc_url( admin_url( 'edit-tags.php?taxonomy=mapify_category&post_type=mapify' ) )
+				),
+			)
+		);
+		$this->add_schema_group( 'filter', $fields );
 		$this->end_controls_section();
 
 		$this->register_style_controls();
@@ -855,6 +871,115 @@ class Map_Widget extends Widget_Base {
 				'type'      => Controls_Manager::SLIDER,
 				'range'     => array( 'px' => array( 'min' => 0, 'max' => 40 ) ),
 				'selectors' => array( $search => 'border-radius: {{SIZE}}px;' ),
+			)
+		);
+		$this->end_controls_section();
+
+		/* Category filter */
+		$chip = '{{WRAPPER}} .mapify .mapify__cat';
+		$this->start_controls_section(
+			'style_filter',
+			array(
+				'label' => __( 'Category filter', 'mapify' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'chip_typography',
+				'selector' => $chip,
+			)
+		);
+		$this->start_controls_tabs( 'chip_tabs' );
+		foreach (
+			array(
+				'normal' => array( __( 'Normal', 'mapify' ), $chip ),
+				'active' => array( __( 'Active', 'mapify' ), $chip . '.is-active' ),
+			) as $state => $meta
+		) {
+			$this->start_controls_tab( 'chip_tab_' . $state, array( 'label' => $meta[0] ) );
+			$this->add_control(
+				'chip_bg_' . $state,
+				array(
+					'label'     => __( 'Background', 'mapify' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array( $meta[1] => 'background: {{VALUE}};' ),
+				)
+			);
+			$this->add_control(
+				'chip_color_' . $state,
+				array(
+					'label'     => __( 'Text color', 'mapify' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array( $meta[1] => 'color: {{VALUE}};' ),
+				)
+			);
+			$this->add_control(
+				'chip_border_' . $state,
+				array(
+					'label'     => __( 'Border color', 'mapify' ),
+					'type'      => Controls_Manager::COLOR,
+					'selectors' => array( $meta[1] => 'border-color: {{VALUE}};' ),
+				)
+			);
+			$this->end_controls_tab();
+		}
+		$this->end_controls_tabs();
+		$this->add_responsive_control(
+			'chip_radius',
+			array(
+				'label'     => __( 'Border radius', 'mapify' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => array( 'px' => array( 'min' => 0, 'max' => 40 ) ),
+				'selectors' => array( $chip => 'border-radius: {{SIZE}}px;' ),
+				'separator' => 'before',
+			)
+		);
+		$this->end_controls_section();
+
+		/* Directions button */
+		$dir = '{{WRAPPER}} .mapify-card__directions';
+		$this->start_controls_section(
+			'style_directions',
+			array(
+				'label'     => __( 'Get directions button', 'mapify' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+				'condition' => array(
+					'pinaction'        => 'popup',
+					'popup_directions' => 'yes',
+				),
+			)
+		);
+		$this->add_control(
+			'directions_bg',
+			array(
+				'label'     => __( 'Background', 'mapify' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array( $dir => 'background: {{VALUE}};' ),
+			)
+		);
+		$this->add_control(
+			'directions_color',
+			array(
+				'label'     => __( 'Text color', 'mapify' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array( $dir => 'color: {{VALUE}} !important;' ),
+			)
+		);
+		$this->add_control(
+			'directions_border',
+			array(
+				'label'     => __( 'Border color', 'mapify' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array( $dir => 'border-color: {{VALUE}};' ),
+			)
+		);
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'directions_typography',
+				'selector' => $dir,
 			)
 		);
 		$this->end_controls_section();

@@ -2,19 +2,19 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: PeproDev Branches Map (Mapify) 2.0.0\n"
-"Report-Msgid-Bugs-To: https://github.com/peprodev/mapify/issues\n"
+"Project-Id-Version: PeproDev Branches Map (Mapify) 2.1.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/mapify\n"
+"POT-Creation-Date: 2026-09-23T23:12:16+00:00\n"
+"PO-Revision-Date: 2026-09-23 22:00+0330\n"
 "Last-Translator: Pepro Dev. Group\n"
 "Language-Team: Persian\n"
-"MIME-Version: 1.0\n"
 "Language: fa_IR\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-23T19:15:12+00:00\n"
-"PO-Revision-Date: 2026-09-23 22:00+0330\n"
-"X-Generator: WP-CLI 2.12.0\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "X-Domain: mapify\n"
+"X-Generator: WP-CLI 2.12.0\n"
 
 #. Plugin Name of the plugin
 #: pepro-mapify.php
@@ -24,12 +24,18 @@ msgstr "نقشه شعب پپرو (مپیفای)"
 #. Plugin URI of the plugin
 #: pepro-mapify.php
 msgid "https://pepro.dev/mapify"
-msgstr ""
+msgstr "https://pepro.dev/mapify"
 
 #. Description of the plugin
 #: pepro-mapify.php
-msgid "Show your branches on Google Maps, OpenStreetMap, Mapbox, Map.ir, custom SVG/image maps or an offline map of Iran. Works as a shortcode, an Elementor widget and a WPBakery Page Builder element."
-msgstr "شعبه‌های خود را روی گوگل‌مپ، اوپن‌استریت‌مپ، مپ‌باکس، مپ‌دات‌آی‌آر، نقشه‌های SVG و تصویری یا نقشه آفلاین ایران نمایش دهید. به‌صورت شورت‌کد، ابزارک المنتور و المان ویژوال‌کامپوزر (WPBakery) کار می‌کند."
+msgid ""
+"Show your branches on Google Maps, OpenStreetMap, Mapbox, Map.ir, custom SVG/"
+"image maps or an offline map of Iran. Works as a shortcode, an Elementor "
+"widget and a WPBakery Page Builder element."
+msgstr ""
+"شعبه‌های خود را روی گوگل‌مپ، اوپن‌استریت‌مپ، مپ‌باکس، مپ‌دات‌آی‌آر، نقشه‌های SVG و "
+"تصویری یا نقشه آفلاین ایران نمایش دهید. به‌صورت شورت‌کد، ابزارک المنتور و "
+"المان ویژوال‌کامپوزر (WPBakery) کار می‌کند."
 
 #. Author of the plugin
 #: pepro-mapify.php
@@ -39,14 +45,13 @@ msgstr "گروه توسعه پپرو"
 #. Author URI of the plugin
 #: pepro-mapify.php
 msgid "https://pepro.dev/"
-msgstr ""
+msgstr "https://pepro.dev/"
 
 #: includes/class-admin.php:29
 msgid "Map Settings"
 msgstr "تنظیمات نقشه"
 
-#: includes/class-admin.php:30
-#: includes/class-admin.php:37
+#: includes/class-admin.php:30 includes/class-admin.php:37
 msgid "Shortcode Builder"
 msgstr "سازنده شورت‌کد"
 
@@ -58,99 +63,112 @@ msgstr "تنظیمات"
 msgid "Preview link expired. Reload the builder."
 msgstr "پیوند پیش‌نمایش منقضی شده است. صفحه سازنده را دوباره بارگذاری کنید."
 
-#: includes/class-branch-editor.php:43
-#: includes/class-branch-editor.php:66
+#: includes/class-branch-editor.php:65 includes/class-branch-editor.php:184
 msgid "Search an address or place…"
 msgstr "جست‌وجوی نشانی یا مکان…"
 
-#: includes/class-branch-editor.php:44
+#: includes/class-branch-editor.php:66
 msgid "Nothing found."
 msgstr "چیزی پیدا نشد."
 
-#: includes/class-branch-editor.php:45
+#: includes/class-branch-editor.php:67
 msgid "Choose pin image"
 msgstr "انتخاب تصویر پین"
 
-#: includes/class-branch-editor.php:46
+#: includes/class-branch-editor.php:68
 msgid "Use this image"
 msgstr "استفاده از این تصویر"
 
-#: includes/class-branch-editor.php:53
-#: includes/class-branch-editor.php:190
-msgid "Location"
-msgstr "موقعیت"
-
-#: includes/class-branch-editor.php:54
-msgid "Branch details"
-msgstr "جزئیات شعبه"
-
-#: includes/class-branch-editor.php:55
-msgid "Map pin"
-msgstr "پین نقشه"
-
-#: includes/class-branch-editor.php:67
-msgid "Find"
-msgstr "پیدا کن"
-
-#: includes/class-branch-editor.php:73
-#: includes/class-schema.php:484
-msgid "Latitude"
-msgstr "عرض جغرافیایی"
-
-#: includes/class-branch-editor.php:75
-#: includes/class-schema.php:489
-msgid "Longitude"
-msgstr "طول جغرافیایی"
-
-#: includes/class-branch-editor.php:77
-msgid "Use my location"
-msgstr "موقعیت فعلی من"
-
-#: includes/class-branch-editor.php:78
-msgid "Clear"
-msgstr "پاک کردن"
-
-#: includes/class-branch-editor.php:80
-msgid "Click the map or drag the pin to set the branch location."
-msgstr "برای تعیین موقعیت شعبه روی نقشه کلیک کنید یا پین را جابه‌جا کنید."
-
-#: includes/class-branch-editor.php:110
-#: includes/class-schema.php:509
-#: includes/class-schema.php:698
-msgid "Pin color"
-msgstr "رنگ پین"
-
-#: includes/class-branch-editor.php:112
-msgid "Custom pin image"
-msgstr "تصویر سفارشی پین"
-
-#: includes/class-branch-editor.php:116
+#: includes/class-branch-editor.php:85 includes/class-branch-editor.php:234
 msgid "Choose image"
 msgstr "انتخاب تصویر"
 
-#: includes/class-branch-editor.php:118
-#: assets/js/admin.js:271
+#: includes/class-branch-editor.php:96 includes/class-branch-editor.php:113
+#: includes/class-branch-editor.php:228 includes/class-branches.php:130
+#: includes/class-schema.php:600 includes/class-schema.php:892
+msgid "Pin color"
+msgstr "رنگ پین"
+
+#: includes/class-branch-editor.php:100 includes/class-branch-editor.php:117
+#: includes/class-branches.php:131 includes/class-schema.php:595
+#: includes/class-schema.php:621
+msgid "Pin image"
+msgstr "تصویر پین"
+
+#: includes/class-branch-editor.php:102 includes/class-branch-editor.php:120
+msgid ""
+"Branches in this category use this pin on the map, unless the branch has its "
+"own pin color or image."
+msgstr ""
+"شعبه‌های این دسته روی نقشه با همین پین نمایش داده می‌شوند، مگر اینکه خود شعبه "
+"رنگ یا تصویر پین جداگانه داشته باشد."
+
+#: includes/class-branch-editor.php:147
+msgid "Pin"
+msgstr "پین"
+
+#: includes/class-branch-editor.php:171 includes/class-branch-editor.php:308
+msgid "Location"
+msgstr "موقعیت"
+
+#: includes/class-branch-editor.php:172
+msgid "Branch details"
+msgstr "جزئیات شعبه"
+
+#: includes/class-branch-editor.php:173
+msgid "Map pin"
+msgstr "پین نقشه"
+
+#: includes/class-branch-editor.php:185
+msgid "Find"
+msgstr "پیدا کن"
+
+#: includes/class-branch-editor.php:191 includes/class-schema.php:575
+msgid "Latitude"
+msgstr "عرض جغرافیایی"
+
+#: includes/class-branch-editor.php:193 includes/class-schema.php:580
+msgid "Longitude"
+msgstr "طول جغرافیایی"
+
+#: includes/class-branch-editor.php:195
+msgid "Use my location"
+msgstr "موقعیت فعلی من"
+
+#: includes/class-branch-editor.php:196
+msgid "Clear"
+msgstr "پاک کردن"
+
+#: includes/class-branch-editor.php:198
+msgid "Click the map or drag the pin to set the branch location."
+msgstr "برای تعیین موقعیت شعبه روی نقشه کلیک کنید یا پین را جابه‌جا کنید."
+
+#: includes/class-branch-editor.php:230
+msgid "Custom pin image"
+msgstr "تصویر سفارشی پین"
+
+#: includes/class-branch-editor.php:236 assets/js/admin.js:452
 msgid "Branch page layout"
 msgstr "چیدمان صفحه شعبه"
 
-#: includes/class-branch-editor.php:120
+#: includes/class-branch-editor.php:238
 msgid "Inherit from settings"
 msgstr "طبق تنظیمات کلی"
 
-#: includes/class-branch-editor.php:121
+#: includes/class-branch-editor.php:239
 msgid "Branch card + content"
 msgstr "کارت شعبه + محتوا"
 
-#: includes/class-branch-editor.php:122
+#: includes/class-branch-editor.php:240
 msgid "Content only"
 msgstr "فقط محتوا"
 
-#: includes/class-branch-editor.php:191
-#: includes/class-branches.php:23
+#: includes/class-branch-editor.php:309 includes/class-branches.php:23
+#: includes/class-renderer.php:403
 msgid "Phone"
 msgstr "تلفن"
 
-#: includes/class-branches.php:22
+#: includes/class-branches.php:22 includes/class-renderer.php:403
 msgid "Address"
 msgstr "نشانی"
 
@@ -162,28 +180,23 @@ msgstr "وب‌سایت"
 msgid "Email"
 msgstr "ایمیل"
 
-#: includes/class-branches.php:26
-#: includes/class-branches.php:277
+#: includes/class-branches.php:26 includes/class-branches.php:431
 msgid "Instagram"
 msgstr "اینستاگرام"
 
-#: includes/class-branches.php:27
-#: includes/class-branches.php:278
+#: includes/class-branches.php:27 includes/class-branches.php:432
 msgid "Telegram"
 msgstr "تلگرام"
 
-#: includes/class-branches.php:28
-#: includes/class-branches.php:279
+#: includes/class-branches.php:28 includes/class-branches.php:433
 msgid "X (Twitter)"
 msgstr "ایکس (توییتر)"
 
-#: includes/class-branches.php:29
-#: includes/class-branches.php:280
+#: includes/class-branches.php:29 includes/class-branches.php:434
 msgid "Facebook"
 msgstr "فیسبوک"
 
-#: includes/class-branches.php:30
-#: includes/class-branches.php:281
+#: includes/class-branches.php:30 includes/class-branches.php:435
 msgid "LinkedIn"
 msgstr "لینکدین"
 
@@ -201,17 +214,14 @@ msgctxt "Post Type Singular Name"
 msgid "Branch"
 msgstr "شعبه"
 
-#: includes/class-branches.php:40
-#: includes/class-branches.php:66
-#: includes/class-schema.php:49
-#: includes/class-schema.php:202
+#: includes/class-branches.php:40 includes/class-branches.php:66
+#: includes/class-schema.php:49 includes/class-schema.php:232
 #: includes/integrations/elementor/class-map-widget.php:273
-#: assets/js/admin.js:155
-#: assets/js/admin.js:343
+#: assets/js/admin.js:326 assets/js/admin.js:559
 msgid "Branches"
 msgstr "شعبه‌ها"
 
-#: includes/class-branches.php:41
+#: includes/class-branches.php:41 includes/class-renderer.php:403
 msgid "Branch"
 msgstr "شعبه"
 
@@ -279,10 +289,9 @@ msgstr "حذف تصویر شعبه"
 msgid "Use as branch image"
 msgstr "استفاده به‌عنوان تصویر شعبه"
 
-#: includes/class-branches.php:58
-#: includes/class-schema.php:57
+#: includes/class-branches.php:58 includes/class-schema.php:57
 #: includes/integrations/elementor/class-map-widget.php:350
-#: includes/integrations/elementor/class-map-widget.php:678
+#: includes/integrations/elementor/class-map-widget.php:694
 msgid "Branches list"
 msgstr "فهرست شعبه‌ها"
 
@@ -298,158 +307,239 @@ msgstr "فیلتر فهرست شعبه‌ها"
 msgid "Add branches to show on map"
 msgstr "شعبه‌هایی که روی نقشه نمایش داده می‌شوند"
 
-#: includes/class-branches.php:91
+#: includes/class-branches.php:93
 msgctxt "taxonomy general name"
 msgid "Categories"
 msgstr "دسته‌ها"
 
-#: includes/class-branches.php:92
+#: includes/class-branches.php:94
 msgctxt "taxonomy singular name"
 msgid "Category"
 msgstr "دسته"
 
-#: includes/class-branches.php:93
+#: includes/class-branches.php:95
 msgid "Search Categories"
 msgstr "جست‌وجوی دسته‌ها"
 
-#: includes/class-branches.php:94
+#: includes/class-branches.php:96
 msgid "All Categories"
 msgstr "همه دسته‌ها"
 
-#: includes/class-branches.php:95
+#: includes/class-branches.php:97
 msgid "Parent Category"
 msgstr "دسته مادر"
 
-#: includes/class-branches.php:96
+#: includes/class-branches.php:98
 msgid "Edit Category"
 msgstr "ویرایش دسته"
 
-#: includes/class-branches.php:97
+#: includes/class-branches.php:99
 msgid "Update Category"
 msgstr "به‌روزرسانی دسته"
 
-#: includes/class-branches.php:98
+#: includes/class-branches.php:100
 msgid "Add New Category"
 msgstr "افزودن دسته"
 
-#: includes/class-branches.php:99
+#: includes/class-branches.php:101
 msgid "New Category Name"
 msgstr "نام دسته جدید"
 
-#: includes/class-branches.php:100
-#: includes/class-schema.php:194
+#: includes/class-branches.php:102 includes/class-schema.php:224
 msgid "Categories"
 msgstr "دسته‌ها"
 
-#: includes/class-branches.php:263
+#: includes/class-branches.php:201
+msgid "Location needs numeric latitude and longitude."
+msgstr "موقعیت باید عرض و طول جغرافیایی عددی داشته باشد."
+
+#: includes/class-branches.php:207
+msgid "Branch location on the map."
+msgstr "موقعیت شعبه روی نقشه."
+
+#: includes/class-branches.php:417
 msgid "Address:"
 msgstr "نشانی:"
 
-#: includes/class-branches.php:266
+#: includes/class-branches.php:420
 msgid "Phone:"
 msgstr "تلفن:"
 
-#: includes/class-branches.php:269
+#: includes/class-branches.php:423
 msgid "Website:"
 msgstr "وب‌سایت:"
 
-#: includes/class-branches.php:272
+#: includes/class-branches.php:426
 msgid "Email:"
 msgstr "ایمیل:"
 
-#: includes/class-branches.php:289
+#: includes/class-branches.php:443
 msgid "Social:"
 msgstr "شبکه‌های اجتماعی:"
 
-#: includes/class-branches.php:295
-#: includes/class-schema.php:24
-#: includes/class-schema.php:51
+#: includes/class-branches.php:449 includes/class-schema.php:24
+#: includes/class-schema.php:51 includes/class-schema.php:166
 #: includes/integrations/elementor/class-map-widget.php:297
-#: assets/js/admin.js:186
+#: assets/js/admin.js:367
 msgid "Google Maps"
 msgstr "گوگل‌مپ"
 
-#: includes/class-branches.php:296
+#: includes/class-branches.php:450 includes/class-schema.php:168
 msgid "Waze"
 msgstr "ویز"
 
-#: includes/class-branches.php:297
-#: includes/class-schema.php:78
-#: assets/js/admin.js:202
+#: includes/class-branches.php:451 includes/class-schema.php:79
+#: includes/class-schema.php:169 assets/js/admin.js:383
 msgid "Neshan"
 msgstr "نشان"
 
-#: includes/class-branches.php:298
+#: includes/class-branches.php:452 includes/class-schema.php:170
 msgid "Balad"
 msgstr "بلد"
 
 #: includes/class-plugin.php:89
-#: includes/integrations/wpbakery/class-wpbakery.php:204
-msgid "Pepro Elements"
-msgstr "المان‌های پپرو"
+#: includes/integrations/wpbakery/class-wpbakery.php:207
+msgid "PeproDev Elements"
+msgstr "PeproDev Elements"
 
 #: includes/class-plugin.php:121
 msgid "This SVG file is not valid."
 msgstr "این فایل SVG معتبر نیست."
 
 #: includes/class-renderer.php:93
-msgid "Google Maps needs an API key (Branches → Map Settings). Showing OpenStreetMap instead."
-msgstr "گوگل‌مپ به کلید API نیاز دارد (شعبه‌ها ← تنظیمات نقشه). فعلاً اوپن‌استریت‌مپ نمایش داده می‌شود."
+msgid ""
+"Google Maps needs an API key (Branches → Map Settings). Showing "
+"OpenStreetMap instead."
+msgstr ""
+"گوگل‌مپ به کلید API نیاز دارد (شعبه‌ها ← تنظیمات نقشه). فعلاً اوپن‌استریت‌مپ "
+"نمایش داده می‌شود."
 
 #: includes/class-renderer.php:95
-msgid "Mapbox needs an access token (Branches → Map Settings). Showing OpenStreetMap instead."
-msgstr "مپ‌باکس به توکن دسترسی نیاز دارد (شعبه‌ها ← تنظیمات نقشه). فعلاً اوپن‌استریت‌مپ نمایش داده می‌شود."
+msgid ""
+"Mapbox needs an access token (Branches → Map Settings). Showing "
+"OpenStreetMap instead."
+msgstr ""
+"مپ‌باکس به توکن دسترسی نیاز دارد (شعبه‌ها ← تنظیمات نقشه). فعلاً اوپن‌استریت‌مپ "
+"نمایش داده می‌شود."
 
 #: includes/class-renderer.php:97
-msgid "Map.ir needs an API key (Branches → Map Settings). Showing OpenStreetMap instead."
-msgstr "Map.ir به کلید API نیاز دارد (شعبه‌ها ← تنظیمات نقشه). فعلاً اوپن‌استریت‌مپ نمایش داده می‌شود."
+msgid ""
+"Map.ir needs an API key (Branches → Map Settings). Showing OpenStreetMap "
+"instead."
+msgstr ""
+"Map.ir به کلید API نیاز دارد (شعبه‌ها ← تنظیمات نقشه). فعلاً اوپن‌استریت‌مپ "
+"نمایش داده می‌شود."
 
 #: includes/class-renderer.php:99
-msgid "Neshan needs a web map API key (Branches → Map Settings). Showing OpenStreetMap instead."
-msgstr "نشان به کلید API نقشه وب نیاز دارد (شعبه‌ها ← تنظیمات نقشه). فعلاً اوپن‌استریت‌مپ نمایش داده می‌شود."
+msgid ""
+"Neshan needs a web map API key (Branches → Map Settings). Showing "
+"OpenStreetMap instead."
+msgstr ""
+"نشان به کلید API نقشه وب نیاز دارد (شعبه‌ها ← تنظیمات نقشه). فعلاً "
+"اوپن‌استریت‌مپ نمایش داده می‌شود."
 
 #: includes/class-renderer.php:101
-msgid "Parsimap needs an API token (Branches → Map Settings). Showing OpenStreetMap instead."
-msgstr "پارسی‌مپ به توکن API نیاز دارد (شعبه‌ها ← تنظیمات نقشه). فعلاً اوپن‌استریت‌مپ نمایش داده می‌شود."
+msgid ""
+"Parsimap needs an API token (Branches → Map Settings). Showing OpenStreetMap "
+"instead."
+msgstr ""
+"پارسی‌مپ به توکن API نیاز دارد (شعبه‌ها ← تنظیمات نقشه). فعلاً اوپن‌استریت‌مپ "
+"نمایش داده می‌شود."
 
 #: includes/class-renderer.php:103
-msgid "Enter a tile URL template for the custom tile server. Showing OpenStreetMap instead."
-msgstr "الگوی نشانی کاشی‌ها را برای سرور سفارشی وارد کنید. فعلاً اوپن‌استریت‌مپ نمایش داده می‌شود."
+msgid ""
+"Enter a tile URL template for the custom tile server. Showing OpenStreetMap "
+"instead."
+msgstr ""
+"الگوی نشانی کاشی‌ها را برای سرور سفارشی وارد کنید. فعلاً اوپن‌استریت‌مپ نمایش "
+"داده می‌شود."
 
 #: includes/class-renderer.php:105
-msgid "Choose an image for the image map. Showing the offline Iran map instead."
-msgstr "برای نقشه تصویری یک تصویر انتخاب کنید. فعلاً نقشه آفلاین ایران نمایش داده می‌شود."
+msgid ""
+"Choose an image for the image map. Showing the offline Iran map instead."
+msgstr ""
+"برای نقشه تصویری یک تصویر انتخاب کنید. فعلاً نقشه آفلاین ایران نمایش داده "
+"می‌شود."
 
 #: includes/class-renderer.php:109
-msgid "Choose an SVG file for the SVG map. Showing the offline Iran map instead."
-msgstr "برای نقشه SVG یک فایل انتخاب کنید. فعلاً نقشه آفلاین ایران نمایش داده می‌شود."
+msgid ""
+"Choose an SVG file for the SVG map. Showing the offline Iran map instead."
+msgstr ""
+"برای نقشه SVG یک فایل انتخاب کنید. فعلاً نقشه آفلاین ایران نمایش داده می‌شود."
 
-#: includes/class-renderer.php:161
-#: includes/class-renderer.php:276
+#: includes/class-renderer.php:222 includes/class-renderer.php:426
 msgid "No branch found."
 msgstr "شعبه‌ای پیدا نشد."
 
-#: includes/class-renderer.php:162
+#: includes/class-renderer.php:223
 msgid "Show all"
 msgstr "نمایش همه"
 
-#: includes/class-renderer.php:163
+#: includes/class-renderer.php:224
 msgid "Fullscreen"
 msgstr "تمام‌صفحه"
 
-#: includes/class-renderer.php:164
+#: includes/class-renderer.php:225
 msgid "Close"
 msgstr "بستن"
 
-#: includes/class-renderer.php:165
+#: includes/class-renderer.php:226
 msgid "Google Maps could not be loaded. Check your API key."
 msgstr "گوگل‌مپ بارگذاری نشد. کلید API را بررسی کنید."
 
-#: includes/class-renderer.php:240
+#: includes/class-renderer.php:227
+msgid "Zoom in"
+msgstr "بزرگ‌نمایی"
+
+#: includes/class-renderer.php:228
+msgid "Zoom out"
+msgstr "کوچک‌نمایی"
+
+#: includes/class-renderer.php:229
+msgid "Reset zoom"
+msgstr "بازگشت به اندازه‌ی اولیه"
+
+#: includes/class-renderer.php:230
+msgid "Get directions with"
+msgstr "مسیریابی با"
+
+#: includes/class-renderer.php:231
+msgid "Other apps on this phone"
+msgstr "برنامه‌های دیگر این گوشی"
+
+#: includes/class-renderer.php:232
+msgid "Cancel"
+msgstr "انصراف"
+
+#: includes/class-renderer.php:236
+msgid "Apple Maps"
+msgstr "اپل مپ"
+
+#: includes/class-renderer.php:311
+msgid "Filter by category"
+msgstr "فیلتر بر اساس دسته"
+
+#: includes/class-renderer.php:372
 msgid "Uncategorized"
 msgstr "بدون دسته"
 
-#: includes/class-renderer.php:325
+#: includes/class-renderer.php:384
+msgid "Choose a branch"
+msgstr "انتخاب شعبه"
+
+#: includes/class-renderer.php:385
+msgid "Choose a branch…"
+msgstr "یک شعبه انتخاب کنید…"
+
+#: includes/class-renderer.php:419
+msgid "Previous"
+msgstr "قبلی"
+
+#: includes/class-renderer.php:419
+msgid "Next"
+msgstr "بعدی"
+
+#: includes/class-renderer.php:480
 msgid "Branches map"
 msgstr "نقشه شعبه‌ها"
 
@@ -457,8 +547,7 @@ msgstr "نقشه شعبه‌ها"
 msgid "OpenStreetMap (free, no key)"
 msgstr "اوپن‌استریت‌مپ (رایگان، بدون کلید)"
 
-#: includes/class-schema.php:25
-#: assets/js/admin.js:196
+#: includes/class-schema.php:25 assets/js/admin.js:377
 msgid "Mapbox"
 msgstr "مپ‌باکس"
 
@@ -496,7 +585,7 @@ msgstr "تصویر به‌عنوان نقشه"
 
 #: includes/class-schema.php:50
 #: includes/integrations/elementor/class-map-widget.php:277
-#: includes/integrations/elementor/class-map-widget.php:364
+#: includes/integrations/elementor/class-map-widget.php:380
 msgid "Map"
 msgstr "نقشه"
 
@@ -510,8 +599,7 @@ msgstr "لایه کاشی"
 msgid "Image / SVG map"
 msgstr "نقشه تصویری / SVG"
 
-#: includes/class-schema.php:54
-#: includes/class-schema.php:453
+#: includes/class-schema.php:54 includes/class-schema.php:544
 #: includes/integrations/elementor/class-map-widget.php:324
 msgid "Custom pins"
 msgstr "پین‌های سفارشی"
@@ -522,628 +610,862 @@ msgstr "نشانگرها"
 
 #: includes/class-schema.php:56
 #: includes/integrations/elementor/class-map-widget.php:343
-#: includes/integrations/elementor/class-map-widget.php:542
+#: includes/integrations/elementor/class-map-widget.php:558
 msgid "Popup"
 msgstr "پاپ‌آپ"
 
 #: includes/class-schema.php:58
+#: includes/integrations/elementor/class-map-widget.php:354
+#: includes/integrations/elementor/class-map-widget.php:883
+msgid "Category filter"
+msgstr "فیلتر دسته‌ها"
+
+#: includes/class-schema.php:59
 msgid "Appearance"
 msgstr "ظاهر"
 
-#: includes/class-schema.php:59
-#: assets/js/admin.js:156
-#: assets/js/admin.js:295
+#: includes/class-schema.php:60 assets/js/admin.js:328 assets/js/admin.js:481
 msgid "Advanced"
 msgstr "پیشرفته"
 
-#: includes/class-schema.php:65
+#: includes/class-schema.php:66
 msgid "OpenStreetMap standard"
 msgstr "اوپن‌استریت‌مپ استاندارد"
 
-#: includes/class-schema.php:66
+#: includes/class-schema.php:67
 msgid "OpenStreetMap Humanitarian"
 msgstr "اوپن‌استریت‌مپ بشردوستانه"
 
-#: includes/class-schema.php:67
+#: includes/class-schema.php:68
 msgid "Light gray canvas (Esri)"
 msgstr "بوم خاکستری روشن (Esri)"
 
-#: includes/class-schema.php:68
+#: includes/class-schema.php:69
 msgid "Dark gray canvas (Esri)"
 msgstr "بوم خاکستری تیره (Esri)"
 
-#: includes/class-schema.php:69
+#: includes/class-schema.php:70
 msgid "World street map (Esri)"
 msgstr "نقشه خیابان‌های جهان (Esri)"
 
-#: includes/class-schema.php:70
+#: includes/class-schema.php:71
 msgid "Topographic (Esri)"
 msgstr "توپوگرافی (Esri)"
 
-#: includes/class-schema.php:71
+#: includes/class-schema.php:72
 msgid "OpenTopoMap"
 msgstr "اوپن‌توپومپ"
 
-#: includes/class-schema.php:72
+#: includes/class-schema.php:73
 msgid "Satellite imagery (Esri)"
 msgstr "تصویر ماهواره‌ای (Esri)"
 
-#: includes/class-schema.php:79
+#: includes/class-schema.php:80
 msgid "Standard day"
 msgstr "استاندارد روز"
 
-#: includes/class-schema.php:80
+#: includes/class-schema.php:81
 msgid "Standard night"
 msgstr "استاندارد شب"
 
-#: includes/class-schema.php:81
+#: includes/class-schema.php:82
 msgid "Dreamy"
 msgstr "رؤیایی"
 
-#: includes/class-schema.php:82
+#: includes/class-schema.php:83
 msgid "Dreamy gold"
 msgstr "رؤیایی طلایی"
 
-#: includes/class-schema.php:83
+#: includes/class-schema.php:84
 msgid "OSM bright"
 msgstr "OSM روشن"
 
-#: includes/class-schema.php:89
+#: includes/class-schema.php:90
 msgid "Parsimap streets"
 msgstr "خیابان‌های پارسی‌مپ"
 
-#: includes/class-schema.php:90
+#: includes/class-schema.php:91
 msgid "Google-like streets"
 msgstr "خیابان‌ها (شبیه گوگل)"
 
-#: includes/class-schema.php:96
+#: includes/class-schema.php:97
 msgid "Streets"
 msgstr "خیابان‌ها"
 
-#: includes/class-schema.php:97
+#: includes/class-schema.php:98
 msgid "Outdoors"
 msgstr "طبیعت‌گردی"
 
-#: includes/class-schema.php:98
+#: includes/class-schema.php:99
 msgid "Light"
 msgstr "روشن"
 
-#: includes/class-schema.php:99
+#: includes/class-schema.php:100
 msgid "Dark"
 msgstr "تیره"
 
-#: includes/class-schema.php:100
-#: includes/class-schema.php:292
+#: includes/class-schema.php:101 includes/class-schema.php:383
 msgid "Satellite"
 msgstr "ماهواره"
 
-#: includes/class-schema.php:101
+#: includes/class-schema.php:102
 msgid "Satellite streets"
 msgstr "ماهواره + خیابان‌ها"
 
-#: includes/class-schema.php:102
+#: includes/class-schema.php:103
 msgid "Navigation day"
 msgstr "مسیریابی روز"
 
-#: includes/class-schema.php:103
+#: includes/class-schema.php:104
 msgid "Navigation night"
 msgstr "مسیریابی شب"
 
-#: includes/class-schema.php:104
+#: includes/class-schema.php:105
 msgid "Custom style (Mapbox Studio)"
 msgstr "استایل سفارشی (Mapbox Studio)"
 
-#: includes/class-schema.php:121
+#: includes/class-schema.php:122
 msgid "Default"
 msgstr "پیش‌فرض"
 
-#: includes/class-schema.php:122
+#: includes/class-schema.php:123
 msgid "Custom JSON style"
 msgstr "استایل JSON سفارشی"
 
-#: includes/class-schema.php:151
+#: includes/class-schema.php:152
+msgid "Chips"
+msgstr "برچسبی"
+
+#: includes/class-schema.php:153
+msgid "Cards"
+msgstr "کارتی"
+
+#: includes/class-schema.php:154
+msgid "Detailed list (address and phone)"
+msgstr "فهرست کامل (آدرس و تلفن)"
+
+#: includes/class-schema.php:155
+msgid "Image grid"
+msgstr "شبکه‌ی تصویری"
+
+#: includes/class-schema.php:156
+msgid "Compact numbered list"
+msgstr "فهرست شماره‌دار فشرده"
+
+#: includes/class-schema.php:157
+msgid "Table"
+msgstr "جدول"
+
+#: includes/class-schema.php:158
+msgid "Carousel (horizontal scroll)"
+msgstr "اسلایدر (پیمایش افقی)"
+
+#: includes/class-schema.php:159
+msgid "Dropdown"
+msgstr "منوی کشویی"
+
+#: includes/class-schema.php:167
+msgid "Apple Maps (Apple devices only)"
+msgstr "اپل مپ (فقط دستگاه‌های اپل)"
+
+#: includes/class-schema.php:178
 msgid "No title"
 msgstr "بدون عنوان"
 
-#: includes/class-schema.php:154
+#: includes/class-schema.php:182
 msgid "View branch"
 msgstr "مشاهده شعبه"
 
-#: includes/class-schema.php:182
+#: includes/class-schema.php:212
 msgid "Show branches"
 msgstr "نمایش شعبه‌ها"
 
-#: includes/class-schema.php:185
+#: includes/class-schema.php:215
 msgid "All branches"
 msgstr "همه شعبه‌ها"
 
-#: includes/class-schema.php:186
+#: includes/class-schema.php:216
 msgid "From selected categories"
 msgstr "از دسته‌های انتخابی"
 
-#: includes/class-schema.php:187
+#: includes/class-schema.php:217
 msgid "Handpicked branches"
 msgstr "شعبه‌های انتخابی"
 
-#: includes/class-schema.php:188
+#: includes/class-schema.php:218
 msgid "None (custom pins only)"
 msgstr "هیچ (فقط پین‌های سفارشی)"
 
-#: includes/class-schema.php:210
+#: includes/class-schema.php:240
 msgid "Order by"
 msgstr "مرتب‌سازی بر اساس"
 
-#: includes/class-schema.php:213
-#: includes/class-schema.php:460
-#: includes/integrations/elementor/class-map-widget.php:611
+#: includes/class-schema.php:243 includes/class-schema.php:551
+#: includes/integrations/elementor/class-map-widget.php:627
 msgid "Title"
 msgstr "عنوان"
 
-#: includes/class-schema.php:214
+#: includes/class-schema.php:244
 msgid "Date"
 msgstr "تاریخ"
 
-#: includes/class-schema.php:215
+#: includes/class-schema.php:245
 msgid "Menu order"
 msgstr "ترتیب منو"
 
-#: includes/class-schema.php:216
+#: includes/class-schema.php:246
 msgid "Handpicked order"
 msgstr "ترتیب انتخاب"
 
-#: includes/class-schema.php:222
+#: includes/class-schema.php:252
 msgid "Order"
 msgstr "ترتیب"
 
-#: includes/class-schema.php:225
+#: includes/class-schema.php:255
 msgid "Ascending"
 msgstr "صعودی"
 
-#: includes/class-schema.php:226
+#: includes/class-schema.php:256
 msgid "Descending"
 msgstr "نزولی"
 
-#: includes/class-schema.php:234
+#: includes/class-schema.php:264
 msgid "Map engine"
 msgstr "موتور نقشه"
 
-#: includes/class-schema.php:236
+#: includes/class-schema.php:266
 msgid "Use global default"
 msgstr "پیش‌فرض کلی"
 
-#: includes/class-schema.php:241
+#: includes/class-schema.php:271
 msgid "Center (lat,lng)"
 msgstr "مرکز (عرض،طول)"
 
-#: includes/class-schema.php:249
+#: includes/class-schema.php:279
 msgid "Zoom level"
 msgstr "سطح بزرگ‌نمایی"
 
-#: includes/class-schema.php:259
+#: includes/class-schema.php:289
 msgid "Auto-fit to pins"
 msgstr "تنظیم خودکار روی پین‌ها"
 
-#: includes/class-schema.php:260
+#: includes/class-schema.php:290
 msgid "Zoom and center the map so every pin is visible."
 msgstr "نقشه طوری بزرگ‌نمایی و مرکزیابی می‌شود که همه پین‌ها دیده شوند."
 
-#: includes/class-schema.php:267
+#: includes/class-schema.php:297
+msgid "Zoom buttons (+ / −)"
+msgstr "دکمه‌های بزرگ‌نمایی (+ / −)"
+
+#: includes/class-schema.php:298
+msgid "Also works on the offline Iran, SVG and image maps."
+msgstr "روی نقشه‌ی آفلاین ایران، نقشه‌های SVG و تصویری هم کار می‌کند."
+
+#: includes/class-schema.php:304
+msgid "Zoom buttons position"
+msgstr "محل دکمه‌های بزرگ‌نمایی"
+
+#: includes/class-schema.php:307
+msgid "Top left"
+msgstr "بالا چپ"
+
+#: includes/class-schema.php:308
+msgid "Top right"
+msgstr "بالا راست"
+
+#: includes/class-schema.php:309
+msgid "Bottom left"
+msgstr "پایین چپ"
+
+#: includes/class-schema.php:310
+msgid "Bottom right"
+msgstr "پایین راست"
+
+#: includes/class-schema.php:317
 msgid "Zoom with mouse wheel"
 msgstr "بزرگ‌نمایی با چرخ ماوس"
 
-#: includes/class-schema.php:274
+#: includes/class-schema.php:323
+msgid "Zoom on double click"
+msgstr "بزرگ‌نمایی با دوبار کلیک"
+
+#: includes/class-schema.php:329
+msgid "Pinch to zoom on touch screens"
+msgstr "بزرگ‌نمایی با دو انگشت در صفحه‌های لمسی"
+
+#: includes/class-schema.php:335
+msgid "Minimum zoom"
+msgstr "کمترین بزرگ‌نمایی"
+
+#: includes/class-schema.php:345
+msgid "Maximum zoom"
+msgstr "بیشترین بزرگ‌نمایی"
+
+#: includes/class-schema.php:355
+msgid "Maximum zoom (×)"
+msgstr "بیشترین بزرگ‌نمایی (برابر)"
+
+#: includes/class-schema.php:356
+msgid ""
+"How far the offline Iran, SVG and image maps can be enlarged. 1 turns "
+"zooming off."
+msgstr ""
+"نقشه‌ی آفلاین ایران و نقشه‌های SVG و تصویری تا چند برابر بزرگ شوند. عدد 1 "
+"بزرگ‌نمایی را غیرفعال می‌کند."
+
+#: includes/class-schema.php:365
 msgid "Hide map controls"
 msgstr "پنهان کردن کنترل‌های نقشه"
 
-#: includes/class-schema.php:280
+#: includes/class-schema.php:371
 msgid "Fullscreen button"
 msgstr "دکمه تمام‌صفحه"
 
-#: includes/class-schema.php:288
+#: includes/class-schema.php:379
 msgid "Map type"
 msgstr "نوع نقشه"
 
-#: includes/class-schema.php:291
+#: includes/class-schema.php:382
 msgid "Roadmap"
 msgstr "جاده‌ای"
 
-#: includes/class-schema.php:293
+#: includes/class-schema.php:384
 msgid "Hybrid"
 msgstr "ترکیبی"
 
-#: includes/class-schema.php:294
+#: includes/class-schema.php:385
 msgid "Terrain"
 msgstr "عوارض زمین"
 
-#: includes/class-schema.php:301
+#: includes/class-schema.php:392
 msgid "Map style"
 msgstr "استایل نقشه"
 
-#: includes/class-schema.php:302
-msgid "Styles are ignored when a Google Map ID is set in the plugin settings (cloud styling is used instead)."
-msgstr "اگر در تنظیمات افزونه شناسه نقشه گوگل (Map ID) تعیین شده باشد، این استایل‌ها نادیده گرفته می‌شوند و استایل ابری گوگل اعمال می‌شود."
+#: includes/class-schema.php:393
+msgid ""
+"Styles are ignored when a Google Map ID is set in the plugin settings (cloud "
+"styling is used instead)."
+msgstr ""
+"اگر در تنظیمات افزونه شناسه نقشه گوگل (Map ID) تعیین شده باشد، این استایل‌ها "
+"نادیده گرفته می‌شوند و استایل ابری گوگل اعمال می‌شود."
 
-#: includes/class-schema.php:311
+#: includes/class-schema.php:402
 msgid "Custom style JSON"
 msgstr "JSON استایل سفارشی"
 
-#: includes/class-schema.php:312
+#: includes/class-schema.php:403
 msgid "Paste a style array, e.g. from snazzymaps.com."
 msgstr "آرایه استایل را جای‌گذاری کنید؛ مثلاً از snazzymaps.com."
 
-#: includes/class-schema.php:322
+#: includes/class-schema.php:413
 msgid "Tile style"
 msgstr "استایل کاشی‌ها"
 
-#: includes/class-schema.php:330
+#: includes/class-schema.php:421
 msgid "Mapbox style"
 msgstr "استایل مپ‌باکس"
 
-#: includes/class-schema.php:338
+#: includes/class-schema.php:429
 msgid "Neshan style"
 msgstr "استایل نشان"
 
-#: includes/class-schema.php:346
+#: includes/class-schema.php:437
 msgid "Parsimap style"
 msgstr "استایل پارسی‌مپ"
 
-#: includes/class-schema.php:354
+#: includes/class-schema.php:445
 msgid "Mapbox style ID"
 msgstr "شناسه استایل مپ‌باکس"
 
-#: includes/class-schema.php:362
+#: includes/class-schema.php:453
 msgid "Tile URL template"
 msgstr "الگوی نشانی کاشی‌ها"
 
-#: includes/class-schema.php:370
+#: includes/class-schema.php:461
 msgid "Tile attribution"
 msgstr "منبع کاشی‌ها (Attribution)"
 
-#: includes/class-schema.php:379
+#: includes/class-schema.php:470
 msgid "Map image"
 msgstr "تصویر نقشه"
 
-#: includes/class-schema.php:386
+#: includes/class-schema.php:477
 msgid "SVG file"
 msgstr "فایل SVG"
 
-#: includes/class-schema.php:387
+#: includes/class-schema.php:478
 msgid "Shapes with an id become hoverable regions."
 msgstr "شکل‌هایی که شناسه (id) دارند به ناحیه‌های تعاملی تبدیل می‌شوند."
 
-#: includes/class-schema.php:394
+#: includes/class-schema.php:485
 msgid "Geo bounds (north,west,south,east)"
 msgstr "محدوده جغرافیایی (شمال،غرب،جنوب،شرق)"
 
-#: includes/class-schema.php:395
-msgid "Optional. When set, branches are placed on the image/SVG by their latitude and longitude."
-msgstr "اختیاری. در صورت تعیین، شعبه‌ها بر اساس طول و عرض جغرافیایی روی تصویر/SVG قرار می‌گیرند."
+#: includes/class-schema.php:486
+msgid ""
+"Optional. When set, branches are placed on the image/SVG by their latitude "
+"and longitude."
+msgstr ""
+"اختیاری. در صورت تعیین، شعبه‌ها بر اساس طول و عرض جغرافیایی روی تصویر/SVG "
+"قرار می‌گیرند."
 
-#: includes/class-schema.php:403
+#: includes/class-schema.php:494
 msgid "Projection"
 msgstr "سیستم تصویر"
 
-#: includes/class-schema.php:406
+#: includes/class-schema.php:497
 msgid "Web Mercator"
 msgstr "مرکاتور وب"
 
-#: includes/class-schema.php:407
+#: includes/class-schema.php:498
 msgid "Equirectangular (plate carrée)"
 msgstr "استوانه‌ای هم‌فاصله"
 
-#: includes/class-schema.php:414
+#: includes/class-schema.php:505
 msgid "Show region name on hover"
 msgstr "نمایش نام ناحیه هنگام هاور"
 
-#: includes/class-schema.php:421
+#: includes/class-schema.php:512
 msgid "Highlight regions that have branches"
 msgstr "برجسته کردن ناحیه‌های دارای شعبه"
 
-#: includes/class-schema.php:428
+#: includes/class-schema.php:519
 msgid "Region click"
 msgstr "کلیک روی ناحیه"
 
-#: includes/class-schema.php:431
+#: includes/class-schema.php:522
 msgid "Filter branches in region"
 msgstr "فیلتر شعبه‌های همان ناحیه"
 
-#: includes/class-schema.php:432
+#: includes/class-schema.php:523
 msgid "Do nothing"
 msgstr "هیچ کاری نکن"
 
-#: includes/class-schema.php:439
+#: includes/class-schema.php:530
 msgid "Region names"
 msgstr "نام ناحیه‌ها"
 
-#: includes/class-schema.php:442
+#: includes/class-schema.php:533
 msgid "Site language"
 msgstr "زبان سایت"
 
-#: includes/class-schema.php:443
+#: includes/class-schema.php:534
 msgid "Persian"
 msgstr "فارسی"
 
-#: includes/class-schema.php:444
+#: includes/class-schema.php:535
 msgid "English"
 msgstr "انگلیسی"
 
-#: includes/class-schema.php:454
-msgid "Extra pins that are not branches. On image/SVG maps use X/Y (percent = responsive, px = absolute); on geographic maps use latitude/longitude."
-msgstr "پین‌های اضافه که شعبه نیستند. در نقشه‌های تصویری/SVG از X و Y استفاده کنید (درصد = نسبی و واکنش‌گرا، پیکسل = مطلق)؛ در نقشه‌های جغرافیایی از عرض و طول جغرافیایی."
+#: includes/class-schema.php:545
+msgid ""
+"Extra pins that are not branches. On image/SVG maps use X/Y (percent = "
+"responsive, px = absolute); on geographic maps use latitude/longitude."
+msgstr ""
+"پین‌های اضافه که شعبه نیستند. در نقشه‌های تصویری/SVG از X و Y استفاده کنید "
+"(درصد = نسبی و واکنش‌گرا، پیکسل = مطلق)؛ در نقشه‌های جغرافیایی از عرض و طول "
+"جغرافیایی."
 
-#: includes/class-schema.php:461
+#: includes/class-schema.php:552
 msgid "New pin"
 msgstr "پین جدید"
 
-#: includes/class-schema.php:465
+#: includes/class-schema.php:556
 msgid "X position"
 msgstr "موقعیت X"
 
-#: includes/class-schema.php:470
+#: includes/class-schema.php:561
 msgid "Y position"
 msgstr "موقعیت Y"
 
-#: includes/class-schema.php:475
+#: includes/class-schema.php:566
 msgid "Position unit"
 msgstr "واحد موقعیت"
 
-#: includes/class-schema.php:478
+#: includes/class-schema.php:569
 msgid "Percent (relative)"
 msgstr "درصد (نسبی)"
 
-#: includes/class-schema.php:479
+#: includes/class-schema.php:570
 msgid "Pixels (absolute)"
 msgstr "پیکسل (مطلق)"
 
-#: includes/class-schema.php:494
+#: includes/class-schema.php:585
 msgid "Popup content (HTML)"
 msgstr "محتوای پاپ‌آپ (HTML)"
 
-#: includes/class-schema.php:499
+#: includes/class-schema.php:590
 msgid "Link URL"
 msgstr "نشانی پیوند"
 
-#: includes/class-schema.php:504
-#: includes/class-schema.php:530
-msgid "Pin image"
-msgstr "تصویر پین"
-
-#: includes/class-schema.php:519
+#: includes/class-schema.php:610
 msgid "Pin style"
 msgstr "سبک پین"
 
-#: includes/class-schema.php:522
+#: includes/class-schema.php:613
 msgid "Marker"
 msgstr "نشانگر"
 
-#: includes/class-schema.php:523
+#: includes/class-schema.php:614
 msgid "Dot"
 msgstr "نقطه"
 
-#: includes/class-schema.php:524
+#: includes/class-schema.php:615
 msgid "Image"
 msgstr "تصویر"
 
-#: includes/class-schema.php:531
+#: includes/class-schema.php:622
 msgid "Overrides every branch pin image."
 msgstr "جایگزین تصویر پین همه شعبه‌ها می‌شود."
 
-#: includes/class-schema.php:538
+#: includes/class-schema.php:629
 msgid "Pin animation"
 msgstr "انیمیشن پین"
 
-#: includes/class-schema.php:541
+#: includes/class-schema.php:632
 msgid "None"
 msgstr "هیچ"
 
-#: includes/class-schema.php:542
+#: includes/class-schema.php:633
 msgid "Drop in"
 msgstr "افتادن"
 
-#: includes/class-schema.php:543
+#: includes/class-schema.php:634
 msgid "Pulse"
 msgstr "تپش"
 
-#: includes/class-schema.php:544
+#: includes/class-schema.php:635
 msgid "Bounce on hover"
 msgstr "پرش هنگام هاور"
 
-#: includes/class-schema.php:550
+#: includes/class-schema.php:641
 msgid "Show title on hover"
 msgstr "نمایش عنوان هنگام هاور"
 
-#: includes/class-schema.php:556
+#: includes/class-schema.php:647
 msgid "Pin click action"
 msgstr "رفتار کلیک روی پین"
 
-#: includes/class-schema.php:559
+#: includes/class-schema.php:650
 msgid "Open popup"
 msgstr "باز کردن پاپ‌آپ"
 
-#: includes/class-schema.php:560
+#: includes/class-schema.php:651
 msgid "Open branch page"
 msgstr "رفتن به صفحه شعبه"
 
-#: includes/class-schema.php:561
+#: includes/class-schema.php:652
 msgid "Nothing"
 msgstr "هیچ"
 
-#: includes/class-schema.php:567
+#: includes/class-schema.php:658
 msgid "Link target"
 msgstr "محل باز شدن پیوند"
 
-#: includes/class-schema.php:570
+#: includes/class-schema.php:661
 msgid "Same tab"
 msgstr "همین زبانه"
 
-#: includes/class-schema.php:571
+#: includes/class-schema.php:662
 msgid "New tab"
 msgstr "زبانه جدید"
 
-#: includes/class-schema.php:578
+#: includes/class-schema.php:669
 msgid "Cluster nearby pins"
 msgstr "گروه‌بندی پین‌های نزدیک"
 
-#: includes/class-schema.php:585
+#: includes/class-schema.php:676
 msgid "Cluster radius (px)"
 msgstr "شعاع گروه‌بندی (px)"
 
-#: includes/class-schema.php:594
+#: includes/class-schema.php:685
 msgid "Minimum pins per cluster"
 msgstr "حداقل پین در هر گروه"
 
-#: includes/class-schema.php:605
+#: includes/class-schema.php:696
 msgid "Popup template (HTML)"
 msgstr "قالب پاپ‌آپ (HTML)"
 
 #. translators: %s: list of tags
-#: includes/class-schema.php:608
+#: includes/class-schema.php:699
 #, php-format
 msgid "Tags: %s. Use {tag|fallback} for a default value."
 msgstr "برچسب‌ها: %s. برای مقدار پیش‌فرض از {tag|fallback} استفاده کنید."
 
-#: includes/class-schema.php:620
+#: includes/class-schema.php:710
+msgid "Popup image"
+msgstr "تصویر پاپ‌آپ"
+
+#: includes/class-schema.php:713
+msgid "Featured image"
+msgstr "تصویر شاخص"
+
+#: includes/class-schema.php:714
+msgid "Branch pin image"
+msgstr "تصویر پین شعبه"
+
+#: includes/class-schema.php:715
+msgid "Featured image, else pin image"
+msgstr "تصویر شاخص، در غیر این صورت تصویر پین"
+
+#: includes/class-schema.php:716
+msgid "No image"
+msgstr "بدون تصویر"
+
+#: includes/class-schema.php:723
+msgid "Placeholder when there is no image"
+msgstr "تصویر پیش‌فرض وقتی تصویری وجود ندارد"
+
+#: includes/class-schema.php:730
+#: includes/integrations/elementor/class-map-widget.php:946
+msgid "Get directions button"
+msgstr "دکمه‌ی مسیریابی"
+
+#: includes/class-schema.php:731
+msgid "Add {directions} to a custom template to choose where the button goes."
+msgstr "برای تعیین جای دکمه در قالب سفارشی، {directions} را در آن قرار دهید."
+
+#: includes/class-schema.php:738
+msgid "Button text"
+msgstr "متن دکمه"
+
+#: includes/class-schema.php:740 includes/class-schema.php:1261
+msgid "Get directions"
+msgstr "مسیریابی"
+
+#: includes/class-schema.php:746
+msgid "Button action"
+msgstr "عملکرد دکمه"
+
+#: includes/class-schema.php:747
+msgid ""
+"Android can list the map apps installed on the phone. iPhone and desktop "
+"browsers cannot, so they get a list of map apps to choose from."
+msgstr ""
+"اندروید می‌تواند برنامه‌های نقشه‌ی نصب‌شده روی گوشی را نشان دهد. آیفون و "
+"مرورگرهای دسکتاپ این امکان را ندارند و برای آن‌ها فهرستی از برنامه‌های نقشه "
+"نمایش داده می‌شود."
+
+#: includes/class-schema.php:750
+msgid "Installed map apps on Android, app list elsewhere"
+msgstr "برنامه‌های نصب‌شده در اندروید، فهرست برنامه‌ها در بقیه"
+
+#: includes/class-schema.php:751
+msgid "Always show the app list"
+msgstr "همیشه فهرست برنامه‌ها نمایش داده شود"
+
+#: includes/class-schema.php:752
+msgid "Open Google Maps directly"
+msgstr "باز کردن مستقیم گوگل‌مپ"
+
+#: includes/class-schema.php:759
+msgid "Apps in the list"
+msgstr "برنامه‌های فهرست"
+
+#: includes/class-schema.php:769
 msgid "Show branches list"
 msgstr "نمایش فهرست شعبه‌ها"
 
-#: includes/class-schema.php:626
+#: includes/class-schema.php:775
 msgid "List position"
 msgstr "جایگاه فهرست"
 
-#: includes/class-schema.php:629
+#: includes/class-schema.php:778
 msgid "Above the map"
 msgstr "بالای نقشه"
 
-#: includes/class-schema.php:630
+#: includes/class-schema.php:779
 msgid "Below the map"
 msgstr "پایین نقشه"
 
-#: includes/class-schema.php:631
+#: includes/class-schema.php:780
 msgid "Sidebar (start)"
 msgstr "ستون کناری (ابتدا)"
 
-#: includes/class-schema.php:632
+#: includes/class-schema.php:781
 msgid "Sidebar (end)"
 msgstr "ستون کناری (انتها)"
 
-#: includes/class-schema.php:639
+#: includes/class-schema.php:788
 msgid "List layout"
 msgstr "چیدمان فهرست"
 
-#: includes/class-schema.php:642
-msgid "Chips"
-msgstr "برچسبی"
-
-#: includes/class-schema.php:643
-msgid "Cards"
-msgstr "کارتی"
-
-#: includes/class-schema.php:650
+#: includes/class-schema.php:796
 msgid "Group by category"
 msgstr "گروه‌بندی بر اساس دسته"
 
-#: includes/class-schema.php:653
+#: includes/class-schema.php:799
 msgid "No"
 msgstr "خیر"
 
-#: includes/class-schema.php:654
-#: includes/integrations/wpbakery/class-wpbakery.php:110
+#: includes/class-schema.php:800
+#: includes/integrations/wpbakery/class-wpbakery.php:113
 msgid "Yes"
 msgstr "بله"
 
-#: includes/class-schema.php:661
-#: includes/integrations/elementor/class-map-widget.php:812
+#: includes/class-schema.php:807
+#: includes/integrations/elementor/class-map-widget.php:828
 msgid "Search box"
 msgstr "کادر جست‌وجو"
 
-#: includes/class-schema.php:668
+#: includes/class-schema.php:814
 msgid "Search placeholder"
 msgstr "متن راهنمای جست‌وجو"
 
-#: includes/class-schema.php:670
-#: includes/class-schema.php:1067
+#: includes/class-schema.php:816 includes/class-schema.php:1267
 msgid "Search branches…"
 msgstr "جست‌وجوی شعبه‌ها…"
 
-#: includes/class-schema.php:678
-#: includes/integrations/elementor/class-map-widget.php:550
+#: includes/class-schema.php:824
+msgid "Category chips under the search box"
+msgstr "دکمه‌های دسته زیر کادر جست‌وجو"
+
+#: includes/class-schema.php:825
+msgid ""
+"Visitors pick a category and the list and the map show only its branches."
+msgstr ""
+"بازدیدکننده یک دسته را انتخاب می‌کند و فهرست و نقشه فقط شعبه‌های همان دسته را "
+"نشان می‌دهند."
+
+#: includes/class-schema.php:832
+msgid "Category chips on the map"
+msgstr "دکمه‌های دسته روی نقشه"
+
+#: includes/class-schema.php:833
+msgid "Shows only the pins of the chosen category."
+msgstr "فقط پین‌های دسته‌ی انتخاب‌شده نمایش داده می‌شوند."
+
+#: includes/class-schema.php:839
+msgid "Position on the map"
+msgstr "محل روی نقشه"
+
+#: includes/class-schema.php:842
+msgid "Top"
+msgstr "بالا"
+
+#: includes/class-schema.php:843
+msgid "Bottom"
+msgstr "پایین"
+
+#: includes/class-schema.php:850
+msgid "Allow choosing several categories"
+msgstr "امکان انتخاب چند دسته"
+
+#: includes/class-schema.php:856
+msgid "Show the number of branches"
+msgstr "نمایش تعداد شعبه‌ها"
+
+#: includes/class-schema.php:862
+msgid "“All” chip text"
+msgstr "متن دکمه‌ی «همه»"
+
+#: includes/class-schema.php:863
+msgid "Leave empty for the default text."
+msgstr "برای متن پیش‌فرض خالی بگذارید."
+
+#: includes/class-schema.php:865 includes/class-schema.php:1264
+msgid "All"
+msgstr "همه"
+
+#: includes/class-schema.php:872
+#: includes/integrations/elementor/class-map-widget.php:566
 msgid "Width"
 msgstr "عرض"
 
-#: includes/class-schema.php:684
-#: includes/integrations/elementor/class-map-widget.php:371
+#: includes/class-schema.php:878
+#: includes/integrations/elementor/class-map-widget.php:387
 msgid "Height"
 msgstr "ارتفاع"
 
-#: includes/class-schema.php:685
-#: includes/integrations/elementor/class-map-widget.php:382
+#: includes/class-schema.php:879
+#: includes/integrations/elementor/class-map-widget.php:398
 msgid "Image and SVG maps size themselves by their aspect ratio."
 msgstr "اندازه نقشه‌های تصویری و SVG بر اساس نسبت ابعادشان تعیین می‌شود."
 
-#: includes/class-schema.php:692
-#: includes/integrations/elementor/class-map-widget.php:389
-#: assets/js/admin.js:244
+#: includes/class-schema.php:886
+#: includes/integrations/elementor/class-map-widget.php:405
+#: assets/js/admin.js:425
 msgid "Accent color"
 msgstr "رنگ اصلی"
 
-#: includes/class-schema.php:704
+#: includes/class-schema.php:898
 msgid "Pin size (px)"
 msgstr "اندازه پین (px)"
 
-#: includes/class-schema.php:712
+#: includes/class-schema.php:906
 msgid "Corner radius (px)"
 msgstr "گردی گوشه‌ها (px)"
 
-#: includes/class-schema.php:720
+#: includes/class-schema.php:914
 msgid "Popup background"
 msgstr "پس‌زمینه پاپ‌آپ"
 
-#: includes/class-schema.php:726
+#: includes/class-schema.php:920
 msgid "Popup text"
 msgstr "متن پاپ‌آپ"
 
-#: includes/class-schema.php:732
+#: includes/class-schema.php:926
 msgid "Popup width (px)"
 msgstr "عرض پاپ‌آپ (px)"
 
-#: includes/class-schema.php:740
+#: includes/class-schema.php:934
 msgid "List item background"
 msgstr "پس‌زمینه آیتم فهرست"
 
-#: includes/class-schema.php:746
+#: includes/class-schema.php:940
 msgid "List item text"
 msgstr "متن آیتم فهرست"
 
-#: includes/class-schema.php:752
+#: includes/class-schema.php:946
 msgid "Region fill"
 msgstr "رنگ ناحیه"
 
-#: includes/class-schema.php:758
+#: includes/class-schema.php:952
 msgid "Region with branches"
 msgstr "ناحیه دارای شعبه"
 
-#: includes/class-schema.php:764
+#: includes/class-schema.php:958
 msgid "Region hover"
 msgstr "ناحیه هنگام هاور"
 
-#: includes/class-schema.php:770
+#: includes/class-schema.php:964
 msgid "Region border"
 msgstr "حاشیه ناحیه"
 
-#: includes/class-schema.php:776
+#: includes/class-schema.php:970
 msgid "Loading background"
 msgstr "پس‌زمینه بارگذاری"
 
-#: includes/class-schema.php:785
+#: includes/class-schema.php:979
 msgid "HTML id"
 msgstr "شناسه HTML"
 
-#: includes/class-schema.php:791
+#: includes/class-schema.php:985
 msgid "Extra CSS classes"
 msgstr "کلاس‌های CSS اضافه"
 
+#: includes/class-transfer.php:73
+msgid "Category slugs, comma separated."
+msgstr "نامک دسته‌ها، جداشده با ویرگول."
+
+#: includes/class-transfer.php:77
+msgid "Branch IDs, comma separated."
+msgstr "شناسه‌ی شعبه‌ها، جداشده با ویرگول."
+
+#: includes/class-transfer.php:81
+msgid "Search text."
+msgstr "متن جست‌وجو."
+
+#: includes/class-transfer.php:314
+msgid "This is not a Mapify export file."
+msgstr "این فایل خروجی Mapify نیست."
+
+#: includes/class-transfer.php:480
+msgid "Image URL is not valid."
+msgstr "نشانی تصویر معتبر نیست."
+
 #: includes/integrations/elementor/class-map-widget.php:33
-#: includes/integrations/wpbakery/class-wpbakery.php:202
+#: includes/integrations/wpbakery/class-wpbakery.php:205
 msgid "Branches Map"
 msgstr "نقشه شعبه‌ها"
 
@@ -1158,168 +1480,191 @@ msgstr "موقعیت روی نقشه‌های جغرافیایی"
 #. translators: %s: settings URL
 #: includes/integrations/elementor/class-map-widget.php:286
 #, php-format
-msgid "API keys for Google Maps, Mapbox, Map.ir, Neshan and Parsimap are set in <a href=\"%s\" target=\"_blank\">Branches → Map Settings</a>."
-msgstr "کلیدهای API گوگل‌مپ، مپ‌باکس، Map.ir، نشان و پارسی‌مپ در <a href=\"%s\" target=\"_blank\">شعبه‌ها ← تنظیمات نقشه</a> تنظیم می‌شوند."
+msgid ""
+"API keys for Google Maps, Mapbox, Map.ir, Neshan and Parsimap are set in <a "
+"href=\"%s\" target=\"_blank\">Branches → Map Settings</a>."
+msgstr ""
+"کلیدهای API گوگل‌مپ، مپ‌باکس، Map.ir، نشان و پارسی‌مپ در <a href=\"%s\" "
+"target=\"_blank\">شعبه‌ها ← تنظیمات نقشه</a> تنظیم می‌شوند."
 
 #: includes/integrations/elementor/class-map-widget.php:336
 msgid "Markers & clusters"
 msgstr "نشانگرها و گروه‌ها"
 
-#: includes/integrations/elementor/class-map-widget.php:397
+#. translators: %s: categories screen URL
+#: includes/integrations/elementor/class-map-widget.php:362
+#, php-format
+msgid ""
+"Pin color and pin image of each category are set in <a href=\"%s\" "
+"target=\"_blank\">Branches → Categories</a>."
+msgstr ""
+"رنگ و تصویر پین هر دسته در <a href=\"%s\" target=\"_blank\">شعبه‌ها ← دسته‌ها</"
+"a> تنظیم می‌شود."
+
+#: includes/integrations/elementor/class-map-widget.php:413
 msgid "Background while loading"
 msgstr "پس‌زمینه هنگام بارگذاری"
 
-#: includes/integrations/elementor/class-map-widget.php:405
-#: includes/integrations/elementor/class-map-widget.php:576
-#: includes/integrations/elementor/class-map-widget.php:731
-#: includes/integrations/elementor/class-map-widget.php:854
+#: includes/integrations/elementor/class-map-widget.php:421
+#: includes/integrations/elementor/class-map-widget.php:592
+#: includes/integrations/elementor/class-map-widget.php:747
+#: includes/integrations/elementor/class-map-widget.php:870
+#: includes/integrations/elementor/class-map-widget.php:932
 msgid "Border radius"
 msgstr "گردی گوشه‌ها"
 
-#: includes/integrations/elementor/class-map-widget.php:430
+#: includes/integrations/elementor/class-map-widget.php:446
 msgid "Map tiles filter"
 msgstr "فیلتر کاشی‌های نقشه"
 
-#: includes/integrations/elementor/class-map-widget.php:440
+#: includes/integrations/elementor/class-map-widget.php:456
 msgid "Pins"
 msgstr "پین‌ها"
 
-#: includes/integrations/elementor/class-map-widget.php:447
-#: includes/integrations/elementor/class-map-widget.php:619
-#: includes/integrations/elementor/class-map-widget.php:791
+#: includes/integrations/elementor/class-map-widget.php:463
+#: includes/integrations/elementor/class-map-widget.php:635
+#: includes/integrations/elementor/class-map-widget.php:807
 msgid "Color"
 msgstr "رنگ"
 
-#: includes/integrations/elementor/class-map-widget.php:455
+#: includes/integrations/elementor/class-map-widget.php:471
 msgid "Hover / active color"
 msgstr "رنگ هاور / فعال"
 
-#: includes/integrations/elementor/class-map-widget.php:463
+#: includes/integrations/elementor/class-map-widget.php:479
 msgid "Inner dot / border color"
 msgstr "رنگ نقطه داخلی / حاشیه"
 
-#: includes/integrations/elementor/class-map-widget.php:474
+#: includes/integrations/elementor/class-map-widget.php:490
 msgid "Size"
 msgstr "اندازه"
 
-#: includes/integrations/elementor/class-map-widget.php:483
+#: includes/integrations/elementor/class-map-widget.php:499
 msgid "Tooltip"
 msgstr "راهنمای شناور"
 
-#: includes/integrations/elementor/class-map-widget.php:491
-#: includes/integrations/elementor/class-map-widget.php:522
-#: includes/integrations/elementor/class-map-widget.php:560
-#: includes/integrations/elementor/class-map-widget.php:651
-#: includes/integrations/elementor/class-map-widget.php:756
-#: includes/integrations/elementor/class-map-widget.php:830
+#: includes/integrations/elementor/class-map-widget.php:507
+#: includes/integrations/elementor/class-map-widget.php:538
+#: includes/integrations/elementor/class-map-widget.php:576
+#: includes/integrations/elementor/class-map-widget.php:667
+#: includes/integrations/elementor/class-map-widget.php:772
+#: includes/integrations/elementor/class-map-widget.php:846
+#: includes/integrations/elementor/class-map-widget.php:905
+#: includes/integrations/elementor/class-map-widget.php:957
 msgid "Background"
 msgstr "پس‌زمینه"
 
-#: includes/integrations/elementor/class-map-widget.php:499
-#: includes/integrations/elementor/class-map-widget.php:530
-#: includes/integrations/elementor/class-map-widget.php:568
-#: includes/integrations/elementor/class-map-widget.php:659
-#: includes/integrations/elementor/class-map-widget.php:764
-#: includes/integrations/elementor/class-map-widget.php:838
+#: includes/integrations/elementor/class-map-widget.php:515
+#: includes/integrations/elementor/class-map-widget.php:546
+#: includes/integrations/elementor/class-map-widget.php:584
+#: includes/integrations/elementor/class-map-widget.php:675
+#: includes/integrations/elementor/class-map-widget.php:780
+#: includes/integrations/elementor/class-map-widget.php:854
+#: includes/integrations/elementor/class-map-widget.php:913
+#: includes/integrations/elementor/class-map-widget.php:965
 msgid "Text color"
 msgstr "رنگ متن"
 
-#: includes/integrations/elementor/class-map-widget.php:514
+#: includes/integrations/elementor/class-map-widget.php:530
 msgid "Clusters"
 msgstr "گروه‌ها"
 
-#: includes/integrations/elementor/class-map-widget.php:592
+#: includes/integrations/elementor/class-map-widget.php:608
 msgid "Content padding"
 msgstr "فاصله داخلی محتوا"
 
-#: includes/integrations/elementor/class-map-widget.php:601
+#: includes/integrations/elementor/class-map-widget.php:617
 msgid "Image height"
 msgstr "ارتفاع تصویر"
 
-#: includes/integrations/elementor/class-map-widget.php:635
+#: includes/integrations/elementor/class-map-widget.php:651
 msgid "Text typography"
 msgstr "تایپوگرافی متن"
 
-#: includes/integrations/elementor/class-map-widget.php:643
+#: includes/integrations/elementor/class-map-widget.php:659
 msgid "Button"
 msgstr "دکمه"
 
-#: includes/integrations/elementor/class-map-widget.php:686
+#: includes/integrations/elementor/class-map-widget.php:702
 msgid "Sidebar width"
 msgstr "عرض ستون کناری"
 
-#: includes/integrations/elementor/class-map-widget.php:697
+#: includes/integrations/elementor/class-map-widget.php:713
 msgid "Space between list and map"
 msgstr "فاصله فهرست و نقشه"
 
-#: includes/integrations/elementor/class-map-widget.php:706
+#: includes/integrations/elementor/class-map-widget.php:722
 msgid "Space between items"
 msgstr "فاصله بین آیتم‌ها"
 
-#: includes/integrations/elementor/class-map-widget.php:722
+#: includes/integrations/elementor/class-map-widget.php:738
 msgid "Padding"
 msgstr "فاصله داخلی"
 
-#: includes/integrations/elementor/class-map-widget.php:747
+#: includes/integrations/elementor/class-map-widget.php:763
+#: includes/integrations/elementor/class-map-widget.php:897
 msgid "Normal"
 msgstr "عادی"
 
-#: includes/integrations/elementor/class-map-widget.php:748
+#: includes/integrations/elementor/class-map-widget.php:764
 msgid "Hover"
 msgstr "هاور"
 
-#: includes/integrations/elementor/class-map-widget.php:749
+#: includes/integrations/elementor/class-map-widget.php:765
+#: includes/integrations/elementor/class-map-widget.php:898
 msgid "Active"
 msgstr "فعال"
 
-#: includes/integrations/elementor/class-map-widget.php:782
+#: includes/integrations/elementor/class-map-widget.php:798
 msgid "Category titles"
 msgstr "عنوان دسته‌ها"
 
-#: includes/integrations/elementor/class-map-widget.php:846
-#: includes/integrations/elementor/class-map-widget.php:876
+#: includes/integrations/elementor/class-map-widget.php:862
+#: includes/integrations/elementor/class-map-widget.php:921
+#: includes/integrations/elementor/class-map-widget.php:973
+#: includes/integrations/elementor/class-map-widget.php:1001
 msgid "Border color"
 msgstr "رنگ حاشیه"
 
-#: includes/integrations/elementor/class-map-widget.php:866
+#: includes/integrations/elementor/class-map-widget.php:991
 msgid "Regions (SVG maps)"
 msgstr "ناحیه‌ها (نقشه‌های SVG)"
 
-#: includes/integrations/elementor/class-map-widget.php:873
+#: includes/integrations/elementor/class-map-widget.php:998
 msgid "Fill"
 msgstr "رنگ داخل"
 
-#: includes/integrations/elementor/class-map-widget.php:874
+#: includes/integrations/elementor/class-map-widget.php:999
 msgid "Regions with branches"
 msgstr "ناحیه‌های دارای شعبه"
 
-#: includes/integrations/elementor/class-map-widget.php:875
+#: includes/integrations/elementor/class-map-widget.php:1000
 msgid "Hover / selected"
 msgstr "هاور / انتخاب‌شده"
 
-#: includes/integrations/elementor/class-map-widget.php:877
+#: includes/integrations/elementor/class-map-widget.php:1002
 msgid "Map background"
 msgstr "پس‌زمینه نقشه"
 
-#: includes/integrations/elementor/class-map-widget.php:892
+#: includes/integrations/elementor/class-map-widget.php:1017
 msgid "Border width"
 msgstr "ضخامت حاشیه"
 
 #. translators: %s: example
-#: includes/integrations/wpbakery/class-wpbakery.php:172
+#: includes/integrations/wpbakery/class-wpbakery.php:175
 #, php-format
 msgid "e.g. %s"
 msgstr "مثلاً %s"
 
-#: includes/integrations/wpbakery/class-wpbakery.php:196
+#: includes/integrations/wpbakery/class-wpbakery.php:199
 msgid "CSS box"
 msgstr "جعبه CSS"
 
-#: includes/integrations/wpbakery/class-wpbakery.php:198
+#: includes/integrations/wpbakery/class-wpbakery.php:201
 msgid "Design Options"
 msgstr "گزینه‌های طراحی"
 
-#: includes/integrations/wpbakery/class-wpbakery.php:205
+#: includes/integrations/wpbakery/class-wpbakery.php:208
 msgid "Branches on Google, OSM, Mapbox, Map.ir, SVG or image maps"
 msgstr "شعبه‌ها روی گوگل، OSM، مپ‌باکس، Map.ir، نقشه SVG یا تصویری"
 
@@ -1331,321 +1676,500 @@ msgstr "کپی شد!"
 msgid "Copy"
 msgstr "کپی"
 
-#: assets/js/admin.js:138
+#: assets/js/admin.js:133
+msgid "The file is not valid JSON."
+msgstr "این فایل JSON معتبر نیست."
+
+#: assets/js/admin.js:137
+msgid "The file could not be read."
+msgstr "فایل خوانده نشد."
+
+#: assets/js/admin.js:173
+msgid "Export failed."
+msgstr "خروجی گرفتن انجام نشد."
+
+#: assets/js/admin.js:198
+msgid "Import failed."
+msgstr "درون‌ریزی انجام نشد."
+
+#: assets/js/admin.js:207
+msgid "Map settings (API keys and defaults)"
+msgstr "تنظیمات نقشه (کلیدهای API و پیش‌فرض‌ها)"
+
+#: assets/js/admin.js:208
+msgid "Categories (with pin color and image)"
+msgstr "دسته‌ها (با رنگ و تصویر پین)"
+
+#: assets/js/admin.js:209
+msgid "Branches (content, details, location and pins)"
+msgstr "شعبه‌ها (محتوا، مشخصات، موقعیت و پین)"
+
+#: assets/js/admin.js:221
+msgid "Export"
+msgstr "خروجی"
+
+#: assets/js/admin.js:221
+msgid "Download a JSON file to move Mapify to another site or keep a backup."
+msgstr ""
+"یک فایل JSON دریافت کنید تا Mapify را به سایت دیگری منتقل کنید یا از آن "
+"نسخه‌ی پشتیبان داشته باشید."
+
+#: assets/js/admin.js:226
+msgid "Download export file"
+msgstr "دریافت فایل خروجی"
+
+#: assets/js/admin.js:227
+msgid ""
+"Branches and categories are also included in Tools → Export (WordPress "
+"export file), and can be read and written through the REST API at /wp-json/"
+"wp/v2/mapify and /wp-json/mapify/v1/."
+msgstr ""
+"شعبه‌ها و دسته‌ها در ابزارها ← برون‌بری (فایل خروجی وردپرس) هم وجود دارند و از "
+"طریق REST API در /wp-json/wp/v2/mapify و /wp-json/mapify/v1/ قابل خواندن و "
+"نوشتن هستند."
+
+#: assets/js/admin.js:233 assets/js/admin.js:258
+msgid "Import"
+msgstr "درون‌ریزی"
+
+#: assets/js/admin.js:233
+msgid "Choose a file made by the export above."
+msgstr "فایلی را انتخاب کنید که با بخش خروجی بالا ساخته شده است."
+
+#: assets/js/admin.js:248
+msgid "When a branch already exists (same slug)"
+msgstr "اگر شعبه از قبل وجود داشته باشد (نامک یکسان)"
+
+#: assets/js/admin.js:251
+msgid "Update it"
+msgstr "به‌روزرسانی شود"
+
+#: assets/js/admin.js:252
+msgid "Skip it"
+msgstr "رد شود"
+
+#: assets/js/admin.js:253
+msgid "Add it again as a new branch"
+msgstr "به‌عنوان شعبه‌ی جدید دوباره اضافه شود"
+
+#: assets/js/admin.js:257
+msgid "Download featured images"
+msgstr "دریافت تصویرهای شاخص"
+
+#: assets/js/admin.js:257
+msgid "Copies each branch image from the source site into the media library."
+msgstr "تصویر هر شعبه از سایت مبدأ در کتابخانه‌ی رسانه کپی می‌شود."
+
+#: assets/js/admin.js:266
+msgid "Map settings imported."
+msgstr "تنظیمات نقشه درون‌ریزی شد."
+
+#: assets/js/admin.js:267
+msgid "Categories: %1$d created, %2$d updated, %3$d skipped."
+msgstr "دسته‌ها: %1$d ساخته شد، %2$d به‌روز شد، %3$d رد شد."
+
+#: assets/js/admin.js:268
+msgid "Branches: %1$d created, %2$d updated, %3$d skipped."
+msgstr "شعبه‌ها: %1$d ساخته شد، %2$d به‌روز شد، %3$d رد شد."
+
+#: assets/js/admin.js:309
 msgid "Settings saved."
 msgstr "تنظیمات ذخیره شد."
 
-#: assets/js/admin.js:141
+#: assets/js/admin.js:312
 msgid "Could not save settings."
 msgstr "ذخیره تنظیمات ممکن نشد."
 
-#: assets/js/admin.js:153
+#: assets/js/admin.js:324
 msgid "Map providers"
 msgstr "سرویس‌های نقشه"
 
-#: assets/js/admin.js:154
+#: assets/js/admin.js:325
 msgid "Defaults"
 msgstr "پیش‌فرض‌ها"
 
-#: assets/js/admin.js:180
+#: assets/js/admin.js:327
+msgid "Import / Export"
+msgstr "درون‌ریزی / خروجی"
+
+#: assets/js/admin.js:361
 msgid "OpenStreetMap"
 msgstr "اوپن‌استریت‌مپ"
 
-#: assets/js/admin.js:181
-msgid "Free tiles that need no key: OpenStreetMap, OpenTopoMap and Esri (light, dark, street, topographic and satellite). Also used as the fallback when a provider key is missing."
-msgstr "کاشی‌های رایگان و بدون کلید: اوپن‌استریت‌مپ، اوپن‌توپومپ و Esri (روشن، تیره، خیابان، توپوگرافی و ماهواره). وقتی کلید یک سرویس وارد نشده باشد، همین نقشه جایگزین می‌شود."
+#: assets/js/admin.js:362
+msgid ""
+"Free tiles that need no key: OpenStreetMap, OpenTopoMap and Esri (light, "
+"dark, street, topographic and satellite). Also used as the fallback when a "
+"provider key is missing."
+msgstr ""
+"کاشی‌های رایگان و بدون کلید: اوپن‌استریت‌مپ، اوپن‌توپومپ و Esri (روشن، تیره، "
+"خیابان، توپوگرافی و ماهواره). وقتی کلید یک سرویس وارد نشده باشد، همین نقشه "
+"جایگزین می‌شود."
 
-#: assets/js/admin.js:183
-#: assets/js/admin.js:217
+#: assets/js/admin.js:364 assets/js/admin.js:398
 msgid "Ready — no configuration needed"
 msgstr "آماده — نیازی به تنظیم نیست"
 
-#: assets/js/admin.js:187
+#: assets/js/admin.js:368
 msgid "JavaScript API key with the Maps JavaScript API enabled."
 msgstr "کلید API با سرویس Maps JavaScript API فعال."
 
-#: assets/js/admin.js:188
+#: assets/js/admin.js:369
 msgid "Get a key"
 msgstr "دریافت کلید"
 
-#: assets/js/admin.js:190
-#: assets/js/admin.js:223
+#: assets/js/admin.js:371 assets/js/admin.js:404
 msgid "API key"
 msgstr "کلید API"
 
-#: assets/js/admin.js:191
+#: assets/js/admin.js:372
 msgid "Map ID (optional)"
 msgstr "شناسه نقشه (اختیاری)"
 
-#: assets/js/admin.js:191
-msgid "Enables Advanced Markers and cloud-based styling. Leave empty to use the built-in JSON styles."
-msgstr "نشانگرهای پیشرفته و استایل ابری را فعال می‌کند. برای استفاده از استایل‌های JSON داخلی خالی بگذارید."
+#: assets/js/admin.js:372
+msgid ""
+"Enables Advanced Markers and cloud-based styling. Leave empty to use the "
+"built-in JSON styles."
+msgstr ""
+"نشانگرهای پیشرفته و استایل ابری را فعال می‌کند. برای استفاده از استایل‌های "
+"JSON داخلی خالی بگذارید."
 
-#: assets/js/admin.js:192
+#: assets/js/admin.js:373
 msgid "Map language (optional)"
 msgstr "زبان نقشه (اختیاری)"
 
-#: assets/js/admin.js:192
+#: assets/js/admin.js:373
 msgid "Two-letter code such as fa, en or ar. Empty = visitor browser language."
 msgstr "کد دوحرفی مثل fa، en یا ar. خالی = زبان مرورگر بازدیدکننده."
 
-#: assets/js/admin.js:197
-msgid "Public access token (starts with pk.). Works with Mapbox styles and your own Mapbox Studio styles."
-msgstr "توکن دسترسی عمومی (با pk. شروع می‌شود). با استایل‌های مپ‌باکس و استایل‌های خودتان در Mapbox Studio کار می‌کند."
+#: assets/js/admin.js:378
+msgid ""
+"Public access token (starts with pk.). Works with Mapbox styles and your own "
+"Mapbox Studio styles."
+msgstr ""
+"توکن دسترسی عمومی (با pk. شروع می‌شود). با استایل‌های مپ‌باکس و استایل‌های "
+"خودتان در Mapbox Studio کار می‌کند."
 
-#: assets/js/admin.js:198
-#: assets/js/admin.js:210
+#: assets/js/admin.js:379 assets/js/admin.js:391
 msgid "Get a token"
 msgstr "دریافت توکن"
 
-#: assets/js/admin.js:199
+#: assets/js/admin.js:380
 msgid "Access token"
 msgstr "توکن دسترسی"
 
-#: assets/js/admin.js:203
-msgid "Persian map by Neshan. Create a “Web map” key in the Neshan platform panel."
+#: assets/js/admin.js:384
+msgid ""
+"Persian map by Neshan. Create a “Web map” key in the Neshan platform panel."
 msgstr "نقشه فارسی نشان. در پنل پلتفرم نشان یک کلید از نوع «نقشه وب» بسازید."
 
-#: assets/js/admin.js:204
-#: assets/js/admin.js:222
+#: assets/js/admin.js:385 assets/js/admin.js:403
 msgid "Get an API key"
 msgstr "دریافت کلید API"
 
-#: assets/js/admin.js:205
+#: assets/js/admin.js:386
 msgid "Web map API key"
 msgstr "کلید API نقشه وب"
 
-#: assets/js/admin.js:208
+#: assets/js/admin.js:389
 msgid "Parsimap"
 msgstr "پارسی‌مپ"
 
-#: assets/js/admin.js:209
+#: assets/js/admin.js:390
 msgid "Persian raster map tiles by Parsimap."
 msgstr "کاشی‌های نقشه فارسی پارسی‌مپ."
 
-#: assets/js/admin.js:211
+#: assets/js/admin.js:392
 msgid "API token"
 msgstr "توکن API"
 
-#: assets/js/admin.js:214
+#: assets/js/admin.js:395
 msgid "Mapup"
 msgstr "مپ‌آپ"
 
-#: assets/js/admin.js:215
+#: assets/js/admin.js:396
 msgid "Persian map tiles by Mapup — free, no key needed."
 msgstr "کاشی‌های نقشه فارسی مپ‌آپ — رایگان و بدون نیاز به کلید."
 
-#: assets/js/admin.js:220
+#: assets/js/admin.js:401
 msgid "Map.ir"
 msgstr "Map.ir"
 
-#: assets/js/admin.js:221
+#: assets/js/admin.js:402
 msgid "Persian map tiles with Iranian street names and places."
 msgstr "کاشی‌های نقشه فارسی با نام خیابان‌ها و مکان‌های ایران."
 
-#: assets/js/admin.js:230
+#: assets/js/admin.js:411
 msgid "Map defaults"
 msgstr "پیش‌فرض‌های نقشه"
 
-#: assets/js/admin.js:230
+#: assets/js/admin.js:411
 msgid "Used by every map that does not override them."
 msgstr "برای همه نقشه‌هایی که مقدار دیگری تعیین نکرده‌اند استفاده می‌شود."
 
-#: assets/js/admin.js:234
+#: assets/js/admin.js:415
 msgid "Default map engine"
 msgstr "موتور نقشه پیش‌فرض"
 
-#: assets/js/admin.js:238
+#: assets/js/admin.js:419
 msgid "Default center (lat,lng)"
 msgstr "مرکز پیش‌فرض (عرض،طول)"
 
-#: assets/js/admin.js:239
+#: assets/js/admin.js:420
 msgid "Default height"
 msgstr "ارتفاع پیش‌فرض"
 
-#: assets/js/admin.js:239
+#: assets/js/admin.js:420
 msgid "Any CSS length, e.g. 500px or 60vh."
 msgstr "هر اندازه CSS، مثلاً 500px یا 60vh."
 
-#: assets/js/admin.js:241
+#: assets/js/admin.js:422
 msgid "Default zoom"
 msgstr "بزرگ‌نمایی پیش‌فرض"
 
-#: assets/js/admin.js:244
+#: assets/js/admin.js:425
 msgid "Pins, clusters, active items and buttons."
 msgstr "پین‌ها، گروه‌ها، آیتم‌های فعال و دکمه‌ها."
 
-#: assets/js/admin.js:266
+#: assets/js/admin.js:447
 msgid "Branch pages"
 msgstr "صفحه‌های شعبه"
 
-#: assets/js/admin.js:266
+#: assets/js/admin.js:447
 msgid "How single branch pages look and where they live."
 msgstr "ظاهر و نشانی صفحه هر شعبه."
 
-#: assets/js/admin.js:274
+#: assets/js/admin.js:455
 msgid "Branch card (address, contact, directions) + content"
 msgstr "کارت شعبه (نشانی، تماس، مسیریابی) + محتوا"
 
-#: assets/js/admin.js:275
+#: assets/js/admin.js:456
 msgid "Content only (theme template)"
 msgstr "فقط محتوا (قالب پوسته)"
 
-#: assets/js/admin.js:279
+#: assets/js/admin.js:460
 msgid "URL base"
 msgstr "پایه نشانی"
 
-#: assets/js/admin.js:279
-msgid "Branch URLs look like /map/branch-name/. Visit Settings → Permalinks after changing it."
-msgstr "نشانی شعبه‌ها شبیه ‎/map/branch-name/‎ است. پس از تغییر، یک بار به تنظیمات ← پیوندهای یکتا بروید."
+#: assets/js/admin.js:460
+msgid ""
+"Branch URLs look like /map/branch-name/. Visit Settings → Permalinks after "
+"changing it."
+msgstr ""
+"نشانی شعبه‌ها شبیه ‎/map/branch-name/‎ است. پس از تغییر، یک بار به تنظیمات ← "
+"پیوندهای یکتا بروید."
 
-#: assets/js/admin.js:281
+#: assets/js/admin.js:462
 msgid "Address search in the branch editor"
 msgstr "جست‌وجوی نشانی در ویرایشگر شعبه"
 
-#: assets/js/admin.js:284
+#: assets/js/admin.js:465
 msgid "OpenStreetMap Nominatim"
 msgstr "Nominatim اوپن‌استریت‌مپ"
 
-#: assets/js/admin.js:285
+#: assets/js/admin.js:466
 msgid "Disabled"
 msgstr "غیرفعال"
 
-#: assets/js/admin.js:299
+#: assets/js/admin.js:485
 msgid "Allow SVG uploads"
 msgstr "اجازه بارگذاری SVG"
 
-#: assets/js/admin.js:299
-msgid "Lets administrators upload SVG maps to the media library. Files are sanitized on upload."
-msgstr "مدیران می‌توانند نقشه‌های SVG را در کتابخانه رسانه بارگذاری کنند. فایل‌ها هنگام بارگذاری پاک‌سازی می‌شوند."
+#: assets/js/admin.js:485
+msgid ""
+"Lets administrators upload SVG maps to the media library. Files are "
+"sanitized on upload."
+msgstr ""
+"مدیران می‌توانند نقشه‌های SVG را در کتابخانه رسانه بارگذاری کنند. فایل‌ها هنگام "
+"بارگذاری پاک‌سازی می‌شوند."
 
-#: assets/js/admin.js:300
+#: assets/js/admin.js:486
 msgid "Delete settings on uninstall"
 msgstr "حذف تنظیمات هنگام پاک کردن افزونه"
 
-#: assets/js/admin.js:300
+#: assets/js/admin.js:486
 msgid "Branches are kept either way."
 msgstr "شعبه‌ها در هر صورت حفظ می‌شوند."
 
-#: assets/js/admin.js:312
+#: assets/js/admin.js:492
+msgid "Map attribution (copyright)"
+msgstr "منبع نقشه (کپی‌رایت)"
+
+#: assets/js/admin.js:492
+msgid ""
+"The copyright line shown in the bottom corner of OpenStreetMap, Mapup, "
+"Mapbox, Neshan, Parsimap, Map.ir and Google maps."
+msgstr ""
+"خط کپی‌رایتی که در گوشه‌ی پایین نقشه‌های OpenStreetMap، مپ‌آپ، مپ‌باکس، نشان، "
+"پارسی‌مپ، Map.ir و گوگل نمایش داده می‌شود."
+
+#: assets/js/admin.js:499
+msgid "Use with caution."
+msgstr "با احتیاط استفاده کنید."
+
+#: assets/js/admin.js:501
+msgid ""
+"This option is only meant for development and testing. Map providers require "
+"their attribution to stay visible under their terms of use, and hiding or "
+"changing it on a live site is not advised."
+msgstr ""
+"این گزینه فقط برای توسعه و آزمایش است. ارائه‌دهندگان نقشه طبق شرایط استفاده‌ی "
+"خود، نمایش منبع را الزامی می‌دانند و پنهان کردن یا تغییر آن در سایت اصلی "
+"توصیه نمی‌شود."
+
+#: assets/js/admin.js:504
+msgid "Attribution"
+msgstr "منبع نقشه"
+
+#: assets/js/admin.js:507
+msgid "Show the provider attribution (recommended)"
+msgstr "نمایش منبع ارائه‌دهنده (پیشنهادی)"
+
+#: assets/js/admin.js:508
+msgid "Replace it with my own text"
+msgstr "جایگزینی با متن دلخواه"
+
+#: assets/js/admin.js:509
+msgid "Hide it"
+msgstr "پنهان شود"
+
+#: assets/js/admin.js:514
+msgid "Attribution text"
+msgstr "متن منبع"
+
+#: assets/js/admin.js:514
+msgid ""
+"Links are allowed, e.g. <a href=\"https://www.openstreetmap.org/"
+"copyright\">© OpenStreetMap</a>"
+msgstr ""
+"پیوند مجاز است، مثلاً <a href=\"https://www.openstreetmap.org/copyright\">© "
+"OpenStreetMap</a>"
+
+#: assets/js/admin.js:528
 msgid "Mapify — Map Settings"
 msgstr "مپیفای — تنظیمات نقشه"
 
-#: assets/js/admin.js:313
-#, js-format
+#: assets/js/admin.js:529
 msgid "Version %s · Providers, defaults and branch pages"
 msgstr "نسخه %s · سرویس‌ها، پیش‌فرض‌ها و صفحه‌های شعبه"
 
-#: assets/js/admin.js:315
+#: assets/js/admin.js:531
 msgid "Unsaved changes"
 msgstr "تغییرات ذخیره‌نشده"
 
-#: assets/js/admin.js:316
+#: assets/js/admin.js:532
 msgid "Save changes"
 msgstr "ذخیره تغییرات"
 
-#: assets/js/admin.js:329
+#: assets/js/admin.js:545
 msgid "Add a map to a page"
 msgstr "افزودن نقشه به صفحه"
 
-#: assets/js/admin.js:333
-#, js-format
-msgid "Active (%s) — widget “Branches Map” in Pepro Elements"
-msgstr "فعال (%s) — ابزارک «نقشه شعبه‌ها» در المان‌های پپرو"
+#: assets/js/admin.js:549
+msgid "Active (%s) — widget “Branches Map” in PeproDev Elements"
+msgstr "فعال (%s) — ابزارک «نقشه شعبه‌ها» در PeproDev Elements"
 
-#: assets/js/admin.js:333
-#: assets/js/admin.js:334
+#: assets/js/admin.js:549 assets/js/admin.js:550
 msgid "Not active"
 msgstr "غیرفعال"
 
-#: assets/js/admin.js:334
-#, js-format
+#: assets/js/admin.js:550
 msgid "Active (%s) — element “Branches Map”"
 msgstr "فعال (%s) — المان «نقشه شعبه‌ها»"
 
-#: assets/js/admin.js:335
-#: assets/js/admin.js:689
+#: assets/js/admin.js:551 assets/js/admin.js:937
 msgid "Shortcode"
 msgstr "شورت‌کد"
 
-#: assets/js/admin.js:335
+#: assets/js/admin.js:551
 msgid "Works everywhere, including the block editor"
 msgstr "همه‌جا کار می‌کند، حتی در ویرایشگر بلوکی"
 
-#: assets/js/admin.js:337
+#: assets/js/admin.js:553
 msgid "Open shortcode builder"
 msgstr "باز کردن سازنده شورت‌کد"
 
-#: assets/js/admin.js:347
+#: assets/js/admin.js:563
 msgid "published branches"
 msgstr "شعبه منتشرشده"
 
-#: assets/js/admin.js:348
+#: assets/js/admin.js:564
 msgid "Add branch"
 msgstr "افزودن شعبه"
 
-#: assets/js/admin.js:348
+#: assets/js/admin.js:564
 msgid "Manage"
 msgstr "مدیریت"
 
-#: assets/js/admin.js:439
+#: assets/js/admin.js:655
 msgid "Media library"
 msgstr "کتابخانه رسانه"
 
-#: assets/js/admin.js:441
+#: assets/js/admin.js:657
 msgid "Remove"
 msgstr "حذف"
 
-#: assets/js/admin.js:477
+#: assets/js/admin.js:693
 msgid "Nothing to choose yet — add branches and categories first."
 msgstr "هنوز چیزی برای انتخاب نیست — ابتدا شعبه و دسته اضافه کنید."
 
-#: assets/js/admin.js:568
-#: assets/js/admin.js:582
-#, js-format
+#: assets/js/admin.js:784 assets/js/admin.js:798
 msgid "Pin %d"
 msgstr "پین %d"
 
-#: assets/js/admin.js:583
+#: assets/js/admin.js:799
 msgid "Remove pin"
 msgstr "حذف پین"
 
-#: assets/js/admin.js:599
+#: assets/js/admin.js:815
 msgid "Add pin"
 msgstr "افزودن پین"
 
-#: assets/js/admin.js:646
+#: assets/js/admin.js:862
 msgid "Mapify — Shortcode Builder"
 msgstr "مپیفای — سازنده شورت‌کد"
 
-#: assets/js/admin.js:647
+#: assets/js/admin.js:863
 msgid "Design a map, preview it live and paste the shortcode anywhere."
-msgstr "نقشه را طراحی کنید، پیش‌نمایش زنده ببینید و شورت‌کد را هر جا خواستید قرار دهید."
+msgstr ""
+"نقشه را طراحی کنید، پیش‌نمایش زنده ببینید و شورت‌کد را هر جا خواستید قرار دهید."
 
-#: assets/js/admin.js:649
+#: assets/js/admin.js:865
 msgid "Reset"
 msgstr "بازنشانی"
 
-#: assets/js/admin.js:650
+#: assets/js/admin.js:866
+msgid "Export map"
+msgstr "خروجی نقشه"
+
+#: assets/js/admin.js:882
+msgid "This is not a Mapify map file."
+msgstr "این فایل نقشه‌ی Mapify نیست."
+
+#: assets/js/admin.js:897
+msgid "Import map"
+msgstr "درون‌ریزی نقشه"
+
+#: assets/js/admin.js:898
 msgid "Copy shortcode"
 msgstr "کپی شورت‌کد"
 
-#: assets/js/admin.js:698
+#: assets/js/admin.js:946
 msgid "Live preview"
 msgstr "پیش‌نمایش زنده"
 
-#: assets/js/admin.js:703
+#: assets/js/admin.js:951
 msgid "Desktop"
 msgstr "دسکتاپ"
 
-#: assets/js/admin.js:704
+#: assets/js/admin.js:952
 msgid "Tablet"
 msgstr "تبلت"
 
-#: assets/js/admin.js:705
+#: assets/js/admin.js:953
 msgid "Mobile"
 msgstr "موبایل"
 
-#: assets/js/admin.js:722
+#: assets/js/admin.js:970
 msgid "Map preview"
 msgstr "پیش‌نمایش نقشه"

@@ -106,6 +106,177 @@
 		);
 	}
 
+	function downloadJson( data, name ) {
+		var blob = new Blob( [ JSON.stringify( data, null, 2 ) ], { type: 'application/json' } );
+		var a = document.createElement( 'a' );
+		a.href = URL.createObjectURL( blob );
+		a.download = name;
+		document.body.appendChild( a );
+		a.click();
+		setTimeout( function () {
+			URL.revokeObjectURL( a.href );
+			a.remove();
+		}, 100 );
+	}
+
+	function today() {
+		return new Date().toISOString().slice( 0, 10 );
+	}
+
+	function readJsonFile( file ) {
+		return new Promise( function ( resolve, reject ) {
+			var r = new FileReader();
+			r.onload = function () {
+				try {
+					resolve( JSON.parse( r.result ) );
+				} catch ( e ) {
+					reject( new Error( __( 'The file is not valid JSON.', 'mapify' ) ) );
+				}
+			};
+			r.onerror = function () {
+				reject( new Error( __( 'The file could not be read.', 'mapify' ) ) );
+			};
+			r.readAsText( file );
+		} );
+	}
+
+	/** Import / export of settings, categories and branches (REST: mapify/v1/export, mapify/v1/import). */
+	function TransferPanel( p ) {
+		var exp = useState( { settings: true, categories: true, branches: true } );
+		var imp = useState( { settings: true, categories: true, branches: true, existing: 'update', images: false } );
+		var file = useState( null );
+		var busy = useState( '' );
+		var report = useState( null );
+		var error = useState( '' );
+
+		function toggle( st, key ) {
+			return function ( v ) {
+				var next = Object.assign( {}, st[ 0 ] );
+				next[ key ] = v;
+				st[ 1 ]( next );
+			};
+		}
+
+		function doExport() {
+			busy[ 1 ]( 'export' );
+			error[ 1 ]( '' );
+			var q = Object.keys( exp[ 0 ] )
+				.map( function ( k ) {
+					return k + '=' + ( exp[ 0 ][ k ] ? 1 : 0 );
+				} )
+				.join( '&' );
+			apiFetch( { path: '/mapify/v1/export?' + q } )
+				.then( function ( data ) {
+					downloadJson( data, 'mapify-export-' + today() + '.json' );
+				} )
+				.catch( function ( err ) {
+					error[ 1 ]( ( err && err.message ) || __( 'Export failed.', 'mapify' ) );
+				} )
+				.finally( function () {
+					busy[ 1 ]( '' );
+				} );
+		}
+
+		function doImport() {
+			if ( ! file[ 0 ] ) {
+				return;
+			}
+			busy[ 1 ]( 'import' );
+			error[ 1 ]( '' );
+			report[ 1 ]( null );
+			readJsonFile( file[ 0 ] )
+				.then( function ( data ) {
+					return apiFetch( { path: '/mapify/v1/import', method: 'POST', data: Object.assign( { data: data }, imp[ 0 ] ) } );
+				} )
+				.then( function ( res ) {
+					report[ 1 ]( res );
+					if ( res.settings && p.onSettingsImported ) {
+						p.onSettingsImported();
+					}
+				} )
+				.catch( function ( err ) {
+					error[ 1 ]( ( err && err.message ) || __( 'Import failed.', 'mapify' ) );
+				} )
+				.finally( function () {
+					busy[ 1 ]( '' );
+				} );
+		}
+
+		function parts( st ) {
+			return [
+				el( C.CheckboxControl, { key: 's', __nextHasNoMarginBottom: true, label: __( 'Map settings (API keys and defaults)', 'mapify' ), checked: st[ 0 ].settings, onChange: toggle( st, 'settings' ) } ),
+				el( C.CheckboxControl, { key: 'c', __nextHasNoMarginBottom: true, label: __( 'Categories (with pin color and image)', 'mapify' ), checked: st[ 0 ].categories, onChange: toggle( st, 'categories' ) } ),
+				el( C.CheckboxControl, { key: 'b', __nextHasNoMarginBottom: true, label: __( 'Branches (content, details, location and pins)', 'mapify' ), checked: st[ 0 ].branches, onChange: toggle( st, 'branches' ) } ),
+			];
+		}
+
+		var r = report[ 0 ];
+		return el(
+			'div',
+			{ className: 'mapify-stack' },
+			error[ 0 ] ? el( C.Notice, { status: 'error', isDismissible: false }, error[ 0 ] ) : null,
+			el(
+				C.Card,
+				{ className: 'mapify-card' },
+				el( C.CardHeader, null, el( 'div', null, el( 'h2', { className: 'mapify-card__title' }, __( 'Export', 'mapify' ) ), el( 'p', { className: 'mapify-card__desc' }, __( 'Download a JSON file to move Mapify to another site or keep a backup.', 'mapify' ) ) ) ),
+				el(
+					C.CardBody,
+					{ className: 'mapify-stack' },
+					el( 'div', { className: 'mapify-checklist' }, parts( exp ) ),
+					el( 'div', { className: 'mapify-row' }, el( C.Button, props( { variant: 'primary', icon: 'download', isBusy: busy[ 0 ] === 'export', disabled: !! busy[ 0 ] || ! ( exp[ 0 ].settings || exp[ 0 ].categories || exp[ 0 ].branches ), onClick: doExport } ), __( 'Download export file', 'mapify' ) ) ),
+					el( 'p', { className: 'mapify-muted' }, __( 'Branches and categories are also included in Tools → Export (WordPress export file), and can be read and written through the REST API at /wp-json/wp/v2/mapify and /wp-json/mapify/v1/.', 'mapify' ) )
+				)
+			),
+			el(
+				C.Card,
+				{ className: 'mapify-card' },
+				el( C.CardHeader, null, el( 'div', null, el( 'h2', { className: 'mapify-card__title' }, __( 'Import', 'mapify' ) ), el( 'p', { className: 'mapify-card__desc' }, __( 'Choose a file made by the export above.', 'mapify' ) ) ) ),
+				el(
+					C.CardBody,
+					{ className: 'mapify-stack' },
+					el( 'input', {
+						type: 'file',
+						accept: '.json,application/json',
+						className: 'mapify-file',
+						onChange: function ( e ) {
+							file[ 1 ]( e.target.files[ 0 ] || null );
+							report[ 1 ]( null );
+						},
+					} ),
+					el( 'div', { className: 'mapify-checklist' }, parts( imp ) ),
+					el( C.SelectControl, props( {
+						label: __( 'When a branch already exists (same slug)', 'mapify' ),
+						value: imp[ 0 ].existing,
+						options: [
+							{ value: 'update', label: __( 'Update it', 'mapify' ) },
+							{ value: 'skip', label: __( 'Skip it', 'mapify' ) },
+							{ value: 'duplicate', label: __( 'Add it again as a new branch', 'mapify' ) },
+						],
+						onChange: toggle( imp, 'existing' ),
+					} ) ),
+					el( C.ToggleControl, props( { label: __( 'Download featured images', 'mapify' ), help: __( 'Copies each branch image from the source site into the media library.', 'mapify' ), checked: imp[ 0 ].images, onChange: toggle( imp, 'images' ) } ) ),
+					el( 'div', { className: 'mapify-row' }, el( C.Button, props( { variant: 'primary', icon: 'upload', isBusy: busy[ 0 ] === 'import', disabled: !! busy[ 0 ] || ! file[ 0 ], onClick: doImport } ), __( 'Import', 'mapify' ) ) ),
+					r
+						? el(
+								C.Notice,
+								{ status: r.errors && r.errors.length ? 'warning' : 'success', isDismissible: false },
+								el(
+									'ul',
+									{ className: 'mapify-report' },
+									r.settings ? el( 'li', null, __( 'Map settings imported.', 'mapify' ) ) : null,
+									el( 'li', null, sprintf( __( 'Categories: %1$d created, %2$d updated, %3$d skipped.', 'mapify' ), r.categories.created, r.categories.updated, r.categories.skipped ) ),
+									el( 'li', null, sprintf( __( 'Branches: %1$d created, %2$d updated, %3$d skipped.', 'mapify' ), r.branches.created, r.branches.updated, r.branches.skipped ) ),
+									( r.errors || [] ).map( function ( m, i ) {
+										return el( 'li', { key: i }, m );
+									} )
+								)
+						  )
+						: null
+				)
+			)
+		);
+	}
+
 	/* ------------------------------------------------------------------ settings screen */
 
 	function SettingsScreen() {
@@ -153,8 +324,18 @@
 			{ name: 'providers', title: __( 'Map providers', 'mapify' ) },
 			{ name: 'defaults', title: __( 'Defaults', 'mapify' ) },
 			{ name: 'branches', title: __( 'Branches', 'mapify' ) },
+			{ name: 'transfer', title: __( 'Import / Export', 'mapify' ) },
 			{ name: 'advanced', title: __( 'Advanced', 'mapify' ) },
 		];
+
+		function reload() {
+			apiFetch( { path: '/wp/v2/settings' } ).then( function ( res ) {
+				if ( res[ D.optionKey ] ) {
+					setValues( res[ D.optionKey ] );
+					saved[ 1 ]( res[ D.optionKey ] );
+				}
+			} );
+		}
 
 		function provider( title, desc, link, children ) {
 			return el(
@@ -288,16 +469,51 @@
 							} ) )
 						)
 					);
+				case 'transfer':
+					return el( TransferPanel, { onSettingsImported: reload } );
 				default:
 					return el(
-						C.Card,
-						{ className: 'mapify-card' },
-						el( C.CardHeader, null, el( 'h2', { className: 'mapify-card__title' }, __( 'Advanced', 'mapify' ) ) ),
+						'div',
+						{ className: 'mapify-stack' },
 						el(
-							C.CardBody,
-							{ className: 'mapify-stack' },
-							el( C.ToggleControl, props( { label: __( 'Allow SVG uploads', 'mapify' ), help: __( 'Lets administrators upload SVG maps to the media library. Files are sanitized on upload.', 'mapify' ), checked: !! values.allow_svg_upload, onChange: set( 'allow_svg_upload' ) } ) ),
-							el( C.ToggleControl, props( { label: __( 'Delete settings on uninstall', 'mapify' ), help: __( 'Branches are kept either way.', 'mapify' ), checked: !! values.clear_on_uninstall, onChange: set( 'clear_on_uninstall' ) } ) )
+							C.Card,
+							{ className: 'mapify-card' },
+							el( C.CardHeader, null, el( 'h2', { className: 'mapify-card__title' }, __( 'Advanced', 'mapify' ) ) ),
+							el(
+								C.CardBody,
+								{ className: 'mapify-stack' },
+								el( C.ToggleControl, props( { label: __( 'Allow SVG uploads', 'mapify' ), help: __( 'Lets administrators upload SVG maps to the media library. Files are sanitized on upload.', 'mapify' ), checked: !! values.allow_svg_upload, onChange: set( 'allow_svg_upload' ) } ) ),
+								el( C.ToggleControl, props( { label: __( 'Delete settings on uninstall', 'mapify' ), help: __( 'Branches are kept either way.', 'mapify' ), checked: !! values.clear_on_uninstall, onChange: set( 'clear_on_uninstall' ) } ) )
+							)
+						),
+						el(
+							C.Card,
+							{ className: 'mapify-card' },
+							el( C.CardHeader, null, el( 'div', null, el( 'h2', { className: 'mapify-card__title' }, __( 'Map attribution (copyright)', 'mapify' ) ), el( 'p', { className: 'mapify-card__desc' }, __( 'The copyright line shown in the bottom corner of OpenStreetMap, Mapup, Mapbox, Neshan, Parsimap, Map.ir and Google maps.', 'mapify' ) ) ) ),
+							el(
+								C.CardBody,
+								{ className: 'mapify-stack' },
+								el(
+									C.Notice,
+									{ status: 'warning', isDismissible: false, className: 'mapify-attr-notice' },
+									el( 'strong', null, __( 'Use with caution.', 'mapify' ) ),
+									' ',
+									__( 'This option is only meant for development and testing. Map providers require their attribution to stay visible under their terms of use, and hiding or changing it on a live site is not advised.', 'mapify' )
+								),
+								el( C.RadioControl, {
+									label: __( 'Attribution', 'mapify' ),
+									selected: values.attribution_mode || 'default',
+									options: [
+										{ value: 'default', label: __( 'Show the provider attribution (recommended)', 'mapify' ) },
+										{ value: 'custom', label: __( 'Replace it with my own text', 'mapify' ) },
+										{ value: 'hide', label: __( 'Hide it', 'mapify' ) },
+									],
+									onChange: set( 'attribution_mode' ),
+								} ),
+								values.attribution_mode === 'custom'
+									? el( C.TextControl, props( { label: __( 'Attribution text', 'mapify' ), help: __( 'Links are allowed, e.g. <a href="https://www.openstreetmap.org/copyright">© OpenStreetMap</a>', 'mapify' ), value: values.attribution_text || '', onChange: set( 'attribution_text' ), className: 'is-ltr' } ) )
+									: null
+							)
 						)
 					);
 			}
@@ -330,7 +546,7 @@
 						el(
 							C.CardBody,
 							{ className: 'mapify-stack' },
-							el( StatusRow, { ok: !! D.builders.elementor, title: 'Elementor', text: D.builders.elementor ? sprintf( __( 'Active (%s) — widget “Branches Map” in Pepro Elements', 'mapify' ), D.builders.elementor ) : __( 'Not active', 'mapify' ) } ),
+							el( StatusRow, { ok: !! D.builders.elementor, title: 'Elementor', text: D.builders.elementor ? sprintf( __( 'Active (%s) — widget “Branches Map” in PeproDev Elements', 'mapify' ), D.builders.elementor ) : __( 'Not active', 'mapify' ) } ),
 							el( StatusRow, { ok: !! D.builders.wpbakery, title: 'WPBakery Page Builder', text: D.builders.wpbakery ? sprintf( __( 'Active (%s) — element “Branches Map”', 'mapify' ), D.builders.wpbakery ) : __( 'Not active', 'mapify' ) } ),
 							el( StatusRow, { ok: true, title: __( 'Shortcode', 'mapify' ), text: __( 'Works everywhere, including the block editor', 'mapify' ) } ),
 							el( 'code', { className: 'mapify-code' }, sample ),
@@ -647,6 +863,38 @@
 				subtitle: __( 'Design a map, preview it live and paste the shortcode anywhere.', 'mapify' ),
 				actions: [
 					el( C.Button, props( { key: 'r', variant: 'tertiary', onClick: function () { setValues( Object.assign( {}, D.defaults ) ); } } ), __( 'Reset', 'mapify' ) ),
+					el( C.Button, props( { key: 'ex', variant: 'tertiary', icon: 'download', onClick: function () { downloadJson( { format: 'mapify-map', version: D.version, settings: values }, 'mapify-map-' + today() + '.json' ); } } ), __( 'Export map', 'mapify' ) ),
+					el( C.FormFileUpload, {
+						key: 'im',
+						accept: '.json,application/json',
+						icon: 'upload',
+						variant: 'tertiary',
+						__next40pxDefaultSize: true,
+						onChange: function ( e ) {
+							var f = e.target.files[ 0 ];
+							if ( ! f ) {
+								return;
+							}
+							readJsonFile( f )
+								.then( function ( data ) {
+									var incoming = data && data.format === 'mapify-map' && data.settings ? data.settings : null;
+									if ( ! incoming ) {
+										throw new Error( __( 'This is not a Mapify map file.', 'mapify' ) );
+									}
+									var next = Object.assign( {}, D.defaults );
+									Object.keys( incoming ).forEach( function ( k ) {
+										if ( byKey[ k ] ) {
+											next[ k ] = incoming[ k ];
+										}
+									} );
+									setValues( next );
+								} )
+								.catch( function ( err ) {
+									window.alert( err.message ); // eslint-disable-line no-alert
+								} );
+							e.target.value = '';
+						},
+					}, __( 'Import map', 'mapify' ) ),
 					el( CopyButton, { key: 'c', text: shortcode, variant: 'primary', label: __( 'Copy shortcode', 'mapify' ) } ),
 				],
 			} ),

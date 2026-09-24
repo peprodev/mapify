@@ -102,6 +102,10 @@
 
 	function fillTemplate( tpl, item ) {
 		return String( tpl || '' ).replace( /\{([a-z0-9_]+)(?:\|([^{}]*))?\}/gi, function ( all, key, fallback ) {
+			if ( key === 'directions' ) {
+				// Built by Mapify itself (escaped there), so it is inserted as HTML.
+				return item._directions || '';
+			}
 			var v = item[ key ];
 			if ( v && typeof v === 'object' ) {
 				v = Object.keys( v ).map( function ( k ) {
@@ -179,13 +183,24 @@
 		var lib = t.neshan ? loadNeshan( t.neshan, cfg.cluster ) : loadLeaflet( cfg.cluster );
 		return lib.then( function () {
 			var L = window.L;
+			var attr = cfg.attribution || {};
 			var opts = {
 				center: cfg.center,
 				zoom: cfg.zoom,
 				scrollWheelZoom: cfg.scrollZoom,
-				zoomControl: cfg.controls,
-				attributionControl: true,
+				doubleClickZoom: cfg.dblClickZoom !== false,
+				touchZoom: cfg.touchZoom !== false,
+				zoomControl: false,
+				attributionControl: attr.mode !== 'hide',
 			};
+			var maxZoom = t.maxZoom || 19;
+			if ( cfg.maxZoom ) {
+				maxZoom = Math.min( maxZoom, cfg.maxZoom );
+			}
+			opts.maxZoom = maxZoom;
+			if ( cfg.minZoom ) {
+				opts.minZoom = Math.min( cfg.minZoom, maxZoom );
+			}
 			if ( t.neshan ) {
 				// Neshan's Leaflet build adds the base layer from these options.
 				opts.key = t.neshan.key;
@@ -194,14 +209,23 @@
 				opts.traffic = false;
 			}
 			var map = ( self.map = L.map( inst.canvas, opts ) );
+			if ( cfg.zoomControl ) {
+				L.control.zoom( { position: cfg.zoomPosition || 'topleft', zoomInTitle: cfg.i18n.zoomIn, zoomOutTitle: cfg.i18n.zoomOut } ).addTo( map );
+			}
 			if ( t.neshan ) {
+				if ( attr.mode === 'custom' && map.attributionControl ) {
+					map.attributionControl.setPrefix( attr.html || false );
+				}
 				map.whenReady( function () {
 					inst.ready();
 				} );
 			} else {
-				map.attributionControl.setPrefix( '<a href="https://leafletjs.com">Leaflet</a>' );
+				var custom = attr.mode === 'custom';
+				if ( map.attributionControl ) {
+					map.attributionControl.setPrefix( custom ? false : '<a href="https://leafletjs.com">Leaflet</a>' );
+				}
 				var layer = L.tileLayer( t.url, {
-					attribution: t.attribution || '',
+					attribution: custom ? attr.html || '' : t.attribution || '',
 					maxZoom: t.maxZoom || 19,
 					tileSize: t.tileSize || 256,
 					zoomOffset: t.zoomOffset || 0,
@@ -283,6 +307,8 @@
 				maxWidth: 640,
 				minWidth: 120,
 				autoPanPadding: [ 24, 24 ],
+				// Keep the popup clear of the category chips at the top of the map.
+				autoPanPaddingTopLeft: [ 24, self.inst.el.querySelector( '.mapify__cats--top' ) ? 64 : 24 ],
 			} )
 				.setLatLng( m.getLatLng() )
 				.setContent( html )
@@ -351,15 +377,27 @@
 					mapTypeId: g.type || 'roadmap',
 					disableDefaultUI: ! cfg.controls,
 					fullscreenControl: false,
+					zoomControl: !! cfg.zoomControl,
+					zoomControlOptions: { position: gm.ControlPosition[ { topleft: 'LEFT_TOP', topright: 'RIGHT_TOP', bottomleft: 'LEFT_BOTTOM', bottomright: 'RIGHT_BOTTOM' }[ cfg.zoomPosition ] || 'RIGHT_BOTTOM' ] },
+					disableDoubleClickZoom: cfg.dblClickZoom === false,
 					gestureHandling: cfg.scrollZoom ? 'greedy' : 'cooperative',
 					clickableIcons: false,
 				};
+				if ( cfg.minZoom ) {
+					opts.minZoom = cfg.minZoom;
+				}
+				if ( cfg.maxZoom ) {
+					opts.maxZoom = cfg.maxZoom;
+				}
 				if ( advanced ) {
 					opts.mapId = g.mapId;
 				} else if ( g.styles && g.styles.length ) {
 					opts.styles = g.styles;
 				}
 				var map = ( self.map = new gm.Map( inst.canvas, opts ) );
+				if ( cfg.attribution && cfg.attribution.mode === 'custom' && cfg.attribution.html ) {
+					inst.attributionOverlay( cfg.attribution.html );
+				}
 				gm.event.addListenerOnce( map, 'tilesloaded', function () {
 					inst.ready();
 				} );
@@ -619,8 +657,187 @@
 					inst.setActive( null );
 				}
 			} );
+			self.setupZoom();
 			inst.ready();
 		} );
+	};
+
+	/**
+	 * Zoom and pan for image / SVG maps: buttons, mouse wheel, double click, drag and pinch.
+	 * The plane is scaled with a CSS transform; pins and popups are scaled back so they keep their size.
+	 */
+	PlaneEngine.prototype.setupZoom = function () {
+		var self = this;
+		var inst = this.inst;
+		var cfg = inst.cfg;
+		var wrap = inst.canvas;
+		var plane = this.plane;
+		var z = ( this.z = { s: 1, x: 0, y: 0, max: Math.max( 1, cfg.planeMaxZoom || 1 ) } );
+		if ( z.max <= 1 ) {
+			return;
+		}
+		plane.style.transformOrigin = '0 0';
+		wrap.classList.add( 'is-zoomable' );
+
+		function apply() {
+			var w = plane.offsetWidth;
+			var h = plane.offsetHeight;
+			z.s = Math.min( z.max, Math.max( 1, z.s ) );
+			z.x = Math.min( 0, Math.max( w - w * z.s, z.x ) );
+			z.y = Math.min( 0, Math.max( h - h * z.s, z.y ) );
+			plane.style.transform = z.s === 1 ? '' : 'translate(' + z.x + 'px,' + z.y + 'px) scale(' + z.s + ')';
+			plane.style.setProperty( '--mapify-pin-k', 1 / z.s );
+			wrap.classList.toggle( 'is-zoomed', z.s > 1 );
+			wrap.style.touchAction = z.s > 1 ? 'none' : 'pan-x pan-y';
+			if ( self.zoomUi ) {
+				self.zoomUi.querySelector( '[data-zoom="1"]' ).disabled = z.s >= z.max;
+				self.zoomUi.querySelector( '[data-zoom="-1"]' ).disabled = z.s <= 1;
+				self.zoomUi.querySelector( '[data-zoom="0"]' ).hidden = z.s <= 1;
+			}
+		}
+
+		/** Zoom to scale ns keeping the screen point (cx, cy) in place. */
+		function zoomAt( cx, cy, ns ) {
+			var r = wrap.getBoundingClientRect();
+			var px = cx - r.left;
+			var py = cy - r.top;
+			ns = Math.min( z.max, Math.max( 1, ns ) );
+			var lx = ( px - z.x ) / z.s;
+			var ly = ( py - z.y ) / z.s;
+			z.x = px - lx * ns;
+			z.y = py - ly * ns;
+			z.s = ns;
+			apply();
+		}
+
+		function zoomCenter( factor ) {
+			var r = wrap.getBoundingClientRect();
+			zoomAt( r.left + r.width / 2, r.top + r.height / 2, factor ? z.s * factor : 1 );
+		}
+		this.zoomBy = zoomCenter;
+
+		if ( cfg.zoomControl ) {
+			var ui = ( this.zoomUi = document.createElement( 'div' ) );
+			ui.className = 'mapify__zoom mapify__zoom--' + ( cfg.zoomPosition || 'topleft' );
+			[
+				[ '1', '+', cfg.i18n.zoomIn ],
+				[ '-1', '\u2212', cfg.i18n.zoomOut ],
+				[ '0', '\u21BA', cfg.i18n.zoomReset ],
+			].forEach( function ( b ) {
+				var btn = document.createElement( 'button' );
+				btn.type = 'button';
+				btn.setAttribute( 'data-zoom', b[ 0 ] );
+				btn.setAttribute( 'aria-label', b[ 2 ] );
+				btn.title = b[ 2 ];
+				btn.textContent = b[ 1 ];
+				ui.appendChild( btn );
+			} );
+			ui.addEventListener( 'click', function ( e ) {
+				var b = e.target.closest( '[data-zoom]' );
+				if ( b ) {
+					var d = parseInt( b.getAttribute( 'data-zoom' ), 10 );
+					zoomCenter( d === 1 ? 1.5 : d === -1 ? 1 / 1.5 : 0 );
+				}
+			} );
+			inst.stage.appendChild( ui );
+		}
+
+		if ( cfg.scrollZoom ) {
+			wrap.addEventListener(
+				'wheel',
+				function ( e ) {
+					e.preventDefault();
+					zoomAt( e.clientX, e.clientY, z.s * ( e.deltaY < 0 ? 1.2 : 1 / 1.2 ) );
+				},
+				{ passive: false }
+			);
+		}
+		if ( cfg.dblClickZoom !== false ) {
+			wrap.addEventListener( 'dblclick', function ( e ) {
+				if ( e.target.closest( '.mapify-pin, .mapify-plane__popup' ) ) {
+					return;
+				}
+				e.preventDefault();
+				zoomAt( e.clientX, e.clientY, z.s >= z.max ? 1 : z.s * 2 );
+			} );
+		}
+
+		// Drag to pan (when zoomed) and pinch to zoom.
+		var pts = {};
+		var start = null;
+		var moved = false;
+		function count() {
+			return Object.keys( pts ).length;
+		}
+		function pinchInfo() {
+			var k = Object.keys( pts );
+			var a = pts[ k[ 0 ] ];
+			var b = pts[ k[ 1 ] ];
+			return { d: Math.hypot( a.x - b.x, a.y - b.y ), cx: ( a.x + b.x ) / 2, cy: ( a.y + b.y ) / 2 };
+		}
+		wrap.addEventListener( 'pointerdown', function ( e ) {
+			if ( e.button > 0 || e.target.closest( '.mapify-plane__popup, .mapify__zoom' ) ) {
+				return;
+			}
+			pts[ e.pointerId ] = { x: e.clientX, y: e.clientY };
+			moved = false;
+			if ( count() === 2 && cfg.touchZoom !== false ) {
+				var p = pinchInfo();
+				start = { pinch: true, d: p.d, s: z.s };
+			} else if ( count() === 1 ) {
+				start = { x: e.clientX, y: e.clientY, zx: z.x, zy: z.y };
+			}
+		} );
+		wrap.addEventListener( 'pointermove', function ( e ) {
+			if ( ! pts[ e.pointerId ] || ! start ) {
+				return;
+			}
+			pts[ e.pointerId ] = { x: e.clientX, y: e.clientY };
+			if ( start.pinch && count() === 2 ) {
+				var p = pinchInfo();
+				moved = true;
+				zoomAt( p.cx, p.cy, start.s * ( p.d / ( start.d || 1 ) ) );
+			} else if ( ! start.pinch && z.s > 1 ) {
+				var dx = e.clientX - start.x;
+				var dy = e.clientY - start.y;
+				if ( moved || Math.abs( dx ) + Math.abs( dy ) > 4 ) {
+					if ( ! moved && wrap.setPointerCapture ) {
+						try {
+							wrap.setPointerCapture( e.pointerId );
+						} catch ( err ) {}
+					}
+					moved = true;
+					z.x = start.zx + dx;
+					z.y = start.zy + dy;
+					apply();
+				}
+			}
+		} );
+		function end( e ) {
+			delete pts[ e.pointerId ];
+			if ( count() === 1 ) {
+				var k = Object.keys( pts )[ 0 ];
+				start = { x: pts[ k ].x, y: pts[ k ].y, zx: z.x, zy: z.y };
+			} else if ( ! count() ) {
+				start = null;
+			}
+		}
+		wrap.addEventListener( 'pointerup', end );
+		wrap.addEventListener( 'pointercancel', end );
+		// A drag should not also count as a click on a pin or region.
+		wrap.addEventListener(
+			'click',
+			function ( e ) {
+				if ( moved ) {
+					e.stopPropagation();
+					e.preventDefault();
+					moved = false;
+				}
+			},
+			true
+		);
+		window.addEventListener( 'resize', apply );
+		apply();
 	};
 
 	/** Returns [fx, fy] fractions (0..1) inside the plane, or null. */
@@ -741,9 +958,10 @@
 			if ( p.regionTooltip ) {
 				n.addEventListener( 'mousemove', function ( e ) {
 					var r = self.plane.getBoundingClientRect();
+					var k = self.z ? self.z.s : 1;
 					tip.textContent = n.getAttribute( 'data-label' ) + ( ids.length ? ' (' + ids.length + ')' : '' );
-					tip.style.left = e.clientX - r.left + 'px';
-					tip.style.top = e.clientY - r.top + 'px';
+					tip.style.left = ( e.clientX - r.left ) / k + 'px';
+					tip.style.top = ( e.clientY - r.top ) / k + 'px';
 					tip.hidden = false;
 				} );
 				n.addEventListener( 'mouseleave', function () {
@@ -785,13 +1003,19 @@
 		pop.firstChild.appendChild( close );
 		pop.style.left = el.style.left;
 		pop.style.top = el.style.top;
-		pop.classList.toggle( 'is-below', item._pos[ 1 ] < 0.4 );
+		var cr = this.inst.canvas.getBoundingClientRect();
+		var zoomed = this.z && this.z.s > 1;
+		pop.classList.toggle( 'is-below', ! zoomed && item._pos[ 1 ] < 0.4 );
 		pop.classList.toggle( 'is-dot', el.classList.contains( 'mapify-pin--dot' ) );
 		pop.hidden = false;
-		// Keep the popup inside the plane horizontally.
+		// A zoomed map clips its content, so open the popup below the pin when there is no room above.
+		if ( zoomed && pop.getBoundingClientRect().top < cr.top + 4 ) {
+			pop.classList.add( 'is-below' );
+		}
+		// Keep the popup inside the visible map horizontally.
 		pop.style.setProperty( '--shift', '0px' );
 		var r = pop.getBoundingClientRect();
-		var pr = this.plane.getBoundingClientRect();
+		var pr = cr;
 		var shift = 0;
 		if ( r.left < pr.left + 8 ) {
 			shift = pr.left + 8 - r.left;
@@ -826,6 +1050,29 @@
 
 	/* ------------------------------------------------------------------ Instance */
 
+	function isAndroid() {
+		return /Android/i.test( navigator.userAgent );
+	}
+
+	function isApple() {
+		return /iPad|iPhone|iPod|Macintosh/.test( navigator.userAgent );
+	}
+
+	function directionUrl( app, item ) {
+		var ll = item.latitude + ',' + item.longitude;
+		switch ( app ) {
+			case 'apple':
+				return 'https://maps.apple.com/?daddr=' + ll + '&q=' + encodeURIComponent( item.title || '' );
+			case 'waze':
+				return 'https://waze.com/ul?ll=' + ll + '&navigate=yes';
+			case 'neshan':
+				return 'https://nshn.ir/?lat=' + item.latitude + '&lng=' + item.longitude;
+			case 'balad':
+				return 'https://balad.ir/location?latitude=' + item.latitude + '&longitude=' + item.longitude;
+		}
+		return 'https://www.google.com/maps/dir/?api=1&destination=' + ll;
+	}
+
 	function Mapify( el ) {
 		this.el = el;
 		try {
@@ -835,9 +1082,21 @@
 		}
 		this.items = this.cfg.items || [];
 		this.byId = {};
+		// Current filters: search text, chosen categories and the clicked region (ids or null).
+		this.state = { term: '', cats: [], region: null };
 		var self = this;
 		this.items.forEach( function ( item ) {
 			self.byId[ String( item.id ) ] = item;
+			item._search = [ item.title, item.address, item.phone ]
+				.concat(
+					item.categories
+						? Object.keys( item.categories ).map( function ( k ) {
+								return item.categories[ k ];
+						  } )
+						: []
+				)
+				.join( ' ' )
+				.toLowerCase();
 		} );
 		this.canvas = el.querySelector( '.mapify__map' );
 		this.stage = el.querySelector( '.mapify__stage' );
@@ -845,6 +1104,8 @@
 		var E = this.cfg.engine;
 		this.engine = E === 'google' ? new GoogleEngine( this ) : E === 'iran' || E === 'svg' || E === 'image' ? new PlaneEngine( this ) : new LeafletEngine( this );
 		this.bindList();
+		this.bindCategories();
+		this.bindDirections();
 		this.bindFullscreen();
 		this.engine.mount().catch( function ( err ) {
 			self.ready();
@@ -864,23 +1125,78 @@
 		this.stage.appendChild( n );
 	};
 
+	/** Custom attribution text for engines whose own attribution cannot be replaced (Google). */
+	Mapify.prototype.attributionOverlay = function ( html ) {
+		var n = document.createElement( 'div' );
+		n.className = 'mapify__attribution';
+		n.innerHTML = html;
+		this.stage.appendChild( n );
+	};
+
+	Mapify.prototype.popupImage = function ( item ) {
+		var mode = this.cfg.popupImage || 'featured';
+		var pin = item.pin_img || '';
+		if ( mode === 'none' ) {
+			return '';
+		}
+		if ( mode === 'pin' ) {
+			return pin;
+		}
+		if ( mode === 'auto' ) {
+			return item.image || pin;
+		}
+		return item.image || '';
+	};
+
+	Mapify.prototype.directionsButton = function ( item ) {
+		var d = this.cfg.directions;
+		if ( ! d || ! hasCoords( item ) ) {
+			return '';
+		}
+		return '<a class="mapify-card__directions" href="' + esc( directionUrl( 'google', item ) ) + '" target="_blank" rel="noopener" data-mapify-directions="' + esc( item.id ) + '">'
+			+ '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.7 11.3 12.7 2.3a1 1 0 0 0-1.4 0l-9 9a1 1 0 0 0 0 1.4l9 9a1 1 0 0 0 1.4 0l9-9a1 1 0 0 0 0-1.4ZM14 14.5V12h-4v3H8v-4a1 1 0 0 1 1-1h5V7.5l3.5 3.5-3.5 3.5Z"/></svg>'
+			+ '<span>' + esc( d.label ) + '</span></a>';
+	};
+
 	Mapify.prototype.popupHtml = function ( item ) {
-		var body = item.custom
-			? '<div class="mapify-card"><div class="mapify-card__body">' + ( item.content || '<h3 class="mapify-card__title">' + esc( item.title ) + '</h3>' ) + '</div></div>'
-			: fillTemplate( this.cfg.template, item );
+		var body;
+		if ( item.custom ) {
+			body = '<div class="mapify-card"><div class="mapify-card__body">' + ( item.content || '<h3 class="mapify-card__title">' + esc( item.title ) + '</h3>' ) + '</div></div>';
+		} else {
+			var data = Object.assign( {}, item );
+			var img = this.popupImage( item );
+			var btn = this.directionsButton( item );
+			data.image = img || ( this.cfg.popupImage === 'none' ? '' : this.cfg.placeholder || '' );
+			data._directions = btn;
+			var tpl = String( this.cfg.template || '' );
+			body = fillTemplate( tpl, data );
+			if ( btn && tpl.indexOf( '{directions' ) === -1 ) {
+				body += '<div class="mapify-card__actions mapify-card__actions--after">' + btn + '</div>';
+			}
+			if ( ! data.image ) {
+				body = body.replace( /<img\b[^>]*class="[^"]*mapify-card__image[^"]*"[^>]*>/gi, '' );
+			}
+		}
 		return '<div class="mapify-popup" dir="' + this.dir + '">' + body + '</div>';
 	};
 
 	Mapify.prototype.setActive = function ( id ) {
-		this.el.querySelectorAll( '.is-active' ).forEach( function ( n ) {
+		this.el.querySelectorAll( '.is-active:not(.mapify__cat)' ).forEach( function ( n ) {
 			n.classList.remove( 'is-active' );
 		} );
+		var select = this.el.querySelector( '.mapify__select' );
 		if ( id === null || id === undefined ) {
+			if ( select ) {
+				select.value = '';
+			}
 			return;
 		}
 		this.el.querySelectorAll( '[data-id="' + String( id ).replace( /"/g, '' ) + '"]' ).forEach( function ( n ) {
 			n.classList.add( 'is-active' );
 		} );
+		if ( select ) {
+			select.value = String( id );
+		}
 	};
 
 	/** from: 'pin' | 'list' */
@@ -911,14 +1227,29 @@
 		}
 		list.addEventListener( 'click', function ( e ) {
 			var btn = e.target.closest( '.mapify__item' );
-			if ( btn && self.byId[ btn.getAttribute( 'data-id' ) ] ) {
-				self.activate( self.byId[ btn.getAttribute( 'data-id' ) ], 'list' );
+			var row = e.target.closest( 'tr.mapify__row' );
+			var id = btn ? btn.getAttribute( 'data-id' ) : row && ! e.target.closest( 'a' ) ? row.getAttribute( 'data-id' ) : null;
+			if ( id && self.byId[ id ] ) {
+				self.activate( self.byId[ id ], 'list' );
+			}
+			var nav = e.target.closest( '.mapify__carousel-btn' );
+			if ( nav ) {
+				var track = nav.closest( '.mapify__group' ).querySelector( '.mapify__items' );
+				var step = track.clientWidth * 0.8 * parseInt( nav.getAttribute( 'data-dir' ), 10 );
+				track.scrollBy( { left: self.dir === 'rtl' ? -step : step, behavior: 'smooth' } );
 			}
 			if ( e.target.closest( '.mapify__reset' ) ) {
 				self.applyFilter( null, '' );
-				self.engine.filter( null );
 			}
 		} );
+		var select = list.querySelector( '.mapify__select' );
+		if ( select ) {
+			select.addEventListener( 'change', function () {
+				if ( self.byId[ select.value ] ) {
+					self.activate( self.byId[ select.value ], 'list' );
+				}
+			} );
+		}
 		var input = list.querySelector( '.mapify__search-input' );
 		if ( input ) {
 			var timer;
@@ -931,58 +1262,218 @@
 		}
 	};
 
-	Mapify.prototype.search = function ( term ) {
-		term = String( term || '' ).trim().toLowerCase();
-		var ids = [];
-		this.el.querySelectorAll( '.mapify__item' ).forEach( function ( btn ) {
-			var match = ! term || btn.getAttribute( 'data-search' ).indexOf( term ) !== -1;
-			btn.parentNode.hidden = ! match;
-			if ( match ) {
-				ids.push( btn.getAttribute( 'data-id' ) );
-			}
+	/** Category chips above the list and on the map; both stay in sync. */
+	Mapify.prototype.bindCategories = function () {
+		var self = this;
+		var bars = this.el.querySelectorAll( '.mapify__cats' );
+		if ( ! bars.length ) {
+			return;
+		}
+		bars.forEach( function ( bar ) {
+			bar.addEventListener( 'click', function ( e ) {
+				var chip = e.target.closest( '.mapify__cat' );
+				if ( ! chip ) {
+					return;
+				}
+				var id = chip.getAttribute( 'data-cat' );
+				var cats = self.state.cats.slice();
+				if ( ! id ) {
+					cats = [];
+				} else if ( cats.indexOf( id ) !== -1 ) {
+					cats.splice( cats.indexOf( id ), 1 );
+				} else {
+					cats = self.cfg.catMultiple ? cats.concat( [ id ] ) : [ id ];
+				}
+				self.filterCategories( cats );
+			} );
 		} );
-		this.syncGroups();
-		this.engine.filter( term ? ids : null );
+	};
+
+	Mapify.prototype.filterCategories = function ( cats ) {
+		this.state.cats = cats || [];
+		var active = this.state.cats;
+		this.el.querySelectorAll( '.mapify__cat' ).forEach( function ( chip ) {
+			var id = chip.getAttribute( 'data-cat' );
+			var on = id ? active.indexOf( id ) !== -1 : ! active.length;
+			chip.classList.toggle( 'is-active', on );
+			chip.setAttribute( 'aria-pressed', on ? 'true' : 'false' );
+		} );
+		this.refresh();
+	};
+
+	Mapify.prototype.search = function ( term ) {
+		this.state.term = String( term || '' ).trim().toLowerCase();
+		this.refresh();
 	};
 
 	/** Region filter: limits list and pins to ids (null = all). */
 	Mapify.prototype.applyFilter = function ( ids, label ) {
 		var list = this.el.querySelector( '.mapify__list' );
-		this.engine.filter( ids );
-		if ( ! list ) {
-			return;
-		}
-		var input = list.querySelector( '.mapify__search-input' );
-		if ( input ) {
-			input.value = '';
-		}
-		list.querySelectorAll( '.mapify__item' ).forEach( function ( btn ) {
-			btn.parentNode.hidden = !! ids && ids.indexOf( btn.getAttribute( 'data-id' ) ) === -1;
-		} );
-		var chip = list.querySelector( '.mapify__filter' );
-		if ( ids ) {
-			if ( ! chip ) {
-				chip = document.createElement( 'div' );
-				chip.className = 'mapify__filter';
-				list.insertBefore( chip, list.querySelector( '.mapify__groups' ) );
+		this.state.region = ids ? ids.map( String ) : null;
+		if ( list ) {
+			var input = list.querySelector( '.mapify__search-input' );
+			if ( input ) {
+				input.value = '';
 			}
-			chip.innerHTML = '<span>' + esc( label ) + '</span><button type="button" class="mapify__reset">' + esc( this.cfg.i18n.showAll ) + '</button>';
-		} else if ( chip ) {
-			chip.remove();
+			this.state.term = '';
+			var chip = list.querySelector( '.mapify__filter' );
+			if ( ids ) {
+				if ( ! chip ) {
+					chip = document.createElement( 'div' );
+					chip.className = 'mapify__filter';
+					list.insertBefore( chip, list.querySelector( '.mapify__groups' ) );
+				}
+				chip.innerHTML = '<span>' + esc( label ) + '</span><button type="button" class="mapify__reset">' + esc( this.cfg.i18n.showAll ) + '</button>';
+			} else if ( chip ) {
+				chip.remove();
+			}
 		}
+		if ( ! ids && this.engine.regionNodes ) {
+			this.engine.regionNodes.forEach( function ( n ) {
+				n.classList.remove( 'is-selected' );
+			} );
+		}
+		this.refresh();
+	};
+
+	Mapify.prototype.matches = function ( item ) {
+		var st = this.state;
+		if ( st.term && ( item.custom || ( item._search || '' ).indexOf( st.term ) === -1 ) ) {
+			return false;
+		}
+		if ( st.cats.length ) {
+			var cats = item.cats || [];
+			var hit = st.cats.some( function ( c ) {
+				return cats.indexOf( c ) !== -1;
+			} );
+			if ( ! hit ) {
+				return false;
+			}
+		}
+		if ( st.region && st.region.indexOf( String( item.id ) ) === -1 ) {
+			return false;
+		}
+		return true;
+	};
+
+	/** Apply search, category and region filters to the list and the map. */
+	Mapify.prototype.refresh = function () {
+		var self = this;
+		var st = this.state;
+		var filtered = !! ( st.term || st.cats.length || st.region );
+		var ids = [];
+		this.items.forEach( function ( item ) {
+			if ( self.matches( item ) ) {
+				ids.push( String( item.id ) );
+			}
+		} );
+		this.el.querySelectorAll( '.mapify__row' ).forEach( function ( row ) {
+			var show = ! filtered || ids.indexOf( row.getAttribute( 'data-id' ) ) !== -1;
+			row.hidden = ! show;
+			if ( row.tagName === 'OPTION' ) {
+				row.disabled = ! show;
+			}
+		} );
 		this.syncGroups();
+		this.engine.filter( filtered ? ids : null );
 	};
 
 	Mapify.prototype.syncGroups = function () {
 		var any = false;
 		this.el.querySelectorAll( '.mapify__group' ).forEach( function ( g ) {
-			var visible = g.querySelector( '.mapify__items > li:not([hidden])' );
+			var visible = g.querySelector( '.mapify__row:not([hidden])' );
 			g.hidden = ! visible;
 			any = any || !! visible;
+		} );
+		this.el.querySelectorAll( '.mapify__select optgroup' ).forEach( function ( g ) {
+			g.hidden = ! g.querySelector( '.mapify__row:not([hidden])' );
 		} );
 		var empty = this.el.querySelector( '.mapify__empty' );
 		if ( empty ) {
 			empty.hidden = any;
+		}
+	};
+
+	/* Directions ---------------------------------------------------------- */
+
+	Mapify.prototype.bindDirections = function () {
+		var self = this;
+		if ( ! this.cfg.directions ) {
+			return;
+		}
+		// Popups live inside the map, so one delegated listener covers every engine.
+		this.el.addEventListener( 'click', function ( e ) {
+			var a = e.target.closest( '[data-mapify-directions]' );
+			if ( ! a ) {
+				return;
+			}
+			var item = self.byId[ a.getAttribute( 'data-mapify-directions' ) ];
+			if ( ! item || ! hasCoords( item ) ) {
+				return;
+			}
+			e.preventDefault();
+			self.directions( item );
+		} );
+	};
+
+	Mapify.prototype.directions = function ( item ) {
+		var d = this.cfg.directions;
+		if ( d.mode === 'google' ) {
+			window.open( directionUrl( 'google', item ), '_blank', 'noopener' );
+			return;
+		}
+		if ( d.mode === 'auto' && isAndroid() ) {
+			// geo: makes Android list every installed map app.
+			window.location.href = 'geo:' + item.latitude + ',' + item.longitude + '?q=' + item.latitude + ',' + item.longitude + '(' + encodeURIComponent( item.title || '' ) + ')';
+			return;
+		}
+		this.directionsSheet( item );
+	};
+
+	Mapify.prototype.directionsSheet = function ( item ) {
+		var self = this;
+		var cfg = this.cfg;
+		var old = this.stage.querySelector( '.mapify-sheet' );
+		if ( old ) {
+			old.remove();
+		}
+		var apps = ( cfg.directions.apps || [] ).filter( function ( app ) {
+			return app !== 'apple' || isApple();
+		} );
+		var sheet = document.createElement( 'div' );
+		sheet.className = 'mapify-sheet';
+		sheet.setAttribute( 'role', 'dialog' );
+		sheet.setAttribute( 'aria-modal', 'true' );
+		sheet.setAttribute( 'aria-label', cfg.i18n.openWith );
+		sheet.setAttribute( 'dir', this.dir );
+		var html = '<div class="mapify-sheet__panel"><p class="mapify-sheet__title">' + esc( cfg.i18n.openWith ) + '<span>' + esc( item.title || '' ) + '</span></p><div class="mapify-sheet__apps">';
+		apps.forEach( function ( app ) {
+			html += '<a class="mapify-sheet__app mapify-sheet__app--' + app + '" href="' + esc( directionUrl( app, item ) ) + '" target="_blank" rel="noopener">' + esc( cfg.i18n.apps[ app ] || app ) + '</a>';
+		} );
+		if ( isAndroid() ) {
+			html += '<a class="mapify-sheet__app mapify-sheet__app--geo" href="geo:' + item.latitude + ',' + item.longitude + '?q=' + item.latitude + ',' + item.longitude + '">' + esc( cfg.i18n.otherApps ) + '</a>';
+		}
+		html += '</div><button type="button" class="mapify-sheet__cancel">' + esc( cfg.i18n.cancel ) + '</button></div>';
+		sheet.innerHTML = html;
+		function close() {
+			sheet.remove();
+			document.removeEventListener( 'keydown', onKey );
+		}
+		function onKey( e ) {
+			if ( e.key === 'Escape' ) {
+				close();
+			}
+		}
+		sheet.addEventListener( 'click', function ( e ) {
+			if ( e.target === sheet || e.target.closest( '.mapify-sheet__cancel' ) || e.target.closest( '.mapify-sheet__app' ) ) {
+				setTimeout( close, 0 );
+			}
+		} );
+		document.addEventListener( 'keydown', onKey );
+		( document.fullscreenElement === self.stage ? self.stage : document.body ).appendChild( sheet );
+		var first = sheet.querySelector( '.mapify-sheet__app, .mapify-sheet__cancel' );
+		if ( first ) {
+			first.focus();
 		}
 	};
 

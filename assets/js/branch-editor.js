@@ -166,22 +166,38 @@
 			map.invalidateSize();
 		}, 300 );
 
-		// Pin image & color.
-		$( '.mapify-color' ).wpColorPicker();
+	} );
+
+	// Pin image & color (branch editor and category screens).
+	$( function () {
+		if ( $.fn.wpColorPicker ) {
+			$( '.mapify-color' ).wpColorPicker();
+		}
 		var frame;
-		$( '.mapify-pinbox__choose' ).on( 'click', function () {
+		var $target;
+		$( document ).on( 'click', '.mapify-pinbox__choose', function () {
+			$target = $( this ).closest( '.mapify-pinbox__image' ).find( 'input[type="url"]' );
 			if ( ! frame ) {
 				frame = wp.media( { title: C.i18n.chooseImage, button: { text: C.i18n.useImage }, library: { type: 'image' }, multiple: false } );
 				frame.on( 'select', function () {
 					var a = frame.state().get( 'selection' ).first().toJSON();
-					$( '#mapify-pinimg' ).val( a.url ).trigger( 'change' );
+					$target.val( a.url ).trigger( 'change' );
 				} );
 			}
 			frame.open();
 		} );
-		$( '#mapify-pinimg' ).on( 'change input', function () {
+		$( document ).on( 'change input', '.mapify-pinbox__image input[type="url"]', function () {
 			var v = $( this ).val();
-			$( '.mapify-pinbox__image img' ).attr( 'src', v ).attr( 'hidden', ! v );
+			$( this ).closest( '.mapify-pinbox__image' ).find( 'img' ).attr( 'src', v ).attr( 'hidden', ! v );
+		} );
+		// The add-category form is submitted with AJAX; clear the pin fields afterwards.
+		$( document ).ajaxSuccess( function ( e, xhr, settings ) {
+			if ( settings && typeof settings.data === 'string' && settings.data.indexOf( 'action=add-tag' ) !== -1 && settings.data.indexOf( 'taxonomy=mapify_category' ) !== -1 ) {
+				$( '#addtag .mapify-pinbox__image input[type="url"]' ).val( '' ).trigger( 'change' );
+				$( '#addtag .mapify-color' ).each( function () {
+					$( this ).wpColorPicker ? $( this ).wpColorPicker( 'color', '' ) : $( this ).val( '' );
+				} );
+			}
 		} );
 	} );
 } )( jQuery );

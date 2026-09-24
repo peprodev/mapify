@@ -38,6 +38,7 @@ class Plugin {
 
 		Branch_Editor::init();
 		Admin::init();
+		Transfer::init();
 
 		// Elementor.
 		add_action( 'elementor/elements/categories_registered', array( $this, 'elementor_category' ) );
@@ -83,9 +84,9 @@ class Plugin {
 
 	public function elementor_category( $manager ) {
 		$manager->add_category(
-			'pepro',
+			'peprodev',
 			array(
-				'title' => __( 'Pepro Elements', 'mapify' ),
+				'title' => __( 'PeproDev Elements', 'mapify' ),
 				'icon'  => 'eicon-map-pin',
 			)
 		);

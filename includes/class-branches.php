@@ -66,12 +66,14 @@ class Branches {
 				'label'           => __( 'Branches', 'mapify' ),
 				'description'     => __( 'Add branches to show on map', 'mapify' ),
 				'labels'          => $labels,
-				'supports'        => array( 'title', 'editor', 'thumbnail', 'revisions', 'page-attributes', 'elementor' ),
+				'supports'        => array( 'title', 'editor', 'thumbnail', 'revisions', 'page-attributes', 'elementor', 'custom-fields' ),
 				'hierarchical'    => false,
 				'public'          => true,
 				'show_ui'         => true,
 				'show_in_menu'    => true,
 				'show_in_rest'    => true,
+				'rest_base'       => self::POST_TYPE,
+				'can_export'      => true,
 				'menu_position'   => 25,
 				'menu_icon'       => 'dashicons-location',
 				'has_archive'     => $slug,
@@ -107,20 +109,161 @@ class Branches {
 			)
 		);
 
-		foreach ( array_keys( self::meta_fields() ) as $key ) {
+		self::register_meta();
+	}
+
+	/** Branch meta that is not listed in meta_fields(): key => sanitize callback. */
+	protected static function extra_meta() {
+		return array(
+			'map_data'         => array( __CLASS__, 'sanitize_map_data' ),
+			'pinimg'           => 'esc_url_raw',
+			'pincolor'         => array( __CLASS__, 'sanitize_color' ),
+			'content_template' => array( __CLASS__, 'sanitize_template' ),
+		);
+	}
+
+	/** Category meta: key => [label, sanitize callback]. */
+	public static function term_meta_fields() {
+		return apply_filters(
+			'mapify_category_meta_fields',
+			array(
+				'mapify_pin_color' => array( __( 'Pin color', 'mapify' ), array( __CLASS__, 'sanitize_color' ) ),
+				'mapify_pin_image' => array( __( 'Pin image', 'mapify' ), 'esc_url_raw' ),
+			)
+		);
+	}
+
+	/**
+	 * Every branch and category field is exposed to the REST API (wp/v2/mapify, wp/v2/mapify_category).
+	 */
+	protected static function register_meta() {
+		$auth = function () {
+			return current_user_can( 'edit_posts' );
+		};
+		foreach ( self::meta_fields() as $key => $field ) {
 			register_post_meta(
 				self::POST_TYPE,
 				'place_details_' . $key,
 				array(
-					'type'          => 'string',
-					'single'        => true,
-					'show_in_rest'  => true,
-					'auth_callback' => function () {
-						return current_user_can( 'edit_posts' );
+					'type'              => 'string',
+					'single'            => true,
+					'default'           => '',
+					'show_in_rest'      => true,
+					'sanitize_callback' => self::field_sanitizer( $field[1] ),
+					'auth_callback'     => $auth,
+				)
+			);
+		}
+		foreach ( self::extra_meta() as $key => $sanitize ) {
+			register_post_meta(
+				self::POST_TYPE,
+				'place_details_' . $key,
+				array(
+					'type'              => 'string',
+					'single'            => true,
+					'default'           => '',
+					'show_in_rest'      => true,
+					'sanitize_callback' => $sanitize,
+					'auth_callback'     => $auth,
+				)
+			);
+		}
+		foreach ( self::term_meta_fields() as $key => $field ) {
+			register_term_meta(
+				self::TAXONOMY,
+				$key,
+				array(
+					'type'              => 'string',
+					'single'            => true,
+					'default'           => '',
+					'show_in_rest'      => true,
+					'sanitize_callback' => $field[1],
+					'auth_callback'     => function () {
+						return current_user_can( 'manage_categories' );
 					},
 				)
 			);
 		}
+		register_rest_field(
+			self::POST_TYPE,
+			'mapify_location',
+			array(
+				'get_callback'    => function ( $post ) {
+					return self::location( $post['id'] );
+				},
+				'update_callback' => function ( $value, $post ) {
+					if ( null === $value || '' === $value ) {
+						delete_post_meta( $post->ID, 'place_details_map_data' );
+						return true;
+					}
+					$clean = self::sanitize_map_data( $value );
+					if ( '' === $clean ) {
+						return new \WP_Error( 'mapify_invalid_location', __( 'Location needs numeric latitude and longitude.', 'mapify' ), array( 'status' => 400 ) );
+					}
+					update_post_meta( $post->ID, 'place_details_map_data', $clean );
+					return true;
+				},
+				'schema'          => array(
+					'description' => __( 'Branch location on the map.', 'mapify' ),
+					'type'        => array( 'object', 'null' ),
+					'context'     => array( 'view', 'edit' ),
+					'properties'  => array(
+						'latitude'  => array( 'type' => 'number' ),
+						'longitude' => array( 'type' => 'number' ),
+						'zoom'      => array( 'type' => 'integer' ),
+					),
+				),
+			)
+		);
+	}
+
+	public static function field_sanitizer( $type ) {
+		switch ( $type ) {
+			case 'email':
+				return 'sanitize_email';
+			case 'url':
+				return 'esc_url_raw';
+			case 'textarea':
+				return 'sanitize_textarea_field';
+		}
+		return 'sanitize_text_field';
+	}
+
+	public static function sanitize_color( $value ) {
+		return (string) sanitize_hex_color( (string) $value );
+	}
+
+	public static function sanitize_template( $value ) {
+		$value = sanitize_key( (string) $value );
+		return in_array( $value, array( 'default', 'post', 'content' ), true ) ? $value : 'default';
+	}
+
+	/**
+	 * Accepts the stored JSON string or an array with latitude/longitude (and optional zoom/gzoom).
+	 */
+	public static function sanitize_map_data( $value ) {
+		$data = is_array( $value ) ? $value : json_decode( (string) $value, true );
+		if ( ! is_array( $data ) || ! isset( $data['latitude'], $data['longitude'] ) || ! is_numeric( $data['latitude'] ) || ! is_numeric( $data['longitude'] ) ) {
+			return '';
+		}
+		$zoom = isset( $data['gzoom'] ) ? $data['gzoom'] : ( isset( $data['zoom'] ) ? $data['zoom'] : 14 );
+		return wp_json_encode(
+			array(
+				'latitude'  => (float) $data['latitude'],
+				'longitude' => (float) $data['longitude'],
+				'gzoom'     => (int) $zoom,
+			)
+		);
+	}
+
+	/**
+	 * Pin color and image of a category (empty strings when not set).
+	 */
+	public static function category_pin( $term_id ) {
+		return array(
+			'color' => self::sanitize_color( get_term_meta( $term_id, 'mapify_pin_color', true ) ),
+			'image' => esc_url_raw( (string) get_term_meta( $term_id, 'mapify_pin_image', true ) ),
+		);
 	}
 
 	/**
@@ -194,25 +337,36 @@ class Branches {
 		}
 		$location   = self::location( $post->ID );
 		$categories = array();
+		$cat_color  = '';
+		$cat_image  = '';
 		$terms      = get_the_terms( $post->ID, self::TAXONOMY );
 		if ( $terms && ! is_wp_error( $terms ) ) {
 			foreach ( $terms as $term ) {
 				$categories[ $term->term_id ] = $term->name;
+				$pin                          = self::category_pin( $term->term_id );
+				// The first category that has a pin setting wins.
+				$cat_color = $cat_color ? $cat_color : $pin['color'];
+				$cat_image = $cat_image ? $cat_image : $pin['image'];
 			}
 		}
-		$image = get_the_post_thumbnail_url( $post->ID, 'medium_large' );
-		$data  = array(
+		$image     = get_the_post_thumbnail_url( $post->ID, 'medium_large' );
+		$own_img   = esc_url_raw( (string) get_post_meta( $post->ID, 'place_details_pinimg', true ) );
+		$own_color = sanitize_hex_color( (string) get_post_meta( $post->ID, 'place_details_pincolor', true ) );
+		$data      = array(
 			'id'         => $post->ID,
 			'title'      => get_the_title( $post ),
 			'url'        => get_permalink( $post ),
 			'image'      => $image ? $image : '',
 			'img'        => $image ? $image : '',
 			'categories' => $categories,
+			'cats'       => array_map( 'strval', array_keys( $categories ) ),
 			'latitude'   => $location ? $location['latitude'] : null,
 			'longitude'  => $location ? $location['longitude'] : null,
 			'zoom'       => $location ? $location['zoom'] : null,
-			'pin_img'    => esc_url_raw( (string) get_post_meta( $post->ID, 'place_details_pinimg', true ) ),
-			'color'      => sanitize_hex_color( (string) get_post_meta( $post->ID, 'place_details_pincolor', true ) ),
+			// Branch pin settings first, then the pin settings of its category.
+			'pin_img'    => $own_img ? $own_img : $cat_image,
+			'color'      => $own_color ? $own_color : $cat_color,
+			'branch_pin' => $own_img,
 		);
 		$aliases = array(
 			'socailtw' => 'twitter',

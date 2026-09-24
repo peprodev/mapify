@@ -422,3 +422,22 @@ input.is-ltr {
 .mapify-pins__cell--unit {
 	grid-column: 1 / -1;
 }
+
+/* Import / export */
+.mapify-file {
+	max-width: 100%;
+}
+
+.mapify-report {
+	margin: 0;
+	padding-inline-start: 18px;
+	list-style: disc;
+}
+
+.mapify-report li {
+	margin: 2px 0;
+}
+
+.mapify-attr-notice {
+	margin: 0;
+}
