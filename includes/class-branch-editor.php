@@ -18,6 +18,11 @@ class Branch_Editor {
 		add_filter( 'manage_' . Branches::POST_TYPE . '_posts_columns', array( __CLASS__, 'columns' ) );
 		add_action( 'manage_' . Branches::POST_TYPE . '_posts_custom_column', array( __CLASS__, 'column' ), 10, 2 );
 
+		// Free version limit.
+		add_action( 'load-post-new.php', array( __CLASS__, 'block_new' ) );
+		add_action( 'admin_notices', array( __CLASS__, 'limit_notice' ) );
+		add_action( 'admin_menu', array( __CLASS__, 'hide_add_new' ), 99 );
+
 		// Category pin settings.
 		add_action( Branches::TAXONOMY . '_add_form_fields', array( __CLASS__, 'term_add_fields' ) );
 		add_action( Branches::TAXONOMY . '_edit_form_fields', array( __CLASS__, 'term_edit_fields' ) );
@@ -25,6 +30,45 @@ class Branch_Editor {
 		add_action( 'edited_' . Branches::TAXONOMY, array( __CLASS__, 'term_save' ) );
 		add_filter( 'manage_edit-' . Branches::TAXONOMY . '_columns', array( __CLASS__, 'term_columns' ) );
 		add_filter( 'manage_' . Branches::TAXONOMY . '_custom_column', array( __CLASS__, 'term_column' ), 10, 3 );
+	}
+
+	public static function block_new() {
+		$type = isset( $_GET['post_type'] ) ? sanitize_key( $_GET['post_type'] ) : 'post'; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( Branches::POST_TYPE === $type && ! Branches::can_add() ) {
+			wp_safe_redirect( admin_url( 'edit.php?post_type=' . Branches::POST_TYPE . '&mapify_limit=1' ) );
+			exit;
+		}
+	}
+
+	public static function hide_add_new() {
+		if ( ! Branches::can_add() ) {
+			remove_submenu_page( 'edit.php?post_type=' . Branches::POST_TYPE, 'post-new.php?post_type=' . Branches::POST_TYPE );
+		}
+	}
+
+	public static function limit_notice() {
+		$screen = get_current_screen();
+		if ( ! $screen || Branches::POST_TYPE !== $screen->post_type || ! in_array( $screen->base, array( 'edit', 'post' ), true ) ) {
+			return;
+		}
+		$count = Branches::count_branches();
+		$full  = $count >= Branches::MAX_BRANCHES;
+		$link  = '<a href="' . esc_url( 'https://pepro.dev/mapify' ) . '" target="_blank" rel="noopener">' . esc_html__( 'Get Mapify Pro', 'mapify' ) . '</a>';
+		if ( $full ) {
+			echo '<div class="notice notice-warning"><p>' . esc_html( Branches::limit_message() ) . ' ' . $link . '</p></div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped above.
+			if ( 'edit' === $screen->base ) {
+				echo '<style>.post-type-' . esc_attr( Branches::POST_TYPE ) . ' .page-title-action{display:none}</style>';
+			}
+		} elseif ( 'edit' === $screen->base ) {
+			echo '<div class="notice notice-info"><p>' . esc_html(
+				sprintf(
+					/* translators: 1: branches used, 2: maximum branches */
+					__( 'Free version: %1$d of %2$d branches used.', 'mapify' ),
+					$count,
+					Branches::MAX_BRANCHES
+				)
+			) . ' ' . $link . '</p></div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped above.
+		}
 	}
 
 	public static function assets( $hook ) {

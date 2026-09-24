@@ -14,6 +14,9 @@ class Branches {
 	const POST_TYPE = 'mapify';
 	const TAXONOMY  = 'mapify_category';
 
+	/** Branches allowed in the free version. Mapify Pro has no limit. */
+	const MAX_BRANCHES = 15;
+
 	/** Meta fields: key (stored as place_details_{key}) => [label, input type]. */
 	public static function meta_fields() {
 		return apply_filters(
@@ -266,6 +269,65 @@ class Branches {
 		);
 	}
 
+	/* ------------------------------------------------------------------ free version limit */
+
+	public static function init_limit() {
+		add_filter( 'wp_insert_post_empty_content', array( __CLASS__, 'block_insert' ), 10, 2 );
+		add_filter( 'rest_pre_insert_' . self::POST_TYPE, array( __CLASS__, 'block_rest_insert' ), 10, 2 );
+	}
+
+	/** Branches that count toward the limit (everything except auto-drafts and the trash). */
+	public static function count_branches() {
+		$query = new \WP_Query(
+			array(
+				'post_type'      => self::POST_TYPE,
+				'post_status'    => array( 'publish', 'future', 'draft', 'pending', 'private' ),
+				'fields'         => 'ids',
+				'posts_per_page' => -1,
+				'no_found_rows'  => true,
+			)
+		);
+		return count( $query->posts );
+	}
+
+	public static function can_add() {
+		return self::count_branches() < self::MAX_BRANCHES;
+	}
+
+	public static function limit_message() {
+		return sprintf(
+			/* translators: %d: maximum number of branches */
+			__( 'The free version of Mapify supports up to %d branches. Upgrade to Mapify Pro for unlimited branches.', 'mapify' ),
+			self::MAX_BRANCHES
+		);
+	}
+
+	/**
+	 * Stop new branches once the limit is reached: plain inserts (imports, duplicators) and
+	 * auto-drafts that would become real branches.
+	 */
+	public static function block_insert( $maybe_empty, $postarr ) {
+		if ( $maybe_empty || ! isset( $postarr['post_type'] ) || self::POST_TYPE !== $postarr['post_type'] ) {
+			return $maybe_empty;
+		}
+		$status = isset( $postarr['post_status'] ) ? $postarr['post_status'] : 'draft';
+		if ( in_array( $status, array( 'auto-draft', 'trash', 'inherit' ), true ) ) {
+			return $maybe_empty;
+		}
+		$id = empty( $postarr['ID'] ) ? 0 : (int) $postarr['ID'];
+		if ( $id && ! in_array( get_post_status( $id ), array( 'auto-draft', 'trash' ), true ) ) {
+			return $maybe_empty;
+		}
+		return ! self::can_add();
+	}
+
+	public static function block_rest_insert( $prepared, $request ) {
+		if ( empty( $request['id'] ) && ! self::can_add() ) {
+			return new \WP_Error( 'mapify_branch_limit', self::limit_message(), array( 'status' => 403 ) );
+		}
+		return $prepared;
+	}
+
 	/**
 	 * Location stored by the editor as JSON: {"latitude":..,"longitude":..,"gzoom":..}.
 	 */
@@ -291,7 +353,7 @@ class Branches {
 		$args = array(
 			'post_type'      => self::POST_TYPE,
 			'post_status'    => 'publish',
-			'posts_per_page' => -1,
+			'posts_per_page' => self::MAX_BRANCHES,
 			'orderby'        => $settings['orderby'],
 			'order'          => $settings['order'],
 			'no_found_rows'  => true,

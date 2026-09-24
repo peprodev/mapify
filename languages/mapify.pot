@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: PeproDev Branches Map (Mapify) 2.4.1\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/mapify\n"
+"Project-Id-Version: PeproDev Branches Map (Mapify) 2.5.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/source\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-24T07:57:16+00:00\n"
+"POT-Creation-Date: 2026-09-24T08:57:47+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: mapify\n"
@@ -56,174 +56,184 @@ msgstr ""
 msgid "Preview link expired. Reload the builder."
 msgstr ""
 
-#: includes/class-branch-editor.php:65
-#: includes/class-branch-editor.php:184
+#: includes/class-branch-editor.php:56
+msgid "Get Mapify Pro"
+msgstr ""
+
+#. translators: 1: branches used, 2: maximum branches
+#: includes/class-branch-editor.php:66
+#, php-format
+msgid "Free version: %1$d of %2$d branches used."
+msgstr ""
+
+#: includes/class-branch-editor.php:109
+#: includes/class-branch-editor.php:228
 msgid "Search an address or place…"
 msgstr ""
 
-#: includes/class-branch-editor.php:66
+#: includes/class-branch-editor.php:110
 msgid "Nothing found."
 msgstr ""
 
-#: includes/class-branch-editor.php:67
+#: includes/class-branch-editor.php:111
 msgid "Choose pin image"
 msgstr ""
 
-#: includes/class-branch-editor.php:68
+#: includes/class-branch-editor.php:112
 msgid "Use this image"
 msgstr ""
 
-#: includes/class-branch-editor.php:85
-#: includes/class-branch-editor.php:234
+#: includes/class-branch-editor.php:129
+#: includes/class-branch-editor.php:278
 msgid "Choose image"
 msgstr ""
 
-#: includes/class-branch-editor.php:96
-#: includes/class-branch-editor.php:113
-#: includes/class-branch-editor.php:228
-#: includes/class-branches.php:130
+#: includes/class-branch-editor.php:140
+#: includes/class-branch-editor.php:157
+#: includes/class-branch-editor.php:272
+#: includes/class-branches.php:133
 #: includes/class-schema.php:651
 #: includes/class-schema.php:965
 msgid "Pin color"
 msgstr ""
 
-#: includes/class-branch-editor.php:100
-#: includes/class-branch-editor.php:117
-#: includes/class-branches.php:131
+#: includes/class-branch-editor.php:144
+#: includes/class-branch-editor.php:161
+#: includes/class-branches.php:134
 #: includes/class-schema.php:646
 #: includes/class-schema.php:672
 msgid "Pin image"
 msgstr ""
 
-#: includes/class-branch-editor.php:102
-#: includes/class-branch-editor.php:120
+#: includes/class-branch-editor.php:146
+#: includes/class-branch-editor.php:164
 msgid "Branches in this category use this pin on the map, unless the branch has its own pin color or image."
 msgstr ""
 
-#: includes/class-branch-editor.php:147
+#: includes/class-branch-editor.php:191
 msgid "Pin"
 msgstr ""
 
-#: includes/class-branch-editor.php:171
-#: includes/class-branch-editor.php:308
+#: includes/class-branch-editor.php:215
+#: includes/class-branch-editor.php:352
 msgid "Location"
 msgstr ""
 
-#: includes/class-branch-editor.php:172
+#: includes/class-branch-editor.php:216
 msgid "Branch details"
 msgstr ""
 
-#: includes/class-branch-editor.php:173
+#: includes/class-branch-editor.php:217
 msgid "Map pin"
 msgstr ""
 
-#: includes/class-branch-editor.php:185
+#: includes/class-branch-editor.php:229
 msgid "Find"
 msgstr ""
 
-#: includes/class-branch-editor.php:191
+#: includes/class-branch-editor.php:235
 #: includes/class-schema.php:626
 msgid "Latitude"
 msgstr ""
 
-#: includes/class-branch-editor.php:193
+#: includes/class-branch-editor.php:237
 #: includes/class-schema.php:631
 msgid "Longitude"
 msgstr ""
 
-#: includes/class-branch-editor.php:195
+#: includes/class-branch-editor.php:239
 msgid "Use my location"
 msgstr ""
 
-#: includes/class-branch-editor.php:196
+#: includes/class-branch-editor.php:240
 msgid "Clear"
 msgstr ""
 
-#: includes/class-branch-editor.php:198
+#: includes/class-branch-editor.php:242
 msgid "Click the map or drag the pin to set the branch location."
 msgstr ""
 
-#: includes/class-branch-editor.php:230
+#: includes/class-branch-editor.php:274
 msgid "Custom pin image"
 msgstr ""
 
-#: includes/class-branch-editor.php:236
+#: includes/class-branch-editor.php:280
 #: assets/js/admin.js:564
 msgid "Branch page layout"
 msgstr ""
 
-#: includes/class-branch-editor.php:238
+#: includes/class-branch-editor.php:282
 msgid "Inherit from settings"
 msgstr ""
 
-#: includes/class-branch-editor.php:239
+#: includes/class-branch-editor.php:283
 msgid "Branch card + content"
 msgstr ""
 
-#: includes/class-branch-editor.php:240
+#: includes/class-branch-editor.php:284
 msgid "Content only"
 msgstr ""
 
-#: includes/class-branch-editor.php:309
-#: includes/class-branches.php:23
+#: includes/class-branch-editor.php:353
+#: includes/class-branches.php:26
 #: includes/class-renderer.php:436
 msgid "Phone"
 msgstr ""
 
-#: includes/class-branches.php:22
+#: includes/class-branches.php:25
 #: includes/class-renderer.php:436
 msgid "Address"
 msgstr ""
 
-#: includes/class-branches.php:24
+#: includes/class-branches.php:27
 msgid "Website"
 msgstr ""
 
-#: includes/class-branches.php:25
+#: includes/class-branches.php:28
 msgid "Email"
 msgstr ""
 
-#: includes/class-branches.php:26
-#: includes/class-branches.php:431
+#: includes/class-branches.php:29
+#: includes/class-branches.php:493
 msgid "Instagram"
 msgstr ""
 
-#: includes/class-branches.php:27
-#: includes/class-branches.php:432
+#: includes/class-branches.php:30
+#: includes/class-branches.php:494
 msgid "Telegram"
 msgstr ""
 
-#: includes/class-branches.php:28
-#: includes/class-branches.php:433
+#: includes/class-branches.php:31
+#: includes/class-branches.php:495
 msgid "X (Twitter)"
 msgstr ""
 
-#: includes/class-branches.php:29
-#: includes/class-branches.php:434
+#: includes/class-branches.php:32
+#: includes/class-branches.php:496
 msgid "Facebook"
 msgstr ""
 
-#: includes/class-branches.php:30
-#: includes/class-branches.php:435
+#: includes/class-branches.php:33
+#: includes/class-branches.php:497
 msgid "LinkedIn"
 msgstr ""
 
-#: includes/class-branches.php:31
+#: includes/class-branches.php:34
 msgid "Additional text"
 msgstr ""
 
-#: includes/class-branches.php:38
+#: includes/class-branches.php:41
 msgctxt "Post Type General Name"
 msgid "Branches"
 msgstr ""
 
-#: includes/class-branches.php:39
+#: includes/class-branches.php:42
 msgctxt "Post Type Singular Name"
 msgid "Branch"
 msgstr ""
 
-#: includes/class-branches.php:40
-#: includes/class-branches.php:66
+#: includes/class-branches.php:43
+#: includes/class-branches.php:69
 #: includes/class-schema.php:49
 #: includes/class-schema.php:278
 #: includes/integrations/elementor/class-map-widget.php:277
@@ -232,166 +242,172 @@ msgstr ""
 msgid "Branches"
 msgstr ""
 
-#: includes/class-branches.php:41
+#: includes/class-branches.php:44
 #: includes/class-renderer.php:436
 msgid "Branch"
 msgstr ""
 
-#: includes/class-branches.php:42
+#: includes/class-branches.php:45
 msgid "Branch Archives"
 msgstr ""
 
-#: includes/class-branches.php:43
+#: includes/class-branches.php:46
 msgid "All Branches"
 msgstr ""
 
-#: includes/class-branches.php:44
+#: includes/class-branches.php:47
 msgid "Add New Branch"
 msgstr ""
 
-#: includes/class-branches.php:45
+#: includes/class-branches.php:48
 msgid "Add New"
 msgstr ""
 
-#: includes/class-branches.php:46
+#: includes/class-branches.php:49
 msgid "New Branch"
 msgstr ""
 
-#: includes/class-branches.php:47
+#: includes/class-branches.php:50
 msgid "Edit Branch"
 msgstr ""
 
-#: includes/class-branches.php:48
+#: includes/class-branches.php:51
 msgid "Update Branch"
 msgstr ""
 
-#: includes/class-branches.php:49
+#: includes/class-branches.php:52
 msgid "View Branch"
 msgstr ""
 
-#: includes/class-branches.php:50
+#: includes/class-branches.php:53
 msgid "View Branches"
 msgstr ""
 
-#: includes/class-branches.php:51
+#: includes/class-branches.php:54
 msgid "Search Branches"
 msgstr ""
 
-#: includes/class-branches.php:52
+#: includes/class-branches.php:55
 msgid "No branch found"
 msgstr ""
 
-#: includes/class-branches.php:53
+#: includes/class-branches.php:56
 msgid "No branch found in Trash"
 msgstr ""
 
-#: includes/class-branches.php:54
+#: includes/class-branches.php:57
 msgid "Branch Image"
 msgstr ""
 
-#: includes/class-branches.php:55
+#: includes/class-branches.php:58
 msgid "Set branch image"
 msgstr ""
 
-#: includes/class-branches.php:56
+#: includes/class-branches.php:59
 msgid "Remove branch image"
 msgstr ""
 
-#: includes/class-branches.php:57
+#: includes/class-branches.php:60
 msgid "Use as branch image"
 msgstr ""
 
-#: includes/class-branches.php:58
+#: includes/class-branches.php:61
 #: includes/class-schema.php:58
 #: includes/integrations/elementor/class-map-widget.php:377
 #: includes/integrations/elementor/class-map-widget.php:721
 msgid "Branches list"
 msgstr ""
 
-#: includes/class-branches.php:59
+#: includes/class-branches.php:62
 msgid "Branches list navigation"
 msgstr ""
 
-#: includes/class-branches.php:60
+#: includes/class-branches.php:63
 msgid "Filter Branches list"
 msgstr ""
 
-#: includes/class-branches.php:67
+#: includes/class-branches.php:70
 msgid "Add branches to show on map"
 msgstr ""
 
-#: includes/class-branches.php:93
+#: includes/class-branches.php:96
 msgctxt "taxonomy general name"
 msgid "Categories"
 msgstr ""
 
-#: includes/class-branches.php:94
+#: includes/class-branches.php:97
 msgctxt "taxonomy singular name"
 msgid "Category"
 msgstr ""
 
-#: includes/class-branches.php:95
+#: includes/class-branches.php:98
 msgid "Search Categories"
 msgstr ""
 
-#: includes/class-branches.php:96
+#: includes/class-branches.php:99
 msgid "All Categories"
 msgstr ""
 
-#: includes/class-branches.php:97
+#: includes/class-branches.php:100
 msgid "Parent Category"
 msgstr ""
 
-#: includes/class-branches.php:98
+#: includes/class-branches.php:101
 msgid "Edit Category"
 msgstr ""
 
-#: includes/class-branches.php:99
+#: includes/class-branches.php:102
 msgid "Update Category"
 msgstr ""
 
-#: includes/class-branches.php:100
+#: includes/class-branches.php:103
 msgid "Add New Category"
 msgstr ""
 
-#: includes/class-branches.php:101
+#: includes/class-branches.php:104
 msgid "New Category Name"
 msgstr ""
 
-#: includes/class-branches.php:102
+#: includes/class-branches.php:105
 #: includes/class-schema.php:270
 msgid "Categories"
 msgstr ""
 
-#: includes/class-branches.php:201
+#: includes/class-branches.php:204
 msgid "Location needs numeric latitude and longitude."
 msgstr ""
 
-#: includes/class-branches.php:207
+#: includes/class-branches.php:210
 msgid "Branch location on the map."
 msgstr ""
 
-#: includes/class-branches.php:417
+#. translators: %d: maximum number of branches
+#: includes/class-branches.php:300
+#, php-format
+msgid "The free version of Mapify supports up to %d branches. Upgrade to Mapify Pro for unlimited branches."
+msgstr ""
+
+#: includes/class-branches.php:479
 msgid "Address:"
 msgstr ""
 
-#: includes/class-branches.php:420
+#: includes/class-branches.php:482
 msgid "Phone:"
 msgstr ""
 
-#: includes/class-branches.php:423
+#: includes/class-branches.php:485
 msgid "Website:"
 msgstr ""
 
-#: includes/class-branches.php:426
+#: includes/class-branches.php:488
 msgid "Email:"
 msgstr ""
 
-#: includes/class-branches.php:443
+#: includes/class-branches.php:505
 msgid "Social:"
 msgstr ""
 
-#: includes/class-branches.php:449
+#: includes/class-branches.php:511
 #: includes/class-options.php:53
 #: includes/class-schema.php:24
 #: includes/class-schema.php:51
@@ -400,19 +416,19 @@ msgstr ""
 msgid "Google Maps"
 msgstr ""
 
-#: includes/class-branches.php:450
+#: includes/class-branches.php:512
 #: includes/class-options.php:55
 msgid "Waze"
 msgstr ""
 
-#: includes/class-branches.php:451
+#: includes/class-branches.php:513
 #: includes/class-options.php:56
 #: includes/class-schema.php:95
 #: assets/js/admin.js:495
 msgid "Neshan"
 msgstr ""
 
-#: includes/class-branches.php:452
+#: includes/class-branches.php:514
 #: includes/class-options.php:57
 msgid "Balad"
 msgstr ""
@@ -445,12 +461,12 @@ msgstr ""
 msgid "Desktop only"
 msgstr ""
 
-#: includes/class-plugin.php:90
+#: includes/class-plugin.php:91
 #: includes/integrations/wpbakery/class-wpbakery.php:210
 msgid "PeproDev Elements"
 msgstr ""
 
-#: includes/class-plugin.php:127
+#: includes/class-plugin.php:128
 msgid "This SVG file is not valid."
 msgstr ""
 
@@ -1538,7 +1554,7 @@ msgstr ""
 msgid "This is not a Mapify export file."
 msgstr ""
 
-#: includes/class-transfer.php:480
+#: includes/class-transfer.php:485
 msgid "Image URL is not valid."
 msgstr ""
 

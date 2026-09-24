@@ -4,7 +4,7 @@ Donate link: https://pepro.dev/donate
 Tags: map, branches, store locator, openstreetmap, elementor
 Requires at least: 6.5
 Tested up to: 7.1
-Stable tag: 2.4.1
+Stable tag: 2.5.0
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -77,6 +77,10 @@ Shortcodes made with version 1.x keep working.
 
 == Frequently Asked Questions ==
 
+= How many branches can I add? =
+
+The free version supports up to 15 branches. Mapify Pro has no limit.
+
 = What happens if a provider key is missing? =
 
 The map falls back to OpenStreetMap and editors see a notice above the map.
@@ -106,6 +110,10 @@ Choose “Image as map”, select the image and add custom pins with X/Y in perc
 17. Elementor: Snazzy Maps style section
 
 == Changelog ==
+
+= 2.5.0 =
+
+- The free version supports up to 15 branches; Mapify Pro removes the limit
 
 = 2.4.1 =
 

@@ -432,6 +432,11 @@ class Transfer {
 					$post_id       = wp_update_post( wp_slash( $postarr ), true );
 					$key           = 'updated';
 				} else {
+					if ( ! Branches::can_add() ) {
+						++$report['branches']['skipped'];
+						$report['errors'][] = $postarr['post_title'] . ': ' . Branches::limit_message();
+						continue;
+					}
 					$postarr['post_name'] = $slug;
 					$post_id              = wp_insert_post( wp_slash( $postarr ), true );
 					$key                  = 'created';

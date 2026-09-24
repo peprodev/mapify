@@ -36,6 +36,7 @@ class Plugin {
 		add_filter( 'upload_mimes', array( $this, 'svg_mime' ) );
 		add_filter( 'wp_handle_upload_prefilter', array( $this, 'sanitize_svg_upload' ) );
 
+		Branches::init_limit();
 		Branch_Editor::init();
 		Admin::init();
 		Transfer::init();
