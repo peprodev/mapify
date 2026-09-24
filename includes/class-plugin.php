@@ -33,13 +33,12 @@ class Plugin {
 		add_action( 'init', array( $this, 'register_assets' ), 5 );
 		add_action( 'init', array( Options::class, 'register' ) );
 		add_filter( 'the_content', array( Branches::class, 'filter_content' ) );
-		add_filter( 'upload_mimes', array( $this, 'svg_mime' ) );
-		add_filter( 'wp_handle_upload_prefilter', array( $this, 'sanitize_svg_upload' ) );
 
 		Branches::init_limit();
 		Branch_Editor::init();
 		Admin::init();
 		Transfer::init();
+		I18n::init();
 
 		// Elementor.
 		add_action( 'elementor/elements/categories_registered', array( $this, 'elementor_category' ) );
@@ -51,7 +50,9 @@ class Plugin {
 		add_action( 'vc_before_init', array( $this, 'wpbakery' ) );
 
 		// Back-compat: v1 exposed the instance as a global.
-		$GLOBALS['PeproMapify'] = $this;
+		$GLOBALS['PeproMapify'] = $this; // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- kept for v1 add-ons.
+
+		do_action( 'mapify_init', $this );
 	}
 
 	public function register_assets() {
@@ -77,11 +78,13 @@ class Plugin {
 			) . ';',
 			'before'
 		);
+		do_action( 'mapify_register_assets' );
 	}
 
 	public function enqueue_front() {
 		wp_enqueue_style( 'mapify-front' );
 		wp_enqueue_script( 'mapify-front' );
+		do_action( 'mapify_enqueue_front' );
 	}
 
 	public function elementor_category( $manager ) {
@@ -109,40 +112,9 @@ class Plugin {
 		Integrations\WPBakery::init();
 	}
 
-	public function svg_mime( $mimes ) {
-		if ( Options::get( 'allow_svg_upload' ) && current_user_can( 'upload_files' ) && current_user_can( 'unfiltered_html' ) ) {
-			$mimes['svg'] = 'image/svg+xml';
-		}
-		return $mimes;
-	}
-
-	/**
-	 * Strip scripts, event handlers and external references from uploaded SVG files.
-	 */
-	public function sanitize_svg_upload( $file ) {
-		if ( empty( $file['tmp_name'] ) || 'svg' !== strtolower( pathinfo( $file['name'], PATHINFO_EXTENSION ) ) ) {
-			return $file;
-		}
-		$svg = file_get_contents( $file['tmp_name'] ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
-		if ( false === $svg || false === stripos( $svg, '<svg' ) ) {
-			$file['error'] = __( 'This SVG file is not valid.', 'mapify' );
-			return $file;
-		}
-		$clean = self::clean_svg( $svg );
-		file_put_contents( $file['tmp_name'], $clean ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents
-		return $file;
-	}
-
-	public static function clean_svg( $svg ) {
-		$svg = preg_replace( '#<(script|foreignObject|iframe|embed|object)\b[^>]*>.*?</\1>#is', '', $svg );
-		$svg = preg_replace( '#<(script|foreignObject|iframe|embed|object)\b[^>]*/?>#is', '', $svg );
-		$svg = preg_replace( '#\son[a-z]+\s*=\s*("[^"]*"|\'[^\']*\'|[^\s>]+)#i', '', $svg );
-		$svg = preg_replace( '#(href|xlink:href)\s*=\s*("|\')\s*(javascript|data:text)[^"\']*\2#i', '', $svg );
-		return $svg;
-	}
-
 	public static function activate() {
 		Branches::register();
+		do_action( 'mapify_activate' );
 		flush_rewrite_rules();
 	}
 
@@ -151,6 +123,7 @@ class Plugin {
 			return;
 		}
 		delete_option( Options::KEY );
+		do_action( 'mapify_uninstall' );
 		foreach ( array( 'mapify-googlemapAPI', 'mapify-openstreetAPI', 'mapify-cedarmapsAPI', 'mapify-template', 'mapify-clearunistall', 'mapify-cleardbunistall' ) as $legacy ) {
 			delete_option( $legacy );
 		}

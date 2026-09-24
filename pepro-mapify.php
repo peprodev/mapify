@@ -2,8 +2,8 @@
 /**
  * Plugin Name:       PeproDev Branches Map (Mapify)
  * Plugin URI:        https://pepro.dev/mapify
- * Description:       Show your branches on Google Maps, OpenStreetMap, Mapbox, Map.ir, custom SVG/image maps or an offline map of Iran. Works as a shortcode, an Elementor widget and a WPBakery Page Builder element.
- * Version:           2.5.0
+ * Description:       Show your branches on Google Maps, OpenStreetMap, Mapbox, Persian maps or an offline map of Iran, with a searchable branches list. Works as a shortcode, an Elementor widget and a WPBakery Page Builder element.
+ * Version:           3.0.0
  * Requires at least: 6.5
  * Tested up to:      7.1
  * Requires PHP:      7.4
@@ -23,13 +23,20 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'MAPIFY_VERSION', '2.5.0' );
+// Another copy of Mapify is already loaded (e.g. two editions active at once).
+if ( defined( 'MAPIFY_FILE' ) ) {
+	return;
+}
+
+define( 'MAPIFY_VERSION', '3.0.0' );
 define( 'MAPIFY_FILE', __FILE__ );
 define( 'MAPIFY_DIR', plugin_dir_path( __FILE__ ) );
 define( 'MAPIFY_URL', plugin_dir_url( __FILE__ ) );
 define( 'MAPIFY_ASSETS', MAPIFY_URL . 'assets/' );
+define( 'MAPIFY_REPO_URL', 'https://wordpress.org/plugins/mapify/' );
 
 require_once MAPIFY_DIR . 'includes/class-options.php';
+require_once MAPIFY_DIR . 'includes/class-i18n.php';
 require_once MAPIFY_DIR . 'includes/class-schema.php';
 require_once MAPIFY_DIR . 'includes/class-branches.php';
 require_once MAPIFY_DIR . 'includes/class-renderer.php';

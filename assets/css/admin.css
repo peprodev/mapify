@@ -423,67 +423,18 @@ input.is-ltr {
 	grid-column: 1 / -1;
 }
 
-/* Import / export */
-.mapify-file {
-	max-width: 100%;
+/* Style gallery note and features this edition does not include */
+.mapify-styles__note {
+	margin: 8px 0 0;
+	font-style: italic;
 }
 
-.mapify-report {
-	margin: 0;
-	padding-inline-start: 18px;
-	list-style: disc;
-}
-
-.mapify-report li {
-	margin: 2px 0;
-}
-
-.mapify-attr-notice {
-	margin: 0;
+.mapify-pro-field {
+	opacity: .6;
+	pointer-events: none;
+	user-select: none;
 }
 
 .mapify-styles__search {
 	margin-bottom: 8px;
-}
-
-/* Navigation apps */
-.mapify-nav {
-	display: flex;
-	flex-direction: column;
-	gap: 12px;
-	padding: 14px;
-	border: 1px solid #e0e0e0;
-	border-radius: 10px;
-	background: #fff;
-}
-
-.mapify-nav.is-off {
-	background: #f6f7f7;
-}
-
-.mapify-nav.is-off .mapify-nav__icon,
-.mapify-nav.is-off .mapify-nav__name {
-	opacity: .5;
-}
-
-.mapify-nav__head {
-	display: flex;
-	align-items: center;
-	gap: 10px;
-}
-
-.mapify-nav__head .components-toggle-control {
-	margin-inline-start: auto;
-}
-
-.mapify-nav__icon {
-	width: 40px;
-	height: 40px;
-	border-radius: 10px;
-	object-fit: contain;
-	box-shadow: 0 0 0 1px rgba(0, 0, 0, .08);
-}
-
-.mapify-nav__name {
-	font-size: 14px;
 }

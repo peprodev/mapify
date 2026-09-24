@@ -120,6 +120,7 @@ class Map_Widget extends Widget_Base {
 					$args['options']     = $choices;
 					$args['search']      = count( $choices ) > 12;
 					$args['label_block'] = true;
+					$args['note']        = isset( $field['note'] ) ? $field['note'] : '';
 				} else {
 					$args['type']    = Controls_Manager::SELECT;
 					$args['options'] = $options;
@@ -171,6 +172,23 @@ class Map_Widget extends Widget_Base {
 			case 'color':
 				$args['type']    = Controls_Manager::COLOR;
 				$args['default'] = $field['default'];
+				break;
+			case 'notice':
+				unset( $args['description'] );
+				if ( isset( $field['variant'] ) && 'pro' === $field['variant'] ) {
+					$args['type']            = Controls_Manager::RAW_HTML;
+					$args['raw']             = '<div class="mapify-el-pro"><span class="mapify-el-pro__label">' . esc_html( $field['label'] ) . '</span><span class="mapify-el-pro__box" aria-hidden="true"></span><span class="mapify-el-pro__text">' . esc_html( $field['content'] ) . '</span></div>';
+					$args['content_classes'] = 'mapify-el-pro-wrap';
+					unset( $args['label'] );
+				} else {
+					$args['type']       = Controls_Manager::ALERT;
+					$args['alert_type'] = 'info';
+					$args['content']    = $field['content'];
+					if ( ! empty( $field['label'] ) ) {
+						$args['heading'] = $field['label'];
+					}
+					unset( $args['label'] );
+				}
 				break;
 			default:
 				$args['type']    = Controls_Manager::TEXT;
@@ -271,128 +289,65 @@ class Map_Widget extends Widget_Base {
 
 	/* ------------------------------------------------------------------ controls */
 
+	/**
+	 * Content sections: one per schema group (Appearance and Advanced live in the Style and Advanced tabs).
+	 */
+	protected function section_conditions() {
+		return apply_filters(
+			'mapify_elementor_section_conditions',
+			array(
+				'google' => array( 'maptype' => 'google' ),
+				'snazzy' => array( 'maptype' => 'google' ),
+				'tiles'  => array( 'maptype' => array( 'osm', 'mapbox', 'neshan', 'parsimap', 'custom' ) ),
+				'plane'  => array( 'maptype' => array_values( Schema::plane_engines() ) ),
+				'popup'  => array( 'pinaction' => 'popup' ),
+			)
+		);
+	}
+
 	protected function register_controls() {
-		$fields = Schema::fields();
-
-		$this->start_controls_section( 'section_branches', array( 'label' => __( 'Branches', 'mapify' ) ) );
-		$this->add_schema_group( 'source', $fields );
-		$this->end_controls_section();
-
-		$this->start_controls_section( 'section_map', array( 'label' => __( 'Map', 'mapify' ) ) );
-		$this->add_schema_group( 'map', $fields );
-		$this->add_control(
-			'map_keys_notice',
-			array(
-				'type'            => Controls_Manager::ALERT,
-				'alert_type'      => 'info',
-				'content'         => sprintf(
-					/* translators: %s: settings URL */
-					__( 'API keys for Google Maps, Mapbox, Map.ir, Neshan and Parsimap are set in <a href="%s" target="_blank">Branches → Map Settings</a>.', 'mapify' ),
-					esc_url( admin_url( 'edit.php?post_type=mapify&page=mapify' ) )
-				),
-				'condition'       => array( 'maptype' => array( 'google', 'mapbox', 'mapir', 'neshan', 'parsimap' ) ),
-			)
+		$fields     = Schema::fields();
+		$conditions = $this->section_conditions();
+		$labels     = array(
+			'markers' => __( 'Markers & clusters', 'mapify' ),
 		);
-		$this->end_controls_section();
-
-		$this->start_controls_section(
-			'section_google',
-			array(
-				'label'     => __( 'Google Maps', 'mapify' ),
-				'condition' => array( 'maptype' => 'google' ),
-			)
-		);
-		$this->add_schema_group( 'google', $fields );
-		$this->end_controls_section();
-
-		$this->start_controls_section(
-			'section_snazzy',
-			array(
-				'label'     => __( 'Snazzy Maps style', 'mapify' ),
-				'condition' => array( 'maptype' => 'google' ),
-			)
-		);
-		$this->add_control(
-			'snazzy_help',
-			array(
-				'type'       => Controls_Manager::ALERT,
-				'alert_type' => 'info',
-				'heading'    => __( 'Style your map with Snazzy Maps', 'mapify' ),
-				'content'    => sprintf(
-					/* translators: %s: Snazzy Maps URL */
-					__( 'Pick a free style on <a href="%s" target="_blank" rel="noopener">Snazzy Maps</a>, copy its “JavaScript Style Array”, choose “Custom Snazzy Maps style” in Google Maps → Map style and paste the array below.', 'mapify' ),
-					esc_url( Schema::snazzy_url( 'explore' ) )
-				),
-			)
-		);
-		$this->add_schema_group( 'snazzy', $fields );
-		$this->end_controls_section();
-
-		$this->start_controls_section(
-			'section_tiles',
-			array(
-				'label'     => __( 'Tile layer', 'mapify' ),
-				'condition' => array( 'maptype' => array( 'osm', 'mapbox', 'neshan', 'parsimap', 'custom' ) ),
-			)
-		);
-		$this->add_schema_group( 'tiles', $fields );
-		$this->end_controls_section();
-
-		$this->start_controls_section(
-			'section_plane',
-			array(
-				'label'     => __( 'Image / SVG map', 'mapify' ),
-				'condition' => array( 'maptype' => array( 'iran', 'svg', 'image' ) ),
-			)
-		);
-		$this->add_schema_group( 'plane', $fields );
-		$this->end_controls_section();
-
-		$this->start_controls_section( 'section_pins', array( 'label' => __( 'Custom pins', 'mapify' ) ) );
-		$this->add_control(
-			'pins_help',
-			array(
-				'type'       => Controls_Manager::ALERT,
-				'alert_type' => 'info',
-				'content'    => $fields['pins']['description'],
-			)
-		);
-		$this->add_schema_group( 'pins', $fields );
-		$this->end_controls_section();
-
-		$this->start_controls_section( 'section_markers', array( 'label' => __( 'Markers & clusters', 'mapify' ) ) );
-		$this->add_schema_group( 'markers', $fields );
-		$this->end_controls_section();
-
-		$this->start_controls_section(
-			'section_popup',
-			array(
-				'label'     => __( 'Popup', 'mapify' ),
-				'condition' => array( 'pinaction' => 'popup' ),
-			)
-		);
-		$this->add_schema_group( 'popup', $fields );
-		$this->end_controls_section();
-
-		$this->start_controls_section( 'section_list', array( 'label' => __( 'Branches list', 'mapify' ) ) );
-		$this->add_schema_group( 'list', $fields );
-		$this->end_controls_section();
-
-		$this->start_controls_section( 'section_filter', array( 'label' => __( 'Category filter', 'mapify' ) ) );
-		$this->add_control(
-			'filter_help',
-			array(
-				'type'       => Controls_Manager::ALERT,
-				'alert_type' => 'info',
-				'content'    => sprintf(
-					/* translators: %s: categories screen URL */
-					__( 'Pin color and pin image of each category are set in <a href="%s" target="_blank">Branches → Categories</a>.', 'mapify' ),
-					esc_url( admin_url( 'edit-tags.php?taxonomy=mapify_category&post_type=mapify' ) )
-				),
-			)
-		);
-		$this->add_schema_group( 'filter', $fields );
-		$this->end_controls_section();
+		foreach ( Schema::groups() as $group => $label ) {
+			if ( in_array( $group, array( 'appearance', 'advanced' ), true ) ) {
+				continue;
+			}
+			$has = false;
+			foreach ( $fields as $field ) {
+				if ( $field['group'] === $group ) {
+					$has = true;
+					break;
+				}
+			}
+			if ( ! $has ) {
+				continue;
+			}
+			$section = array( 'label' => isset( $labels[ $group ] ) ? $labels[ $group ] : $label );
+			if ( isset( $conditions[ $group ] ) ) {
+				$section['condition'] = $conditions[ $group ];
+			}
+			$this->start_controls_section( 'source' === $group ? 'section_branches' : 'section_' . $group, $section );
+			$this->add_schema_group( $group, $fields );
+			if ( 'map' === $group ) {
+				$this->add_control(
+					'map_keys_notice',
+					array(
+						'type'       => Controls_Manager::ALERT,
+						'alert_type' => 'info',
+						'content'    => sprintf(
+							/* translators: %s: settings URL */
+							__( 'API keys for Google Maps, Mapbox, Map.ir, Neshan and Parsimap are set in <a href="%s" target="_blank">Branches → Map Settings</a>.', 'mapify' ),
+							esc_url( admin_url( 'edit.php?post_type=mapify&page=mapify' ) )
+						),
+						'condition'  => array( 'maptype' => array( 'google', 'mapbox', 'mapir', 'neshan', 'parsimap' ) ),
+					)
+				);
+			}
+			$this->end_controls_section();
+		}
 
 		$this->register_style_controls();
 	}
@@ -902,69 +857,6 @@ class Map_Widget extends Widget_Base {
 		);
 		$this->end_controls_section();
 
-		/* Category filter */
-		$chip = '{{WRAPPER}} .mapify .mapify__cat';
-		$this->start_controls_section(
-			'style_filter',
-			array(
-				'label' => __( 'Category filter', 'mapify' ),
-				'tab'   => Controls_Manager::TAB_STYLE,
-			)
-		);
-		$this->add_group_control(
-			Group_Control_Typography::get_type(),
-			array(
-				'name'     => 'chip_typography',
-				'selector' => $chip,
-			)
-		);
-		$this->start_controls_tabs( 'chip_tabs' );
-		foreach (
-			array(
-				'normal' => array( __( 'Normal', 'mapify' ), $chip ),
-				'active' => array( __( 'Active', 'mapify' ), $chip . '.is-active' ),
-			) as $state => $meta
-		) {
-			$this->start_controls_tab( 'chip_tab_' . $state, array( 'label' => $meta[0] ) );
-			$this->add_control(
-				'chip_bg_' . $state,
-				array(
-					'label'     => __( 'Background', 'mapify' ),
-					'type'      => Controls_Manager::COLOR,
-					'selectors' => array( $meta[1] => 'background: {{VALUE}};' ),
-				)
-			);
-			$this->add_control(
-				'chip_color_' . $state,
-				array(
-					'label'     => __( 'Text color', 'mapify' ),
-					'type'      => Controls_Manager::COLOR,
-					'selectors' => array( $meta[1] => 'color: {{VALUE}};' ),
-				)
-			);
-			$this->add_control(
-				'chip_border_' . $state,
-				array(
-					'label'     => __( 'Border color', 'mapify' ),
-					'type'      => Controls_Manager::COLOR,
-					'selectors' => array( $meta[1] => 'border-color: {{VALUE}};' ),
-				)
-			);
-			$this->end_controls_tab();
-		}
-		$this->end_controls_tabs();
-		$this->add_responsive_control(
-			'chip_radius',
-			array(
-				'label'     => __( 'Border radius', 'mapify' ),
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => array( 'px' => array( 'min' => 0, 'max' => 40 ) ),
-				'selectors' => array( $chip => 'border-radius: {{SIZE}}px;' ),
-				'separator' => 'before',
-			)
-		);
-		$this->end_controls_section();
-
 		/* Directions button */
 		$dir = '{{WRAPPER}} .mapify-card__directions';
 		$this->start_controls_section(
@@ -1010,6 +902,8 @@ class Map_Widget extends Widget_Base {
 			)
 		);
 		$this->end_controls_section();
+
+		do_action( 'mapify_elementor_style_controls', $this );
 
 		/* Regions */
 		$this->start_controls_section(

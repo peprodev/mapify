@@ -26,6 +26,9 @@
 			maxZoom: 19,
 			attribution: '© OpenStreetMap contributors',
 		} ).addTo( map );
+		// Other scripts (e.g. service areas) draw on the same map.
+		C.map = map;
+		$( document ).trigger( 'mapify:editor-map', [ map ] );
 
 		var icon = L.divIcon( {
 			className: 'mapify-loc__pin',
@@ -63,6 +66,10 @@
 			place( start[ 0 ], start[ 1 ], false );
 		}
 		map.on( 'click', function ( e ) {
+			// Another script is using map clicks (e.g. drawing an area).
+			if ( C.busy ) {
+				return;
+			}
 			place( e.latlng.lat, e.latlng.lng, false );
 		} );
 		map.on( 'zoomend', function () {
@@ -189,15 +196,6 @@
 		$( document ).on( 'change input', '.mapify-pinbox__image input[type="url"]', function () {
 			var v = $( this ).val();
 			$( this ).closest( '.mapify-pinbox__image' ).find( 'img' ).attr( 'src', v ).attr( 'hidden', ! v );
-		} );
-		// The add-category form is submitted with AJAX; clear the pin fields afterwards.
-		$( document ).ajaxSuccess( function ( e, xhr, settings ) {
-			if ( settings && typeof settings.data === 'string' && settings.data.indexOf( 'action=add-tag' ) !== -1 && settings.data.indexOf( 'taxonomy=mapify_category' ) !== -1 ) {
-				$( '#addtag .mapify-pinbox__image input[type="url"]' ).val( '' ).trigger( 'change' );
-				$( '#addtag .mapify-color' ).each( function () {
-					$( this ).wpColorPicker ? $( this ).wpColorPicker( 'color', '' ) : $( this ).val( '' );
-				} );
-			}
 		} );
 	} );
 } )( jQuery );

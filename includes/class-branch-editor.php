@@ -22,14 +22,6 @@ class Branch_Editor {
 		add_action( 'load-post-new.php', array( __CLASS__, 'block_new' ) );
 		add_action( 'admin_notices', array( __CLASS__, 'limit_notice' ) );
 		add_action( 'admin_menu', array( __CLASS__, 'hide_add_new' ), 99 );
-
-		// Category pin settings.
-		add_action( Branches::TAXONOMY . '_add_form_fields', array( __CLASS__, 'term_add_fields' ) );
-		add_action( Branches::TAXONOMY . '_edit_form_fields', array( __CLASS__, 'term_edit_fields' ) );
-		add_action( 'created_' . Branches::TAXONOMY, array( __CLASS__, 'term_save' ) );
-		add_action( 'edited_' . Branches::TAXONOMY, array( __CLASS__, 'term_save' ) );
-		add_filter( 'manage_edit-' . Branches::TAXONOMY . '_columns', array( __CLASS__, 'term_columns' ) );
-		add_filter( 'manage_' . Branches::TAXONOMY . '_custom_column', array( __CLASS__, 'term_column' ), 10, 3 );
 	}
 
 	public static function block_new() {
@@ -73,14 +65,6 @@ class Branch_Editor {
 
 	public static function assets( $hook ) {
 		$screen = get_current_screen();
-		if ( $screen && Branches::TAXONOMY === $screen->taxonomy && in_array( $hook, array( 'edit-tags.php', 'term.php' ), true ) ) {
-			wp_enqueue_media();
-			wp_enqueue_style( 'wp-color-picker' );
-			wp_enqueue_style( 'mapify-branch-editor', MAPIFY_ASSETS . 'css/branch-editor.css', array(), MAPIFY_VERSION );
-			wp_enqueue_script( 'mapify-branch-editor', MAPIFY_ASSETS . 'js/branch-editor.js', array( 'wp-color-picker', 'jquery' ), MAPIFY_VERSION, true );
-			wp_localize_script( 'mapify-branch-editor', 'MapifyBranchEditor', array( 'i18n' => self::i18n() ) );
-			return;
-		}
 		if ( ! $screen || Branches::POST_TYPE !== $screen->post_type || ! in_array( $hook, array( 'post.php', 'post-new.php' ), true ) ) {
 			return;
 		}
@@ -104,109 +88,13 @@ class Branch_Editor {
 		);
 	}
 
-	protected static function i18n() {
+	public static function i18n() {
 		return array(
 			'search'      => __( 'Search an address or place…', 'mapify' ),
 			'noResult'    => __( 'Nothing found.', 'mapify' ),
 			'chooseImage' => __( 'Choose pin image', 'mapify' ),
 			'useImage'    => __( 'Use this image', 'mapify' ),
 		);
-	}
-
-	/* ------------------------------------------------------------------ categories */
-
-	protected static function term_inputs( $color, $image ) {
-		ob_start();
-		?>
-		<input type="text" id="mapify-term-color" name="mapify_pin_color" class="mapify-color" value="<?php echo esc_attr( $color ); ?>" />
-		<?php
-		$color_html = ob_get_clean();
-		ob_start();
-		?>
-		<div class="mapify-pinbox__image">
-			<img src="<?php echo esc_url( $image ); ?>" alt="" <?php echo $image ? '' : 'hidden'; ?> />
-			<input type="url" dir="ltr" id="mapify-term-image" name="mapify_pin_image" class="regular-text" value="<?php echo esc_attr( $image ); ?>" placeholder="https://" />
-			<button type="button" class="button mapify-pinbox__choose"><?php esc_html_e( 'Choose image', 'mapify' ); ?></button>
-		</div>
-		<?php
-		return array( $color_html, ob_get_clean() );
-	}
-
-	public static function term_add_fields() {
-		wp_nonce_field( 'mapify_term_pin', 'mapify_term_nonce' );
-		list( $color, $image ) = self::term_inputs( '', '' );
-		?>
-		<div class="form-field mapify-term-field">
-			<label for="mapify-term-color"><?php esc_html_e( 'Pin color', 'mapify' ); ?></label>
-			<?php echo $color; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped above. ?>
-		</div>
-		<div class="form-field mapify-term-field">
-			<label for="mapify-term-image"><?php esc_html_e( 'Pin image', 'mapify' ); ?></label>
-			<?php echo $image; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped above. ?>
-			<p><?php esc_html_e( 'Branches in this category use this pin on the map, unless the branch has its own pin color or image.', 'mapify' ); ?></p>
-		</div>
-		<?php
-	}
-
-	public static function term_edit_fields( $term ) {
-		$pin = Branches::category_pin( $term->term_id );
-		wp_nonce_field( 'mapify_term_pin', 'mapify_term_nonce' );
-		list( $color, $image ) = self::term_inputs( $pin['color'], $pin['image'] );
-		?>
-		<tr class="form-field mapify-term-field">
-			<th scope="row"><label for="mapify-term-color"><?php esc_html_e( 'Pin color', 'mapify' ); ?></label></th>
-			<td><?php echo $color; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped above. ?></td>
-		</tr>
-		<tr class="form-field mapify-term-field">
-			<th scope="row"><label for="mapify-term-image"><?php esc_html_e( 'Pin image', 'mapify' ); ?></label></th>
-			<td>
-				<?php echo $image; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped above. ?>
-				<p class="description"><?php esc_html_e( 'Branches in this category use this pin on the map, unless the branch has its own pin color or image.', 'mapify' ); ?></p>
-			</td>
-		</tr>
-		<?php
-	}
-
-	public static function term_save( $term_id ) {
-		if ( ! isset( $_POST['mapify_term_nonce'] ) || ! wp_verify_nonce( sanitize_key( wp_unslash( $_POST['mapify_term_nonce'] ) ), 'mapify_term_pin' ) || ! current_user_can( 'manage_categories' ) ) {
-			return;
-		}
-		foreach ( Branches::term_meta_fields() as $key => $field ) {
-			if ( ! isset( $_POST[ $key ] ) ) {
-				continue;
-			}
-			$value = call_user_func( $field[1], wp_unslash( $_POST[ $key ] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- sanitized by the field callback.
-			if ( '' === $value ) {
-				delete_term_meta( $term_id, $key );
-			} else {
-				update_term_meta( $term_id, $key, $value );
-			}
-		}
-	}
-
-	public static function term_columns( $columns ) {
-		$out = array();
-		foreach ( $columns as $key => $label ) {
-			if ( 'name' === $key ) {
-				$out['mapify_pin'] = '<span class="screen-reader-text">' . esc_html__( 'Pin', 'mapify' ) . '</span>';
-			}
-			$out[ $key ] = $label;
-		}
-		return $out;
-	}
-
-	public static function term_column( $content, $column, $term_id ) {
-		if ( 'mapify_pin' !== $column ) {
-			return $content;
-		}
-		$pin = Branches::category_pin( $term_id );
-		if ( $pin['image'] ) {
-			return '<img class="mapify-term-pin" src="' . esc_url( $pin['image'] ) . '" alt="" />';
-		}
-		if ( $pin['color'] ) {
-			return '<span class="mapify-term-pin mapify-term-pin--color" style="--c:' . esc_attr( $pin['color'] ) . '" title="' . esc_attr( $pin['color'] ) . '"></span>';
-		}
-		return '<span aria-hidden="true">—</span>';
 	}
 
 	public static function add_meta_boxes() {

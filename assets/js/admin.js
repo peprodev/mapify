@@ -16,6 +16,7 @@
 	var sprintf = wp.i18n.sprintf;
 	var apiFetch = wp.apiFetch;
 	var D = window.MapifyAdmin || {};
+	var hooks = wp.hooks;
 
 	var modern = { __nextHasNoMarginBottom: true, __next40pxDefaultSize: true };
 	function props( extra ) {
@@ -140,254 +141,6 @@
 		} );
 	}
 
-	/** Import / export of settings, categories and branches (REST: mapify/v1/export, mapify/v1/import). */
-	function TransferPanel( p ) {
-		var exp = useState( { settings: true, categories: true, branches: true } );
-		var imp = useState( { settings: true, categories: true, branches: true, existing: 'update', images: false } );
-		var file = useState( null );
-		var busy = useState( '' );
-		var report = useState( null );
-		var error = useState( '' );
-
-		function toggle( st, key ) {
-			return function ( v ) {
-				var next = Object.assign( {}, st[ 0 ] );
-				next[ key ] = v;
-				st[ 1 ]( next );
-			};
-		}
-
-		function doExport() {
-			busy[ 1 ]( 'export' );
-			error[ 1 ]( '' );
-			var q = Object.keys( exp[ 0 ] )
-				.map( function ( k ) {
-					return k + '=' + ( exp[ 0 ][ k ] ? 1 : 0 );
-				} )
-				.join( '&' );
-			apiFetch( { path: '/mapify/v1/export?' + q } )
-				.then( function ( data ) {
-					downloadJson( data, 'mapify-export-' + today() + '.json' );
-				} )
-				.catch( function ( err ) {
-					error[ 1 ]( ( err && err.message ) || __( 'Export failed.', 'mapify' ) );
-				} )
-				.finally( function () {
-					busy[ 1 ]( '' );
-				} );
-		}
-
-		function doImport() {
-			if ( ! file[ 0 ] ) {
-				return;
-			}
-			busy[ 1 ]( 'import' );
-			error[ 1 ]( '' );
-			report[ 1 ]( null );
-			readJsonFile( file[ 0 ] )
-				.then( function ( data ) {
-					return apiFetch( { path: '/mapify/v1/import', method: 'POST', data: Object.assign( { data: data }, imp[ 0 ] ) } );
-				} )
-				.then( function ( res ) {
-					report[ 1 ]( res );
-					if ( res.settings && p.onSettingsImported ) {
-						p.onSettingsImported();
-					}
-				} )
-				.catch( function ( err ) {
-					error[ 1 ]( ( err && err.message ) || __( 'Import failed.', 'mapify' ) );
-				} )
-				.finally( function () {
-					busy[ 1 ]( '' );
-				} );
-		}
-
-		function parts( st ) {
-			return [
-				el( C.CheckboxControl, { key: 's', __nextHasNoMarginBottom: true, label: __( 'Map settings (API keys and defaults)', 'mapify' ), checked: st[ 0 ].settings, onChange: toggle( st, 'settings' ) } ),
-				el( C.CheckboxControl, { key: 'c', __nextHasNoMarginBottom: true, label: __( 'Categories (with pin color and image)', 'mapify' ), checked: st[ 0 ].categories, onChange: toggle( st, 'categories' ) } ),
-				el( C.CheckboxControl, { key: 'b', __nextHasNoMarginBottom: true, label: __( 'Branches (content, details, location and pins)', 'mapify' ), checked: st[ 0 ].branches, onChange: toggle( st, 'branches' ) } ),
-			];
-		}
-
-		var r = report[ 0 ];
-		return el(
-			'div',
-			{ className: 'mapify-stack' },
-			error[ 0 ] ? el( C.Notice, { status: 'error', isDismissible: false }, error[ 0 ] ) : null,
-			el(
-				C.Card,
-				{ className: 'mapify-card' },
-				el( C.CardHeader, null, el( 'div', null, el( 'h2', { className: 'mapify-card__title' }, __( 'Export', 'mapify' ) ), el( 'p', { className: 'mapify-card__desc' }, __( 'Download a JSON file to move Mapify to another site or keep a backup.', 'mapify' ) ) ) ),
-				el(
-					C.CardBody,
-					{ className: 'mapify-stack' },
-					el( 'div', { className: 'mapify-checklist' }, parts( exp ) ),
-					el( 'div', { className: 'mapify-row' }, el( C.Button, props( { variant: 'primary', icon: 'download', isBusy: busy[ 0 ] === 'export', disabled: !! busy[ 0 ] || ! ( exp[ 0 ].settings || exp[ 0 ].categories || exp[ 0 ].branches ), onClick: doExport } ), __( 'Download export file', 'mapify' ) ) ),
-					el( 'p', { className: 'mapify-muted' }, __( 'Branches and categories are also included in Tools → Export (WordPress export file), and can be read and written through the REST API at /wp-json/wp/v2/mapify and /wp-json/mapify/v1/.', 'mapify' ) )
-				)
-			),
-			el(
-				C.Card,
-				{ className: 'mapify-card' },
-				el( C.CardHeader, null, el( 'div', null, el( 'h2', { className: 'mapify-card__title' }, __( 'Import', 'mapify' ) ), el( 'p', { className: 'mapify-card__desc' }, __( 'Choose a file made by the export above.', 'mapify' ) ) ) ),
-				el(
-					C.CardBody,
-					{ className: 'mapify-stack' },
-					el( 'input', {
-						type: 'file',
-						accept: '.json,application/json',
-						className: 'mapify-file',
-						onChange: function ( e ) {
-							file[ 1 ]( e.target.files[ 0 ] || null );
-							report[ 1 ]( null );
-						},
-					} ),
-					el( 'div', { className: 'mapify-checklist' }, parts( imp ) ),
-					el( C.SelectControl, props( {
-						label: __( 'When a branch already exists (same slug)', 'mapify' ),
-						value: imp[ 0 ].existing,
-						options: [
-							{ value: 'update', label: __( 'Update it', 'mapify' ) },
-							{ value: 'skip', label: __( 'Skip it', 'mapify' ) },
-							{ value: 'duplicate', label: __( 'Add it again as a new branch', 'mapify' ) },
-						],
-						onChange: toggle( imp, 'existing' ),
-					} ) ),
-					el( C.ToggleControl, props( { label: __( 'Download featured images', 'mapify' ), help: __( 'Copies each branch image from the source site into the media library.', 'mapify' ), checked: imp[ 0 ].images, onChange: toggle( imp, 'images' ) } ) ),
-					el( 'div', { className: 'mapify-row' }, el( C.Button, props( { variant: 'primary', icon: 'upload', isBusy: busy[ 0 ] === 'import', disabled: !! busy[ 0 ] || ! file[ 0 ], onClick: doImport } ), __( 'Import', 'mapify' ) ) ),
-					r
-						? el(
-								C.Notice,
-								{ status: r.errors && r.errors.length ? 'warning' : 'success', isDismissible: false },
-								el(
-									'ul',
-									{ className: 'mapify-report' },
-									r.settings ? el( 'li', null, __( 'Map settings imported.', 'mapify' ) ) : null,
-									el( 'li', null, sprintf( __( 'Categories: %1$d created, %2$d updated, %3$d skipped.', 'mapify' ), r.categories.created, r.categories.updated, r.categories.skipped ) ),
-									el( 'li', null, sprintf( __( 'Branches: %1$d created, %2$d updated, %3$d skipped.', 'mapify' ), r.branches.created, r.branches.updated, r.branches.skipped ) ),
-									( r.errors || [] ).map( function ( m, i ) {
-										return el( 'li', { key: i }, m );
-									} )
-								)
-						  )
-						: null
-				)
-			)
-		);
-	}
-
-	/** Map Settings → Navigation: the apps offered by the Get directions button. */
-	function NavPanel( p ) {
-		var N = D.nav || { builtins: {}, platforms: {}, defaults: [] };
-		var apps = p.apps || [];
-		var frame = useRef( null );
-
-		function update( i, key, val ) {
-			p.onChange(
-				apps.map( function ( app, j ) {
-					if ( j !== i ) {
-						return app;
-					}
-					var c = Object.assign( {}, app );
-					c[ key ] = val;
-					return c;
-				} )
-			);
-		}
-		function move( i, d ) {
-			var next = apps.slice();
-			var t = next[ i ];
-			next[ i ] = next[ i + d ];
-			next[ i + d ] = t;
-			p.onChange( next );
-		}
-		function remove( i ) {
-			p.onChange( apps.filter( function ( a, j ) {
-				return j !== i;
-			} ) );
-		}
-		function add() {
-			p.onChange( apps.concat( [ { id: 'app-' + Date.now().toString( 36 ), label: '', url: '', icon: '', platform: '', enabled: true } ] ) );
-		}
-		function chooseIcon( i ) {
-			frame.current = wp.media( { title: __( 'Choose app icon', 'mapify' ), library: { type: 'image' }, multiple: false } );
-			frame.current.on( 'select', function () {
-				update( i, 'icon', frame.current.state().get( 'selection' ).first().toJSON().url );
-			} );
-			frame.current.open();
-		}
-		var platforms = Object.keys( N.platforms ).map( function ( k ) {
-			return { value: k, label: N.platforms[ k ] };
-		} );
-
-		return el(
-			'div',
-			{ className: 'mapify-stack' },
-			el(
-				C.Card,
-				{ className: 'mapify-card' },
-				el( C.CardHeader, null, el( 'div', null, el( 'h2', { className: 'mapify-card__title' }, __( 'Navigation apps', 'mapify' ) ), el( 'p', { className: 'mapify-card__desc' }, __( 'The apps listed when a visitor taps “Get directions” in a branch popup. Turn apps on or off, change their name and icon, reorder them or add your own.', 'mapify' ) ) ) ),
-				el(
-					C.CardBody,
-					{ className: 'mapify-stack' },
-					el( C.TextControl, props( { label: __( 'List title', 'mapify' ), placeholder: __( 'Get directions with', 'mapify' ), value: p.title || '', onChange: p.onTitle } ) ),
-					apps.length ? null : el( C.Notice, { status: 'warning', isDismissible: false }, __( 'No apps in the list. The button opens Google Maps.', 'mapify' ) ),
-					apps.map( function ( app, i ) {
-						var b = N.builtins[ app.id ] || null;
-						var icon = app.icon || ( b ? b.icon : N.defaultIcon );
-						return el(
-							'div',
-							{ key: app.id, className: 'mapify-nav' + ( app.enabled ? '' : ' is-off' ) },
-							el(
-								'div',
-								{ className: 'mapify-nav__head' },
-								el( 'img', { className: 'mapify-nav__icon', src: icon, alt: '' } ),
-								el( 'strong', { className: 'mapify-nav__name' }, app.label || ( b ? b.label : __( 'New app', 'mapify' ) ) ),
-								el( C.ToggleControl, props( { label: app.enabled ? __( 'On', 'mapify' ) : __( 'Off', 'mapify' ), checked: !! app.enabled, onChange: function ( v ) { update( i, 'enabled', v ); } } ) ),
-								el( C.Button, { icon: 'arrow-up-alt2', label: __( 'Move up', 'mapify' ), size: 'small', disabled: i === 0, onClick: function () { move( i, -1 ); } } ),
-								el( C.Button, { icon: 'arrow-down-alt2', label: __( 'Move down', 'mapify' ), size: 'small', disabled: i === apps.length - 1, onClick: function () { move( i, 1 ); } } ),
-								el( C.Button, { icon: 'trash', label: __( 'Remove', 'mapify' ), size: 'small', isDestructive: true, onClick: function () { remove( i ); } } )
-							),
-							el(
-								'div',
-								{ className: 'mapify-grid-2' },
-								el( C.TextControl, props( { label: __( 'Name', 'mapify' ), placeholder: b ? b.label : '', value: app.label || '', onChange: function ( v ) { update( i, 'label', v ); } } ) ),
-								el( C.SelectControl, props( {
-									label: __( 'Show on', 'mapify' ),
-									value: app.platform || ( b ? b.platform : 'all' ),
-									options: platforms,
-									onChange: function ( v ) { update( i, 'platform', v ); },
-								} ) )
-							),
-							el( C.TextControl, props( {
-								label: __( 'Link', 'mapify' ),
-								help: b ? __( 'Leave empty to use the default link.', 'mapify' ) : __( 'Use {lat}, {lng}, {title} and {address}. App links such as geo:, waze:// or comgooglemaps:// also work.', 'mapify' ),
-								placeholder: b ? b.url : 'https://example.com/route?to={lat},{lng}',
-								value: app.url || '',
-								className: 'is-ltr',
-								onChange: function ( v ) { update( i, 'url', v ); },
-							} ) ),
-							el(
-								'div',
-								{ className: 'mapify-row' },
-								el( C.Button, props( { variant: 'secondary', icon: 'format-image', onClick: function () { chooseIcon( i ); } } ), __( 'Change icon', 'mapify' ) ),
-								app.icon ? el( C.Button, props( { variant: 'tertiary', onClick: function () { update( i, 'icon', '' ); } } ), __( 'Use default icon', 'mapify' ) ) : null
-							)
-						);
-					} ),
-					el(
-						'div',
-						{ className: 'mapify-row' },
-						el( C.Button, props( { variant: 'secondary', icon: 'plus', onClick: add } ), __( 'Add app', 'mapify' ) ),
-						el( C.Button, props( { variant: 'tertiary', onClick: function () { p.onChange( N.defaults.slice() ); } } ), __( 'Restore default apps', 'mapify' ) )
-					),
-					el( 'p', { className: 'mapify-muted' }, __( 'Whether the button shows this list or opens the phone’s default map app is set per map, in the Popup section of the widget or shortcode.', 'mapify' ) )
-				)
-			)
-		);
-	}
-
 	/* ------------------------------------------------------------------ settings screen */
 
 	function SettingsScreen() {
@@ -431,14 +184,12 @@
 			return { value: k, label: D.engines[ k ] };
 		} );
 
-		var tabs = [
+		var tabs = hooks.applyFilters( 'mapify.settings.tabs', [
 			{ name: 'providers', title: __( 'Map providers', 'mapify' ) },
 			{ name: 'defaults', title: __( 'Defaults', 'mapify' ) },
 			{ name: 'branches', title: __( 'Branches', 'mapify' ) },
-			{ name: 'navigation', title: __( 'Navigation', 'mapify' ) },
-			{ name: 'transfer', title: __( 'Import / Export', 'mapify' ) },
 			{ name: 'advanced', title: __( 'Advanced', 'mapify' ) },
-		];
+		] );
 
 		function reload() {
 			apiFetch( { path: '/wp/v2/settings' } ).then( function ( res ) {
@@ -463,7 +214,14 @@
 			);
 		}
 
+		// What extensions get to build their own tabs and cards.
+		var api = { values: values, set: set, setValues: setValues, reload: reload };
+
 		function tab( t ) {
+			var custom = hooks.applyFilters( 'mapify.settings.tab', null, t.name, api );
+			if ( custom ) {
+				return custom;
+			}
 			switch ( t.name ) {
 				case 'providers':
 					return el(
@@ -581,10 +339,6 @@
 							} ) )
 						)
 					);
-				case 'navigation':
-					return el( NavPanel, { apps: values.nav_apps, onChange: set( 'nav_apps' ), title: values.nav_title, onTitle: set( 'nav_title' ) } );
-				case 'transfer':
-					return el( TransferPanel, { onSettingsImported: reload } );
 				default:
 					return el(
 						'div',
@@ -596,39 +350,10 @@
 							el(
 								C.CardBody,
 								{ className: 'mapify-stack' },
-								el( C.ToggleControl, props( { label: __( 'Allow SVG uploads', 'mapify' ), help: __( 'Lets administrators upload SVG maps to the media library. Files are sanitized on upload.', 'mapify' ), checked: !! values.allow_svg_upload, onChange: set( 'allow_svg_upload' ) } ) ),
 								el( C.ToggleControl, props( { label: __( 'Delete settings on uninstall', 'mapify' ), help: __( 'Branches are kept either way.', 'mapify' ), checked: !! values.clear_on_uninstall, onChange: set( 'clear_on_uninstall' ) } ) )
 							)
 						),
-						el(
-							C.Card,
-							{ className: 'mapify-card' },
-							el( C.CardHeader, null, el( 'div', null, el( 'h2', { className: 'mapify-card__title' }, __( 'Map attribution (copyright)', 'mapify' ) ), el( 'p', { className: 'mapify-card__desc' }, __( 'The copyright line shown in the bottom corner of OpenStreetMap, Mapup, Mapbox, Neshan, Parsimap, Map.ir and Google maps.', 'mapify' ) ) ) ),
-							el(
-								C.CardBody,
-								{ className: 'mapify-stack' },
-								el(
-									C.Notice,
-									{ status: 'warning', isDismissible: false, className: 'mapify-attr-notice' },
-									el( 'strong', null, __( 'Use with caution.', 'mapify' ) ),
-									' ',
-									__( 'This option is only meant for development and testing. Map providers require their attribution to stay visible under their terms of use, and hiding or changing it on a live site is not advised.', 'mapify' )
-								),
-								el( C.RadioControl, {
-									label: __( 'Attribution', 'mapify' ),
-									selected: values.attribution_mode || 'default',
-									options: [
-										{ value: 'default', label: __( 'Show the provider attribution (recommended)', 'mapify' ) },
-										{ value: 'custom', label: __( 'Replace it with my own text', 'mapify' ) },
-										{ value: 'hide', label: __( 'Hide it', 'mapify' ) },
-									],
-									onChange: set( 'attribution_mode' ),
-								} ),
-								values.attribution_mode === 'custom'
-									? el( C.TextControl, props( { label: __( 'Attribution text', 'mapify' ), help: __( 'Links are allowed, e.g. <a href="https://www.openstreetmap.org/copyright">© OpenStreetMap</a>', 'mapify' ), value: values.attribution_text || '', onChange: set( 'attribution_text' ), className: 'is-ltr' } ) )
-									: null
-							)
-						)
+						hooks.applyFilters( 'mapify.settings.advanced', [], api )
 					);
 			}
 		}
@@ -805,7 +530,22 @@
 					);
 				} )
 			),
-			! options.length ? el( 'p', { className: 'mapify-muted' }, __( 'No style found.', 'mapify' ) ) : null
+			! options.length ? el( 'p', { className: 'mapify-muted' }, __( 'No style found.', 'mapify' ) ) : null,
+			p.field.note ? el( 'p', { className: 'mapify-muted mapify-styles__note' }, p.field.note ) : null
+		);
+	}
+
+	/** Read-only message; "pro" notices show the feature greyed out. */
+	function NoticeField( p ) {
+		var f = p.field;
+		if ( f.variant !== 'pro' ) {
+			return el( C.Notice, { status: 'info', isDismissible: false }, f.content );
+		}
+		return el(
+			'div',
+			{ className: 'mapify-pro-field', 'aria-disabled': 'true' },
+			el( C.TextareaControl, { __nextHasNoMarginBottom: true, label: f.label, value: '', disabled: true, rows: 3, onChange: function () {} } ),
+			el( 'p', { className: 'mapify-muted' }, f.content )
 		);
 	}
 
@@ -884,6 +624,8 @@
 				} );
 			case 'repeater':
 				return el( Pins, p );
+			case 'notice':
+				return el( NoticeField, p );
 			default:
 				return el( C.TextControl, props( { label: f.label, help: f.description, value: v || '', placeholder: f.placeholder, onChange: on } ) );
 		}
@@ -988,42 +730,14 @@
 			el( Header, {
 				title: __( 'Mapify — Shortcode Builder', 'mapify' ),
 				subtitle: __( 'Design a map, preview it live and paste the shortcode anywhere.', 'mapify' ),
-				actions: [
-					el( C.Button, props( { key: 'r', variant: 'tertiary', onClick: function () { setValues( Object.assign( {}, D.defaults ) ); } } ), __( 'Reset', 'mapify' ) ),
-					el( C.Button, props( { key: 'ex', variant: 'tertiary', icon: 'download', onClick: function () { downloadJson( { format: 'mapify-map', version: D.version, settings: values }, 'mapify-map-' + today() + '.json' ); } } ), __( 'Export map', 'mapify' ) ),
-					el( C.FormFileUpload, {
-						key: 'im',
-						accept: '.json,application/json',
-						icon: 'upload',
-						variant: 'tertiary',
-						__next40pxDefaultSize: true,
-						onChange: function ( e ) {
-							var f = e.target.files[ 0 ];
-							if ( ! f ) {
-								return;
-							}
-							readJsonFile( f )
-								.then( function ( data ) {
-									var incoming = data && data.format === 'mapify-map' && data.settings ? data.settings : null;
-									if ( ! incoming ) {
-										throw new Error( __( 'This is not a Mapify map file.', 'mapify' ) );
-									}
-									var next = Object.assign( {}, D.defaults );
-									Object.keys( incoming ).forEach( function ( k ) {
-										if ( byKey[ k ] ) {
-											next[ k ] = incoming[ k ];
-										}
-									} );
-									setValues( next );
-								} )
-								.catch( function ( err ) {
-									window.alert( err.message ); // eslint-disable-line no-alert
-								} );
-							e.target.value = '';
-						},
-					}, __( 'Import map', 'mapify' ) ),
-					el( CopyButton, { key: 'c', text: shortcode, variant: 'primary', label: __( 'Copy shortcode', 'mapify' ) } ),
-				],
+				actions: hooks.applyFilters(
+					'mapify.builder.actions',
+					[
+						el( C.Button, props( { key: 'r', variant: 'tertiary', onClick: function () { setValues( Object.assign( {}, D.defaults ) ); } } ), __( 'Reset', 'mapify' ) ),
+						el( CopyButton, { key: 'c', text: shortcode, variant: 'primary', label: __( 'Copy shortcode', 'mapify' ) } ),
+					],
+					{ values: values, setValues: setValues, byKey: byKey }
+				),
 			} ),
 			el(
 				'div',
@@ -1101,6 +815,21 @@
 			)
 		);
 	}
+
+	// Shared with extensions (window.MapifyAdminKit), which add tabs, cards and builder actions through wp.hooks.
+	window.MapifyAdminKit = {
+		el: el,
+		C: C,
+		props: props,
+		useState: useState,
+		useRef: useRef,
+		useEffect: useEffect,
+		Field: Field,
+		CopyButton: CopyButton,
+		downloadJson: downloadJson,
+		readJsonFile: readJsonFile,
+		today: today,
+	};
 
 	function App() {
 		return D.screen === 'settings' ? el( SettingsScreen ) : el( BuilderScreen );

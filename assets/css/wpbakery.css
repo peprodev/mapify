@@ -45,3 +45,20 @@
 .mapify-vc-images__item[hidden] {
 	display: none;
 }
+
+.mapify-vc-pro {
+	opacity: .6;
+	pointer-events: none;
+}
+
+.mapify-vc-pro textarea {
+	width: 100%;
+	background: #f6f7f7;
+}
+
+.mapify-vc-pro p,
+.mapify-vc-notice {
+	margin: 6px 0 0;
+	font-style: italic;
+	color: #646970;
+}

@@ -31,6 +31,7 @@ class Gallery_Control extends Base_Data_Control {
 			'label_block' => true,
 			'options'     => array(),
 			'search'      => false,
+			'note'        => '',
 		);
 	}
 
@@ -56,6 +57,9 @@ class Gallery_Control extends Base_Data_Control {
 				<# } ); #>
 			</div>
 			<p class="mapify-gallery__empty" hidden><?php esc_html_e( 'No style found.', 'mapify' ); ?></p>
+			<# if ( data.note ) { #>
+			<p class="mapify-gallery__note">{{ data.note }}</p>
+			<# } #>
 			<input type="hidden" data-setting="{{ data.name }}" />
 		</div>
 		<# if ( data.description ) { #>

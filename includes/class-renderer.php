@@ -123,14 +123,6 @@ class Renderer {
 			$missing = __( 'Parsimap needs an API token (Branches → Map Settings). Showing OpenStreetMap instead.', 'mapify' );
 		} elseif ( 'custom' === $s['maptype'] && '' === $s['tiles_url'] ) {
 			$missing = __( 'Enter a tile URL template for the custom tile server. Showing OpenStreetMap instead.', 'mapify' );
-		} elseif ( 'image' === $s['maptype'] && '' === $s['map_image'] ) {
-			$missing = __( 'Choose an image for the image map. Showing the offline Iran map instead.', 'mapify' );
-			$s['maptype'] = 'iran';
-			return $missing;
-		} elseif ( 'svg' === $s['maptype'] && '' === $s['svg_file'] ) {
-			$missing = __( 'Choose an SVG file for the SVG map. Showing the offline Iran map instead.', 'mapify' );
-			$s['maptype'] = 'iran';
-			return $missing;
 		}
 		if ( $missing ) {
 			$s['maptype']   = 'osm';
@@ -139,86 +131,26 @@ class Renderer {
 		return $missing;
 	}
 
-	protected static function parse_bounds( $value ) {
-		$parts = array_map( 'trim', explode( ',', (string) $value ) );
-		if ( 4 !== count( $parts ) ) {
-			return null;
-		}
-		foreach ( $parts as $p ) {
-			if ( ! is_numeric( $p ) ) {
-				return null;
-			}
-		}
-		return array(
-			'north' => (float) $parts[0],
-			'west'  => (float) $parts[1],
-			'south' => (float) $parts[2],
-			'east'  => (float) $parts[3],
-		);
-	}
-
 	/**
-	 * Categories used by the given branches, in term order: [ { id, name, slug, color, image, count } ].
+	 * Map attribution: the provider's copyright plus a link to Mapify on WordPress.org.
 	 */
-	public static function categories_for( array $items ) {
-		$counts = array();
-		foreach ( $items as $item ) {
-			if ( empty( $item['custom'] ) && ! empty( $item['categories'] ) ) {
-				foreach ( array_keys( $item['categories'] ) as $id ) {
-					$counts[ $id ] = isset( $counts[ $id ] ) ? $counts[ $id ] + 1 : 1;
-				}
-			}
-		}
-		if ( ! $counts ) {
-			return array();
-		}
-		$terms = get_terms(
-			array(
-				'taxonomy'   => Branches::TAXONOMY,
-				'include'    => array_keys( $counts ),
-				'hide_empty' => false,
-				'orderby'    => 'name',
-			)
+	public static function attribution() {
+		return array(
+			'mode'  => 'default',
+			'html'  => '',
+			'brand' => '<a href="' . esc_url( MAPIFY_REPO_URL ) . '" target="_blank" rel="noopener">© PeproDev Mapify</a>',
 		);
-		$out = array();
-		if ( is_wp_error( $terms ) ) {
-			return $out;
-		}
-		foreach ( $terms as $term ) {
-			$pin   = Branches::category_pin( $term->term_id );
-			$out[] = array(
-				'id'    => (string) $term->term_id,
-				'name'  => $term->name,
-				'slug'  => $term->slug,
-				'color' => $pin['color'],
-				'image' => $pin['image'],
-				'count' => $counts[ $term->term_id ],
-			);
-		}
-		return apply_filters( 'mapify_filter_categories', $out, $items );
 	}
 
 	public static function config( array $s, array $branches ) {
 		$center = array_map( 'floatval', array_pad( explode( ',', $s['center_coordinate'] ), 2, 0 ) );
-		$pick   = $s['directions_apps'];
-		// Maps saved with 2.1 stored the full built-in list; treat it as "all apps".
-		if ( array( 'google', 'apple', 'waze', 'neshan', 'balad' ) === $pick ) {
-			$pick = array();
-		}
-		$apps = array();
-		foreach ( Options::nav_apps() as $app ) {
-			if ( $app['enabled'] && ( ! $pick || in_array( $app['id'], $pick, true ) ) ) {
-				unset( $app['enabled'] );
-				$apps[] = $app;
-			}
-		}
 		$config = array(
-			'engine'     => $s['maptype'],
-			'center'     => array( $center[0], $center[1] ),
-			'zoom'       => (int) $s['default_zoom'],
-			'fitBounds'  => (bool) $s['fit_bounds'],
-			'scrollZoom' => (bool) $s['scroll_zoom'],
-			'controls'   => ! $s['disabledefaultui'],
+			'engine'       => $s['maptype'],
+			'center'       => array( $center[0], $center[1] ),
+			'zoom'         => (int) $s['default_zoom'],
+			'fitBounds'    => (bool) $s['fit_bounds'],
+			'scrollZoom'   => (bool) $s['scroll_zoom'],
+			'controls'     => ! $s['disabledefaultui'],
 			'zoomControl'  => ! $s['disabledefaultui'] && $s['zoom_control'],
 			'zoomPosition' => $s['zoom_position'],
 			'dblClickZoom' => (bool) $s['double_click_zoom'],
@@ -226,40 +158,35 @@ class Renderer {
 			'minZoom'      => '' === $s['min_zoom'] ? null : (int) $s['min_zoom'],
 			'maxZoom'      => '' === $s['max_zoom'] ? null : (int) $s['max_zoom'],
 			'planeMaxZoom' => '' === $s['plane_max_zoom'] ? 4 : max( 1, (float) $s['plane_max_zoom'] ),
-			'fullscreen' => (bool) $s['fullscreen'],
-			'cluster'    => (bool) $s['branchascluster'],
+			'fullscreen'   => (bool) $s['fullscreen'],
+			'cluster'      => (bool) $s['branchascluster'],
 			'clusterRadius' => $s['clustergridsize'] ? (int) $s['clustergridsize'] : 60,
-			'clusterMin' => $s['clusterminsize'] ? (int) $s['clusterminsize'] : 2,
-			'pinStyle'   => $s['pin_style'],
-			'pinImage'   => 'image' === $s['pin_style'] ? $s['pinimage'] : '',
-			'animation'  => $s['pin_animation'],
-			'tooltip'    => (bool) $s['show_tooltip'],
-			'action'     => $s['pinaction'],
-			'target'     => $s['pinurltarget'],
-			'template'   => $s['popup_markup'],
-			'popupImage' => $s['popup_image'],
-			'placeholder' => $s['popup_image_fallback'] ? MAPIFY_ASSETS . 'img/defimg.jpg' : '',
-			'directions' => $s['popup_directions'] ? array(
+			'clusterMin'   => $s['clusterminsize'] ? (int) $s['clusterminsize'] : 2,
+			'pinStyle'     => $s['pin_style'],
+			'pinImage'     => 'image' === $s['pin_style'] ? $s['pinimage'] : '',
+			'animation'    => $s['pin_animation'],
+			'tooltip'      => (bool) $s['show_tooltip'],
+			'action'       => $s['pinaction'],
+			'target'       => $s['pinurltarget'],
+			'template'     => $s['popup_markup'],
+			'popupImage'   => $s['popup_image'],
+			'placeholder'  => $s['popup_image_fallback'] ? MAPIFY_ASSETS . 'img/defimg.jpg' : '',
+			'directions'   => $s['popup_directions'] ? array(
 				'label' => $s['directions_label'],
 				'mode'  => $s['directions_mode'],
-				'title' => '' !== Options::get( 'nav_title' ) ? Options::get( 'nav_title' ) : __( 'Get directions with', 'mapify' ),
-				'apps'  => $apps,
 			) : null,
-			'catMultiple' => (bool) $s['cat_filter_multiple'],
-			'attribution' => array(
-				'mode' => Options::get( 'attribution_mode' ),
-				'html' => wp_kses( (string) Options::get( 'attribution_text' ), Options::attribution_tags() ),
-			),
-			'list'       => (bool) $s['branchlistshow'],
-			'listScroll' => (bool) $s['list_scroll_to_map'],
-			'listPopup'  => (bool) $s['list_open_popup'],
-			'items'      => array_values( array_merge( $branches, $s['pins'] ) ),
-			'i18n'       => array(
+			'attribution'  => self::attribution(),
+			'list'         => (bool) $s['branchlistshow'],
+			'listScroll'   => (bool) $s['list_scroll_to_map'],
+			'listPopup'    => (bool) $s['list_open_popup'],
+			'items'        => array_values( $branches ),
+			'i18n'         => array(
 				'noResult'     => __( 'No branch found.', 'mapify' ),
 				'showAll'      => __( 'Show all', 'mapify' ),
 				'fullscreen'   => __( 'Fullscreen', 'mapify' ),
 				'close'        => __( 'Close', 'mapify' ),
 				'googleFailed' => __( 'Google Maps could not be loaded. Check your API key.', 'mapify' ),
+				'loadFailed'   => __( 'The map could not be loaded.', 'mapify' ),
 				'zoomIn'       => __( 'Zoom in', 'mapify' ),
 				'zoomOut'      => __( 'Zoom out', 'mapify' ),
 				'zoomReset'    => __( 'Reset zoom', 'mapify' ),
@@ -268,24 +195,19 @@ class Renderer {
 		);
 
 		if ( 'google' === $s['maptype'] ) {
-			$style = '';
-			if ( 'custom' === $s['map_defined_style'] ) {
-				$style = $s['googlemap_style'];
-			} else {
-				$styles = Schema::google_styles();
-				if ( isset( $styles[ $s['map_defined_style'] ] ) ) {
-					$style = $styles[ $s['map_defined_style'] ]['json'];
-				} elseif ( 'default' !== $s['map_defined_style'] ) {
-					$style = (string) apply_filters( 'mapify-shortcode-googlemapstyle-render-customstyle-json', '', $s['map_defined_style'], $s, '' );
-				}
+			$style  = '';
+			$styles = Schema::google_styles();
+			if ( isset( $styles[ $s['map_defined_style'] ] ) ) {
+				$style = $styles[ $s['map_defined_style'] ]['json'];
+			} elseif ( 'default' !== $s['map_defined_style'] ) {
+				$style = (string) apply_filters( 'mapify-shortcode-googlemapstyle-render-customstyle-json', '', $s['map_defined_style'], $s, '' ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores -- v1 hook name.
 			}
-			$decoded          = Schema::parse_google_style( $style );
 			$config['google'] = array(
 				'key'      => Options::get( 'google_api_key' ),
 				'mapId'    => Options::get( 'google_map_id' ),
 				'language' => Options::get( 'google_language' ),
 				'type'     => $s['google_type'],
-				'styles'   => is_array( $decoded ) ? $decoded : array(),
+				'styles'   => Schema::parse_google_style( $style ),
 			);
 		} elseif ( in_array( $s['maptype'], Schema::tile_engines(), true ) ) {
 			$config['tiles'] = self::tile_provider( $s );
@@ -294,19 +216,12 @@ class Renderer {
 				'regionTooltip'   => (bool) $s['region_tooltip'],
 				'regionHighlight' => (bool) $s['region_highlight'],
 				'regionClick'     => $s['region_click'],
-				'bounds'          => self::parse_bounds( $s['geo_bounds'] ),
-				'projection'      => $s['geo_projection'],
+				'bounds'          => null,
+				'projection'      => 'mercator',
 			);
 			if ( 'iran' === $s['maptype'] ) {
-				$lang                = 'auto' === $s['region_labels'] ? ( 0 === strpos( determine_locale(), 'fa' ) ? 'fa' : 'en' ) : $s['region_labels'];
-				$plane['svg']        = MAPIFY_ASSETS . 'maps/iran.svg?ver=' . MAPIFY_VERSION;
-				$plane['labels']     = $lang;
-				$plane['bounds']     = null; // Read from the SVG itself.
-				$plane['projection'] = 'mercator';
-			} elseif ( 'svg' === $s['maptype'] ) {
-				$plane['svg'] = $s['svg_file'];
-			} else {
-				$plane['image'] = $s['map_image'];
+				$plane['svg']    = MAPIFY_ASSETS . 'maps/iran.svg?ver=' . MAPIFY_VERSION;
+				$plane['labels'] = 'auto' === $s['region_labels'] ? ( 0 === strpos( determine_locale(), 'fa' ) ? 'fa' : 'en' ) : $s['region_labels'];
 			}
 			$config['plane'] = $plane;
 		}
@@ -326,76 +241,45 @@ class Renderer {
 		return implode( ';', $css );
 	}
 
-	/**
-	 * Category chips used above the list and on the map.
-	 */
-	protected static function category_chips( array $s, array $cats, $class ) {
-		if ( count( $cats ) < 1 ) {
-			return '';
-		}
-		$total = 0;
-		foreach ( $cats as $cat ) {
-			$total += $cat['count'];
-		}
-		$count = function ( $n ) use ( $s ) {
-			return $s['cat_filter_counts'] ? ' <span class="mapify__cat-count">' . (int) $n . '</span>' : '';
-		};
-		$html  = '<div class="mapify__cats ' . esc_attr( $class ) . '" role="group" aria-label="' . esc_attr__( 'Filter by category', 'mapify' ) . '">';
-		$html .= '<button type="button" class="mapify__cat is-active" data-cat="" aria-pressed="true">' . esc_html( $s['cat_filter_all'] ) . $count( $total ) . '</button>';
-		foreach ( $cats as $cat ) {
-			$dot   = $cat['color'] ? '<span class="mapify__cat-dot" style="--c:' . esc_attr( $cat['color'] ) . '" aria-hidden="true"></span>' : '';
-			$html .= '<button type="button" class="mapify__cat" data-cat="' . esc_attr( $cat['id'] ) . '" aria-pressed="false">' . $dot . esc_html( $cat['name'] ) . $count( $cat['count'] ) . '</button>';
-		}
-		return $html . '</div>';
-	}
-
 	/** Attributes shared by every list row: id, categories and search text. */
-	protected static function row_attrs( array $item ) {
+	public static function row_attrs( array $item ) {
 		$search = function_exists( 'mb_strtolower' ) ? 'mb_strtolower' : 'strtolower';
 		$text   = $search( wp_strip_all_tags( $item['title'] . ' ' . $item['address'] . ' ' . implode( ' ', $item['categories'] ) . ' ' . $item['phone'] ) );
 		$cats   = isset( $item['cats'] ) ? $item['cats'] : array_map( 'strval', array_keys( $item['categories'] ) );
-		return ' data-id="' . esc_attr( $item['id'] ) . '" data-cats="' . esc_attr( implode( ',', $cats ) ) . '" data-search="' . esc_attr( $text ) . '"';
+		$attrs  = ' data-id="' . esc_attr( $item['id'] ) . '" data-cats="' . esc_attr( implode( ',', $cats ) ) . '" data-search="' . esc_attr( $text ) . '"';
+		return $attrs . apply_filters( 'mapify_list_row_attrs', '', $item );
 	}
 
-	protected static function item_dot( array $item ) {
+	public static function item_dot( array $item ) {
 		return ! empty( $item['color'] ) ? '<span class="mapify__item-dot" style="--c:' . esc_attr( $item['color'] ) . '" aria-hidden="true"></span>' : '';
 	}
 
 	/**
 	 * Inner markup of one list item for the chosen layout.
 	 */
-	protected static function item_markup( $layout, array $item, $n ) {
+	protected static function item_markup( $layout, array $item, $n, array $s ) {
 		$title   = '<span class="mapify__item-title">' . esc_html( $item['title'] ) . '</span>';
 		$address = $item['address'] ? '<span class="mapify__item-meta">' . esc_html( $item['address'] ) . '</span>' : '';
 		$phone   = $item['phone'] ? '<span class="mapify__item-meta mapify__item-phone" dir="ltr">' . esc_html( $item['phone'] ) . '</span>' : '';
-		$cats    = $item['categories'] ? '<span class="mapify__item-meta mapify__item-cats">' . esc_html( implode( '، ', $item['categories'] ) ) . '</span>' : '';
 		$image   = $item['image'] ? '<img class="mapify__item-image" src="' . esc_url( $item['image'] ) . '" alt="" loading="lazy" />' : '';
 		switch ( $layout ) {
 			case 'cards':
-				return $image . '<span class="mapify__item-body">' . $title . $address . '</span>';
+				$html = $image . '<span class="mapify__item-body">' . $title . $address . '</span>';
+				break;
 			case 'list':
-				return '<span class="mapify__item-icon" aria-hidden="true"' . ( ! empty( $item['color'] ) ? ' style="--c:' . esc_attr( $item['color'] ) . '"' : '' ) . '><svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"/></svg></span>'
+				$html = '<span class="mapify__item-icon" aria-hidden="true"' . ( ! empty( $item['color'] ) ? ' style="--c:' . esc_attr( $item['color'] ) . '"' : '' ) . '><svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"/></svg></span>'
 					. '<span class="mapify__item-body">' . $title . $address . $phone . '</span>';
-			case 'grid':
-			case 'carousel':
-				$media = $image ? $image : '<span class="mapify__item-image mapify__item-image--blank"' . ( ! empty( $item['color'] ) ? ' style="--c:' . esc_attr( $item['color'] ) . '"' : '' ) . '></span>';
-				return $media . '<span class="mapify__item-body">' . $title . $address . $phone . '</span>';
-			case 'compact':
-				return '<span class="mapify__item-num">' . (int) $n . '</span><span class="mapify__item-body">' . $title . $cats . '</span>';
+				break;
+			default:
+				$html = self::item_dot( $item ) . $title;
 		}
-		return self::item_dot( $item ) . $title;
+		return apply_filters( 'mapify_list_item_html', $html, $layout, $item, $n, $s );
 	}
 
-	protected static function list_markup( array $s, array $items, array $cats ) {
-		$layout = $s['list_layout'];
-		$html   = '<div class="mapify__list mapify__list--' . esc_attr( $layout ) . '">';
-		if ( $s['branchessearch'] && 'dropdown' !== $layout ) {
-			$html .= '<div class="mapify__search"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.5 3a7.5 7.5 0 0 1 5.96 12.06l4.24 4.24-1.4 1.4-4.24-4.24A7.5 7.5 0 1 1 10.5 3Zm0 2a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11Z"/></svg>'
-				. '<input type="search" class="mapify__search-input" placeholder="' . esc_attr( $s['search_placeholder'] ) . '" aria-label="' . esc_attr( $s['search_placeholder'] ) . '" /></div>';
-		}
-		if ( $s['list_cat_filter'] ) {
-			$html .= self::category_chips( $s, $cats, 'mapify__cats--list' );
-		}
+	/**
+	 * Branches grouped for the list: [ [ name, items ] ].
+	 */
+	protected static function list_groups( array $s, array $items ) {
 		$groups = array();
 		foreach ( $items as $item ) {
 			if ( ! empty( $item['custom'] ) ) {
@@ -412,18 +296,21 @@ class Renderer {
 				$groups[0]['items'][] = $item;
 			}
 		}
+		return $groups;
+	}
 
-		if ( 'dropdown' === $layout ) {
-			$html .= '<div class="mapify__groups"><div class="mapify__group"><label class="mapify__select-wrap"><span class="screen-reader-text">' . esc_html__( 'Choose a branch', 'mapify' ) . '</span>'
-				. '<select class="mapify__select"><option value="">' . esc_html__( 'Choose a branch…', 'mapify' ) . '</option>';
-			foreach ( $groups as $group ) {
-				$html .= '' !== $group['name'] ? '<optgroup label="' . esc_attr( $group['name'] ) . '">' : '';
-				foreach ( $group['items'] as $item ) {
-					$html .= '<option class="mapify__row" value="' . esc_attr( $item['id'] ) . '"' . self::row_attrs( $item ) . '>' . esc_html( $item['title'] ) . '</option>';
-				}
-				$html .= '' !== $group['name'] ? '</optgroup>' : '';
-			}
-			$html .= '</select></label></div></div>';
+	protected static function list_markup( array $s, array $items ) {
+		$layout = $s['list_layout'];
+		$html   = '<div class="mapify__list mapify__list--' . esc_attr( $layout ) . '">';
+		if ( apply_filters( 'mapify_list_show_search', $s['branchessearch'], $s ) ) {
+			$html .= '<div class="mapify__search"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.5 3a7.5 7.5 0 0 1 5.96 12.06l4.24 4.24-1.4 1.4-4.24-4.24A7.5 7.5 0 1 1 10.5 3Zm0 2a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11Z"/></svg>'
+				. '<input type="search" class="mapify__search-input" placeholder="' . esc_attr( $s['search_placeholder'] ) . '" aria-label="' . esc_attr( $s['search_placeholder'] ) . '" /></div>';
+		}
+		$html  .= apply_filters( 'mapify_list_tools', '', $s, $items );
+		$groups = self::list_groups( $s, $items );
+		$custom = apply_filters( 'mapify_list_groups_html', null, $groups, $s );
+		if ( is_string( $custom ) ) {
+			$html .= $custom;
 		} else {
 			$html .= '<div class="mapify__groups">';
 			foreach ( $groups as $group ) {
@@ -431,28 +318,13 @@ class Renderer {
 				if ( '' !== $group['name'] ) {
 					$html .= '<div class="mapify__group-title">' . esc_html( $group['name'] ) . '</div>';
 				}
-				$n = 0;
-				if ( 'table' === $layout ) {
-					$html .= '<div class="mapify__table-wrap"><table class="mapify__table"><thead><tr><th scope="col">' . esc_html__( 'Branch', 'mapify' ) . '</th><th scope="col">' . esc_html__( 'Address', 'mapify' ) . '</th><th scope="col">' . esc_html__( 'Phone', 'mapify' ) . '</th></tr></thead><tbody>';
-					foreach ( $group['items'] as $item ) {
-						$html .= '<tr class="mapify__row"' . self::row_attrs( $item ) . '>'
-							. '<td><button type="button" class="mapify__item" data-id="' . esc_attr( $item['id'] ) . '">' . self::item_dot( $item ) . '<span class="mapify__item-title">' . esc_html( $item['title'] ) . '</span></button></td>'
-							. '<td>' . esc_html( $item['address'] ) . '</td>'
-							. '<td dir="ltr">' . ( $item['phone'] ? '<a href="tel:' . esc_attr( preg_replace( '/[^0-9+]/', '', $item['phone'] ) ) . '">' . esc_html( $item['phone'] ) . '</a>' : '' ) . '</td></tr>';
-					}
-					$html .= '</tbody></table></div>';
-				} else {
-					$html .= '<ul class="mapify__items">';
-					foreach ( $group['items'] as $item ) {
-						++$n;
-						$html .= '<li class="mapify__row"' . self::row_attrs( $item ) . '><button type="button" class="mapify__item" data-id="' . esc_attr( $item['id'] ) . '">' . self::item_markup( $layout, $item, $n ) . '</button></li>';
-					}
-					$html .= '</ul>';
-					if ( 'carousel' === $layout ) {
-						$html .= '<div class="mapify__carousel-nav"><button type="button" class="mapify__carousel-btn" data-dir="-1" aria-label="' . esc_attr__( 'Previous', 'mapify' ) . '">&lsaquo;</button><button type="button" class="mapify__carousel-btn" data-dir="1" aria-label="' . esc_attr__( 'Next', 'mapify' ) . '">&rsaquo;</button></div>';
-					}
+				$html .= '<ul class="mapify__items">';
+				$n     = 0;
+				foreach ( $group['items'] as $item ) {
+					++$n;
+					$html .= '<li class="mapify__row"' . self::row_attrs( $item ) . '><button type="button" class="mapify__item" data-id="' . esc_attr( $item['id'] ) . '">' . self::item_markup( $layout, $item, $n, $s ) . '</button></li>';
 				}
-				$html .= '</div>';
+				$html .= '</ul>' . apply_filters( 'mapify_list_group_after', '', $layout, $group, $s ) . '</div>';
 			}
 			$html .= '</div>';
 		}
@@ -473,32 +345,37 @@ class Renderer {
 			)
 		);
 		++self::$count;
-		$s      = $settings;
+		$s      = apply_filters( 'mapify_render_settings', $settings );
 		$notice = self::resolve_engine( $s );
+		if ( ! $notice && ! empty( $s['_notice'] ) ) {
+			$notice = $s['_notice'];
+		}
 		$items  = Branches::query( $s );
 		$config = self::config( $s, $items );
-		$cats   = ( $s['list_cat_filter'] || $s['map_cat_filter'] ) ? self::categories_for( $items ) : array();
 		$id     = $s['el_id'] ? sanitize_html_class( $s['el_id'] ) : 'mapify-' . self::$count . '-' . wp_rand( 100, 999 );
 		$list   = $s['branchlistshow'] && ! empty( $items );
-		$attr   = Options::get( 'attribution_mode' );
 
 		wp_enqueue_style( 'mapify-front' );
 		wp_enqueue_script( 'mapify-front' );
+		do_action( 'mapify_enqueue_front', $s );
 
-		$classes = array(
-			'mapify',
-			'mapify--engine-' . $s['maptype'],
-			in_array( $s['maptype'], Schema::plane_engines(), true ) ? 'mapify--plane' : 'mapify--geo',
-			'mapify--pins-' . $s['pin_style'],
-			'mapify--anim-' . $s['pin_animation'],
-			$list ? 'mapify--list-' . $s['branchplacement'] : 'mapify--no-list',
-			$list ? 'mapify--layout-' . $s['list_layout'] : '',
-			'mapify--zoom-' . $s['zoom_position'],
-			'default' !== $attr ? 'mapify--attr-' . $attr : '',
-			$s['el_class'],
-			$args['classes'],
+		$classes = apply_filters(
+			'mapify_wrapper_classes',
+			array(
+				'mapify',
+				'mapify--engine-' . $s['maptype'],
+				in_array( $s['maptype'], Schema::plane_engines(), true ) ? 'mapify--plane' : 'mapify--geo',
+				'mapify--pins-' . $s['pin_style'],
+				'mapify--anim-' . $s['pin_animation'],
+				$list ? 'mapify--list-' . $s['branchplacement'] : 'mapify--no-list',
+				$list ? 'mapify--layout-' . $s['list_layout'] : '',
+				'mapify--zoom-' . $s['zoom_position'],
+				$s['el_class'],
+				$args['classes'],
+			),
+			$s
 		);
-		$style   = $args['style_vars'] ? self::style_attr( $s ) : '';
+		$style = $args['style_vars'] ? self::style_attr( $s ) : '';
 
 		$html  = '<div id="' . esc_attr( $id ) . '" class="' . esc_attr( trim( implode( ' ', array_filter( $classes ) ) ) ) . '"';
 		$html .= $style ? ' style="' . esc_attr( $style ) . '"' : '';
@@ -508,15 +385,13 @@ class Renderer {
 		}
 		$html .= '<div class="mapify__layout">';
 		if ( $list ) {
-			$html .= self::list_markup( $s, $items, $cats );
+			$html .= self::list_markup( $s, $items );
 		}
 		$html .= '<div class="mapify__stage"><div class="mapify__map" role="region" aria-label="' . esc_attr__( 'Branches map', 'mapify' ) . '"></div>';
-		if ( $s['map_cat_filter'] ) {
-			$html .= self::category_chips( $s, $cats, 'mapify__cats--map mapify__cats--' . $s['map_cat_filter_position'] );
-		}
+		$html .= apply_filters( 'mapify_stage_html', '', $s, $items );
 		$html .= '<div class="mapify__loading" aria-hidden="true"><span></span></div></div>';
 		$html .= '</div></div>';
 
-		return apply_filters( 'mapify-shortcode-return-data', $html, $settings, $items );
+		return apply_filters( 'mapify-shortcode-return-data', $html, $settings, $items ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores -- v1 hook name.
 	}
 }

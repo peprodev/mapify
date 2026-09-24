@@ -22,6 +22,7 @@ class WPBakery {
 		}
 		if ( function_exists( 'vc_add_shortcode_param' ) ) {
 			vc_add_shortcode_param( 'mapify_image_select', array( __CLASS__, 'param_image_select' ), MAPIFY_ASSETS . 'js/wpbakery-params.js?ver=' . MAPIFY_VERSION );
+			vc_add_shortcode_param( 'mapify_notice', array( __CLASS__, 'param_notice' ) );
 		}
 		vc_lean_map( Shortcode::TAG, array( __CLASS__, 'settings' ) );
 	}
@@ -94,6 +95,9 @@ class WPBakery {
 					$param['type']   = 'mapify_image_select';
 					$param['value']  = $options;
 					$param['images'] = $images;
+					if ( ! empty( $field['note'] ) ) {
+						$param['note'] = $field['note'];
+					}
 				} else {
 					$param['type']  = 'dropdown';
 					$param['value'] = self::values( $options );
@@ -102,6 +106,13 @@ class WPBakery {
 				if ( 'maptype' === $key ) {
 					$param['admin_label'] = true;
 				}
+				break;
+			case 'notice':
+				$param['type']    = 'mapify_notice';
+				$param['variant'] = isset( $field['variant'] ) ? $field['variant'] : 'info';
+				$param['content'] = isset( $field['content'] ) ? $field['content'] : '';
+				unset( $param['save_always'], $param['description'] );
+				$param['edit_field_class'] = 'vc_column vc_col-sm-12';
 				break;
 			case 'multiselect':
 				$param['type']  = 'checkbox';
@@ -217,6 +228,16 @@ class WPBakery {
 	}
 
 	/**
+	 * Read-only message; "pro" notices show the feature greyed out. Saves nothing.
+	 */
+	public static function param_notice( $settings, $value ) {
+		if ( isset( $settings['variant'] ) && 'pro' === $settings['variant'] ) {
+			return '<div class="mapify-vc-pro"><textarea rows="3" disabled></textarea><p>' . esc_html( $settings['content'] ) . '</p></div>';
+		}
+		return '<div class="mapify-vc-notice">' . wp_kses_post( $settings['content'] ) . '</div>';
+	}
+
+	/**
 	 * Image grid select (used for Google map styles).
 	 */
 	public static function param_image_select( $settings, $value ) {
@@ -231,6 +252,9 @@ class WPBakery {
 				. '<span>' . esc_html( $label ) . '</span></button>';
 		}
 		$html .= '</div><input type="hidden" name="' . $name . '" class="wpb_vc_param_value ' . $name . ' ' . esc_attr( $settings['type'] ) . '_field" value="' . esc_attr( $value ) . '" />';
+		if ( ! empty( $settings['note'] ) ) {
+			$html .= '<p class="mapify-vc-notice">' . esc_html( $settings['note'] ) . '</p>';
+		}
 		return $html;
 	}
 }

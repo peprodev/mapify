@@ -1,0 +1,49 @@
+<wpml-config>
+	<custom-types>
+		<custom-type translate="1">mapify</custom-type>
+	</custom-types>
+	<taxonomies>
+		<taxonomy translate="1">mapify_category</taxonomy>
+	</taxonomies>
+	<custom-fields>
+		<custom-field action="translate">place_details_address</custom-field>
+		<custom-field action="translate">place_details_additional</custom-field>
+		<custom-field action="copy">place_details_phone</custom-field>
+		<custom-field action="copy">place_details_site</custom-field>
+		<custom-field action="copy">place_details_email</custom-field>
+		<custom-field action="copy">place_details_socailig</custom-field>
+		<custom-field action="copy">place_details_socailtg</custom-field>
+		<custom-field action="copy">place_details_socailtw</custom-field>
+		<custom-field action="copy">place_details_socailfb</custom-field>
+		<custom-field action="copy">place_details_socailli</custom-field>
+		<custom-field action="copy">place_details_map_data</custom-field>
+		<custom-field action="copy">place_details_pinimg</custom-field>
+		<custom-field action="copy">place_details_pincolor</custom-field>
+		<custom-field action="copy">place_details_content_template</custom-field>
+	</custom-fields>
+	<shortcodes>
+		<shortcode>
+			<tag>pepro-mapify</tag>
+			<attributes>
+				<attribute>search_placeholder</attribute>
+				<attribute>directions_label</attribute>
+			</attributes>
+		</shortcode>
+		<shortcode>
+			<tag>mapify</tag>
+			<attributes>
+				<attribute>search_placeholder</attribute>
+				<attribute>directions_label</attribute>
+			</attributes>
+		</shortcode>
+	</shortcodes>
+	<elementor-widgets>
+		<widget name="mapify-map">
+			<fields>
+				<field type="Branches map: search placeholder" editor_type="LINE">search_placeholder</field>
+				<field type="Branches map: directions button text" editor_type="LINE">directions_label</field>
+				<field type="Branches map: popup template" editor_type="AREA">popup_markup</field>
+			</fields>
+		</widget>
+	</elementor-widgets>
+</wpml-config>

@@ -101,7 +101,7 @@ class Admin {
 		}
 		wp_enqueue_style( 'wp-components' );
 		wp_enqueue_style( 'mapify-admin', MAPIFY_ASSETS . 'css/admin.css', array( 'wp-components' ), MAPIFY_VERSION );
-		wp_enqueue_script( 'mapify-admin', MAPIFY_ASSETS . 'js/admin.js', array( 'wp-element', 'wp-components', 'wp-api-fetch', 'wp-i18n', 'wp-dom-ready' ), MAPIFY_VERSION, true );
+		wp_enqueue_script( 'mapify-admin', MAPIFY_ASSETS . 'js/admin.js', array( 'wp-element', 'wp-components', 'wp-api-fetch', 'wp-i18n', 'wp-dom-ready', 'wp-hooks' ), MAPIFY_VERSION, true );
 		wp_set_script_translations( 'mapify-admin', 'mapify', MAPIFY_DIR . 'languages' );
 
 		$data = array(
@@ -130,21 +130,6 @@ class Admin {
 		);
 		if ( 'settings' === $data['screen'] ) {
 			wp_enqueue_media();
-			$builtins = array();
-			foreach ( Options::builtin_nav_apps() as $id => $app ) {
-				$builtins[ $id ] = array(
-					'label'    => $app[0],
-					'url'      => $app[1],
-					'platform' => $app[2],
-					'icon'     => Options::nav_icon( $id ),
-				);
-			}
-			$data['nav'] = array(
-				'builtins'    => $builtins,
-				'platforms'   => Options::nav_platforms(),
-				'defaultIcon' => MAPIFY_ASSETS . 'img/nav/app.svg',
-				'defaults'    => Options::default_nav_apps(),
-			);
 		}
 		if ( 'builder' === $data['screen'] ) {
 			wp_enqueue_media();
@@ -155,7 +140,10 @@ class Admin {
 			$data['previewNonce']  = wp_create_nonce( 'mapify_preview' );
 			$data['tag']           = Shortcode::TAG;
 		}
+		$data = apply_filters( 'mapify_admin_data', $data );
 		wp_add_inline_script( 'mapify-admin', 'window.MapifyAdmin = ' . wp_json_encode( $data ) . ';', 'before' );
+		// Extensions add their screens here; they load after admin.js and before the screen renders.
+		do_action( 'mapify_admin_enqueue', $data['screen'] );
 	}
 
 	/**

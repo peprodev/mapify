@@ -29,15 +29,13 @@ class Schema {
 				'mapup'    => __( 'Mapup (Persian map, no key)', 'mapify' ),
 				'custom' => __( 'Custom tile server (XYZ)', 'mapify' ),
 				'iran'   => __( 'Iran — offline SVG map', 'mapify' ),
-				'svg'    => __( 'Custom SVG map', 'mapify' ),
-				'image'  => __( 'Image as map', 'mapify' ),
 			)
 		);
 	}
 
 	/** Engines drawn on a flat plane (no tiles) where pins can use x/y positions. */
 	public static function plane_engines() {
-		return array( 'iran', 'svg', 'image' );
+		return apply_filters( 'mapify_plane_engines', array( 'iran' ) );
 	}
 
 	public static function tile_engines() {
@@ -45,20 +43,21 @@ class Schema {
 	}
 
 	public static function groups() {
-		return array(
-			'source'     => __( 'Branches', 'mapify' ),
-			'map'        => __( 'Map', 'mapify' ),
-			'google'     => __( 'Google Maps', 'mapify' ),
-			'snazzy'     => __( 'Snazzy Maps style', 'mapify' ),
-			'tiles'      => __( 'Tile layer', 'mapify' ),
-			'plane'      => __( 'Image / SVG map', 'mapify' ),
-			'pins'       => __( 'Custom pins', 'mapify' ),
-			'markers'    => __( 'Markers', 'mapify' ),
-			'popup'      => __( 'Popup', 'mapify' ),
-			'list'       => __( 'Branches list', 'mapify' ),
-			'filter'     => __( 'Category filter', 'mapify' ),
-			'appearance' => __( 'Appearance', 'mapify' ),
-			'advanced'   => __( 'Advanced', 'mapify' ),
+		return apply_filters(
+			'mapify_schema_groups',
+			array(
+				'source'     => __( 'Branches', 'mapify' ),
+				'map'        => __( 'Map', 'mapify' ),
+				'google'     => __( 'Google Maps', 'mapify' ),
+				'snazzy'     => __( 'Snazzy Maps style', 'mapify' ),
+				'tiles'      => __( 'Tile layer', 'mapify' ),
+				'plane'      => __( 'Offline Iran map', 'mapify' ),
+				'markers'    => __( 'Markers', 'mapify' ),
+				'popup'      => __( 'Popup', 'mapify' ),
+				'list'       => __( 'Branches list', 'mapify' ),
+				'appearance' => __( 'Appearance', 'mapify' ),
+				'advanced'   => __( 'Advanced', 'mapify' ),
+			)
 		);
 	}
 
@@ -133,18 +132,6 @@ class Schema {
 		return $styles;
 	}
 
-	/** Snazzy Maps link with Mapify as the referrer. */
-	public static function snazzy_url( $path = '' ) {
-		return add_query_arg(
-			array(
-				'ref'          => 'mapify',
-				'utm_source'   => 'mapify',
-				'utm_medium'   => 'wordpress-plugin',
-			),
-			'https://snazzymaps.com/' . ltrim( $path, '/' )
-		);
-	}
-
 	/**
 	 * Read a Google style array from JSON or from a pasted Snazzy Maps JavaScript snippet (var styles = [...];).
 	 */
@@ -163,25 +150,24 @@ class Schema {
 	public static function google_style_options() {
 		$out = array(
 			'default' => __( 'Default', 'mapify' ),
-			'custom'  => __( 'Custom Snazzy Maps style', 'mapify' ),
 		);
 		foreach ( self::google_styles() as $slug => $style ) {
 			$out[ $slug ] = $style['label'];
 		}
-		return $out;
+		return apply_filters( 'mapify_google_style_options', $out );
 	}
 
 	/**
 	 * Thumbnail for a style option, by field: Google styles and the free tile styles have one.
 	 */
 	public static function style_preview( $field_key, $slug ) {
+		$url = '';
 		if ( 'map_defined_style' === $field_key ) {
-			return self::google_style_preview( $slug );
+			$url = self::google_style_preview( $slug );
+		} elseif ( 'osm_style' === $field_key && file_exists( MAPIFY_DIR . "assets/img/tile-style/{$slug}.jpg" ) ) {
+			$url = MAPIFY_ASSETS . "img/tile-style/{$slug}.jpg";
 		}
-		if ( 'osm_style' === $field_key && file_exists( MAPIFY_DIR . "assets/img/tile-style/{$slug}.jpg" ) ) {
-			return MAPIFY_ASSETS . "img/tile-style/{$slug}.jpg";
-		}
-		return (string) apply_filters( 'mapify_style_preview', '', $field_key, $slug );
+		return (string) apply_filters( 'mapify_style_preview', $url, $field_key, $slug );
 	}
 
 	public static function google_style_preview( $slug ) {
@@ -205,14 +191,9 @@ class Schema {
 		return apply_filters(
 			'mapify_list_layouts',
 			array(
-				'chips'    => __( 'Chips', 'mapify' ),
-				'cards'    => __( 'Cards', 'mapify' ),
-				'list'     => __( 'Detailed list (address and phone)', 'mapify' ),
-				'grid'     => __( 'Image grid', 'mapify' ),
-				'compact'  => __( 'Compact numbered list', 'mapify' ),
-				'table'    => __( 'Table', 'mapify' ),
-				'carousel' => __( 'Carousel (horizontal scroll)', 'mapify' ),
-				'dropdown' => __( 'Dropdown', 'mapify' ),
+				'chips' => __( 'Chips', 'mapify' ),
+				'cards' => __( 'Cards', 'mapify' ),
+				'list'  => __( 'Detailed list (address and phone)', 'mapify' ),
 			)
 		);
 	}
@@ -234,13 +215,14 @@ class Schema {
 	}
 
 	public static function popup_tags() {
-		return array( 'id', 'title', 'image', 'pin_image', 'popup_image', 'url', 'latitude', 'longitude', 'address', 'phone', 'site', 'email', 'twitter', 'facebook', 'instagram', 'telegram', 'linkedin', 'additional', 'categories', 'directions' );
+		return apply_filters( 'mapify_popup_tags', array( 'id', 'title', 'image', 'pin_image', 'popup_image', 'url', 'latitude', 'longitude', 'address', 'phone', 'site', 'email', 'twitter', 'facebook', 'instagram', 'telegram', 'linkedin', 'additional', 'categories', 'directions' ) );
 	}
 
 	/**
 	 * Field definitions.
 	 *
-	 * type: select|multiselect|text|textarea|code|number|toggle|color|media|repeater
+	 * type: select|multiselect|text|textarea|code|number|toggle|color|media|repeater|notice
+	 * (notice: a read-only message; variant "info", or "pro" for a feature this edition does not include)
 	 * condition: [ field => [values] ] — all builders translate it to their own dependency syntax.
 	 */
 	public static function fields() {
@@ -261,7 +243,6 @@ class Schema {
 					'all'  => __( 'All branches', 'mapify' ),
 					'cat'  => __( 'From selected categories', 'mapify' ),
 					'id'   => __( 'Handpicked branches', 'mapify' ),
-					'none' => __( 'None (custom pins only)', 'mapify' ),
 				),
 			),
 			'branchcat'         => array(
@@ -341,7 +322,7 @@ class Schema {
 				'group'       => 'map',
 				'type'        => 'toggle',
 				'label'       => __( 'Zoom buttons (+ / −)', 'mapify' ),
-				'description' => __( 'Also works on the offline Iran, SVG and image maps.', 'mapify' ),
+				'description' => __( 'Also works on the offline Iran map.', 'mapify' ),
 				'default'     => true,
 			),
 			'zoom_position'     => array(
@@ -399,7 +380,7 @@ class Schema {
 				'group'       => 'map',
 				'type'        => 'number',
 				'label'       => __( 'Maximum zoom (×)', 'mapify' ),
-				'description' => __( 'How far the offline Iran, SVG and image maps can be enlarged. 1 turns zooming off.', 'mapify' ),
+				'description' => __( 'How far the offline map can be enlarged. 1 turns zooming off.', 'mapify' ),
 				'default'     => 4,
 				'min'         => 1,
 				'max'         => 10,
@@ -440,20 +421,17 @@ class Schema {
 				'default'     => 'default',
 				'options'     => 'google_styles',
 				'previews'    => true,
+				'note'        => __( 'More templates are available in the Pro version.', 'mapify' ),
 				'condition'   => array( 'maptype' => array( 'google' ) ),
 			),
-			'googlemap_style'   => array(
-				'group'       => 'snazzy',
-				'type'        => 'code',
-				'label'       => __( 'Snazzy Maps style (JavaScript style array)', 'mapify' ),
-				'description' => __( 'On Snazzy Maps, open a style, copy its “JavaScript Style Array” and paste it here. Used when “Custom Snazzy Maps style” is chosen as the map style.', 'mapify' ),
-				'default'     => '',
-				'language'    => 'json',
-				'link'        => array(
-					'url'   => self::snazzy_url(),
-					'label' => __( 'Browse free styles on Snazzy Maps', 'mapify' ),
-				),
-				'condition'   => array( 'map_defined_style' => array( 'custom' ) ),
+			'snazzy_teaser'     => array(
+				'group'     => 'snazzy',
+				'type'      => 'notice',
+				'variant'   => 'pro',
+				'label'     => __( 'Snazzy Maps style (JavaScript style array)', 'mapify' ),
+				'content'   => __( 'Style Google Maps with any design from Snazzy Maps by pasting its JavaScript style array. Available in the Pro version.', 'mapify' ),
+				'default'   => '',
+				'condition' => array( 'maptype' => array( 'google' ) ),
 			),
 
 			// Tiles.
@@ -515,54 +493,19 @@ class Schema {
 			),
 
 			// Plane maps.
-			'map_image'         => array(
-				'group'     => 'plane',
-				'type'      => 'media',
-				'label'     => __( 'Map image', 'mapify' ),
-				'default'   => '',
-				'condition' => array( 'maptype' => array( 'image' ) ),
-			),
-			'svg_file'          => array(
-				'group'       => 'plane',
-				'type'        => 'media',
-				'label'       => __( 'SVG file', 'mapify' ),
-				'description' => __( 'Shapes with an id become hoverable regions.', 'mapify' ),
-				'default'     => '',
-				'condition'   => array( 'maptype' => array( 'svg' ) ),
-			),
-			'geo_bounds'        => array(
-				'group'       => 'plane',
-				'type'        => 'text',
-				'label'       => __( 'Geo bounds (north,west,south,east)', 'mapify' ),
-				'description' => __( 'Optional. When set, branches are placed on the image/SVG by their latitude and longitude.', 'mapify' ),
-				'placeholder' => '39.8,44.0,25.0,63.3',
-				'default'     => '',
-				'condition'   => array( 'maptype' => array( 'image', 'svg' ) ),
-			),
-			'geo_projection'    => array(
-				'group'     => 'plane',
-				'type'      => 'select',
-				'label'     => __( 'Projection', 'mapify' ),
-				'default'   => 'mercator',
-				'options'   => array(
-					'mercator'        => __( 'Web Mercator', 'mapify' ),
-					'equirectangular' => __( 'Equirectangular (plate carrée)', 'mapify' ),
-				),
-				'condition' => array( 'maptype' => array( 'image', 'svg' ) ),
-			),
 			'region_tooltip'    => array(
 				'group'     => 'plane',
 				'type'      => 'toggle',
 				'label'     => __( 'Show region name on hover', 'mapify' ),
 				'default'   => true,
-				'condition' => array( 'maptype' => array( 'iran', 'svg' ) ),
+				'condition' => array( 'maptype' => array( 'iran' ) ),
 			),
 			'region_highlight'  => array(
 				'group'     => 'plane',
 				'type'      => 'toggle',
 				'label'     => __( 'Highlight regions that have branches', 'mapify' ),
 				'default'   => true,
-				'condition' => array( 'maptype' => array( 'iran', 'svg' ) ),
+				'condition' => array( 'maptype' => array( 'iran' ) ),
 			),
 			'region_click'      => array(
 				'group'     => 'plane',
@@ -573,7 +516,7 @@ class Schema {
 					'filter' => __( 'Filter branches in region', 'mapify' ),
 					'none'   => __( 'Do nothing', 'mapify' ),
 				),
-				'condition' => array( 'maptype' => array( 'iran', 'svg' ) ),
+				'condition' => array( 'maptype' => array( 'iran' ) ),
 			),
 			'region_labels'     => array(
 				'group'     => 'plane',
@@ -586,72 +529,6 @@ class Schema {
 					'en'   => __( 'English', 'mapify' ),
 				),
 				'condition' => array( 'maptype' => array( 'iran' ) ),
-			),
-
-			// Custom pins.
-			'pins'              => array(
-				'group'       => 'pins',
-				'type'        => 'repeater',
-				'label'       => __( 'Custom pins', 'mapify' ),
-				'description' => __( 'Extra pins that are not branches. On image/SVG maps use X/Y (percent = responsive, px = absolute); on geographic maps use latitude/longitude.', 'mapify' ),
-				'default'     => array(),
-				'title_field' => 'title',
-				'fields'      => array(
-					'title'   => array(
-						'type'    => 'text',
-						'label'   => __( 'Title', 'mapify' ),
-						'default' => __( 'New pin', 'mapify' ),
-					),
-					'x'       => array(
-						'type'    => 'text',
-						'label'   => __( 'X position', 'mapify' ),
-						'default' => '50',
-					),
-					'y'       => array(
-						'type'    => 'text',
-						'label'   => __( 'Y position', 'mapify' ),
-						'default' => '50',
-					),
-					'unit'    => array(
-						'type'    => 'select',
-						'label'   => __( 'Position unit', 'mapify' ),
-						'default' => '%',
-						'options' => array(
-							'%'  => __( 'Percent (relative)', 'mapify' ),
-							'px' => __( 'Pixels (absolute)', 'mapify' ),
-						),
-					),
-					'lat'     => array(
-						'type'    => 'text',
-						'label'   => __( 'Latitude', 'mapify' ),
-						'default' => '',
-					),
-					'lng'     => array(
-						'type'    => 'text',
-						'label'   => __( 'Longitude', 'mapify' ),
-						'default' => '',
-					),
-					'content' => array(
-						'type'    => 'textarea',
-						'label'   => __( 'Popup content (HTML)', 'mapify' ),
-						'default' => '',
-					),
-					'link'    => array(
-						'type'    => 'text',
-						'label'   => __( 'Link URL', 'mapify' ),
-						'default' => '',
-					),
-					'image'   => array(
-						'type'    => 'media',
-						'label'   => __( 'Pin image', 'mapify' ),
-						'default' => '',
-					),
-					'color'   => array(
-						'type'    => 'color',
-						'label'   => __( 'Pin color', 'mapify' ),
-						'default' => '',
-					),
-				),
 			),
 
 			// Markers.
@@ -796,27 +673,13 @@ class Schema {
 				'group'       => 'popup',
 				'type'        => 'select',
 				'label'       => __( 'Button action', 'mapify' ),
-				'description' => __( 'Android can list the map apps installed on the phone. iPhone and desktop browsers cannot, so they get the app list from Map Settings → Navigation.', 'mapify' ),
+				'description' => __( 'Android phones can list the map apps installed on the phone.', 'mapify' ),
 				'default'     => 'auto',
 				'options'     => array(
-					'auto'   => __( 'Installed map apps on Android, app list elsewhere', 'mapify' ),
-					'sheet'  => __( 'Always show the app list', 'mapify' ),
-					'direct' => __( 'Open the default map app directly (no list)', 'mapify' ),
-					'google' => __( 'Open Google Maps directly', 'mapify' ),
+					'auto'   => __( 'Installed map apps on Android, Google Maps elsewhere', 'mapify' ),
+					'google' => __( 'Open Google Maps', 'mapify' ),
 				),
 				'condition'   => array( 'popup_directions' => array( true ) ),
-			),
-			'directions_apps'   => array(
-				'group'       => 'popup',
-				'type'        => 'multiselect',
-				'label'       => __( 'Apps in the list', 'mapify' ),
-				'description' => __( 'Leave empty to show every app turned on in Map Settings → Navigation.', 'mapify' ),
-				'default'     => array(),
-				'options'     => 'nav_apps',
-				'condition'   => array(
-					'popup_directions' => array( true ),
-					'directions_mode'  => array( 'auto', 'sheet' ),
-				),
 			),
 
 			// Branches list.
@@ -890,54 +753,6 @@ class Schema {
 				'condition'   => array( 'branchlistshow' => array( true ) ),
 			),
 
-			// Category filter.
-			'list_cat_filter'   => array(
-				'group'       => 'filter',
-				'type'        => 'toggle',
-				'label'       => __( 'Category chips under the search box', 'mapify' ),
-				'description' => __( 'Visitors pick a category and the list and the map show only its branches.', 'mapify' ),
-				'default'     => false,
-				'condition'   => array( 'branchlistshow' => array( true ) ),
-			),
-			'map_cat_filter'    => array(
-				'group'       => 'filter',
-				'type'        => 'toggle',
-				'label'       => __( 'Category chips on the map', 'mapify' ),
-				'description' => __( 'Shows only the pins of the chosen category.', 'mapify' ),
-				'default'     => false,
-			),
-			'map_cat_filter_position' => array(
-				'group'     => 'filter',
-				'type'      => 'select',
-				'label'     => __( 'Position on the map', 'mapify' ),
-				'default'   => 'top',
-				'options'   => array(
-					'top'    => __( 'Top', 'mapify' ),
-					'bottom' => __( 'Bottom', 'mapify' ),
-				),
-				'condition' => array( 'map_cat_filter' => array( true ) ),
-			),
-			'cat_filter_multiple' => array(
-				'group'   => 'filter',
-				'type'    => 'toggle',
-				'label'   => __( 'Allow choosing several categories', 'mapify' ),
-				'default' => false,
-			),
-			'cat_filter_counts' => array(
-				'group'   => 'filter',
-				'type'    => 'toggle',
-				'label'   => __( 'Show the number of branches', 'mapify' ),
-				'default' => true,
-			),
-			'cat_filter_all'    => array(
-				'group'       => 'filter',
-				'type'        => 'text',
-				'label'       => __( '“All” chip text', 'mapify' ),
-				'description' => __( 'Leave empty for the default text.', 'mapify' ),
-				'default'     => '',
-				'placeholder' => __( 'All', 'mapify' ),
-			),
-
 			// Appearance (Elementor uses its Style tab instead).
 			'el_map_width'      => array(
 				'group'   => 'appearance',
@@ -949,7 +764,7 @@ class Schema {
 				'group'       => 'appearance',
 				'type'        => 'text',
 				'label'       => __( 'Height', 'mapify' ),
-				'description' => __( 'Image and SVG maps size themselves by their aspect ratio.', 'mapify' ),
+				'description' => __( 'The offline map sizes itself by its aspect ratio.', 'mapify' ),
 				'default'     => '',
 				'placeholder' => '500px',
 			),
@@ -1129,7 +944,7 @@ class Schema {
 			case 'google_styles':
 				return self::google_style_options();
 		}
-		return array();
+		return (array) apply_filters( 'mapify_schema_options', array(), $field['options'], $field );
 	}
 
 	public static function defaults() {
@@ -1181,44 +996,6 @@ class Schema {
 			return array_values( array_filter( array_map( 'trim', array_map( 'strval', $value ) ), 'strlen' ) );
 		}
 		return array_values( array_filter( array_map( 'trim', explode( ',', (string) $value ) ), 'strlen' ) );
-	}
-
-	/**
-	 * Parse pins given as an array (Elementor), urlencoded JSON (WPBakery param_group / shortcode) or JSON.
-	 */
-	public static function parse_pins( $value ) {
-		if ( is_string( $value ) && '' !== $value ) {
-			$decoded = json_decode( rawurldecode( $value ), true );
-			if ( ! is_array( $decoded ) ) {
-				$decoded = json_decode( $value, true );
-			}
-			$value = is_array( $decoded ) ? $decoded : array();
-		}
-		if ( ! is_array( $value ) ) {
-			return array();
-		}
-		$out = array();
-		foreach ( $value as $i => $pin ) {
-			if ( ! is_array( $pin ) ) {
-				continue;
-			}
-			$unit  = isset( $pin['unit'] ) && 'px' === $pin['unit'] ? 'px' : '%';
-			$out[] = array(
-				'id'      => 'pin-' . ( isset( $pin['_id'] ) ? sanitize_key( $pin['_id'] ) : $i ),
-				'custom'  => true,
-				'title'   => isset( $pin['title'] ) ? sanitize_text_field( $pin['title'] ) : '',
-				'x'       => isset( $pin['x'] ) && '' !== $pin['x'] ? (float) $pin['x'] : null,
-				'y'       => isset( $pin['y'] ) && '' !== $pin['y'] ? (float) $pin['y'] : null,
-				'unit'    => $unit,
-				'latitude'  => isset( $pin['lat'] ) && is_numeric( $pin['lat'] ) ? (float) $pin['lat'] : null,
-				'longitude' => isset( $pin['lng'] ) && is_numeric( $pin['lng'] ) ? (float) $pin['lng'] : null,
-				'content' => isset( $pin['content'] ) ? wp_kses_post( $pin['content'] ) : '',
-				'url'     => isset( $pin['link'] ) ? esc_url_raw( is_array( $pin['link'] ) ? ( isset( $pin['link']['url'] ) ? $pin['link']['url'] : '' ) : $pin['link'] ) : '',
-				'pin_img' => isset( $pin['image'] ) ? self::media_url( $pin['image'] ) : '',
-				'color'   => isset( $pin['color'] ) ? sanitize_text_field( $pin['color'] ) : '',
-			);
-		}
-		return $out;
 	}
 
 	/**
@@ -1290,8 +1067,10 @@ class Schema {
 					$value = self::media_url( $value );
 					break;
 				case 'repeater':
-					$value = self::parse_pins( $value );
+					$value = (array) apply_filters( 'mapify_normalize_repeater', array(), $value, $key, $field );
 					break;
+				case 'notice':
+					continue 2;
 				case 'code':
 				case 'textarea':
 					$value = self::maybe_decode_raw_html( $value );
@@ -1332,9 +1111,6 @@ class Schema {
 		}
 		if ( '' === $out['directions_label'] ) {
 			$out['directions_label'] = __( 'Get directions', 'mapify' );
-		}
-		if ( '' === $out['cat_filter_all'] ) {
-			$out['cat_filter_all'] = __( 'All', 'mapify' );
 		}
 		if ( '' === $out['search_placeholder'] ) {
 			$out['search_placeholder'] = __( 'Search branches…', 'mapify' );

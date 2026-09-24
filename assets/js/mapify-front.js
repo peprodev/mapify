@@ -106,6 +106,10 @@
 				// Built by Mapify itself (escaped there), so it is inserted as HTML.
 				return item._directions || '';
 			}
+			if ( item._html && Object.prototype.hasOwnProperty.call( item._html, key ) ) {
+				// Markup added by extensions in the popupData event, escaped by them.
+				return item._html[ key ];
+			}
 			var v = item[ key ];
 			if ( v && typeof v === 'object' ) {
 				v = Object.keys( v ).map( function ( k ) {
@@ -215,6 +219,8 @@
 			if ( t.neshan ) {
 				if ( attr.mode === 'custom' && map.attributionControl ) {
 					map.attributionControl.setPrefix( attr.html || false );
+				} else if ( attr.brand && map.attributionControl ) {
+					map.attributionControl.addAttribution( attr.brand );
 				}
 				map.whenReady( function () {
 					inst.ready();
@@ -236,6 +242,9 @@
 				if ( t.overlay ) {
 					// Labels / boundaries drawn over the base layer (e.g. satellite with labels).
 					L.tileLayer( t.overlay, { maxZoom: t.maxZoom || 19, subdomains: 'abc', crossOrigin: true, className: 'mapify-tiles--overlay' } ).addTo( map );
+				}
+				if ( attr.mode !== 'custom' && attr.brand && map.attributionControl ) {
+					map.attributionControl.addAttribution( attr.brand );
 				}
 				layer.once( 'load', function () {
 					inst.ready();
@@ -400,8 +409,11 @@
 					opts.styles = g.styles;
 				}
 				var map = ( self.map = new gm.Map( inst.canvas, opts ) );
-				if ( cfg.attribution && cfg.attribution.mode === 'custom' && cfg.attribution.html ) {
-					inst.attributionOverlay( cfg.attribution.html );
+				var attr = cfg.attribution || {};
+				if ( attr.mode === 'custom' && attr.html ) {
+					inst.attributionOverlay( attr.html );
+				} else if ( attr.mode !== 'hide' && attr.brand ) {
+					inst.attributionOverlay( attr.brand, 'google' );
 				}
 				gm.event.addListenerOnce( map, 'tilesloaded', function () {
 					inst.ready();
@@ -663,6 +675,12 @@
 				}
 			} );
 			self.setupZoom();
+			var attr = inst.cfg.attribution || {};
+			if ( attr.mode === 'custom' && attr.html ) {
+				inst.attributionOverlay( attr.html, 'plane' );
+			} else if ( attr.mode !== 'hide' && attr.brand ) {
+				inst.attributionOverlay( attr.brand, 'plane' );
+			}
 			inst.ready();
 		} );
 	};
@@ -1059,32 +1077,6 @@
 		return /Android/i.test( navigator.userAgent );
 	}
 
-	function isIOS() {
-		return /iPad|iPhone|iPod/.test( navigator.userAgent ) || ( /Macintosh/.test( navigator.userAgent ) && navigator.maxTouchPoints > 1 );
-	}
-
-	function isApple() {
-		return isIOS() || /Macintosh/.test( navigator.userAgent );
-	}
-
-	function isMobile() {
-		return isAndroid() || isIOS() || /Mobi/i.test( navigator.userAgent );
-	}
-
-	function onPlatform( platform ) {
-		switch ( platform ) {
-			case 'android':
-				return isAndroid();
-			case 'apple':
-				return isApple();
-			case 'mobile':
-				return isMobile();
-			case 'desktop':
-				return ! isMobile();
-		}
-		return true;
-	}
-
 	/** Fill an app URL template: {lat} {lng} {title} {address}. */
 	function appUrl( template, item ) {
 		var url = String( template || '' )
@@ -1097,6 +1089,9 @@
 
 	var GOOGLE_DIR = 'https://www.google.com/maps/dir/?api=1&destination={lat},{lng}';
 
+	/** Extensions registered with window.Mapify.extend(); each runs once for every map. */
+	var extensions = [];
+
 	function Mapify( el ) {
 		this.el = el;
 		try {
@@ -1106,8 +1101,11 @@
 		}
 		this.items = this.cfg.items || [];
 		this.byId = {};
-		// Current filters: search text, chosen categories and the clicked region (ids or null).
-		this.state = { term: '', cats: [], region: null };
+		this.events = {};
+		this.filters = {};
+		this.isReady = false;
+		// Current filters: search text and the clicked region (ids or null). Extensions add theirs with addFilter().
+		this.state = { term: '', region: null };
 		var self = this;
 		this.items.forEach( function ( item ) {
 			self.byId[ String( item.id ) ] = item;
@@ -1125,21 +1123,62 @@
 		this.canvas = el.querySelector( '.mapify__map' );
 		this.stage = el.querySelector( '.mapify__stage' );
 		this.dir = getComputedStyle( el ).direction || 'ltr';
+		var attr = this.cfg.attribution || {};
+		if ( attr.mode && attr.mode !== 'default' ) {
+			el.classList.add( 'mapify--attr-' + attr.mode );
+		}
 		var E = this.cfg.engine;
-		this.engine = E === 'google' ? new GoogleEngine( this ) : E === 'iran' || E === 'svg' || E === 'image' ? new PlaneEngine( this ) : new LeafletEngine( this );
+		this.engine = E === 'google' ? new GoogleEngine( this ) : this.cfg.plane ? new PlaneEngine( this ) : new LeafletEngine( this );
 		this.bindList();
-		this.bindCategories();
 		this.bindDirections();
 		this.bindFullscreen();
-		this.engine.mount().catch( function ( err ) {
-			self.ready();
-			self.notice( err && err.message ? err.message : String( err ) );
-			window.console && console.error( err ); // eslint-disable-line no-console
+		// Resolves once the map and its pins exist (extensions draw on this.engine.map after it).
+		this.mounted = this.engine
+			.mount()
+			.then( function () {
+				self.emit( 'mount' );
+				return self;
+			} )
+			.catch( function ( err ) {
+				self.ready();
+				self.notice( err && err.message ? err.message : String( err ) );
+				window.console && console.error( err ); // eslint-disable-line no-console
+			} );
+		extensions.forEach( function ( fn ) {
+			fn( self );
 		} );
 	}
 
+	/* Events: mount, ready, popup, directions, refresh, activate, popupData, popupHtml. */
+	Mapify.prototype.on = function ( name, fn ) {
+		( this.events[ name ] = this.events[ name ] || [] ).push( fn );
+		if ( name === 'ready' && this.isReady ) {
+			fn( this );
+		}
+		return this;
+	};
+
+	Mapify.prototype.emit = function ( name ) {
+		var args = Array.prototype.slice.call( arguments, 1 );
+		var self = this;
+		( this.events[ name ] || [] ).forEach( function ( fn ) {
+			fn.apply( self, args );
+		} );
+	};
+
+	/**
+	 * Extra list/map filter. test( item ) returns true to keep the branch; active() says whether it filters at all.
+	 */
+	Mapify.prototype.addFilter = function ( name, filter ) {
+		this.filters[ name ] = filter;
+	};
+
 	Mapify.prototype.ready = function () {
 		this.el.classList.add( 'is-ready' );
+		if ( ! this.isReady ) {
+			this.isReady = true;
+			this.emit( 'ready', this );
+		}
 	};
 
 	Mapify.prototype.notice = function ( msg ) {
@@ -1149,10 +1188,10 @@
 		this.stage.appendChild( n );
 	};
 
-	/** Custom attribution text for engines whose own attribution cannot be replaced (Google). */
-	Mapify.prototype.attributionOverlay = function ( html ) {
+	/** Attribution text laid over maps whose own attribution cannot take extra text (Google, offline maps). */
+	Mapify.prototype.attributionOverlay = function ( html, modifier ) {
 		var n = document.createElement( 'div' );
-		n.className = 'mapify__attribution';
+		n.className = 'mapify__attribution' + ( modifier ? ' mapify__attribution--' + modifier : '' );
 		n.innerHTML = html;
 		this.stage.appendChild( n );
 	};
@@ -1195,35 +1234,41 @@
 			data.pin_image = item.pin_img || '';
 			data.popup_image = img || ( this.cfg.popupImage === 'none' ? '' : this.cfg.placeholder || '' );
 			data._directions = btn;
+			data._after = [];
+			data._html = {};
+			this.emit( 'popupData', data, item );
 			var tpl = String( this.cfg.template || '' );
 			body = fillTemplate( tpl, data );
 			if ( btn && tpl.indexOf( '{directions' ) === -1 ) {
-				body += '<div class="mapify-card__actions mapify-card__actions--after">' + btn + '</div>';
+				data._after.unshift( btn );
+			}
+			if ( data._after.length ) {
+				body += '<div class="mapify-card__actions mapify-card__actions--after">' + data._after.join( '' ) + '</div>';
 			}
 			if ( ! data.popup_image && tpl.indexOf( '{popup_image' ) !== -1 ) {
 				body = body.replace( /<img\b[^>]*class="[^"]*mapify-card__image[^"]*"[^>]*>/gi, '' );
 			}
 		}
-		return '<div class="mapify-popup" dir="' + this.dir + '">' + body + '</div>';
+		var out = { html: '<div class="mapify-popup" dir="' + this.dir + '">' + body + '</div>' };
+		this.emit( 'popupHtml', out, item );
+		return out.html;
+	};
+
+	Mapify.prototype.openPopup = function ( item ) {
+		this.engine.openPopup( item, this.popupHtml( item ) );
+		this.emit( 'popup', item );
 	};
 
 	Mapify.prototype.setActive = function ( id ) {
-		this.el.querySelectorAll( '.is-active:not(.mapify__cat)' ).forEach( function ( n ) {
+		this.el.querySelectorAll( '[data-id].is-active' ).forEach( function ( n ) {
 			n.classList.remove( 'is-active' );
 		} );
-		var select = this.el.querySelector( '.mapify__select' );
-		if ( id === null || id === undefined ) {
-			if ( select ) {
-				select.value = '';
-			}
-			return;
+		if ( id !== null && id !== undefined ) {
+			this.el.querySelectorAll( '[data-id="' + String( id ).replace( /"/g, '' ) + '"]' ).forEach( function ( n ) {
+				n.classList.add( 'is-active' );
+			} );
 		}
-		this.el.querySelectorAll( '[data-id="' + String( id ).replace( /"/g, '' ) + '"]' ).forEach( function ( n ) {
-			n.classList.add( 'is-active' );
-		} );
-		if ( select ) {
-			select.value = String( id );
-		}
+		this.emit( 'active', id );
 	};
 
 	/** Bring the map into view when it is (partly) off screen, e.g. below a long list. */
@@ -1241,13 +1286,14 @@
 	Mapify.prototype.activate = function ( item, from ) {
 		var cfg = this.cfg;
 		this.setActive( item.id );
+		this.emit( 'activate', item, from );
 		if ( from === 'list' ) {
 			if ( cfg.listScroll !== false ) {
 				this.scrollToMap();
 			}
 			this.engine.focus( item );
 			if ( cfg.listPopup !== false ) {
-				this.engine.openPopup( item, this.popupHtml( item ) );
+				this.openPopup( item );
 			}
 			return;
 		}
@@ -1258,8 +1304,18 @@
 		if ( action === 'url' && item.url ) {
 			window.open( item.url, cfg.target || '_self', cfg.target === '_blank' ? 'noopener' : '' );
 		} else if ( action === 'popup' ) {
-			this.engine.openPopup( item, this.popupHtml( item ) );
+			this.openPopup( item );
 		}
+	};
+
+	/** Id of the branch a list element belongs to. */
+	Mapify.prototype.listItemId = function ( target ) {
+		var btn = target.closest( '.mapify__item' );
+		var row = target.closest( '.mapify__row[data-id]' );
+		if ( btn ) {
+			return btn.getAttribute( 'data-id' );
+		}
+		return row && ! target.closest( 'a, button, input, select, textarea' ) ? row.getAttribute( 'data-id' ) : null;
 	};
 
 	Mapify.prototype.bindList = function () {
@@ -1269,30 +1325,14 @@
 			return;
 		}
 		list.addEventListener( 'click', function ( e ) {
-			var btn = e.target.closest( '.mapify__item' );
-			var row = e.target.closest( 'tr.mapify__row' );
-			var id = btn ? btn.getAttribute( 'data-id' ) : row && ! e.target.closest( 'a' ) ? row.getAttribute( 'data-id' ) : null;
+			var id = self.listItemId( e.target );
 			if ( id && self.byId[ id ] ) {
 				self.activate( self.byId[ id ], 'list' );
-			}
-			var nav = e.target.closest( '.mapify__carousel-btn' );
-			if ( nav ) {
-				var track = nav.closest( '.mapify__group' ).querySelector( '.mapify__items' );
-				var step = track.clientWidth * 0.8 * parseInt( nav.getAttribute( 'data-dir' ), 10 );
-				track.scrollBy( { left: self.dir === 'rtl' ? -step : step, behavior: 'smooth' } );
 			}
 			if ( e.target.closest( '.mapify__reset' ) ) {
 				self.applyFilter( null, '' );
 			}
 		} );
-		var select = list.querySelector( '.mapify__select' );
-		if ( select ) {
-			select.addEventListener( 'change', function () {
-				if ( self.byId[ select.value ] ) {
-					self.activate( self.byId[ select.value ], 'list' );
-				}
-			} );
-		}
 		var input = list.querySelector( '.mapify__search-input' );
 		if ( input ) {
 			var timer;
@@ -1303,45 +1343,6 @@
 				}, 150 );
 			} );
 		}
-	};
-
-	/** Category chips above the list and on the map; both stay in sync. */
-	Mapify.prototype.bindCategories = function () {
-		var self = this;
-		var bars = this.el.querySelectorAll( '.mapify__cats' );
-		if ( ! bars.length ) {
-			return;
-		}
-		bars.forEach( function ( bar ) {
-			bar.addEventListener( 'click', function ( e ) {
-				var chip = e.target.closest( '.mapify__cat' );
-				if ( ! chip ) {
-					return;
-				}
-				var id = chip.getAttribute( 'data-cat' );
-				var cats = self.state.cats.slice();
-				if ( ! id ) {
-					cats = [];
-				} else if ( cats.indexOf( id ) !== -1 ) {
-					cats.splice( cats.indexOf( id ), 1 );
-				} else {
-					cats = self.cfg.catMultiple ? cats.concat( [ id ] ) : [ id ];
-				}
-				self.filterCategories( cats );
-			} );
-		} );
-	};
-
-	Mapify.prototype.filterCategories = function ( cats ) {
-		this.state.cats = cats || [];
-		var active = this.state.cats;
-		this.el.querySelectorAll( '.mapify__cat' ).forEach( function ( chip ) {
-			var id = chip.getAttribute( 'data-cat' );
-			var on = id ? active.indexOf( id ) !== -1 : ! active.length;
-			chip.classList.toggle( 'is-active', on );
-			chip.setAttribute( 'aria-pressed', on ? 'true' : 'false' );
-		} );
-		this.refresh();
 	};
 
 	Mapify.prototype.search = function ( term ) {
@@ -1379,34 +1380,39 @@
 		this.refresh();
 	};
 
-	Mapify.prototype.matches = function ( item ) {
+	Mapify.prototype.activeFilters = function () {
+		var self = this;
+		return Object.keys( this.filters )
+			.map( function ( k ) {
+				return self.filters[ k ];
+			} )
+			.filter( function ( f ) {
+				return f.active();
+			} );
+	};
+
+	Mapify.prototype.matches = function ( item, extra ) {
 		var st = this.state;
 		if ( st.term && ( item.custom || ( item._search || '' ).indexOf( st.term ) === -1 ) ) {
 			return false;
 		}
-		if ( st.cats.length ) {
-			var cats = item.cats || [];
-			var hit = st.cats.some( function ( c ) {
-				return cats.indexOf( c ) !== -1;
-			} );
-			if ( ! hit ) {
-				return false;
-			}
-		}
 		if ( st.region && st.region.indexOf( String( item.id ) ) === -1 ) {
 			return false;
 		}
-		return true;
+		return extra.every( function ( f ) {
+			return f.test( item );
+		} );
 	};
 
-	/** Apply search, category and region filters to the list and the map. */
+	/** Apply search, region and extension filters to the list and the map. */
 	Mapify.prototype.refresh = function () {
 		var self = this;
 		var st = this.state;
-		var filtered = !! ( st.term || st.cats.length || st.region );
+		var extra = this.activeFilters();
+		var filtered = !! ( st.term || st.region || extra.length );
 		var ids = [];
 		this.items.forEach( function ( item ) {
-			if ( self.matches( item ) ) {
+			if ( self.matches( item, extra ) ) {
 				ids.push( String( item.id ) );
 			}
 		} );
@@ -1419,6 +1425,7 @@
 		} );
 		this.syncGroups();
 		this.engine.filter( filtered ? ids : null );
+		this.emit( 'refresh', filtered ? ids : null );
 	};
 
 	Mapify.prototype.syncGroups = function () {
@@ -1427,9 +1434,6 @@
 			var visible = g.querySelector( '.mapify__row:not([hidden])' );
 			g.hidden = ! visible;
 			any = any || !! visible;
-		} );
-		this.el.querySelectorAll( '.mapify__select optgroup' ).forEach( function ( g ) {
-			g.hidden = ! g.querySelector( '.mapify__row:not([hidden])' );
 		} );
 		var empty = this.el.querySelector( '.mapify__empty' );
 		if ( empty ) {
@@ -1455,95 +1459,18 @@
 				return;
 			}
 			e.preventDefault();
+			self.emit( 'directions', item );
 			self.directions( item );
 		} );
 	};
 
-	/** Apps from Map Settings → Navigation that fit this device. */
-	Mapify.prototype.directionApps = function () {
-		return ( this.cfg.directions.apps || [] ).filter( function ( app ) {
-			return onPlatform( app.platform );
-		} );
-	};
-
 	Mapify.prototype.directions = function ( item ) {
-		var d = this.cfg.directions;
-		var geo = 'geo:' + item.latitude + ',' + item.longitude + '?q=' + item.latitude + ',' + item.longitude + '(' + encodeURIComponent( item.title || '' ) + ')';
-		if ( d.mode === 'google' ) {
-			window.open( appUrl( GOOGLE_DIR, item ), '_blank', 'noopener' );
-			return;
-		}
-		if ( d.mode === 'direct' ) {
-			// The phone's default map app, without a list.
-			if ( isAndroid() ) {
-				window.location.href = geo;
-			} else if ( isIOS() ) {
-				window.location.href = 'maps://?daddr=' + item.latitude + ',' + item.longitude + '&q=' + encodeURIComponent( item.title || '' );
-			} else {
-				var first = this.directionApps()[ 0 ];
-				window.open( appUrl( first ? first.url : GOOGLE_DIR, item ) || appUrl( GOOGLE_DIR, item ), '_blank', 'noopener' );
-			}
-			return;
-		}
-		if ( d.mode === 'auto' && isAndroid() ) {
+		if ( this.cfg.directions.mode === 'auto' && isAndroid() ) {
 			// geo: makes Android list every installed map app.
-			window.location.href = geo;
+			window.location.href = 'geo:' + item.latitude + ',' + item.longitude + '?q=' + item.latitude + ',' + item.longitude + '(' + encodeURIComponent( item.title || '' ) + ')';
 			return;
 		}
-		this.directionsSheet( item );
-	};
-
-	Mapify.prototype.directionsSheet = function ( item ) {
-		var self = this;
-		var d = this.cfg.directions;
-		var old = document.querySelector( '.mapify-sheet' );
-		if ( old ) {
-			old.remove();
-		}
-		var apps = this.directionApps();
-		if ( ! apps.length ) {
-			window.open( appUrl( GOOGLE_DIR, item ), '_blank', 'noopener' );
-			return;
-		}
-		var sheet = document.createElement( 'div' );
-		sheet.className = 'mapify-sheet';
-		sheet.setAttribute( 'role', 'dialog' );
-		sheet.setAttribute( 'aria-modal', 'true' );
-		sheet.setAttribute( 'aria-label', d.title );
-		sheet.setAttribute( 'dir', this.dir );
-		var html = '<div class="mapify-sheet__panel"><p class="mapify-sheet__title">' + esc( d.title ) + '<span>' + esc( item.title || '' ) + '</span></p><div class="mapify-sheet__apps">';
-		apps.forEach( function ( app ) {
-			var url = appUrl( app.url, item );
-			if ( ! url ) {
-				return;
-			}
-			var web = /^https?:/i.test( url );
-			html += '<a class="mapify-sheet__app mapify-sheet__app--' + esc( app.id ) + '" href="' + esc( url ) + '"' + ( web ? ' target="_blank" rel="noopener"' : '' ) + '>'
-				+ ( app.icon ? '<img class="mapify-sheet__icon" src="' + esc( app.icon ) + '" alt="" />' : '' )
-				+ '<span>' + esc( app.label ) + '</span></a>';
-		} );
-		html += '</div><button type="button" class="mapify-sheet__cancel">' + esc( this.cfg.i18n.cancel ) + '</button></div>';
-		sheet.innerHTML = html;
-		function close() {
-			sheet.remove();
-			document.removeEventListener( 'keydown', onKey );
-		}
-		function onKey( e ) {
-			if ( e.key === 'Escape' ) {
-				close();
-			}
-		}
-		sheet.addEventListener( 'click', function ( e ) {
-			if ( e.target === sheet || e.target.closest( '.mapify-sheet__cancel' ) || e.target.closest( '.mapify-sheet__app' ) ) {
-				setTimeout( close, 0 );
-			}
-		} );
-		document.addEventListener( 'keydown', onKey );
-		( document.fullscreenElement === self.stage ? self.stage : document.body ).appendChild( sheet );
-		var first = sheet.querySelector( '.mapify-sheet__app, .mapify-sheet__cancel' );
-		if ( first ) {
-			first.focus();
-		}
+		window.open( appUrl( GOOGLE_DIR, item ), '_blank', 'noopener' );
 	};
 
 	Mapify.prototype.bindFullscreen = function () {
@@ -1582,14 +1509,39 @@
 		} );
 	}
 
-	window.Mapify = { init: boot, fillTemplate: fillTemplate };
+	window.Mapify = {
+		init: boot,
+		fillTemplate: fillTemplate,
+		esc: esc,
+		hasCoords: hasCoords,
+		appUrl: appUrl,
+		loadScript: loadScript,
+		loadCss: loadCss,
+		isAndroid: isAndroid,
+		Instance: Mapify,
+		engines: { Leaflet: LeafletEngine, Google: GoogleEngine, Plane: PlaneEngine },
+		/** Run fn( instance ) for every map on the page, now and later. */
+		extend: function ( fn ) {
+			extensions.push( fn );
+			document.querySelectorAll( '.mapify.is-init' ).forEach( function ( el ) {
+				if ( el.mapify && el.mapify.cfg ) {
+					fn( el.mapify );
+				}
+			} );
+		},
+	};
 
-	if ( document.readyState === 'loading' ) {
+	// Wait for DOMContentLoaded even when this deferred script runs earlier, so extensions loaded
+	// after it are registered before the maps start.
+	if ( document.readyState === 'complete' ) {
+		setTimeout( boot, 0 );
+	} else {
 		document.addEventListener( 'DOMContentLoaded', function () {
 			boot();
 		} );
-	} else {
-		boot();
+		window.addEventListener( 'load', function () {
+			boot();
+		} );
 	}
 
 	// Page builders re-render widgets in place (Elementor, WPBakery frontend editor).

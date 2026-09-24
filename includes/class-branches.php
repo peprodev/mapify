@@ -14,7 +14,7 @@ class Branches {
 	const POST_TYPE = 'mapify';
 	const TAXONOMY  = 'mapify_category';
 
-	/** Branches allowed in the free version. Mapify Pro has no limit. */
+	/** Branches allowed in this edition. */
 	const MAX_BRANCHES = 15;
 
 	/** Meta fields: key (stored as place_details_{key}) => [label, input type]. */
@@ -125,19 +125,8 @@ class Branches {
 		);
 	}
 
-	/** Category meta: key => [label, sanitize callback]. */
-	public static function term_meta_fields() {
-		return apply_filters(
-			'mapify_category_meta_fields',
-			array(
-				'mapify_pin_color' => array( __( 'Pin color', 'mapify' ), array( __CLASS__, 'sanitize_color' ) ),
-				'mapify_pin_image' => array( __( 'Pin image', 'mapify' ), 'esc_url_raw' ),
-			)
-		);
-	}
-
 	/**
-	 * Every branch and category field is exposed to the REST API (wp/v2/mapify, wp/v2/mapify_category).
+	 * Every branch field is exposed to the REST API (wp/v2/mapify).
 	 */
 	protected static function register_meta() {
 		$auth = function () {
@@ -168,22 +157,6 @@ class Branches {
 					'show_in_rest'      => true,
 					'sanitize_callback' => $sanitize,
 					'auth_callback'     => $auth,
-				)
-			);
-		}
-		foreach ( self::term_meta_fields() as $key => $field ) {
-			register_term_meta(
-				self::TAXONOMY,
-				$key,
-				array(
-					'type'              => 'string',
-					'single'            => true,
-					'default'           => '',
-					'show_in_rest'      => true,
-					'sanitize_callback' => $field[1],
-					'auth_callback'     => function () {
-						return current_user_can( 'manage_categories' );
-					},
 				)
 			);
 		}
@@ -256,16 +229,6 @@ class Branches {
 				'longitude' => (float) $data['longitude'],
 				'gzoom'     => (int) $zoom,
 			)
-		);
-	}
-
-	/**
-	 * Pin color and image of a category (empty strings when not set).
-	 */
-	public static function category_pin( $term_id ) {
-		return array(
-			'color' => self::sanitize_color( get_term_meta( $term_id, 'mapify_pin_color', true ) ),
-			'image' => esc_url_raw( (string) get_term_meta( $term_id, 'mapify_pin_image', true ) ),
 		);
 	}
 
@@ -399,16 +362,10 @@ class Branches {
 		}
 		$location   = self::location( $post->ID );
 		$categories = array();
-		$cat_color  = '';
-		$cat_image  = '';
 		$terms      = get_the_terms( $post->ID, self::TAXONOMY );
 		if ( $terms && ! is_wp_error( $terms ) ) {
 			foreach ( $terms as $term ) {
 				$categories[ $term->term_id ] = $term->name;
-				$pin                          = self::category_pin( $term->term_id );
-				// The first category that has a pin setting wins.
-				$cat_color = $cat_color ? $cat_color : $pin['color'];
-				$cat_image = $cat_image ? $cat_image : $pin['image'];
 			}
 		}
 		$image     = get_the_post_thumbnail_url( $post->ID, 'medium_large' );
@@ -425,9 +382,8 @@ class Branches {
 			'latitude'   => $location ? $location['latitude'] : null,
 			'longitude'  => $location ? $location['longitude'] : null,
 			'zoom'       => $location ? $location['zoom'] : null,
-			// Branch pin settings first, then the pin settings of its category.
-			'pin_img'    => $own_img ? $own_img : $cat_image,
-			'color'      => $own_color ? $own_color : $cat_color,
+			'pin_img'    => $own_img,
+			'color'      => $own_color ? $own_color : '',
 			'branch_pin' => $own_img,
 		);
 		$aliases = array(

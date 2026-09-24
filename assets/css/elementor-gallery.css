@@ -80,3 +80,38 @@
 	font-size: 11px;
 	font-style: italic;
 }
+
+.mapify-gallery__note {
+	margin: 8px 0 0;
+	font-size: 11px;
+	font-style: italic;
+	opacity: .7;
+}
+
+/* A feature this edition does not include, shown greyed out. */
+.mapify-el-pro {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	opacity: .6;
+	pointer-events: none;
+	user-select: none;
+}
+
+.mapify-el-pro__label {
+	font-weight: 500;
+}
+
+.mapify-el-pro__box {
+	display: block;
+	height: 64px;
+	border: 1px dashed var(--e-a-border-color-bold, #d5d8dc);
+	border-radius: 4px;
+	background: var(--e-a-bg-hover, #f1f2f3);
+}
+
+.mapify-el-pro__text {
+	font-size: 11px;
+	font-style: italic;
+	line-height: 1.5;
+}
