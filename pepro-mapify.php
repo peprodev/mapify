@@ -9,8 +9,8 @@
  * Requires PHP:      7.4
  * Author:            Pepro Dev. Group
  * Author URI:        https://pepro.dev/
- * Developer:         Amirhosseinhpv
- * Developer URI:     https://hpv.im/
+ * Developer:         AmirhpCom
+ * Developer URI:     https://amirhp.com/
  * License:           GPLv2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       mapify

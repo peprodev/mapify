@@ -2,7 +2,7 @@
 
 Show your branches on **OpenStreetMap, Google Maps, Mapbox, Map.ir, Neshan, Parsimap, Mapup**, any XYZ tile server or a bundled **offline map of Iran** — as an **Elementor widget**, a **WPBakery Page Builder element** or a **shortcode**.
 
-*Version 3.0.0* · Requires WordPress 6.5+ (tested 7.1.2), PHP 7.4+ (tested 8.5), Elementor 4.3.1, WPBakery 9.0.1 · by [Pepro Dev](https://pepro.dev/), lead programmer [Amirhosseinhpv](https://hpv.im/)
+*Version 3.0.0* · Requires WordPress 6.5+ (tested 7.1.2), PHP 7.4+ (tested 8.5), Elementor 4.3.1, WPBakery 9.0.1 · by [Pepro Dev](https://pepro.dev/), lead developer [AmirhpCom](https://amirhp.com/)
 
 ![Cards layout, map and popup](.github/screenshots/front-cards-popup.jpg)
 
