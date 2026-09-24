@@ -17,8 +17,8 @@ Add branches (address, phone, social links, location) and show them on a map wit
 
 **Map engines**
 
-* OpenStreetMap and other free tiles (Esri light/dark/street/topo/satellite, OpenTopoMap) — no key needed
-* Google Maps with 70+ built-in styles, custom JSON styles or a cloud Map ID (Advanced Markers)
+* 20 free tile styles with no key: OpenStreetMap (standard, grayscale, dark, vintage, Humanitarian, France, Germany), CyclOSM, OpenTopoMap and Esri (light, dark, street, topographic, National Geographic, satellite, satellite with labels, terrain, shaded relief, physical, ocean)
+* Google Maps with 70+ built-in styles, any Snazzy Maps style or a cloud Map ID (Advanced Markers)
 * Mapbox (built-in and Mapbox Studio styles)
 * Persian maps: Map.ir, Neshan, Parsimap and Mapup (Mapup needs no key)
 * Any XYZ tile server
@@ -37,6 +37,7 @@ Add branches (address, phone, social links, location) and show them on a map wit
 * Eight list layouts: chips, cards, detailed list, image grid, compact numbered list, table, carousel and dropdown
 * Category chips under the search box and on the map; one or several categories at a time
 * Pin color and pin image per category (Branches → Categories)
+* Picking a branch in the list scrolls the page to the map and opens its popup (both can be turned off)
 
 **Popup**
 
@@ -86,12 +87,23 @@ Choose “Image as map”, select the image and add custom pins with X/Y in perc
 
 == Screenshots ==
 
-1. Map Settings page
-2. Shortcode Builder with live preview
-3. Elementor widget — content settings
-4. Elementor widget — style settings
-5. WPBakery Page Builder element settings
-6. Offline Iran map with branches list
+1. Branches list with category chips, map and popup
+2. Category chips on the map show only the chosen category
+3. Offline Iran map with zoom and pan
+4. Table layout, grouped by category
+5. Image grid layout
+6. Compact numbered list
+7. Carousel layout
+8. Popup with the Get directions button on a phone
+9. Directions app list on iPhone
+10. Map Settings → Navigation
+11. Map Settings → Import / Export
+12. Map attribution setting (development use only)
+13. Pin color and image per category
+14. Shortcode Builder with the tile style gallery
+15. Elementor: tile style gallery and live preview
+16. Elementor: Category filter section
+17. Elementor: Snazzy Maps style section
 
 == Changelog ==
 
@@ -185,6 +197,10 @@ Join us at [https://pepro.dev/](https://pepro.dev/) and also don't forget to che
 
 
 == Upgrade Notice ==
+
+= 2.4.0 =
+
+- Picking a branch in the list now scrolls to the map and opens its popup; turn it off in the Branches list settings
 
 = 1.3.6 =
 
