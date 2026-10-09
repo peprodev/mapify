@@ -124,7 +124,7 @@ class WPBakery {
 				break;
 			case 'toggle':
 				$param['type']  = 'checkbox';
-				$param['value'] = array( __( 'Yes', 'mapify' ) => 'yes' );
+				$param['value'] = array( __( 'Yes', 'pepro-mapify' ) => 'yes' );
 				$param['std']   = $field['default'] ? 'yes' : '';
 				break;
 			case 'color':
@@ -186,7 +186,7 @@ class WPBakery {
 			default:
 				$param['type'] = 'textfield';
 				if ( isset( $field['placeholder'] ) ) {
-					$param['description'] = trim( ( isset( $param['description'] ) ? $param['description'] . ' ' : '' ) . sprintf( /* translators: %s: example */ __( 'e.g. %s', 'mapify' ), $field['placeholder'] ) );
+					$param['description'] = trim( ( isset( $param['description'] ) ? $param['description'] . ' ' : '' ) . sprintf( /* translators: %s: example */ __( 'e.g. %s', 'pepro-mapify' ), $field['placeholder'] ) );
 				}
 		}
 		return $param;
@@ -210,16 +210,16 @@ class WPBakery {
 		}
 		$params[] = array(
 			'type'       => 'css_editor',
-			'heading'    => __( 'CSS box', 'mapify' ),
+			'heading'    => __( 'CSS box', 'pepro-mapify' ),
 			'param_name' => 'css',
-			'group'      => __( 'Design Options', 'mapify' ),
+			'group'      => __( 'Design Options', 'pepro-mapify' ),
 		);
 
 		return array(
-			'name'                    => __( 'Branches Map', 'mapify' ),
+			'name'                    => __( 'Branches Map', 'pepro-mapify' ),
 			'base'                    => Shortcode::TAG,
-			'category'                => __( 'PeproDev Elements', 'mapify' ),
-			'description'             => __( 'Branches on Google, OSM, Mapbox, Map.ir, SVG or image maps', 'mapify' ),
+			'category'                => __( 'PeproDev Elements', 'pepro-mapify' ),
+			'description'             => __( 'Branches on Google, OSM, Mapbox, Map.ir, SVG or image maps', 'pepro-mapify' ),
 			'icon'                    => MAPIFY_ASSETS . 'img/mapify-icon.svg',
 			'show_settings_on_create' => true,
 			'admin_enqueue_css'       => array( MAPIFY_ASSETS . 'css/wpbakery.css?ver=' . MAPIFY_VERSION ),
@@ -243,7 +243,7 @@ class WPBakery {
 	public static function param_image_select( $settings, $value ) {
 		$name  = esc_attr( $settings['param_name'] );
 		$value = '' === (string) $value && isset( $settings['std'] ) ? $settings['std'] : $value;
-		$html  = count( $settings['value'] ) > 12 ? '<input type="search" class="mapify-vc-images__search" placeholder="' . esc_attr__( 'Search styles…', 'mapify' ) . '" />' : '';
+		$html  = count( $settings['value'] ) > 12 ? '<input type="search" class="mapify-vc-images__search" placeholder="' . esc_attr__( 'Search styles…', 'pepro-mapify' ) . '" />' : '';
 		$html .= '<div class="mapify-vc-images" data-target="' . $name . '">';
 		foreach ( $settings['value'] as $option => $label ) {
 			$img   = isset( $settings['images'][ $option ] ) ? $settings['images'][ $option ] : '';

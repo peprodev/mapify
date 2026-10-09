@@ -2,7 +2,7 @@
 /**
  * Multilingual support.
  *
- * - Interface texts use the "mapify" text domain; WPML String Translation and Loco Translate find them
+ * - Interface texts use the "pepro-mapify" text domain; WPML String Translation and Loco Translate find them
  *   in the PHP and JavaScript files (JavaScript texts load through wp_set_script_translations()).
  * - wpml-config.xml makes branches, branch categories, branch details, the texts of the Elementor
  *   widget and the WPBakery element / shortcode, and texts entered in Map Settings translatable in WPML.

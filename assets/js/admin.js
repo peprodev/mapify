@@ -94,7 +94,7 @@
 					} );
 				},
 			} ),
-			s[ 0 ] ? __( 'Copied!', 'mapify' ) : p.label || __( 'Copy', 'mapify' )
+			s[ 0 ] ? __( 'Copied!', 'pepro-mapify' ) : p.label || __( 'Copy', 'pepro-mapify' )
 		);
 	}
 
@@ -131,11 +131,11 @@
 				try {
 					resolve( JSON.parse( r.result ) );
 				} catch ( e ) {
-					reject( new Error( __( 'The file is not valid JSON.', 'mapify' ) ) );
+					reject( new Error( __( 'The file is not valid JSON.', 'pepro-mapify' ) ) );
 				}
 			};
 			r.onerror = function () {
-				reject( new Error( __( 'The file could not be read.', 'mapify' ) ) );
+				reject( new Error( __( 'The file could not be read.', 'pepro-mapify' ) ) );
 			};
 			r.readAsText( file );
 		} );
@@ -170,10 +170,10 @@
 					var v = res[ D.optionKey ] || values;
 					setValues( v );
 					saved[ 1 ]( v );
-					notice[ 1 ]( __( 'Settings saved.', 'mapify' ) );
+					notice[ 1 ]( __( 'Settings saved.', 'pepro-mapify' ) );
 				} )
 				.catch( function ( err ) {
-					notice[ 1 ]( ( err && err.message ) || __( 'Could not save settings.', 'mapify' ) );
+					notice[ 1 ]( ( err && err.message ) || __( 'Could not save settings.', 'pepro-mapify' ) );
 				} )
 				.finally( function () {
 					busy[ 1 ]( false );
@@ -185,10 +185,10 @@
 		} );
 
 		var tabs = hooks.applyFilters( 'mapify.settings.tabs', [
-			{ name: 'providers', title: __( 'Map providers', 'mapify' ) },
-			{ name: 'defaults', title: __( 'Defaults', 'mapify' ) },
-			{ name: 'branches', title: __( 'Branches', 'mapify' ) },
-			{ name: 'advanced', title: __( 'Advanced', 'mapify' ) },
+			{ name: 'providers', title: __( 'Map providers', 'pepro-mapify' ) },
+			{ name: 'defaults', title: __( 'Defaults', 'pepro-mapify' ) },
+			{ name: 'branches', title: __( 'Branches', 'pepro-mapify' ) },
+			{ name: 'advanced', title: __( 'Advanced', 'pepro-mapify' ) },
 		] );
 
 		function reload() {
@@ -228,71 +228,71 @@
 						'div',
 						{ className: 'mapify-stack' },
 						provider(
-							__( 'OpenStreetMap', 'mapify' ),
-							__( 'Free tiles that need no key: OpenStreetMap, OpenTopoMap and Esri (light, dark, street, topographic and satellite). Also used as the fallback when a provider key is missing.', 'mapify' ),
+							__( 'OpenStreetMap', 'pepro-mapify' ),
+							__( 'Free tiles that need no key: OpenStreetMap, OpenTopoMap and Esri (light, dark, street, topographic and satellite). Also used as the fallback when a provider key is missing.', 'pepro-mapify' ),
 							null,
-							el( 'div', { className: 'mapify-pill is-ok' }, __( 'Ready — no configuration needed', 'mapify' ) )
+							el( 'div', { className: 'mapify-pill is-ok' }, __( 'Ready — no configuration needed', 'pepro-mapify' ) )
 						),
 						provider(
-							__( 'Google Maps', 'mapify' ),
-							__( 'JavaScript API key with the Maps JavaScript API enabled.', 'mapify' ),
-							{ href: 'https://console.cloud.google.com/google/maps-apis/credentials', label: __( 'Get a key', 'mapify' ) },
+							__( 'Google Maps', 'pepro-mapify' ),
+							__( 'JavaScript API key with the Maps JavaScript API enabled.', 'pepro-mapify' ),
+							{ href: 'https://console.cloud.google.com/google/maps-apis/credentials', label: __( 'Get a key', 'pepro-mapify' ) },
 							[
-								el( C.TextControl, props( { key: 'k', label: __( 'API key', 'mapify' ), value: values.google_api_key, onChange: set( 'google_api_key' ), className: 'is-ltr', autoComplete: 'off' } ) ),
-								el( C.TextControl, props( { key: 'm', label: __( 'Map ID (optional)', 'mapify' ), help: __( 'Enables Advanced Markers and cloud-based styling. Leave empty to use the built-in JSON styles.', 'mapify' ), value: values.google_map_id, onChange: set( 'google_map_id' ), className: 'is-ltr' } ) ),
-								el( C.TextControl, props( { key: 'l', label: __( 'Map language (optional)', 'mapify' ), placeholder: 'fa', help: __( 'Two-letter code such as fa, en or ar. Empty = visitor browser language.', 'mapify' ), value: values.google_language, onChange: set( 'google_language' ), className: 'is-ltr' } ) ),
+								el( C.TextControl, props( { key: 'k', label: __( 'API key', 'pepro-mapify' ), value: values.google_api_key, onChange: set( 'google_api_key' ), className: 'is-ltr', autoComplete: 'off' } ) ),
+								el( C.TextControl, props( { key: 'm', label: __( 'Map ID (optional)', 'pepro-mapify' ), help: __( 'Enables Advanced Markers and cloud-based styling. Leave empty to use the built-in JSON styles.', 'pepro-mapify' ), value: values.google_map_id, onChange: set( 'google_map_id' ), className: 'is-ltr' } ) ),
+								el( C.TextControl, props( { key: 'l', label: __( 'Map language (optional)', 'pepro-mapify' ), placeholder: 'fa', help: __( 'Two-letter code such as fa, en or ar. Empty = visitor browser language.', 'pepro-mapify' ), value: values.google_language, onChange: set( 'google_language' ), className: 'is-ltr' } ) ),
 							]
 						),
 						provider(
-							__( 'Mapbox', 'mapify' ),
-							__( 'Public access token (starts with pk.). Works with Mapbox styles and your own Mapbox Studio styles.', 'mapify' ),
-							{ href: 'https://account.mapbox.com/access-tokens/', label: __( 'Get a token', 'mapify' ) },
-							el( C.TextControl, props( { label: __( 'Access token', 'mapify' ), value: values.mapbox_token, onChange: set( 'mapbox_token' ), className: 'is-ltr', autoComplete: 'off' } ) )
+							__( 'Mapbox', 'pepro-mapify' ),
+							__( 'Public access token (starts with pk.). Works with Mapbox styles and your own Mapbox Studio styles.', 'pepro-mapify' ),
+							{ href: 'https://account.mapbox.com/access-tokens/', label: __( 'Get a token', 'pepro-mapify' ) },
+							el( C.TextControl, props( { label: __( 'Access token', 'pepro-mapify' ), value: values.mapbox_token, onChange: set( 'mapbox_token' ), className: 'is-ltr', autoComplete: 'off' } ) )
 						),
 						provider(
-							__( 'Neshan', 'mapify' ),
-							__( 'Persian map by Neshan. Create a “Web map” key in the Neshan platform panel.', 'mapify' ),
-							{ href: 'https://platform.neshan.org/panel/api-key', label: __( 'Get an API key', 'mapify' ) },
-							el( C.TextControl, props( { label: __( 'Web map API key', 'mapify' ), value: values.neshan_api_key, onChange: set( 'neshan_api_key' ), className: 'is-ltr', autoComplete: 'off' } ) )
+							__( 'Neshan', 'pepro-mapify' ),
+							__( 'Persian map by Neshan. Create a “Web map” key in the Neshan platform panel.', 'pepro-mapify' ),
+							{ href: 'https://platform.neshan.org/panel/api-key', label: __( 'Get an API key', 'pepro-mapify' ) },
+							el( C.TextControl, props( { label: __( 'Web map API key', 'pepro-mapify' ), value: values.neshan_api_key, onChange: set( 'neshan_api_key' ), className: 'is-ltr', autoComplete: 'off' } ) )
 						),
 						provider(
-							__( 'Parsimap', 'mapify' ),
-							__( 'Persian raster map tiles by Parsimap.', 'mapify' ),
-							{ href: 'https://account.parsimap.ir/token-registration', label: __( 'Get a token', 'mapify' ) },
-							el( C.TextControl, props( { label: __( 'API token', 'mapify' ), value: values.parsimap_api_key, onChange: set( 'parsimap_api_key' ), className: 'is-ltr', autoComplete: 'off' } ) )
+							__( 'Parsimap', 'pepro-mapify' ),
+							__( 'Persian raster map tiles by Parsimap.', 'pepro-mapify' ),
+							{ href: 'https://account.parsimap.ir/token-registration', label: __( 'Get a token', 'pepro-mapify' ) },
+							el( C.TextControl, props( { label: __( 'API token', 'pepro-mapify' ), value: values.parsimap_api_key, onChange: set( 'parsimap_api_key' ), className: 'is-ltr', autoComplete: 'off' } ) )
 						),
 						provider(
-							__( 'Mapup', 'mapify' ),
-							__( 'Persian map tiles by Mapup — free, no key needed.', 'mapify' ),
+							__( 'Mapup', 'pepro-mapify' ),
+							__( 'Persian map tiles by Mapup — free, no key needed.', 'pepro-mapify' ),
 							{ href: 'https://mapup.ir', label: 'mapup.ir' },
-							el( 'div', { className: 'mapify-pill is-ok' }, __( 'Ready — no configuration needed', 'mapify' ) )
+							el( 'div', { className: 'mapify-pill is-ok' }, __( 'Ready — no configuration needed', 'pepro-mapify' ) )
 						),
 						provider(
-							__( 'Map.ir', 'mapify' ),
-							__( 'Persian map tiles with Iranian street names and places.', 'mapify' ),
-							{ href: 'https://corp.map.ir/registration/', label: __( 'Get an API key', 'mapify' ) },
-							el( C.TextControl, props( { label: __( 'API key', 'mapify' ), value: values.mapir_api_key, onChange: set( 'mapir_api_key' ), className: 'is-ltr', autoComplete: 'off' } ) )
+							__( 'Map.ir', 'pepro-mapify' ),
+							__( 'Persian map tiles with Iranian street names and places.', 'pepro-mapify' ),
+							{ href: 'https://corp.map.ir/registration/', label: __( 'Get an API key', 'pepro-mapify' ) },
+							el( C.TextControl, props( { label: __( 'API key', 'pepro-mapify' ), value: values.mapir_api_key, onChange: set( 'mapir_api_key' ), className: 'is-ltr', autoComplete: 'off' } ) )
 						)
 					);
 				case 'defaults':
 					return el(
 						C.Card,
 						{ className: 'mapify-card' },
-						el( C.CardHeader, null, el( 'div', null, el( 'h2', { className: 'mapify-card__title' }, __( 'Map defaults', 'mapify' ) ), el( 'p', { className: 'mapify-card__desc' }, __( 'Used by every map that does not override them.', 'mapify' ) ) ) ),
+						el( C.CardHeader, null, el( 'div', null, el( 'h2', { className: 'mapify-card__title' }, __( 'Map defaults', 'pepro-mapify' ) ), el( 'p', { className: 'mapify-card__desc' }, __( 'Used by every map that does not override them.', 'pepro-mapify' ) ) ) ),
 						el(
 							C.CardBody,
 							{ className: 'mapify-stack' },
-							el( C.SelectControl, props( { label: __( 'Default map engine', 'mapify' ), value: values.default_engine, options: engineOptions, onChange: set( 'default_engine' ) } ) ),
+							el( C.SelectControl, props( { label: __( 'Default map engine', 'pepro-mapify' ), value: values.default_engine, options: engineOptions, onChange: set( 'default_engine' ) } ) ),
 							el(
 								'div',
 								{ className: 'mapify-grid-2' },
-								el( C.TextControl, props( { label: __( 'Default center (lat,lng)', 'mapify' ), value: values.default_center, onChange: set( 'default_center' ), className: 'is-ltr' } ) ),
-								el( C.TextControl, props( { label: __( 'Default height', 'mapify' ), value: values.default_height, onChange: set( 'default_height' ), className: 'is-ltr', help: __( 'Any CSS length, e.g. 500px or 60vh.', 'mapify' ) } ) )
+								el( C.TextControl, props( { label: __( 'Default center (lat,lng)', 'pepro-mapify' ), value: values.default_center, onChange: set( 'default_center' ), className: 'is-ltr' } ) ),
+								el( C.TextControl, props( { label: __( 'Default height', 'pepro-mapify' ), value: values.default_height, onChange: set( 'default_height' ), className: 'is-ltr', help: __( 'Any CSS length, e.g. 500px or 60vh.', 'pepro-mapify' ) } ) )
 							),
-							el( C.RangeControl, props( { label: __( 'Default zoom', 'mapify' ), value: parseInt( values.default_zoom, 10 ) || 5, min: 1, max: 20, onChange: set( 'default_zoom' ) } ) ),
+							el( C.RangeControl, props( { label: __( 'Default zoom', 'pepro-mapify' ), value: parseInt( values.default_zoom, 10 ) || 5, min: 1, max: 20, onChange: set( 'default_zoom' ) } ) ),
 							el(
 								C.BaseControl,
-								props( { label: __( 'Accent color', 'mapify' ), id: 'mapify-accent', help: __( 'Pins, clusters, active items and buttons.', 'mapify' ) } ),
+								props( { label: __( 'Accent color', 'pepro-mapify' ), id: 'mapify-accent', help: __( 'Pins, clusters, active items and buttons.', 'pepro-mapify' ) } ),
 								el( C.ColorPalette, {
 									value: values.accent_color,
 									onChange: function ( v ) {
@@ -314,26 +314,26 @@
 					return el(
 						C.Card,
 						{ className: 'mapify-card' },
-						el( C.CardHeader, null, el( 'div', null, el( 'h2', { className: 'mapify-card__title' }, __( 'Branch pages', 'mapify' ) ), el( 'p', { className: 'mapify-card__desc' }, __( 'How single branch pages look and where they live.', 'mapify' ) ) ) ),
+						el( C.CardHeader, null, el( 'div', null, el( 'h2', { className: 'mapify-card__title' }, __( 'Branch pages', 'pepro-mapify' ) ), el( 'p', { className: 'mapify-card__desc' }, __( 'How single branch pages look and where they live.', 'pepro-mapify' ) ) ) ),
 						el(
 							C.CardBody,
 							{ className: 'mapify-stack' },
 							el( C.SelectControl, props( {
-								label: __( 'Branch page layout', 'mapify' ),
+								label: __( 'Branch page layout', 'pepro-mapify' ),
 								value: values.branch_template,
 								options: [
-									{ value: 'content', label: __( 'Branch card (address, contact, directions) + content', 'mapify' ) },
-									{ value: 'post', label: __( 'Content only (theme template)', 'mapify' ) },
+									{ value: 'content', label: __( 'Branch card (address, contact, directions) + content', 'pepro-mapify' ) },
+									{ value: 'post', label: __( 'Content only (theme template)', 'pepro-mapify' ) },
 								],
 								onChange: set( 'branch_template' ),
 							} ) ),
-							el( C.TextControl, props( { label: __( 'URL base', 'mapify' ), value: values.branch_slug, onChange: set( 'branch_slug' ), className: 'is-ltr', help: __( 'Branch URLs look like /map/branch-name/. Visit Settings → Permalinks after changing it.', 'mapify' ) } ) ),
+							el( C.TextControl, props( { label: __( 'URL base', 'pepro-mapify' ), value: values.branch_slug, onChange: set( 'branch_slug' ), className: 'is-ltr', help: __( 'Branch URLs look like /map/branch-name/. Visit Settings → Permalinks after changing it.', 'pepro-mapify' ) } ) ),
 							el( C.SelectControl, props( {
-								label: __( 'Address search in the branch editor', 'mapify' ),
+								label: __( 'Address search in the branch editor', 'pepro-mapify' ),
 								value: values.geocoder,
 								options: [
-									{ value: 'nominatim', label: __( 'OpenStreetMap Nominatim', 'mapify' ) },
-									{ value: 'none', label: __( 'Disabled', 'mapify' ) },
+									{ value: 'nominatim', label: __( 'OpenStreetMap Nominatim', 'pepro-mapify' ) },
+									{ value: 'none', label: __( 'Disabled', 'pepro-mapify' ) },
 								],
 								onChange: set( 'geocoder' ),
 							} ) )
@@ -346,11 +346,11 @@
 						el(
 							C.Card,
 							{ className: 'mapify-card' },
-							el( C.CardHeader, null, el( 'h2', { className: 'mapify-card__title' }, __( 'Advanced', 'mapify' ) ) ),
+							el( C.CardHeader, null, el( 'h2', { className: 'mapify-card__title' }, __( 'Advanced', 'pepro-mapify' ) ) ),
 							el(
 								C.CardBody,
 								{ className: 'mapify-stack' },
-								el( C.ToggleControl, props( { label: __( 'Delete settings on uninstall', 'mapify' ), help: __( 'Branches are kept either way.', 'mapify' ), checked: !! values.clear_on_uninstall, onChange: set( 'clear_on_uninstall' ) } ) )
+								el( C.ToggleControl, props( { label: __( 'Delete settings on uninstall', 'pepro-mapify' ), help: __( 'Branches are kept either way.', 'pepro-mapify' ), checked: !! values.clear_on_uninstall, onChange: set( 'clear_on_uninstall' ) } ) )
 							)
 						),
 						hooks.applyFilters( 'mapify.settings.advanced', [], api )
@@ -364,11 +364,11 @@
 			Fragment,
 			null,
 			el( Header, {
-				title: __( 'Mapify — Map Settings', 'mapify' ),
-				subtitle: sprintf( __( 'Version %s · Providers, defaults and branch pages', 'mapify' ), D.version ),
+				title: __( 'Mapify — Map Settings', 'pepro-mapify' ),
+				subtitle: sprintf( __( 'Version %s · Providers, defaults and branch pages', 'pepro-mapify' ), D.version ),
 				actions: [
-					dirty ? el( 'span', { key: 'd', className: 'mapify-admin__dirty' }, __( 'Unsaved changes', 'mapify' ) ) : null,
-					el( C.Button, props( { key: 's', variant: 'primary', isBusy: busy[ 0 ], disabled: busy[ 0 ] || ! dirty, onClick: save } ), __( 'Save changes', 'mapify' ) ),
+					dirty ? el( 'span', { key: 'd', className: 'mapify-admin__dirty' }, __( 'Unsaved changes', 'pepro-mapify' ) ) : null,
+					el( C.Button, props( { key: 's', variant: 'primary', isBusy: busy[ 0 ], disabled: busy[ 0 ] || ! dirty, onClick: save } ), __( 'Save changes', 'pepro-mapify' ) ),
 				],
 			} ),
 			el(
@@ -381,26 +381,26 @@
 					el(
 						C.Card,
 						{ className: 'mapify-card' },
-						el( C.CardHeader, null, el( 'h2', { className: 'mapify-card__title' }, __( 'Add a map to a page', 'mapify' ) ) ),
+						el( C.CardHeader, null, el( 'h2', { className: 'mapify-card__title' }, __( 'Add a map to a page', 'pepro-mapify' ) ) ),
 						el(
 							C.CardBody,
 							{ className: 'mapify-stack' },
-							el( StatusRow, { ok: !! D.builders.elementor, title: 'Elementor', text: D.builders.elementor ? sprintf( __( 'Active (%s) — widget “Branches Map” in PeproDev Elements', 'mapify' ), D.builders.elementor ) : __( 'Not active', 'mapify' ) } ),
-							el( StatusRow, { ok: !! D.builders.wpbakery, title: 'WPBakery Page Builder', text: D.builders.wpbakery ? sprintf( __( 'Active (%s) — element “Branches Map”', 'mapify' ), D.builders.wpbakery ) : __( 'Not active', 'mapify' ) } ),
-							el( StatusRow, { ok: true, title: __( 'Shortcode', 'mapify' ), text: __( 'Works everywhere, including the block editor', 'mapify' ) } ),
+							el( StatusRow, { ok: !! D.builders.elementor, title: 'Elementor', text: D.builders.elementor ? sprintf( __( 'Active (%s) — widget “Branches Map” in PeproDev Elements', 'pepro-mapify' ), D.builders.elementor ) : __( 'Not active', 'pepro-mapify' ) } ),
+							el( StatusRow, { ok: !! D.builders.wpbakery, title: 'WPBakery Page Builder', text: D.builders.wpbakery ? sprintf( __( 'Active (%s) — element “Branches Map”', 'pepro-mapify' ), D.builders.wpbakery ) : __( 'Not active', 'pepro-mapify' ) } ),
+							el( StatusRow, { ok: true, title: __( 'Shortcode', 'pepro-mapify' ), text: __( 'Works everywhere, including the block editor', 'pepro-mapify' ) } ),
 							el( 'code', { className: 'mapify-code' }, sample ),
-							el( 'div', { className: 'mapify-row' }, el( CopyButton, { text: sample } ), el( C.Button, props( { variant: 'secondary', href: D.links.builder } ), __( 'Open shortcode builder', 'mapify' ) ) )
+							el( 'div', { className: 'mapify-row' }, el( CopyButton, { text: sample } ), el( C.Button, props( { variant: 'secondary', href: D.links.builder } ), __( 'Open shortcode builder', 'pepro-mapify' ) ) )
 						)
 					),
 					el(
 						C.Card,
 						{ className: 'mapify-card' },
-						el( C.CardHeader, null, el( 'h2', { className: 'mapify-card__title' }, __( 'Branches', 'mapify' ) ) ),
+						el( C.CardHeader, null, el( 'h2', { className: 'mapify-card__title' }, __( 'Branches', 'pepro-mapify' ) ) ),
 						el(
 							C.CardBody,
 							{ className: 'mapify-stack' },
-							el( 'p', { className: 'mapify-bignum' }, D.branchCount, el( 'span', null, __( 'published branches', 'mapify' ) ) ),
-							el( 'div', { className: 'mapify-row' }, el( C.Button, props( { variant: 'secondary', href: D.links.newBranch } ), __( 'Add branch', 'mapify' ) ), el( C.Button, props( { variant: 'tertiary', href: D.links.branches } ), __( 'Manage', 'mapify' ) ) ),
+							el( 'p', { className: 'mapify-bignum' }, D.branchCount, el( 'span', null, __( 'published branches', 'pepro-mapify' ) ) ),
+							el( 'div', { className: 'mapify-row' }, el( C.Button, props( { variant: 'secondary', href: D.links.newBranch } ), __( 'Add branch', 'pepro-mapify' ) ), el( C.Button, props( { variant: 'tertiary', href: D.links.branches } ), __( 'Manage', 'pepro-mapify' ) ) ),
 							el( 'p', { className: 'mapify-muted' }, sprintf( 'PHP %s · WordPress %s', D.env.php, D.env.wp ) )
 						)
 					)
@@ -491,9 +491,9 @@
 								frame.current.open();
 							},
 						} ),
-						__( 'Media library', 'mapify' )
+						__( 'Media library', 'pepro-mapify' )
 					),
-					p.value ? el( C.Button, props( { variant: 'tertiary', isDestructive: true, onClick: function () { p.onChange( '' ); } } ), __( 'Remove', 'mapify' ) ) : null
+					p.value ? el( C.Button, props( { variant: 'tertiary', isDestructive: true, onClick: function () { p.onChange( '' ); } } ), __( 'Remove', 'pepro-mapify' ) ) : null
 				)
 			)
 		);
@@ -508,7 +508,7 @@
 		return el(
 			C.BaseControl,
 			props( { label: p.field.label, help: p.field.description, id: 'mapify-style-' + p.field.key } ),
-			p.field.options.length > 12 ? el( C.SearchControl, { __nextHasNoMarginBottom: true, value: q[ 0 ], onChange: q[ 1 ], placeholder: __( 'Search styles…', 'mapify' ), className: 'mapify-styles__search' } ) : null,
+			p.field.options.length > 12 ? el( C.SearchControl, { __nextHasNoMarginBottom: true, value: q[ 0 ], onChange: q[ 1 ], placeholder: __( 'Search styles…', 'pepro-mapify' ), className: 'mapify-styles__search' } ) : null,
 			el(
 				'div',
 				{ className: 'mapify-styles', role: 'listbox' },
@@ -530,7 +530,7 @@
 					);
 				} )
 			),
-			! options.length ? el( 'p', { className: 'mapify-muted' }, __( 'No style found.', 'mapify' ) ) : null,
+			! options.length ? el( 'p', { className: 'mapify-muted' }, __( 'No style found.', 'pepro-mapify' ) ) : null,
 			p.field.note ? el( 'p', { className: 'mapify-muted mapify-styles__note' }, p.field.note ) : null
 		);
 	}
@@ -551,7 +551,7 @@
 
 	function MultiCheck( p ) {
 		if ( ! p.field.options.length ) {
-			return el( C.Notice, { status: 'info', isDismissible: false }, __( 'Nothing to choose yet — add branches and categories first.', 'mapify' ) );
+			return el( C.Notice, { status: 'info', isDismissible: false }, __( 'Nothing to choose yet — add branches and categories first.', 'pepro-mapify' ) );
 		}
 		var value = p.value || [];
 		return el(
@@ -650,7 +650,7 @@
 			Object.keys( f.fields ).forEach( function ( k ) {
 				pin[ k ] = f.fields[ k ].default;
 			} );
-			pin.title = sprintf( __( 'Pin %d', 'mapify' ), pins.length + 1 );
+			pin.title = sprintf( __( 'Pin %d', 'pepro-mapify' ), pins.length + 1 );
 			p.onChange( pins.concat( [ pin ] ) );
 		}
 		return el(
@@ -664,8 +664,8 @@
 					el(
 						'div',
 						{ className: 'mapify-pins__head' },
-						el( 'strong', null, pin.title || sprintf( __( 'Pin %d', 'mapify' ), i + 1 ) ),
-						el( C.Button, { icon: 'trash', label: __( 'Remove pin', 'mapify' ), isDestructive: true, size: 'small', onClick: function () { p.onChange( pins.filter( function ( x, j ) { return j !== i; } ) ); } } )
+						el( 'strong', null, pin.title || sprintf( __( 'Pin %d', 'pepro-mapify' ), i + 1 ) ),
+						el( C.Button, { icon: 'trash', label: __( 'Remove pin', 'pepro-mapify' ), isDestructive: true, size: 'small', onClick: function () { p.onChange( pins.filter( function ( x, j ) { return j !== i; } ) ); } } )
 					),
 					el(
 						'div',
@@ -681,7 +681,7 @@
 					)
 				);
 			} ),
-			el( C.Button, props( { variant: 'secondary', icon: 'plus', onClick: add } ), __( 'Add pin', 'mapify' ) )
+			el( C.Button, props( { variant: 'secondary', icon: 'plus', onClick: add } ), __( 'Add pin', 'pepro-mapify' ) )
 		);
 	}
 
@@ -728,13 +728,13 @@
 			Fragment,
 			null,
 			el( Header, {
-				title: __( 'Mapify — Shortcode Builder', 'mapify' ),
-				subtitle: __( 'Design a map, preview it live and paste the shortcode anywhere.', 'mapify' ),
+				title: __( 'Mapify — Shortcode Builder', 'pepro-mapify' ),
+				subtitle: __( 'Design a map, preview it live and paste the shortcode anywhere.', 'pepro-mapify' ),
 				actions: hooks.applyFilters(
 					'mapify.builder.actions',
 					[
-						el( C.Button, props( { key: 'r', variant: 'tertiary', onClick: function () { setValues( Object.assign( {}, D.defaults ) ); } } ), __( 'Reset', 'mapify' ) ),
-						el( CopyButton, { key: 'c', text: shortcode, variant: 'primary', label: __( 'Copy shortcode', 'mapify' ) } ),
+						el( C.Button, props( { key: 'r', variant: 'tertiary', onClick: function () { setValues( Object.assign( {}, D.defaults ) ); } } ), __( 'Reset', 'pepro-mapify' ) ),
+						el( CopyButton, { key: 'c', text: shortcode, variant: 'primary', label: __( 'Copy shortcode', 'pepro-mapify' ) } ),
 					],
 					{ values: values, setValues: setValues, byKey: byKey }
 				),
@@ -775,7 +775,7 @@
 					el(
 						C.Card,
 						{ className: 'mapify-card' },
-						el( C.CardHeader, null, el( 'h2', { className: 'mapify-card__title' }, __( 'Shortcode', 'mapify' ) ), el( CopyButton, { text: shortcode } ) ),
+						el( C.CardHeader, null, el( 'h2', { className: 'mapify-card__title' }, __( 'Shortcode', 'pepro-mapify' ) ), el( CopyButton, { text: shortcode } ) ),
 						el( C.CardBody, null, el( 'pre', { className: 'mapify-code mapify-code--block', dir: 'ltr' }, shortcode ) )
 					),
 					el(
@@ -784,14 +784,14 @@
 						el(
 							C.CardHeader,
 							null,
-							el( 'h2', { className: 'mapify-card__title' }, __( 'Live preview', 'mapify' ) ),
+							el( 'h2', { className: 'mapify-card__title' }, __( 'Live preview', 'pepro-mapify' ) ),
 							el(
 								'div',
 								{ className: 'mapify-devices' },
 								[
-									[ 'desktop', 'desktop', __( 'Desktop', 'mapify' ) ],
-									[ 'tablet', 'tablet', __( 'Tablet', 'mapify' ) ],
-									[ 'mobile', 'smartphone', __( 'Mobile', 'mapify' ) ],
+									[ 'desktop', 'desktop', __( 'Desktop', 'pepro-mapify' ) ],
+									[ 'tablet', 'tablet', __( 'Tablet', 'pepro-mapify' ) ],
+									[ 'mobile', 'smartphone', __( 'Mobile', 'pepro-mapify' ) ],
 								].map( function ( d ) {
 									return el( C.Button, { key: d[ 0 ], icon: d[ 1 ], label: d[ 2 ], isPressed: device[ 0 ] === d[ 0 ], onClick: function () { device[ 1 ]( d[ 0 ] ); } } );
 								} )
@@ -808,7 +808,7 @@
 								el( 'input', { type: 'hidden', name: 'settings', value: JSON.stringify( previewSettings ) } ),
 								el( 'input', { type: 'hidden', name: 'content', value: values.popup_markup || '' } )
 							),
-							el( 'div', { className: 'mapify-preview__frame is-' + device[ 0 ] }, el( 'iframe', { name: frameName, title: __( 'Map preview', 'mapify' ) } ) )
+							el( 'div', { className: 'mapify-preview__frame is-' + device[ 0 ] }, el( 'iframe', { name: frameName, title: __( 'Map preview', 'pepro-mapify' ) } ) )
 						)
 					)
 				)

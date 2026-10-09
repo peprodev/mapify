@@ -119,8 +119,22 @@
 			if ( v === null || v === undefined || v === '' ) {
 				v = fallback || '';
 			}
+			// Values can land in href/src attributes; never let one become a script URL.
+			if ( isUnsafeUrl( v ) ) {
+				v = '';
+			}
 			return esc( v );
 		} );
+	}
+
+	function isUnsafeUrl( value ) {
+		var v = String( value || '' );
+		try {
+			var t = document.createElement( 'textarea' );
+			t.innerHTML = v;
+			v = t.value;
+		} catch ( e ) {}
+		return /^(javascript|vbscript|data|livescript):/i.test( v.replace( /[\u0000-\u0020]+/g, '' ) );
 	}
 
 	function hasCoords( item ) {
@@ -575,15 +589,24 @@
 		if ( ! svg || svg.nodeName.toLowerCase() !== 'svg' ) {
 			return null;
 		}
-		svg.querySelectorAll( 'script,foreignObject,iframe,embed,object' ).forEach( function ( n ) {
+		// Elements that can run script, load other documents or change attributes later.
+		svg.querySelectorAll( 'script,foreignObject,iframe,embed,object,set,animate,animateMotion,animateTransform,discard,handler,listener' ).forEach( function ( n ) {
 			n.remove();
 		} );
 		svg.querySelectorAll( '*' ).forEach( function ( n ) {
 			Array.prototype.slice.call( n.attributes ).forEach( function ( a ) {
-				if ( /^on/i.test( a.name ) || ( /href$/i.test( a.name ) && /^\s*javascript:/i.test( a.value ) ) ) {
+				var name = a.name.toLowerCase();
+				var value = String( a.value || '' );
+				// Links may only point inside the SVG (#id); styles may not load anything.
+				if ( /^on/.test( name ) || ( /href$/.test( name ) && value.trim().charAt( 0 ) !== '#' ) || isUnsafeUrl( value ) || ( name === 'style' && /url\s*\(|expression|@import|javascript/i.test( value ) ) ) {
 					n.removeAttribute( a.name );
 				}
 			} );
+		} );
+		svg.querySelectorAll( 'style' ).forEach( function ( n ) {
+			if ( /@import|url\s*\(\s*['"]?\s*(?!#)|expression|javascript/i.test( n.textContent ) ) {
+				n.remove();
+			}
 		} );
 		return document.importNode( svg, true );
 	}

@@ -26,15 +26,15 @@ class Admin {
 	}
 
 	public static function menu() {
-		add_submenu_page( self::parent_slug(), __( 'Map Settings', 'mapify' ), __( 'Map Settings', 'mapify' ), 'manage_options', self::SETTINGS_SLUG, array( __CLASS__, 'render_root' ) );
-		add_submenu_page( self::parent_slug(), __( 'Shortcode Builder', 'mapify' ), __( 'Shortcode Builder', 'mapify' ), 'edit_posts', self::BUILDER_SLUG, array( __CLASS__, 'render_root' ) );
+		add_submenu_page( self::parent_slug(), __( 'Map Settings', 'pepro-mapify' ), __( 'Map Settings', 'pepro-mapify' ), 'manage_options', self::SETTINGS_SLUG, array( __CLASS__, 'render_root' ) );
+		add_submenu_page( self::parent_slug(), __( 'Shortcode Builder', 'pepro-mapify' ), __( 'Shortcode Builder', 'pepro-mapify' ), 'edit_posts', self::BUILDER_SLUG, array( __CLASS__, 'render_root' ) );
 	}
 
 	public static function action_links( $links ) {
 		array_unshift(
 			$links,
-			'<a href="' . esc_url( admin_url( self::parent_slug() . '&page=' . self::SETTINGS_SLUG ) ) . '">' . esc_html__( 'Settings', 'mapify' ) . '</a>',
-			'<a href="' . esc_url( admin_url( self::parent_slug() . '&page=' . self::BUILDER_SLUG ) ) . '">' . esc_html__( 'Shortcode Builder', 'mapify' ) . '</a>'
+			'<a href="' . esc_url( admin_url( self::parent_slug() . '&page=' . self::SETTINGS_SLUG ) ) . '">' . esc_html__( 'Settings', 'pepro-mapify' ) . '</a>',
+			'<a href="' . esc_url( admin_url( self::parent_slug() . '&page=' . self::BUILDER_SLUG ) ) . '">' . esc_html__( 'Shortcode Builder', 'pepro-mapify' ) . '</a>'
 		);
 		return $links;
 	}
@@ -102,7 +102,7 @@ class Admin {
 		wp_enqueue_style( 'wp-components' );
 		wp_enqueue_style( 'mapify-admin', MAPIFY_ASSETS . 'css/admin.css', array( 'wp-components' ), MAPIFY_VERSION );
 		wp_enqueue_script( 'mapify-admin', MAPIFY_ASSETS . 'js/admin.js', array( 'wp-element', 'wp-components', 'wp-api-fetch', 'wp-i18n', 'wp-dom-ready', 'wp-hooks' ), MAPIFY_VERSION, true );
-		wp_set_script_translations( 'mapify-admin', 'mapify', MAPIFY_DIR . 'languages' );
+		wp_set_script_translations( 'mapify-admin', 'pepro-mapify', MAPIFY_DIR . 'languages' );
 
 		$data = array(
 			'screen'     => self::SETTINGS_SLUG === $page ? 'settings' : 'builder',
@@ -154,7 +154,7 @@ class Admin {
 			return;
 		}
 		if ( ! current_user_can( 'edit_posts' ) || ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_key( wp_unslash( $_POST['_wpnonce'] ) ), 'mapify_preview' ) ) {
-			wp_die( esc_html__( 'Preview link expired. Reload the builder.', 'mapify' ), 403 );
+			wp_die( esc_html__( 'Preview link expired. Reload the builder.', 'pepro-mapify' ), 403 );
 		}
 		$settings = json_decode( wp_unslash( $_POST['settings'] ?? '{}' ), true ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 		$content  = isset( $_POST['content'] ) ? wp_kses_post( wp_unslash( $_POST['content'] ) ) : '';

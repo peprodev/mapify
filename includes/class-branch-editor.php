@@ -45,7 +45,7 @@ class Branch_Editor {
 		}
 		$count = Branches::count_branches();
 		$full  = $count >= Branches::MAX_BRANCHES;
-		$link  = '<a href="' . esc_url( 'https://pepro.dev/mapify' ) . '" target="_blank" rel="noopener">' . esc_html__( 'Get Mapify Pro', 'mapify' ) . '</a>';
+		$link  = '<a href="' . esc_url( 'https://pepro.dev/mapify' ) . '" target="_blank" rel="noopener">' . esc_html__( 'Get Mapify Pro', 'pepro-mapify' ) . '</a>';
 		if ( $full ) {
 			echo '<div class="notice notice-warning"><p>' . esc_html( Branches::limit_message() ) . ' ' . $link . '</p></div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped above.
 			if ( 'edit' === $screen->base ) {
@@ -55,7 +55,7 @@ class Branch_Editor {
 			echo '<div class="notice notice-info"><p>' . esc_html(
 				sprintf(
 					/* translators: 1: branches used, 2: maximum branches */
-					__( 'Free version: %1$d of %2$d branches used.', 'mapify' ),
+					__( 'Free version: %1$d of %2$d branches used.', 'pepro-mapify' ),
 					$count,
 					Branches::MAX_BRANCHES
 				)
@@ -90,19 +90,19 @@ class Branch_Editor {
 
 	public static function i18n() {
 		return array(
-			'search'      => __( 'Search an address or place…', 'mapify' ),
-			'noResult'    => __( 'Nothing found.', 'mapify' ),
-			'chooseImage' => __( 'Choose pin image', 'mapify' ),
-			'useImage'    => __( 'Use this image', 'mapify' ),
+			'search'      => __( 'Search an address or place…', 'pepro-mapify' ),
+			'noResult'    => __( 'Nothing found.', 'pepro-mapify' ),
+			'chooseImage' => __( 'Choose pin image', 'pepro-mapify' ),
+			'useImage'    => __( 'Use this image', 'pepro-mapify' ),
 		);
 	}
 
 	public static function add_meta_boxes() {
 		// Meta is edited in the boxes below; 'custom-fields' support is only there for the REST API.
 		remove_meta_box( 'postcustom', null, 'normal' );
-		add_meta_box( 'mapify-location', __( 'Location', 'mapify' ), array( __CLASS__, 'location_box' ), null, 'normal', 'high' );
-		add_meta_box( 'place-details', __( 'Branch details', 'mapify' ), array( __CLASS__, 'details_box' ), null, 'normal', 'high' );
-		add_meta_box( 'mapify-pin', __( 'Map pin', 'mapify' ), array( __CLASS__, 'pin_box' ), null, 'side', 'default' );
+		add_meta_box( 'mapify-location', __( 'Location', 'pepro-mapify' ), array( __CLASS__, 'location_box' ), null, 'normal', 'high' );
+		add_meta_box( 'place-details', __( 'Branch details', 'pepro-mapify' ), array( __CLASS__, 'details_box' ), null, 'normal', 'high' );
+		add_meta_box( 'mapify-pin', __( 'Map pin', 'pepro-mapify' ), array( __CLASS__, 'pin_box' ), null, 'side', 'default' );
 	}
 
 	public static function location_box( $post ) {
@@ -113,21 +113,21 @@ class Branch_Editor {
 		<div class="mapify-loc">
 			<?php if ( 'none' !== Options::get( 'geocoder' ) ) : ?>
 			<div class="mapify-loc__search">
-				<input type="search" class="mapify-loc__query" placeholder="<?php esc_attr_e( 'Search an address or place…', 'mapify' ); ?>" />
-				<button type="button" class="button mapify-loc__find"><?php esc_html_e( 'Find', 'mapify' ); ?></button>
+				<input type="search" class="mapify-loc__query" placeholder="<?php esc_attr_e( 'Search an address or place…', 'pepro-mapify' ); ?>" />
+				<button type="button" class="button mapify-loc__find"><?php esc_html_e( 'Find', 'pepro-mapify' ); ?></button>
 				<ul class="mapify-loc__results" hidden></ul>
 			</div>
 			<?php endif; ?>
 			<div class="mapify-loc__map" id="mapify-loc-map"></div>
 			<div class="mapify-loc__fields">
-				<label><span><?php esc_html_e( 'Latitude', 'mapify' ); ?></span>
+				<label><span><?php esc_html_e( 'Latitude', 'pepro-mapify' ); ?></span>
 					<input type="text" inputmode="decimal" dir="ltr" id="mapify-lat" value="<?php echo esc_attr( $location ? $location['latitude'] : '' ); ?>" /></label>
-				<label><span><?php esc_html_e( 'Longitude', 'mapify' ); ?></span>
+				<label><span><?php esc_html_e( 'Longitude', 'pepro-mapify' ); ?></span>
 					<input type="text" inputmode="decimal" dir="ltr" id="mapify-lng" value="<?php echo esc_attr( $location ? $location['longitude'] : '' ); ?>" /></label>
-				<button type="button" class="button mapify-loc__locate"><?php esc_html_e( 'Use my location', 'mapify' ); ?></button>
-				<button type="button" class="button-link mapify-loc__clear"><?php esc_html_e( 'Clear', 'mapify' ); ?></button>
+				<button type="button" class="button mapify-loc__locate"><?php esc_html_e( 'Use my location', 'pepro-mapify' ); ?></button>
+				<button type="button" class="button-link mapify-loc__clear"><?php esc_html_e( 'Clear', 'pepro-mapify' ); ?></button>
 			</div>
-			<p class="description"><?php esc_html_e( 'Click the map or drag the pin to set the branch location.', 'mapify' ); ?></p>
+			<p class="description"><?php esc_html_e( 'Click the map or drag the pin to set the branch location.', 'pepro-mapify' ); ?></p>
 			<input type="hidden" name="map_data" id="map_data" value="<?php echo esc_attr( $raw ); ?>" />
 		</div>
 		<?php
@@ -157,19 +157,19 @@ class Branch_Editor {
 		$template = (string) get_post_meta( $post->ID, 'place_details_content_template', true );
 		?>
 		<div class="mapify-pinbox">
-			<p><label for="mapify-pincolor"><?php esc_html_e( 'Pin color', 'mapify' ); ?></label><br />
+			<p><label for="mapify-pincolor"><?php esc_html_e( 'Pin color', 'pepro-mapify' ); ?></label><br />
 				<input type="text" id="mapify-pincolor" name="pincolor" class="mapify-color" value="<?php echo esc_attr( $color ); ?>" /></p>
-			<p><label for="mapify-pinimg"><?php esc_html_e( 'Custom pin image', 'mapify' ); ?></label></p>
+			<p><label for="mapify-pinimg"><?php esc_html_e( 'Custom pin image', 'pepro-mapify' ); ?></label></p>
 			<div class="mapify-pinbox__image">
 				<img src="<?php echo esc_url( $img ); ?>" alt="" <?php echo $img ? '' : 'hidden'; ?> />
 				<input type="url" dir="ltr" id="mapify-pinimg" name="pinimg" class="widefat" value="<?php echo esc_attr( $img ); ?>" placeholder="https://" />
-				<button type="button" class="button mapify-pinbox__choose"><?php esc_html_e( 'Choose image', 'mapify' ); ?></button>
+				<button type="button" class="button mapify-pinbox__choose"><?php esc_html_e( 'Choose image', 'pepro-mapify' ); ?></button>
 			</div>
-			<p><label for="mapify-template"><?php esc_html_e( 'Branch page layout', 'mapify' ); ?></label>
+			<p><label for="mapify-template"><?php esc_html_e( 'Branch page layout', 'pepro-mapify' ); ?></label>
 				<select id="mapify-template" name="content_template" class="widefat">
-					<option value="default" <?php selected( in_array( $template, array( '', 'default' ), true ) ); ?>><?php esc_html_e( 'Inherit from settings', 'mapify' ); ?></option>
-					<option value="content" <?php selected( $template, 'content' ); ?>><?php esc_html_e( 'Branch card + content', 'mapify' ); ?></option>
-					<option value="post" <?php selected( $template, 'post' ); ?>><?php esc_html_e( 'Content only', 'mapify' ); ?></option>
+					<option value="default" <?php selected( in_array( $template, array( '', 'default' ), true ) ); ?>><?php esc_html_e( 'Inherit from settings', 'pepro-mapify' ); ?></option>
+					<option value="content" <?php selected( $template, 'content' ); ?>><?php esc_html_e( 'Branch card + content', 'pepro-mapify' ); ?></option>
+					<option value="post" <?php selected( $template, 'post' ); ?>><?php esc_html_e( 'Content only', 'pepro-mapify' ); ?></option>
 				</select></p>
 		</div>
 		<?php
@@ -237,8 +237,8 @@ class Branch_Editor {
 		foreach ( $columns as $key => $label ) {
 			$out[ $key ] = $label;
 			if ( 'title' === $key ) {
-				$out['mapify_location'] = __( 'Location', 'mapify' );
-				$out['mapify_phone']    = __( 'Phone', 'mapify' );
+				$out['mapify_location'] = __( 'Location', 'pepro-mapify' );
+				$out['mapify_phone']    = __( 'Phone', 'pepro-mapify' );
 			}
 		}
 		return $out;

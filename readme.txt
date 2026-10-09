@@ -4,7 +4,7 @@ Donate link: https://pepro.dev/donate
 Tags: map, branches, store locator, openstreetmap, elementor
 Requires at least: 6.5
 Tested up to: 7.1
-Stable tag: 3.0.0
+Stable tag: 3.0.1
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -83,7 +83,7 @@ The map falls back to OpenStreetMap and editors see a notice above the map.
 
 = Can I translate branches with WPML or Polylang? =
 
-Yes. Branches and branch categories are translatable post types and taxonomies, the address and additional text are translated per language, and the texts of the Elementor widget and the shortcode are picked up by WPML. Interface texts use the “mapify” text domain.
+Yes. Branches and branch categories are translatable post types and taxonomies, the address and additional text are translated per language, and the texts of the Elementor widget and the shortcode are picked up by WPML. Interface texts use the “pepro-mapify” text domain.
 
 == Screenshots ==
 
@@ -99,6 +99,14 @@ Yes. Branches and branch categories are translatable post types and taxonomies, 
 10. WPBakery: Google Maps style picker
 
 == Changelog ==
+
+= 3.0.1 =
+
+- Security: shortcode attributes and widget settings are validated before use. Colors, sizes, CSS classes, ids, coordinates, tile URLs and style names only accept safe values, so a user who can write posts (for example a Contributor) cannot add script through the shortcode
+- Security: popup template values and fallbacks can no longer become javascript:, vbscript: or data: links
+- Security: SVG maps are cleaned more strictly (animation elements, external links and style URLs are removed)
+- Text domain changed to “pepro-mapify” to match the WordPress.org plugin slug, so translations from translate.wordpress.org load
+- The map credit links to the plugin page on WordPress.org
 
 = 3.0.0 =
 
@@ -162,6 +170,10 @@ Join us at [https://pepro.dev/](https://pepro.dev/) and also don't forget to che
 
 
 == Upgrade Notice ==
+
+= 3.0.1 =
+
+- Security release: please update. Shortcode attributes and widget settings are now validated, which fixes a stored cross-site scripting issue that users with the Contributor role could use.
 
 = 3.0.0 =
 

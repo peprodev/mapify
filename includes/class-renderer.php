@@ -112,17 +112,17 @@ class Renderer {
 	protected static function resolve_engine( array &$s ) {
 		$missing = null;
 		if ( 'google' === $s['maptype'] && '' === Options::get( 'google_api_key' ) ) {
-			$missing = __( 'Google Maps needs an API key (Branches → Map Settings). Showing OpenStreetMap instead.', 'mapify' );
+			$missing = __( 'Google Maps needs an API key (Branches → Map Settings). Showing OpenStreetMap instead.', 'pepro-mapify' );
 		} elseif ( 'mapbox' === $s['maptype'] && '' === Options::get( 'mapbox_token' ) ) {
-			$missing = __( 'Mapbox needs an access token (Branches → Map Settings). Showing OpenStreetMap instead.', 'mapify' );
+			$missing = __( 'Mapbox needs an access token (Branches → Map Settings). Showing OpenStreetMap instead.', 'pepro-mapify' );
 		} elseif ( 'mapir' === $s['maptype'] && '' === Options::get( 'mapir_api_key' ) ) {
-			$missing = __( 'Map.ir needs an API key (Branches → Map Settings). Showing OpenStreetMap instead.', 'mapify' );
+			$missing = __( 'Map.ir needs an API key (Branches → Map Settings). Showing OpenStreetMap instead.', 'pepro-mapify' );
 		} elseif ( 'neshan' === $s['maptype'] && '' === Options::get( 'neshan_api_key' ) ) {
-			$missing = __( 'Neshan needs a web map API key (Branches → Map Settings). Showing OpenStreetMap instead.', 'mapify' );
+			$missing = __( 'Neshan needs a web map API key (Branches → Map Settings). Showing OpenStreetMap instead.', 'pepro-mapify' );
 		} elseif ( 'parsimap' === $s['maptype'] && '' === Options::get( 'parsimap_api_key' ) ) {
-			$missing = __( 'Parsimap needs an API token (Branches → Map Settings). Showing OpenStreetMap instead.', 'mapify' );
+			$missing = __( 'Parsimap needs an API token (Branches → Map Settings). Showing OpenStreetMap instead.', 'pepro-mapify' );
 		} elseif ( 'custom' === $s['maptype'] && '' === $s['tiles_url'] ) {
-			$missing = __( 'Enter a tile URL template for the custom tile server. Showing OpenStreetMap instead.', 'mapify' );
+			$missing = __( 'Enter a tile URL template for the custom tile server. Showing OpenStreetMap instead.', 'pepro-mapify' );
 		}
 		if ( $missing ) {
 			$s['maptype']   = 'osm';
@@ -181,16 +181,16 @@ class Renderer {
 			'listPopup'    => (bool) $s['list_open_popup'],
 			'items'        => array_values( $branches ),
 			'i18n'         => array(
-				'noResult'     => __( 'No branch found.', 'mapify' ),
-				'showAll'      => __( 'Show all', 'mapify' ),
-				'fullscreen'   => __( 'Fullscreen', 'mapify' ),
-				'close'        => __( 'Close', 'mapify' ),
-				'googleFailed' => __( 'Google Maps could not be loaded. Check your API key.', 'mapify' ),
-				'loadFailed'   => __( 'The map could not be loaded.', 'mapify' ),
-				'zoomIn'       => __( 'Zoom in', 'mapify' ),
-				'zoomOut'      => __( 'Zoom out', 'mapify' ),
-				'zoomReset'    => __( 'Reset zoom', 'mapify' ),
-				'cancel'       => __( 'Cancel', 'mapify' ),
+				'noResult'     => __( 'No branch found.', 'pepro-mapify' ),
+				'showAll'      => __( 'Show all', 'pepro-mapify' ),
+				'fullscreen'   => __( 'Fullscreen', 'pepro-mapify' ),
+				'close'        => __( 'Close', 'pepro-mapify' ),
+				'googleFailed' => __( 'Google Maps could not be loaded. Check your API key.', 'pepro-mapify' ),
+				'loadFailed'   => __( 'The map could not be loaded.', 'pepro-mapify' ),
+				'zoomIn'       => __( 'Zoom in', 'pepro-mapify' ),
+				'zoomOut'      => __( 'Zoom out', 'pepro-mapify' ),
+				'zoomReset'    => __( 'Reset zoom', 'pepro-mapify' ),
+				'cancel'       => __( 'Cancel', 'pepro-mapify' ),
 			),
 		);
 
@@ -234,8 +234,10 @@ class Renderer {
 			if ( ! isset( $s[ $key ] ) || '' === $s[ $key ] ) {
 				continue;
 			}
-			$value = (string) $s[ $key ] . ( is_numeric( $s[ $key ] ) ? $var[1] : '' );
-			$value = str_replace( array( ';', '{', '}', '<', '>' ), '', $value );
+			$value = Schema::sanitize_css_value( (string) $s[ $key ] . ( is_numeric( $s[ $key ] ) ? $var[1] : '' ) );
+			if ( '' === $value ) {
+				continue;
+			}
 			$css[] = $var[0] . ':' . $value;
 		}
 		return implode( ';', $css );
@@ -286,7 +288,7 @@ class Renderer {
 				continue;
 			}
 			if ( 'category' === $s['brancheslistcat'] ) {
-				$item_cats = empty( $item['categories'] ) ? array( 0 => __( 'Uncategorized', 'mapify' ) ) : $item['categories'];
+				$item_cats = empty( $item['categories'] ) ? array( 0 => __( 'Uncategorized', 'pepro-mapify' ) ) : $item['categories'];
 				foreach ( $item_cats as $id => $name ) {
 					$groups[ $id ]['name']    = $name;
 					$groups[ $id ]['items'][] = $item;
@@ -328,7 +330,7 @@ class Renderer {
 			}
 			$html .= '</div>';
 		}
-		$html .= '<p class="mapify__empty" hidden>' . esc_html__( 'No branch found.', 'mapify' ) . '</p></div>';
+		$html .= '<p class="mapify__empty" hidden>' . esc_html__( 'No branch found.', 'pepro-mapify' ) . '</p></div>';
 		return $html;
 	}
 
@@ -387,7 +389,7 @@ class Renderer {
 		if ( $list ) {
 			$html .= self::list_markup( $s, $items );
 		}
-		$html .= '<div class="mapify__stage"><div class="mapify__map" role="region" aria-label="' . esc_attr__( 'Branches map', 'mapify' ) . '"></div>';
+		$html .= '<div class="mapify__stage"><div class="mapify__map" role="region" aria-label="' . esc_attr__( 'Branches map', 'pepro-mapify' ) . '"></div>';
 		$html .= apply_filters( 'mapify_stage_html', '', $s, $items );
 		$html .= '<div class="mapify__loading" aria-hidden="true"><span></span></div></div>';
 		$html .= '</div></div>';

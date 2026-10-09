@@ -22,52 +22,52 @@ class Branches {
 		return apply_filters(
 			'mapify_branch_meta_fields',
 			array(
-				'address'    => array( __( 'Address', 'mapify' ), 'textarea' ),
-				'phone'      => array( __( 'Phone', 'mapify' ), 'text' ),
-				'site'       => array( __( 'Website', 'mapify' ), 'url' ),
-				'email'      => array( __( 'Email', 'mapify' ), 'email' ),
-				'socailig'   => array( __( 'Instagram', 'mapify' ), 'url' ),
-				'socailtg'   => array( __( 'Telegram', 'mapify' ), 'url' ),
-				'socailtw'   => array( __( 'X (Twitter)', 'mapify' ), 'url' ),
-				'socailfb'   => array( __( 'Facebook', 'mapify' ), 'url' ),
-				'socailli'   => array( __( 'LinkedIn', 'mapify' ), 'url' ),
-				'additional' => array( __( 'Additional text', 'mapify' ), 'textarea' ),
+				'address'    => array( __( 'Address', 'pepro-mapify' ), 'textarea' ),
+				'phone'      => array( __( 'Phone', 'pepro-mapify' ), 'text' ),
+				'site'       => array( __( 'Website', 'pepro-mapify' ), 'url' ),
+				'email'      => array( __( 'Email', 'pepro-mapify' ), 'email' ),
+				'socailig'   => array( __( 'Instagram', 'pepro-mapify' ), 'url' ),
+				'socailtg'   => array( __( 'Telegram', 'pepro-mapify' ), 'url' ),
+				'socailtw'   => array( __( 'X (Twitter)', 'pepro-mapify' ), 'url' ),
+				'socailfb'   => array( __( 'Facebook', 'pepro-mapify' ), 'url' ),
+				'socailli'   => array( __( 'LinkedIn', 'pepro-mapify' ), 'url' ),
+				'additional' => array( __( 'Additional text', 'pepro-mapify' ), 'textarea' ),
 			)
 		);
 	}
 
 	public static function register() {
 		$labels = array(
-			'name'                  => _x( 'Branches', 'Post Type General Name', 'mapify' ),
-			'singular_name'         => _x( 'Branch', 'Post Type Singular Name', 'mapify' ),
-			'menu_name'             => __( 'Branches', 'mapify' ),
-			'name_admin_bar'        => __( 'Branch', 'mapify' ),
-			'archives'              => __( 'Branch Archives', 'mapify' ),
-			'all_items'             => __( 'All Branches', 'mapify' ),
-			'add_new_item'          => __( 'Add New Branch', 'mapify' ),
-			'add_new'               => __( 'Add New', 'mapify' ),
-			'new_item'              => __( 'New Branch', 'mapify' ),
-			'edit_item'             => __( 'Edit Branch', 'mapify' ),
-			'update_item'           => __( 'Update Branch', 'mapify' ),
-			'view_item'             => __( 'View Branch', 'mapify' ),
-			'view_items'            => __( 'View Branches', 'mapify' ),
-			'search_items'          => __( 'Search Branches', 'mapify' ),
-			'not_found'             => __( 'No branch found', 'mapify' ),
-			'not_found_in_trash'    => __( 'No branch found in Trash', 'mapify' ),
-			'featured_image'        => __( 'Branch Image', 'mapify' ),
-			'set_featured_image'    => __( 'Set branch image', 'mapify' ),
-			'remove_featured_image' => __( 'Remove branch image', 'mapify' ),
-			'use_featured_image'    => __( 'Use as branch image', 'mapify' ),
-			'items_list'            => __( 'Branches list', 'mapify' ),
-			'items_list_navigation' => __( 'Branches list navigation', 'mapify' ),
-			'filter_items_list'     => __( 'Filter Branches list', 'mapify' ),
+			'name'                  => _x( 'Branches', 'Post Type General Name', 'pepro-mapify' ),
+			'singular_name'         => _x( 'Branch', 'Post Type Singular Name', 'pepro-mapify' ),
+			'menu_name'             => __( 'Branches', 'pepro-mapify' ),
+			'name_admin_bar'        => __( 'Branch', 'pepro-mapify' ),
+			'archives'              => __( 'Branch Archives', 'pepro-mapify' ),
+			'all_items'             => __( 'All Branches', 'pepro-mapify' ),
+			'add_new_item'          => __( 'Add New Branch', 'pepro-mapify' ),
+			'add_new'               => __( 'Add New', 'pepro-mapify' ),
+			'new_item'              => __( 'New Branch', 'pepro-mapify' ),
+			'edit_item'             => __( 'Edit Branch', 'pepro-mapify' ),
+			'update_item'           => __( 'Update Branch', 'pepro-mapify' ),
+			'view_item'             => __( 'View Branch', 'pepro-mapify' ),
+			'view_items'            => __( 'View Branches', 'pepro-mapify' ),
+			'search_items'          => __( 'Search Branches', 'pepro-mapify' ),
+			'not_found'             => __( 'No branch found', 'pepro-mapify' ),
+			'not_found_in_trash'    => __( 'No branch found in Trash', 'pepro-mapify' ),
+			'featured_image'        => __( 'Branch Image', 'pepro-mapify' ),
+			'set_featured_image'    => __( 'Set branch image', 'pepro-mapify' ),
+			'remove_featured_image' => __( 'Remove branch image', 'pepro-mapify' ),
+			'use_featured_image'    => __( 'Use as branch image', 'pepro-mapify' ),
+			'items_list'            => __( 'Branches list', 'pepro-mapify' ),
+			'items_list_navigation' => __( 'Branches list navigation', 'pepro-mapify' ),
+			'filter_items_list'     => __( 'Filter Branches list', 'pepro-mapify' ),
 		);
 		$slug   = Options::get( 'branch_slug' );
 		register_post_type(
 			self::POST_TYPE,
 			array(
-				'label'           => __( 'Branches', 'mapify' ),
-				'description'     => __( 'Add branches to show on map', 'mapify' ),
+				'label'           => __( 'Branches', 'pepro-mapify' ),
+				'description'     => __( 'Add branches to show on map', 'pepro-mapify' ),
 				'labels'          => $labels,
 				'supports'        => array( 'title', 'editor', 'thumbnail', 'revisions', 'page-attributes', 'elementor', 'custom-fields' ),
 				'hierarchical'    => false,
@@ -93,16 +93,16 @@ class Branches {
 			array(
 				'hierarchical'      => true,
 				'labels'            => array(
-					'name'          => _x( 'Categories', 'taxonomy general name', 'mapify' ),
-					'singular_name' => _x( 'Category', 'taxonomy singular name', 'mapify' ),
-					'search_items'  => __( 'Search Categories', 'mapify' ),
-					'all_items'     => __( 'All Categories', 'mapify' ),
-					'parent_item'   => __( 'Parent Category', 'mapify' ),
-					'edit_item'     => __( 'Edit Category', 'mapify' ),
-					'update_item'   => __( 'Update Category', 'mapify' ),
-					'add_new_item'  => __( 'Add New Category', 'mapify' ),
-					'new_item_name' => __( 'New Category Name', 'mapify' ),
-					'menu_name'     => __( 'Categories', 'mapify' ),
+					'name'          => _x( 'Categories', 'taxonomy general name', 'pepro-mapify' ),
+					'singular_name' => _x( 'Category', 'taxonomy singular name', 'pepro-mapify' ),
+					'search_items'  => __( 'Search Categories', 'pepro-mapify' ),
+					'all_items'     => __( 'All Categories', 'pepro-mapify' ),
+					'parent_item'   => __( 'Parent Category', 'pepro-mapify' ),
+					'edit_item'     => __( 'Edit Category', 'pepro-mapify' ),
+					'update_item'   => __( 'Update Category', 'pepro-mapify' ),
+					'add_new_item'  => __( 'Add New Category', 'pepro-mapify' ),
+					'new_item_name' => __( 'New Category Name', 'pepro-mapify' ),
+					'menu_name'     => __( 'Categories', 'pepro-mapify' ),
 				),
 				'show_ui'           => true,
 				'show_in_rest'      => true,
@@ -174,13 +174,13 @@ class Branches {
 					}
 					$clean = self::sanitize_map_data( $value );
 					if ( '' === $clean ) {
-						return new \WP_Error( 'mapify_invalid_location', __( 'Location needs numeric latitude and longitude.', 'mapify' ), array( 'status' => 400 ) );
+						return new \WP_Error( 'mapify_invalid_location', __( 'Location needs numeric latitude and longitude.', 'pepro-mapify' ), array( 'status' => 400 ) );
 					}
 					update_post_meta( $post->ID, 'place_details_map_data', $clean );
 					return true;
 				},
 				'schema'          => array(
-					'description' => __( 'Branch location on the map.', 'mapify' ),
+					'description' => __( 'Branch location on the map.', 'pepro-mapify' ),
 					'type'        => array( 'object', 'null' ),
 					'context'     => array( 'view', 'edit' ),
 					'properties'  => array(
@@ -260,7 +260,7 @@ class Branches {
 	public static function limit_message() {
 		return sprintf(
 			/* translators: %d: maximum number of branches */
-			__( 'The free version of Mapify supports up to %d branches. Upgrade to Mapify Pro for unlimited branches.', 'mapify' ),
+			__( 'The free version of Mapify supports up to %d branches. Upgrade to Mapify Pro for unlimited branches.', 'pepro-mapify' ),
 			self::MAX_BRANCHES
 		);
 	}
@@ -432,25 +432,25 @@ class Branches {
 		};
 		$rows = '';
 		if ( $data['address'] ) {
-			$rows .= $row( 'location', __( 'Address:', 'mapify' ), nl2br( esc_html( $data['address'] ) ) );
+			$rows .= $row( 'location', __( 'Address:', 'pepro-mapify' ), nl2br( esc_html( $data['address'] ) ) );
 		}
 		if ( $data['phone'] ) {
-			$rows .= $row( 'phone', __( 'Phone:', 'mapify' ), '<a href="tel:' . esc_attr( preg_replace( '/[^0-9+]/', '', $data['phone'] ) ) . '">' . esc_html( $data['phone'] ) . '</a>' );
+			$rows .= $row( 'phone', __( 'Phone:', 'pepro-mapify' ), '<a href="tel:' . esc_attr( preg_replace( '/[^0-9+]/', '', $data['phone'] ) ) . '">' . esc_html( $data['phone'] ) . '</a>' );
 		}
 		if ( $data['site'] ) {
-			$rows .= $row( 'admin-site-alt3', __( 'Website:', 'mapify' ), '<a href="' . esc_url( $data['site'] ) . '">' . esc_html( $data['site'] ) . '</a>' );
+			$rows .= $row( 'admin-site-alt3', __( 'Website:', 'pepro-mapify' ), '<a href="' . esc_url( $data['site'] ) . '">' . esc_html( $data['site'] ) . '</a>' );
 		}
 		if ( $data['email'] ) {
-			$rows .= $row( 'email', __( 'Email:', 'mapify' ), '<a href="mailto:' . esc_attr( $data['email'] ) . '">' . esc_html( $data['email'] ) . '</a>' );
+			$rows .= $row( 'email', __( 'Email:', 'pepro-mapify' ), '<a href="mailto:' . esc_attr( $data['email'] ) . '">' . esc_html( $data['email'] ) . '</a>' );
 		}
 		$social = '';
 		foreach (
 			array(
-				'instagram' => array( 'instagram', __( 'Instagram', 'mapify' ) ),
-				'telegram'  => array( 'format-chat', __( 'Telegram', 'mapify' ) ),
-				'twitter'   => array( 'twitter', __( 'X (Twitter)', 'mapify' ) ),
-				'facebook'  => array( 'facebook', __( 'Facebook', 'mapify' ) ),
-				'linkedin'  => array( 'linkedin', __( 'LinkedIn', 'mapify' ) ),
+				'instagram' => array( 'instagram', __( 'Instagram', 'pepro-mapify' ) ),
+				'telegram'  => array( 'format-chat', __( 'Telegram', 'pepro-mapify' ) ),
+				'twitter'   => array( 'twitter', __( 'X (Twitter)', 'pepro-mapify' ) ),
+				'facebook'  => array( 'facebook', __( 'Facebook', 'pepro-mapify' ) ),
+				'linkedin'  => array( 'linkedin', __( 'LinkedIn', 'pepro-mapify' ) ),
 			) as $key => $meta
 		) {
 			if ( $data[ $key ] ) {
@@ -458,16 +458,16 @@ class Branches {
 			}
 		}
 		if ( $social ) {
-			$rows .= $row( 'share', __( 'Social:', 'mapify' ), $social );
+			$rows .= $row( 'share', __( 'Social:', 'pepro-mapify' ), $social );
 		}
 		$directions = '';
 		if ( null !== $data['latitude'] ) {
 			$ll          = $data['latitude'] . ',' . $data['longitude'];
 			$directions  = '<div class="mapify-branch__directions">';
-			$directions .= '<a class="mapify-branch__btn" target="_blank" rel="noopener" href="' . esc_url( 'https://www.google.com/maps/dir/?api=1&destination=' . $ll ) . '">' . esc_html__( 'Google Maps', 'mapify' ) . '</a>';
-			$directions .= '<a class="mapify-branch__btn" target="_blank" rel="noopener" href="' . esc_url( 'https://www.waze.com/ul?ll=' . $ll . '&navigate=yes' ) . '">' . esc_html__( 'Waze', 'mapify' ) . '</a>';
-			$directions .= '<a class="mapify-branch__btn" target="_blank" rel="noopener" href="' . esc_url( 'https://neshan.org/maps/@' . $ll . ',16z' ) . '">' . esc_html__( 'Neshan', 'mapify' ) . '</a>';
-			$directions .= '<a class="mapify-branch__btn" target="_blank" rel="noopener" href="' . esc_url( 'https://balad.ir/location?latitude=' . $data['latitude'] . '&longitude=' . $data['longitude'] ) . '">' . esc_html__( 'Balad', 'mapify' ) . '</a>';
+			$directions .= '<a class="mapify-branch__btn" target="_blank" rel="noopener" href="' . esc_url( 'https://www.google.com/maps/dir/?api=1&destination=' . $ll ) . '">' . esc_html__( 'Google Maps', 'pepro-mapify' ) . '</a>';
+			$directions .= '<a class="mapify-branch__btn" target="_blank" rel="noopener" href="' . esc_url( 'https://www.waze.com/ul?ll=' . $ll . '&navigate=yes' ) . '">' . esc_html__( 'Waze', 'pepro-mapify' ) . '</a>';
+			$directions .= '<a class="mapify-branch__btn" target="_blank" rel="noopener" href="' . esc_url( 'https://neshan.org/maps/@' . $ll . ',16z' ) . '">' . esc_html__( 'Neshan', 'pepro-mapify' ) . '</a>';
+			$directions .= '<a class="mapify-branch__btn" target="_blank" rel="noopener" href="' . esc_url( 'https://balad.ir/location?latitude=' . $data['latitude'] . '&longitude=' . $data['longitude'] ) . '">' . esc_html__( 'Balad', 'pepro-mapify' ) . '</a>';
 			$directions .= '</div>';
 		}
 		$image = '';

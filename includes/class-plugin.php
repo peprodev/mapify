@@ -24,7 +24,7 @@ class Plugin {
 		add_action(
 			'init',
 			function () {
-				load_plugin_textdomain( 'mapify', false, dirname( plugin_basename( MAPIFY_FILE ) ) . '/languages/' );
+				load_plugin_textdomain( 'pepro-mapify', false, dirname( plugin_basename( MAPIFY_FILE ) ) . '/languages/' );
 			},
 			0
 		);
@@ -91,7 +91,7 @@ class Plugin {
 		$manager->add_category(
 			'peprodev',
 			array(
-				'title' => __( 'PeproDev Elements', 'mapify' ),
+				'title' => __( 'PeproDev Elements', 'pepro-mapify' ),
 				'icon'  => 'eicon-map-pin',
 			)
 		);

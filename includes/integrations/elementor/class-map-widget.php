@@ -32,7 +32,7 @@ class Map_Widget extends Widget_Base {
 	}
 
 	public function get_title() {
-		return esc_html__( 'Branches Map', 'mapify' );
+		return esc_html__( 'Branches Map', 'pepro-mapify' );
 	}
 
 	public function get_icon() {
@@ -256,7 +256,7 @@ class Map_Widget extends Widget_Base {
 				$repeater->add_control(
 					'position_heading',
 					array(
-						'label'     => __( 'Position on image / SVG', 'mapify' ),
+						'label'     => __( 'Position on image / SVG', 'pepro-mapify' ),
 						'type'      => Controls_Manager::HEADING,
 						'separator' => 'before',
 					)
@@ -266,7 +266,7 @@ class Map_Widget extends Widget_Base {
 				$repeater->add_control(
 					'geo_heading',
 					array(
-						'label'       => __( 'Position on geographic maps', 'mapify' ),
+						'label'       => __( 'Position on geographic maps', 'pepro-mapify' ),
 						'type'        => Controls_Manager::HEADING,
 						'separator'   => 'before',
 					)
@@ -309,7 +309,7 @@ class Map_Widget extends Widget_Base {
 		$fields     = Schema::fields();
 		$conditions = $this->section_conditions();
 		$labels     = array(
-			'markers' => __( 'Markers & clusters', 'mapify' ),
+			'markers' => __( 'Markers & clusters', 'pepro-mapify' ),
 		);
 		foreach ( Schema::groups() as $group => $label ) {
 			if ( in_array( $group, array( 'appearance', 'advanced' ), true ) ) {
@@ -339,7 +339,7 @@ class Map_Widget extends Widget_Base {
 						'alert_type' => 'info',
 						'content'    => sprintf(
 							/* translators: %s: settings URL */
-							__( 'API keys for Google Maps, Mapbox, Map.ir, Neshan and Parsimap are set in <a href="%s" target="_blank">Branches → Map Settings</a>.', 'mapify' ),
+							__( 'API keys for Google Maps, Mapbox, Map.ir, Neshan and Parsimap are set in <a href="%s" target="_blank">Branches → Map Settings</a>.', 'pepro-mapify' ),
 							esc_url( admin_url( 'edit.php?post_type=mapify&page=mapify' ) )
 						),
 						'condition'  => array( 'maptype' => array( 'google', 'mapbox', 'mapir', 'neshan', 'parsimap' ) ),
@@ -359,14 +359,14 @@ class Map_Widget extends Widget_Base {
 		$this->start_controls_section(
 			'style_map',
 			array(
-				'label' => __( 'Map', 'mapify' ),
+				'label' => __( 'Map', 'pepro-mapify' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
 		);
 		$this->add_responsive_control(
 			'map_height',
 			array(
-				'label'       => __( 'Height', 'mapify' ),
+				'label'       => __( 'Height', 'pepro-mapify' ),
 				'type'        => Controls_Manager::SLIDER,
 				'size_units'  => array( 'px', 'vh', 'em', 'rem' ),
 				'range'       => array(
@@ -377,14 +377,14 @@ class Map_Widget extends Widget_Base {
 					'unit' => 'px',
 					'size' => (int) Options::get( 'default_height' ) ? (int) Options::get( 'default_height' ) : 500,
 				),
-				'description' => __( 'Image and SVG maps size themselves by their aspect ratio.', 'mapify' ),
+				'description' => __( 'Image and SVG maps size themselves by their aspect ratio.', 'pepro-mapify' ),
 				'selectors'   => array( $root => '--mapify-height: {{SIZE}}{{UNIT}};' ),
 			)
 		);
 		$this->add_control(
 			'accent',
 			array(
-				'label'     => __( 'Accent color', 'mapify' ),
+				'label'     => __( 'Accent color', 'pepro-mapify' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array( $root => '--mapify-accent: {{VALUE}};' ),
 			)
@@ -392,7 +392,7 @@ class Map_Widget extends Widget_Base {
 		$this->add_control(
 			'loading_bg',
 			array(
-				'label'     => __( 'Background while loading', 'mapify' ),
+				'label'     => __( 'Background while loading', 'pepro-mapify' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array( $root => '--mapify-loading-bg: {{VALUE}};' ),
 			)
@@ -400,7 +400,7 @@ class Map_Widget extends Widget_Base {
 		$this->add_responsive_control(
 			'map_radius',
 			array(
-				'label'      => __( 'Border radius', 'mapify' ),
+				'label'      => __( 'Border radius', 'pepro-mapify' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px', '%' ),
 				'range'      => array( 'px' => array( 'min' => 0, 'max' => 80 ) ),
@@ -425,7 +425,7 @@ class Map_Widget extends Widget_Base {
 			Group_Control_Css_Filter::get_type(),
 			array(
 				'name'     => 'map_filters',
-				'label'    => __( 'Map tiles filter', 'mapify' ),
+				'label'    => __( 'Map tiles filter', 'pepro-mapify' ),
 				'selector' => '{{WRAPPER}} .leaflet-tile-pane, {{WRAPPER}} .mapify-plane__image',
 			)
 		);
@@ -435,14 +435,14 @@ class Map_Widget extends Widget_Base {
 		$this->start_controls_section(
 			'style_pins',
 			array(
-				'label' => __( 'Pins', 'mapify' ),
+				'label' => __( 'Pins', 'pepro-mapify' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
 		);
 		$this->add_control(
 			'pin_color',
 			array(
-				'label'     => __( 'Color', 'mapify' ),
+				'label'     => __( 'Color', 'pepro-mapify' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array( $root => '--mapify-pin-color: {{VALUE}};' ),
 			)
@@ -450,7 +450,7 @@ class Map_Widget extends Widget_Base {
 		$this->add_control(
 			'pin_hover_color',
 			array(
-				'label'     => __( 'Hover / active color', 'mapify' ),
+				'label'     => __( 'Hover / active color', 'pepro-mapify' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array( '{{WRAPPER}} .mapify-pin:hover, {{WRAPPER}} .mapify-pin.is-active' => 'color: {{VALUE}};' ),
 			)
@@ -458,7 +458,7 @@ class Map_Widget extends Widget_Base {
 		$this->add_control(
 			'pin_inner_color',
 			array(
-				'label'     => __( 'Inner dot / border color', 'mapify' ),
+				'label'     => __( 'Inner dot / border color', 'pepro-mapify' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
 					'{{WRAPPER}} .mapify-pin__hole' => 'fill: {{VALUE}};',
@@ -469,7 +469,7 @@ class Map_Widget extends Widget_Base {
 		$this->add_responsive_control(
 			'pin_size',
 			array(
-				'label'     => __( 'Size', 'mapify' ),
+				'label'     => __( 'Size', 'pepro-mapify' ),
 				'type'      => Controls_Manager::SLIDER,
 				'range'     => array( 'px' => array( 'min' => 12, 'max' => 96 ) ),
 				'selectors' => array( $root => '--mapify-pin-size: {{SIZE}}px;' ),
@@ -478,7 +478,7 @@ class Map_Widget extends Widget_Base {
 		$this->add_control(
 			'tooltip_heading',
 			array(
-				'label'     => __( 'Tooltip', 'mapify' ),
+				'label'     => __( 'Tooltip', 'pepro-mapify' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 			)
@@ -486,7 +486,7 @@ class Map_Widget extends Widget_Base {
 		$this->add_control(
 			'tooltip_bg',
 			array(
-				'label'     => __( 'Background', 'mapify' ),
+				'label'     => __( 'Background', 'pepro-mapify' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array( '{{WRAPPER}} .mapify-pin[data-tip]::after, {{WRAPPER}} .mapify-plane__tip' => 'background: {{VALUE}};' ),
 			)
@@ -494,7 +494,7 @@ class Map_Widget extends Widget_Base {
 		$this->add_control(
 			'tooltip_color',
 			array(
-				'label'     => __( 'Text color', 'mapify' ),
+				'label'     => __( 'Text color', 'pepro-mapify' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array( '{{WRAPPER}} .mapify-pin[data-tip]::after, {{WRAPPER}} .mapify-plane__tip' => 'color: {{VALUE}};' ),
 			)
@@ -509,7 +509,7 @@ class Map_Widget extends Widget_Base {
 		$this->add_control(
 			'cluster_heading',
 			array(
-				'label'     => __( 'Clusters', 'mapify' ),
+				'label'     => __( 'Clusters', 'pepro-mapify' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 			)
@@ -517,7 +517,7 @@ class Map_Widget extends Widget_Base {
 		$this->add_control(
 			'cluster_bg',
 			array(
-				'label'     => __( 'Background', 'mapify' ),
+				'label'     => __( 'Background', 'pepro-mapify' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array( $root => '--mapify-cluster-bg: {{VALUE}};' ),
 			)
@@ -525,7 +525,7 @@ class Map_Widget extends Widget_Base {
 		$this->add_control(
 			'cluster_color',
 			array(
-				'label'     => __( 'Text color', 'mapify' ),
+				'label'     => __( 'Text color', 'pepro-mapify' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array( $root => '--mapify-cluster-color: {{VALUE}};' ),
 			)
@@ -537,7 +537,7 @@ class Map_Widget extends Widget_Base {
 		$this->start_controls_section(
 			'style_popup',
 			array(
-				'label'     => __( 'Popup', 'mapify' ),
+				'label'     => __( 'Popup', 'pepro-mapify' ),
 				'tab'       => Controls_Manager::TAB_STYLE,
 				'condition' => array( 'pinaction' => 'popup' ),
 			)
@@ -545,7 +545,7 @@ class Map_Widget extends Widget_Base {
 		$this->add_responsive_control(
 			'popup_width',
 			array(
-				'label'      => __( 'Width', 'mapify' ),
+				'label'      => __( 'Width', 'pepro-mapify' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px' ),
 				'range'      => array( 'px' => array( 'min' => 160, 'max' => 600 ) ),
@@ -555,7 +555,7 @@ class Map_Widget extends Widget_Base {
 		$this->add_control(
 			'popup_bg',
 			array(
-				'label'     => __( 'Background', 'mapify' ),
+				'label'     => __( 'Background', 'pepro-mapify' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array( $root => '--mapify-popup-bg: {{VALUE}};' ),
 			)
@@ -563,7 +563,7 @@ class Map_Widget extends Widget_Base {
 		$this->add_control(
 			'popup_color',
 			array(
-				'label'     => __( 'Text color', 'mapify' ),
+				'label'     => __( 'Text color', 'pepro-mapify' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array( $root => '--mapify-popup-color: {{VALUE}};' ),
 			)
@@ -571,7 +571,7 @@ class Map_Widget extends Widget_Base {
 		$this->add_responsive_control(
 			'popup_radius',
 			array(
-				'label'     => __( 'Border radius', 'mapify' ),
+				'label'     => __( 'Border radius', 'pepro-mapify' ),
 				'type'      => Controls_Manager::SLIDER,
 				'range'     => array( 'px' => array( 'min' => 0, 'max' => 40 ) ),
 				'selectors' => array( $root => '--mapify-popup-radius: {{SIZE}}px;' ),
@@ -587,7 +587,7 @@ class Map_Widget extends Widget_Base {
 		$this->add_responsive_control(
 			'popup_padding',
 			array(
-				'label'      => __( 'Content padding', 'mapify' ),
+				'label'      => __( 'Content padding', 'pepro-mapify' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', 'em' ),
 				'selectors'  => array( '{{WRAPPER}} .mapify-card__body' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};' ),
@@ -596,7 +596,7 @@ class Map_Widget extends Widget_Base {
 		$this->add_responsive_control(
 			'popup_image_height',
 			array(
-				'label'      => __( 'Image height', 'mapify' ),
+				'label'      => __( 'Image height', 'pepro-mapify' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px' ),
 				'range'      => array( 'px' => array( 'min' => 0, 'max' => 400 ) ),
@@ -606,7 +606,7 @@ class Map_Widget extends Widget_Base {
 		$this->add_control(
 			'popup_title_heading',
 			array(
-				'label'     => __( 'Title', 'mapify' ),
+				'label'     => __( 'Title', 'pepro-mapify' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 			)
@@ -614,7 +614,7 @@ class Map_Widget extends Widget_Base {
 		$this->add_control(
 			'popup_title_color',
 			array(
-				'label'     => __( 'Color', 'mapify' ),
+				'label'     => __( 'Color', 'pepro-mapify' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array( '{{WRAPPER}} .mapify-card__title' => 'color: {{VALUE}};' ),
 			)
@@ -630,7 +630,7 @@ class Map_Widget extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'      => 'popup_text_typography',
-				'label'     => __( 'Text typography', 'mapify' ),
+				'label'     => __( 'Text typography', 'pepro-mapify' ),
 				'selector'  => '{{WRAPPER}} .mapify-popup',
 				'separator' => 'before',
 			)
@@ -638,7 +638,7 @@ class Map_Widget extends Widget_Base {
 		$this->add_control(
 			'popup_button_heading',
 			array(
-				'label'     => __( 'Button', 'mapify' ),
+				'label'     => __( 'Button', 'pepro-mapify' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 			)
@@ -646,7 +646,7 @@ class Map_Widget extends Widget_Base {
 		$this->add_control(
 			'popup_button_bg',
 			array(
-				'label'     => __( 'Background', 'mapify' ),
+				'label'     => __( 'Background', 'pepro-mapify' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array( '{{WRAPPER}} .mapify-card__link' => 'background: {{VALUE}};' ),
 			)
@@ -654,7 +654,7 @@ class Map_Widget extends Widget_Base {
 		$this->add_control(
 			'popup_button_color',
 			array(
-				'label'     => __( 'Text color', 'mapify' ),
+				'label'     => __( 'Text color', 'pepro-mapify' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array( '{{WRAPPER}} .mapify-card__link' => 'color: {{VALUE}} !important;' ),
 			)
@@ -673,7 +673,7 @@ class Map_Widget extends Widget_Base {
 		$this->start_controls_section(
 			'style_list',
 			array(
-				'label'     => __( 'Branches list', 'mapify' ),
+				'label'     => __( 'Branches list', 'pepro-mapify' ),
 				'tab'       => Controls_Manager::TAB_STYLE,
 				'condition' => array( 'branchlistshow' => 'yes' ),
 			)
@@ -681,7 +681,7 @@ class Map_Widget extends Widget_Base {
 		$this->add_responsive_control(
 			'list_width',
 			array(
-				'label'      => __( 'Sidebar width', 'mapify' ),
+				'label'      => __( 'Sidebar width', 'pepro-mapify' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px', '%' ),
 				'range'      => array( 'px' => array( 'min' => 160, 'max' => 600 ) ),
@@ -692,7 +692,7 @@ class Map_Widget extends Widget_Base {
 		$this->add_responsive_control(
 			'list_gap',
 			array(
-				'label'     => __( 'Space between list and map', 'mapify' ),
+				'label'     => __( 'Space between list and map', 'pepro-mapify' ),
 				'type'      => Controls_Manager::SLIDER,
 				'range'     => array( 'px' => array( 'min' => 0, 'max' => 80 ) ),
 				'selectors' => array( $root => '--mapify-gap: {{SIZE}}px;' ),
@@ -701,7 +701,7 @@ class Map_Widget extends Widget_Base {
 		$this->add_responsive_control(
 			'list_items_gap',
 			array(
-				'label'     => __( 'Space between items', 'mapify' ),
+				'label'     => __( 'Space between items', 'pepro-mapify' ),
 				'type'      => Controls_Manager::SLIDER,
 				'range'     => array( 'px' => array( 'min' => 0, 'max' => 40 ) ),
 				'selectors' => array( '{{WRAPPER}} .mapify__items' => 'gap: {{SIZE}}px;' ),
@@ -717,7 +717,7 @@ class Map_Widget extends Widget_Base {
 		$this->add_responsive_control(
 			'list_padding',
 			array(
-				'label'      => __( 'Padding', 'mapify' ),
+				'label'      => __( 'Padding', 'pepro-mapify' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', 'em' ),
 				'selectors'  => array( $item => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};' ),
@@ -726,7 +726,7 @@ class Map_Widget extends Widget_Base {
 		$this->add_responsive_control(
 			'list_radius',
 			array(
-				'label'      => __( 'Border radius', 'mapify' ),
+				'label'      => __( 'Border radius', 'pepro-mapify' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', '%' ),
 				'selectors'  => array( $item => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};' ),
@@ -742,16 +742,16 @@ class Map_Widget extends Widget_Base {
 		$this->start_controls_tabs( 'list_tabs' );
 		foreach (
 			array(
-				'normal' => array( __( 'Normal', 'mapify' ), $item ),
-				'hover'  => array( __( 'Hover', 'mapify' ), $item . ':hover' ),
-				'active' => array( __( 'Active', 'mapify' ), $item . '.is-active' ),
+				'normal' => array( __( 'Normal', 'pepro-mapify' ), $item ),
+				'hover'  => array( __( 'Hover', 'pepro-mapify' ), $item . ':hover' ),
+				'active' => array( __( 'Active', 'pepro-mapify' ), $item . '.is-active' ),
 			) as $state => $meta
 		) {
 			$this->start_controls_tab( 'list_tab_' . $state, array( 'label' => $meta[0] ) );
 			$this->add_control(
 				'list_bg_' . $state,
 				array(
-					'label'     => __( 'Background', 'mapify' ),
+					'label'     => __( 'Background', 'pepro-mapify' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array( $meta[1] => 'background: {{VALUE}};' ),
 				)
@@ -759,7 +759,7 @@ class Map_Widget extends Widget_Base {
 			$this->add_control(
 				'list_color_' . $state,
 				array(
-					'label'     => __( 'Text color', 'mapify' ),
+					'label'     => __( 'Text color', 'pepro-mapify' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => array( $meta[1] => 'color: {{VALUE}};' ),
 				)
@@ -777,7 +777,7 @@ class Map_Widget extends Widget_Base {
 		$this->add_control(
 			'group_title_heading',
 			array(
-				'label'     => __( 'Category titles', 'mapify' ),
+				'label'     => __( 'Category titles', 'pepro-mapify' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 				'condition' => array( 'brancheslistcat' => 'category' ),
@@ -786,7 +786,7 @@ class Map_Widget extends Widget_Base {
 		$this->add_control(
 			'group_title_color',
 			array(
-				'label'     => __( 'Color', 'mapify' ),
+				'label'     => __( 'Color', 'pepro-mapify' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array( '{{WRAPPER}} .mapify__group-title' => 'color: {{VALUE}}; opacity: 1;' ),
 				'condition' => array( 'brancheslistcat' => 'category' ),
@@ -807,7 +807,7 @@ class Map_Widget extends Widget_Base {
 		$this->start_controls_section(
 			'style_search',
 			array(
-				'label'     => __( 'Search box', 'mapify' ),
+				'label'     => __( 'Search box', 'pepro-mapify' ),
 				'tab'       => Controls_Manager::TAB_STYLE,
 				'condition' => array(
 					'branchlistshow' => 'yes',
@@ -825,7 +825,7 @@ class Map_Widget extends Widget_Base {
 		$this->add_control(
 			'search_bg',
 			array(
-				'label'     => __( 'Background', 'mapify' ),
+				'label'     => __( 'Background', 'pepro-mapify' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array( $search => 'background: {{VALUE}};' ),
 			)
@@ -833,7 +833,7 @@ class Map_Widget extends Widget_Base {
 		$this->add_control(
 			'search_color',
 			array(
-				'label'     => __( 'Text color', 'mapify' ),
+				'label'     => __( 'Text color', 'pepro-mapify' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array( $search => 'color: {{VALUE}};' ),
 			)
@@ -841,7 +841,7 @@ class Map_Widget extends Widget_Base {
 		$this->add_control(
 			'search_border_color',
 			array(
-				'label'     => __( 'Border color', 'mapify' ),
+				'label'     => __( 'Border color', 'pepro-mapify' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array( $search => 'border-color: {{VALUE}};' ),
 			)
@@ -849,7 +849,7 @@ class Map_Widget extends Widget_Base {
 		$this->add_responsive_control(
 			'search_radius',
 			array(
-				'label'     => __( 'Border radius', 'mapify' ),
+				'label'     => __( 'Border radius', 'pepro-mapify' ),
 				'type'      => Controls_Manager::SLIDER,
 				'range'     => array( 'px' => array( 'min' => 0, 'max' => 40 ) ),
 				'selectors' => array( $search => 'border-radius: {{SIZE}}px;' ),
@@ -862,7 +862,7 @@ class Map_Widget extends Widget_Base {
 		$this->start_controls_section(
 			'style_directions',
 			array(
-				'label'     => __( 'Get directions button', 'mapify' ),
+				'label'     => __( 'Get directions button', 'pepro-mapify' ),
 				'tab'       => Controls_Manager::TAB_STYLE,
 				'condition' => array(
 					'pinaction'        => 'popup',
@@ -873,7 +873,7 @@ class Map_Widget extends Widget_Base {
 		$this->add_control(
 			'directions_bg',
 			array(
-				'label'     => __( 'Background', 'mapify' ),
+				'label'     => __( 'Background', 'pepro-mapify' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array( $dir => 'background: {{VALUE}};' ),
 			)
@@ -881,7 +881,7 @@ class Map_Widget extends Widget_Base {
 		$this->add_control(
 			'directions_color',
 			array(
-				'label'     => __( 'Text color', 'mapify' ),
+				'label'     => __( 'Text color', 'pepro-mapify' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array( $dir => 'color: {{VALUE}} !important;' ),
 			)
@@ -889,7 +889,7 @@ class Map_Widget extends Widget_Base {
 		$this->add_control(
 			'directions_border',
 			array(
-				'label'     => __( 'Border color', 'mapify' ),
+				'label'     => __( 'Border color', 'pepro-mapify' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array( $dir => 'border-color: {{VALUE}};' ),
 			)
@@ -909,18 +909,18 @@ class Map_Widget extends Widget_Base {
 		$this->start_controls_section(
 			'style_regions',
 			array(
-				'label'     => __( 'Regions (SVG maps)', 'mapify' ),
+				'label'     => __( 'Regions (SVG maps)', 'pepro-mapify' ),
 				'tab'       => Controls_Manager::TAB_STYLE,
 				'condition' => array( 'maptype' => array( 'iran', 'svg' ) ),
 			)
 		);
 		foreach (
 			array(
-				'region_fill'   => array( __( 'Fill', 'mapify' ), '--mapify-region-fill' ),
-				'region_active' => array( __( 'Regions with branches', 'mapify' ), '--mapify-region-active' ),
-				'region_hover'  => array( __( 'Hover / selected', 'mapify' ), '--mapify-region-hover' ),
-				'region_stroke' => array( __( 'Border color', 'mapify' ), '--mapify-region-stroke' ),
-				'plane_bg'      => array( __( 'Map background', 'mapify' ), '--mapify-plane-bg' ),
+				'region_fill'   => array( __( 'Fill', 'pepro-mapify' ), '--mapify-region-fill' ),
+				'region_active' => array( __( 'Regions with branches', 'pepro-mapify' ), '--mapify-region-active' ),
+				'region_hover'  => array( __( 'Hover / selected', 'pepro-mapify' ), '--mapify-region-hover' ),
+				'region_stroke' => array( __( 'Border color', 'pepro-mapify' ), '--mapify-region-stroke' ),
+				'plane_bg'      => array( __( 'Map background', 'pepro-mapify' ), '--mapify-plane-bg' ),
 			) as $key => $meta
 		) {
 			$this->add_control(
@@ -935,7 +935,7 @@ class Map_Widget extends Widget_Base {
 		$this->add_control(
 			'region_stroke_width',
 			array(
-				'label'     => __( 'Border width', 'mapify' ),
+				'label'     => __( 'Border width', 'pepro-mapify' ),
 				'type'      => Controls_Manager::SLIDER,
 				'range'     => array( 'px' => array( 'min' => 0, 'max' => 6, 'step' => 0.5 ) ),
 				'selectors' => array( $root => '--mapify-region-stroke-width: {{SIZE}};' ),

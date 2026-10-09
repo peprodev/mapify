@@ -69,15 +69,15 @@ class Transfer {
 				'permission_callback' => '__return_true',
 				'args'                => array(
 					'category' => array(
-						'description' => __( 'Category slugs, comma separated.', 'mapify' ),
+						'description' => __( 'Category slugs, comma separated.', 'pepro-mapify' ),
 						'type'        => 'string',
 					),
 					'include'  => array(
-						'description' => __( 'Branch IDs, comma separated.', 'mapify' ),
+						'description' => __( 'Branch IDs, comma separated.', 'pepro-mapify' ),
 						'type'        => 'string',
 					),
 					'search'   => array(
-						'description' => __( 'Search text.', 'mapify' ),
+						'description' => __( 'Search text.', 'pepro-mapify' ),
 						'type'        => 'string',
 					),
 				),

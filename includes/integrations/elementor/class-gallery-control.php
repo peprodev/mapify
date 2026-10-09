@@ -42,7 +42,7 @@ class Gallery_Control extends Base_Data_Control {
 			<label class="elementor-control-title">{{{ data.label }}}</label>
 			<# } #>
 			<# if ( data.search ) { #>
-			<input type="search" class="mapify-gallery__search" placeholder="<?php echo esc_attr__( 'Search styles…', 'mapify' ); ?>" aria-label="<?php echo esc_attr__( 'Search styles…', 'mapify' ); ?>" />
+			<input type="search" class="mapify-gallery__search" placeholder="<?php echo esc_attr__( 'Search styles…', 'pepro-mapify' ); ?>" aria-label="<?php echo esc_attr__( 'Search styles…', 'pepro-mapify' ); ?>" />
 			<# } #>
 			<div class="mapify-gallery" role="listbox">
 				<# _.each( data.options, function( option, value ) { #>
@@ -56,7 +56,7 @@ class Gallery_Control extends Base_Data_Control {
 				</button>
 				<# } ); #>
 			</div>
-			<p class="mapify-gallery__empty" hidden><?php esc_html_e( 'No style found.', 'mapify' ); ?></p>
+			<p class="mapify-gallery__empty" hidden><?php esc_html_e( 'No style found.', 'pepro-mapify' ); ?></p>
 			<# if ( data.note ) { #>
 			<p class="mapify-gallery__note">{{ data.note }}</p>
 			<# } #>

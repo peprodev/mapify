@@ -2,7 +2,7 @@
 
 Show your branches on **OpenStreetMap, Google Maps, Mapbox, Map.ir, Neshan, Parsimap, Mapup**, any XYZ tile server or a bundled **offline map of Iran** — as an **Elementor widget**, a **WPBakery Page Builder element** or a **shortcode**.
 
-*Version 3.0.0* · Requires WordPress 6.5+ (tested 7.1.2), PHP 7.4+ (tested 8.5), Elementor 4.3.1, WPBakery 9.0.1 · by [Pepro Dev](https://pepro.dev/), lead developer [AmirhpCom](https://amirhp.com/)
+*Version 3.0.1* · Requires WordPress 6.5+ (tested 7.1.2), PHP 7.4+ (tested 8.5), Elementor 4.3.1, WPBakery 9.0.1 · by [Pepro Dev](https://pepro.dev/), lead developer [AmirhpCom](https://amirhp.com/)
 
 ![Cards layout, map and popup](.github/screenshots/front-cards-popup.jpg)
 
@@ -35,7 +35,7 @@ Show your branches on **OpenStreetMap, Google Maps, Mapbox, Map.ir, Neshan, Pars
 
 - WPML: `wpml-config.xml` makes branches, branch categories, branch details and the texts of the Elementor widget and the shortcode translatable
 - Polylang support for the texts entered in Map Settings
-- Every interface text, in PHP and JavaScript, uses the `mapify` text domain; Persian (fa_IR) translation included, full RTL support
+- Every interface text, in PHP and JavaScript, uses the `pepro-mapify` text domain; Persian (fa_IR) translation included, full RTL support
 
 ## Screenshots
 
@@ -49,7 +49,7 @@ Show your branches on **OpenStreetMap, Google Maps, Mapbox, Map.ir, Neshan, Pars
 
 ## Installation
 
-1. Upload the plugin zip in Plugins → Add New → Upload, or copy the folder to `/wp-content/plugins/mapify/`, then activate it.
+1. Install **PeproDev Branches Map** from Plugins → Add New ([WordPress.org page](https://wordpress.org/plugins/pepro-mapify/)), or upload the release zip in Plugins → Add New → Upload, then activate it. The plugin folder is `/wp-content/plugins/pepro-mapify/`.
 2. Add branches under **Branches → Add New Branch** and pick their location on the map.
 3. Optional: add API keys under **Branches → Map Settings** (Google Maps, Mapbox, Map.ir, Neshan, Parsimap). OpenStreetMap, Esri, Mapup and the offline Iran map work without keys.
 4. Add the map with the Elementor widget “Branches Map” (in **PeproDev Elements**), the WPBakery element, or the shortcode.
@@ -106,6 +106,14 @@ The plugin exposes PHP filters and a small JavaScript API so add-ons can extend 
 | `.github/screenshots/` | Screenshots used in this README (not part of the plugin zip) |
 
 ## Changelog
+
+### 3.0.1
+
+- Security: shortcode attributes and widget settings are validated before use. Colors, sizes, CSS classes, ids, coordinates, tile URLs and style names only accept safe values, so a user who can write posts (for example a Contributor) cannot add script through the shortcode
+- Security: popup template values and fallbacks can no longer become javascript:, vbscript: or data: links
+- Security: SVG maps are cleaned more strictly (animation elements, external links and style URLs are removed)
+- Text domain changed to `pepro-mapify` to match the WordPress.org plugin slug, so translations from translate.wordpress.org load
+- The map credit links to the plugin page on WordPress.org
 
 ### 3.0.0
 
