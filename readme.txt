@@ -1,10 +1,10 @@
 === PeproDev Branches Map (Mapify) ===
 Contributors: peprodev,amirhpcom
-Donate link: https://pepro.dev/donate
+Donate link: https://peprodev.com/donate
 Tags: map, branches, store locator, openstreetmap, elementor
 Requires at least: 6.5
 Tested up to: 7.1
-Stable tag: 3.0.1
+Stable tag: 3.0.2
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -100,6 +100,10 @@ Yes. Branches and branch categories are translatable post types and taxonomies, 
 
 == Changelog ==
 
+= 3.0.2 =
+
+- Plugin website and links moved to peprodev.com
+
 = 3.0.1 =
 
 - Security: shortcode attributes and widget settings are validated before use. Colors, sizes, CSS classes, ids, coordinates, tile URLs and style names only accept safe values, so a user who can write posts (for example a Contributor) cannot add script through the shortcode
@@ -166,10 +170,14 @@ Yes. Branches and branch categories are translatable post types and taxonomies, 
 == About Us ==
 
 PEPRO DEV is a premium supplier of quality WordPress plugins, services and support.
-Join us at [https://pepro.dev/](https://pepro.dev/) and also don't forget to check our [free offerings](http://profiles.wordpress.org/peprodev/), we hope you enjoy them!
+Join us at [https://peprodev.com/](https://peprodev.com/) and also don't forget to check our [free offerings](http://profiles.wordpress.org/peprodev/), we hope you enjoy them!
 
 
 == Upgrade Notice ==
+
+= 3.0.2 =
+
+- Plugin links updated to peprodev.com. Includes the 3.0.1 security fixes.
 
 = 3.0.1 =
 

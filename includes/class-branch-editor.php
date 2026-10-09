@@ -45,7 +45,7 @@ class Branch_Editor {
 		}
 		$count = Branches::count_branches();
 		$full  = $count >= Branches::MAX_BRANCHES;
-		$link  = '<a href="' . esc_url( 'https://pepro.dev/mapify' ) . '" target="_blank" rel="noopener">' . esc_html__( 'Get Mapify Pro', 'pepro-mapify' ) . '</a>';
+		$link  = '<a href="' . esc_url( 'https://peprodev.com/mapify' ) . '" target="_blank" rel="noopener">' . esc_html__( 'Get Mapify Pro', 'pepro-mapify' ) . '</a>';
 		if ( $full ) {
 			echo '<div class="notice notice-warning"><p>' . esc_html( Branches::limit_message() ) . ' ' . $link . '</p></div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped above.
 			if ( 'edit' === $screen->base ) {

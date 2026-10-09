@@ -2,7 +2,7 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: PeproDev Branches Map (Mapify) 3.0.1\n"
+"Project-Id-Version: PeproDev Branches Map (Mapify) 3.0.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/source\n"
 "POT-Creation-Date: 2026-10-09T13:14:38+00:00\n"
 "PO-Revision-Date: 2026-09-23 22:00+0330\n"
@@ -23,8 +23,8 @@ msgstr "نقشه شعب پپرو (مپیفای)"
 
 #. Plugin URI of the plugin
 #: pepro-mapify.php
-msgid "https://pepro.dev/mapify"
-msgstr "https://pepro.dev/mapify"
+msgid "https://peprodev.com/mapify"
+msgstr "https://peprodev.com/mapify"
 
 #. Description of the plugin
 #: pepro-mapify.php
@@ -44,8 +44,8 @@ msgstr "گروه توسعه پپرو"
 
 #. Author URI of the plugin
 #: pepro-mapify.php
-msgid "https://pepro.dev/"
-msgstr "https://pepro.dev/"
+msgid "https://peprodev.com/"
+msgstr "https://peprodev.com/"
 
 #: includes/class-admin.php:29
 msgid "Map Settings"

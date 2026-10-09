@@ -21,7 +21,7 @@ msgstr ""
 
 #. Plugin URI of the plugin
 #: pepro-mapify.php
-msgid "https://pepro.dev/mapify"
+msgid "https://peprodev.com/mapify"
 msgstr ""
 
 #. Description of the plugin
@@ -36,7 +36,7 @@ msgstr ""
 
 #. Author URI of the plugin
 #: pepro-mapify.php
-msgid "https://pepro.dev/"
+msgid "https://peprodev.com/"
 msgstr ""
 
 #: includes/class-admin.php:29
